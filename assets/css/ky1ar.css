@@ -1,0 +1,318 @@
+/*
+Theme Name: ky1ar
+Theme URI: https://krear3d.com
+Author: Kenny Muñoz Serafin
+Author URI: https://munoz.pe
+Description: Tema personalizado para Krear 3D
+Version: 0.01
+License: GNU General Public License v3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@200;300;400;500;600;700;800&display=swap');
+
+:root {
+	--primary: #ed5d1f;
+	--primaryopacity: #ffeee4;
+
+	--secondary: #182d36;
+	--tertiary: #ffa02a;
+
+    --white: #ffffff;
+	--gray: #f0f0f0;
+	--graydark: #e6e6e6;
+    --graydarkest : #cccccc;
+	--black: #0f2027;
+}
+*, 
+*:before, 
+*:after {
+    box-sizing: border-box;
+}
+::selection {
+    color: var(--primary) !important;
+    background-color: var(--primaryopacity) !important;
+}
+a {
+    text-decoration: none;
+}
+img, 
+svg {
+    vertical-align: middle;
+    max-width: 100%;
+    height: auto;
+}
+/*********************************** START **********************************/
+body {
+	background-color: var(--white);
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--black);
+    position: relative;
+    min-width: 22rem;
+    display: flex;
+}
+.ky1-wrp {
+	width: 100%;
+    margin: 0 auto;
+    max-width: 100rem;
+	padding: 0 1rem;
+}
+/***************************************************************************/
+#ky1-lft {
+    padding: 2.5rem;
+}
+#ky1-lft .ky1-lgo {
+    display: block;
+}
+#ky1-lft .ky1-lgo img {
+    width: 10rem;
+    height: 3rem;
+    margin-right: 1rem;
+}
+#ky1-lft .ky1-lst {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    flex-direction: column;
+    gap: 2.5rem;
+    padding-top: 2.5rem;
+}
+#ky1-lft .ky1-lst li {
+    display: flex;
+    gap: 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    align-items: center;
+}
+/***************************************************************************/
+#ky1-rgt {
+    background-color: var(--gray);
+    flex: 1;
+    padding: 1rem;
+}
+#ky1-rgt header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+#ky1-rgt header .ky1-ttl {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+#ky1-rgt header .ky1-ttl h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+#ky1-rgt header .ky1-dte {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    font-size: 1rem;
+    background-color: var(--white);
+    padding: 1rem 3rem;
+    border-radius: 2rem;
+}
+#ky1-rgt header .ky1-usr {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: center;
+}
+#ky1-rgt header .ky1-usr .usr-btn {
+    width: 2.5rem;
+    border-radius: 2rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: var(--white);
+}
+#ky1-rgt header .ky1-usr #usr-prv img {
+    transform: rotateZ(180deg);
+}
+#ky1-rgt header .ky1-usr #usr-nxt {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+/***************************************************************************/
+#usr-dta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+}
+#usr-dta img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 2rem;
+}
+#usr-dta span {
+    display: flex;
+    flex-direction: column;
+}
+#usr-dta h3 {
+    margin: 0;
+    font-weight: 500;
+}
+#usr-dta h4 {
+    margin: 0;
+    font-weight: 400;
+    opacity: 0.75;
+}
+#usr-dta .usr-lst {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: -2rem;
+    left: -2rem;
+    padding-top: 4rem;
+    top: 0;
+    z-index: 1;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.25s ease-in-out;
+}
+#usr-dta:hover .usr-lst, 
+#usr-dta .usr-lst:hover {
+    visibility: visible;
+    opacity: 1;
+}
+#usr-dta .usr-lst ul {
+    margin: 0;
+    list-style: none;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.5rem 1rem #bfbfbf;
+}
+#usr-dta .usr-lst ul li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+}
+#usr-dta .usr-lst ul li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+#usr-dta .usr-lst ul li img {
+    width: 2rem;
+    height: 2rem;
+}
+#usr-dta .usr-lst ul li h3 {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+/***************************************************************************/
+#ky1-rgt .ky1-rsm {
+    margin: 0;
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    padding: 1rem;
+}
+#ky1-rgt .ky1-rsm li {
+    flex: 1;
+    background-color: var(--white);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+#ky1-rgt .ky1-rsm .box-img {
+    display: flex;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+#ky1-rgt .ky1-rsm .box-img.img-1 {
+    background-color: #86e3ce;
+}
+#ky1-rgt .ky1-rsm .box-img.img-2 {
+    background-color: #d0e6a5;
+}
+#ky1-rgt .ky1-rsm .box-img.img-3 {
+    background-color: #ffdd95;
+}
+#ky1-rgt .ky1-rsm .box-img.img-4 {
+    background-color: #fc887b;
+}
+#ky1-rgt .ky1-rsm .box-txt {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+#ky1-rgt .ky1-rsm .box-txt span {
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+#ky1-rgt .ky1-rsm .box-txt p {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.75;
+}
+/***************************************************************************/
+#ky1-rgt .ky1-hrr {
+    margin: 0;
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    padding: 1rem;
+}
+#ky1-rgt .ky1-hrr .hrr-box {
+    /* flex: 1; */
+    background-color: var(--white);
+    padding: 1.25rem 1.5rem;
+    border-radius: 1rem;
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+#ky1-rgt .ky1-hrr .hrr-box span {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+#ky1-rgt .ky1-hrr .hrr-box .hrr-day {
+    display: flex;
+    gap: 1rem;
+}
+#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul {
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: center;
+    padding: 1.5rem 0.75rem;
+    border-radius: 4rem;
+}
+#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:nth-child(odd) {
+    background-color: #f5f5f5;
+}
+#ky1-rgt .ky1-hrr .hrr-box .hrr-day li {
+    font-weight: 400;
+    font-size: 0.9rem;
+    position: relative;
+}
+#ky1-rgt .ky1-hrr .hrr-box .hrr-day .day-nam {
+    opacity: 0.5;
+}
+#ky1-rgt .ky1-hrr .hrr-box .hrr-day .day-trd::after {
+    content: "";
+}
