@@ -33,32 +33,34 @@ require_once 'db.php';
                 <!--<img src="assets/img/r.svg" alt="">-->
             </div>
             <div class="ky1-usr">
-                <div class="usr-btn" id="usr-prv">
+                <div class="usr-btn" id="previousUser">
                     <img src="assets/img/r.svg" width="12" height="12" alt="">
                 </div>
-                <div id="usr-dta" data-id="19">
-                    <img class="usr-slg" src="assets/img/kenny.png" alt="">
+                <div id="selectedUser" data-id="19">
+                    <img id="userImage" src="assets/img/kenny.png" alt="">
                     <span>
-                        <h3 class="usr-nme">Kenny Muñoz</h3>
-                        <h4 class="usr-are">Sistemas</h4>
+                        <h3 id="userName">Kenny Muñoz</h3>
+                        <h4 id="userCategory">Sistemas</h4>
                     </span>
-                    <div class="usr-lst">
+                    <div id="userList">
                         <ul>
                             <?php 
+                            $firstIndex = true;
                             $sql = "SELECT u.id, u.slug, u.name, a.name as area FROM users u INNER JOIN prof p ON u.prof = p.id INNER JOIN area a ON u.area = a.id ORDER BY u.name";
                                 $result = $conn->query($sql);
                                 while ($row = $result->fetch_assoc()):?>
-                                    <li data-id="<?php echo $row['id'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-area="<?php echo $row['area'] ?>">
+                                    <li <?php echo $firstIndex ? 'class="active"':'' ?> data-id="<?php echo $row['id'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
                                         <img src="assets/img/<?php echo $row['slug'] ?>.png" alt="">
                                         <h3><?php echo $row['name'] ?></h3>
                                     </li>
                                 <?php 
+                                $firstIndex = false;
                                 endwhile; 
                             ?>
                         </ul>
                     </div>
                 </div>
-                <div class="usr-btn" id="usr-nxt">
+                <div class="usr-btn" id="nextUser">
                     <img src="assets/img/r.svg" width="12" height="12" alt="">
                 </div>
             </div>

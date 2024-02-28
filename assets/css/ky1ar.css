@@ -144,31 +144,33 @@ body {
     gap: 1rem;
 }
 /***************************************************************************/
-#usr-dta {
+#selectedUser {
     display: flex;
     align-items: center;
     gap: 1rem;
     position: relative;
+    min-width: 14rem;
+    justify-content: center;
 }
-#usr-dta img {
+#selectedUser img {
     width: 3rem;
     height: 3rem;
     border-radius: 2rem;
 }
-#usr-dta span {
+#selectedUser span {
     display: flex;
     flex-direction: column;
 }
-#usr-dta h3 {
+#selectedUser h3 {
     margin: 0;
     font-weight: 500;
 }
-#usr-dta h4 {
+#selectedUser h4 {
     margin: 0;
     font-weight: 400;
     opacity: 0.75;
 }
-#usr-dta .usr-lst {
+#selectedUser #userList {
     margin: 0;
     padding: 0;
     position: absolute;
@@ -181,12 +183,12 @@ body {
     opacity: 0;
     transition: all 0.25s ease-in-out;
 }
-#usr-dta:hover .usr-lst, 
-#usr-dta .usr-lst:hover {
+#selectedUser:hover #userList, 
+#selectedUser #userList:hover {
     visibility: visible;
     opacity: 1;
 }
-#usr-dta .usr-lst ul {
+#selectedUser #userList ul {
     margin: 0;
     list-style: none;
     justify-content: center;
@@ -199,23 +201,23 @@ body {
     border-radius: 0.75rem;
     box-shadow: 0 0.5rem 1rem #bfbfbf;
 }
-#usr-dta .usr-lst ul li {
+#selectedUser #userList ul li {
     display: flex;
     align-items: center;
     gap: 1rem;
     cursor: pointer;
 }
-#usr-dta .usr-lst ul li {
+#selectedUser #userList ul li {
     display: flex;
     align-items: center;
     gap: 1rem;
     width: 100%;
 }
-#usr-dta .usr-lst ul li img {
+#selectedUser #userList ul li img {
     width: 2rem;
     height: 2rem;
 }
-#usr-dta .usr-lst ul li h3 {
+#selectedUser #userList ul li h3 {
     font-size: 0.85rem;
     font-weight: 600;
 }
