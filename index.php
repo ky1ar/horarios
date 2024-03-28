@@ -226,7 +226,6 @@ require_once 'db.php';
             $store = false;
             $store_id = 0;
             $start_date_id = 0;
-            $insert_query = "INSERT INTO Schedule (id_user, id_calendar, stamp) VALUES ";
 
             while (($row = fgetcsv($reader, 1000, ",")) !== FALSE) {
                 if ($n == 2) {  
@@ -249,14 +248,15 @@ require_once 'db.php';
                     }
                 } elseif ($n > 3) {
                     if ($store){
-                        $data = array();
+                        $insert_query = "INSERT INTO Schedule (id_user, id_calendar, stamp) VALUES ";
                         $offset = 0;
                         foreach ($row as $element) {
                             $date_id = $start_date_id + $offset;
-                            $data[] = array($store_id, $date_id, $element);
+                            $insert_query .= "(" . $store_id . ", " . $date_id . ", '" . $element . "'), ";
                             $offset++;
                         }
-                        print_r($data);
+                        $insert_query = rtrim($insert_query, ", ");
+                        echo $insert_query;
                         $store = false;
                     } else {
                         $full_row = implode(",", $row);
