@@ -213,8 +213,8 @@ require_once 'db.php';
         $sql = "SELECT id_user, dni FROM Users";
         $result = $conn->query($sql);
         $users = array();
-        while ($fila = $result->fetch_assoc()) {
-            $users[] = $fila;
+        while ($row = $result->fetch_assoc()) {
+            $users[$row["dni"]] = $row["id_user"];
         }
         print_r($users);
         $csv = 'final.csv';
@@ -238,6 +238,7 @@ require_once 'db.php';
                     }
                 }
                 if ($n > 3) {
+                    $full_row = implode(",", $row);
 
                 }
                 $n++;
