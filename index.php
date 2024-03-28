@@ -219,34 +219,57 @@ require_once 'db.php';
         //print_r($users);
 
         $csv = 'final.csv';
-        $n = 0;
+       
 
         if (($reader = fopen($csv, "r")) !== FALSE) {
+            $n = 0;
+            $store = false;
+            $store_id = 0;
+            $start_date_id = 0;
+            $insert_query = "INSERT INTO Schedule (id_user, id_calendar, stamp) VALUES ";
+
             while (($row = fgetcsv($reader, 1000, ",")) !== FALSE) {
                 if ($n == 2) {  
                     foreach ($row as $element) {
                         if (strpos($element, "~") !== false) {
                             $start_date = substr($element, 0, 10);
-                            $end_date = substr($element, -10);
 
-                            $start_time = strtotime($start_date);
-                            $end_time = strtotime($end_date);
-
-                            $seconds = $end_time - $start_time;
-                            $days = floor($seconds / (60 * 60 * 24));
-                            //echo "Inicia el $start_date $end_date y $days son días.";
-                        }
-                    }
-                }
-                if ($n > 3) {
-                    $full_row = implode(",", $row);
-                    foreach ($users as $dni => $id_user) {
-                        if (strpos($full_row, $dni) !== false) {
-                            echo "$n -> $id_user";
+                            $sql = "SELECT id_date FROM Calendar WHERE calendar_date = ?";
+                            $stmt = $conn->prepare($sql);
+                            $stmt->bind_param("s", $start_date);
+                            $stmt->execute();
+                            $stmt->bind_result($id_date);
+                            if ($stmt->fetch()) {
+                                $start_date_id = $id_date;
+                            }
+                            $stmt->close();
+                            $conn->close();
                             break;
                         }
                     }
-
+                } elseif ($n > 3) {
+                    if ($store){
+                        $data = array();
+                        $offset = 0;
+                        foreach ($row as $element) {
+                            $date_id = $start_date_id + $offset;
+                            $data[] = array($store_id, $date_id, $element);
+                            $offset++;
+                        }
+                        print_r($data);
+                        $store = false;
+                    } else {
+                        $full_row = implode(",", $row);
+                        foreach ($users as $dni => $id_user) {
+                            if (strpos($full_row, $dni) !== false) {
+                                $store = true;
+                                $store_id = $id_user;
+                                break;
+                            } else {
+                                $n++;
+                            }
+                        }
+                    }
                 }
                 $n++;
             }
