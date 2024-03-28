@@ -113,11 +113,21 @@ require_once 'db.php';
         <ul class="ky1-hrr">
             <li class="hrr-box">
                 <?php 
-                $selected_interval = '2024-04-01';
+                $selected_interval = '2024-03-01';
                 $day_of_week = date('w', strtotime($selected_interval));
                 $new_date = date('Y-m-d', strtotime("-$day_of_week days +1 day", strtotime($selected_interval)));
-                echo $new_date;
+                $new_date_id = 0;
 
+                $sql = "SELECT id_date FROM Calendar WHERE calendar_date = ?";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("s", $new_date);
+                $stmt->execute();
+                $stmt->bind_result($id_date);
+                if ($stmt->fetch()) {
+                    $new_date_id = $id_date;
+                }
+                echo $new_date_id;
+                
                 $firstIndex = true;
                 $sql = "SELECT u.id_user, u.slug, u.name, a.name as area FROM Users u INNER JOIN Profile p ON u.id_profile = p.id_profile INNER JOIN Area a ON u.id_area = a.id_area WHERE u.id_location = 1 ORDER BY u.name";
                 $result = $conn->query($sql);
