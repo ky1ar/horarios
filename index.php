@@ -114,8 +114,11 @@ require_once 'db.php';
             <li class="hrr-box">
                 <?php 
                 $selected_interval = '2024-03-01';
+                $days_in_month = date('t', strtotime($selected_interval));
                 $day_of_week = date('w', strtotime($selected_interval));
                 $new_date = date('Y-m-d', strtotime("-$day_of_week days +1 day", strtotime($selected_interval)));
+
+                $total_days = $days_in_month + $day_of_week;
                 $new_date_id = 0;
 
                 $sql = "SELECT id_date FROM Calendar WHERE calendar_date = ?";
@@ -127,7 +130,13 @@ require_once 'db.php';
                     $new_date_id = $id_date;
                 }
                 $stmt->close();
-                echo $new_date_id;
+                //echo $new_date_id;
+
+                $day = 1;
+                while ($day <= $total_days) {
+                    $sql = "SELECT s.stamp, c.calendar_date FROM Schedule s INNER JOIN Calendar c ON c.id_date = s.id_calendar WHERE id_user = 2 AND id_calendar >= $new_date_id AND id_calendar <= ($new_date_id + $total_days)";
+                    $day++;
+                }
 
                 $firstIndex = true;
                 $sql = "SELECT u.id_user, u.slug, u.name, a.name as area FROM Users u INNER JOIN Profile p ON u.id_profile = p.id_profile INNER JOIN Area a ON u.id_area = a.id_area WHERE u.id_location = 1 ORDER BY u.name";

@@ -248,7 +248,9 @@ require_once 'db.php';
                         $offset = 0;
                         foreach ($row as $element) {
                             $date_id = $start_date_id + $offset;
-                            $insert_query .= "(" . $store_id . ", " . $date_id . ", '" . $element . "'), ";
+                            if ($element != '') {
+                                $insert_query .= "(" . $store_id . ", " . $date_id . ", '" . $element . "'), ";
+                            }
                             $offset++;
                         }
                         $insert_query = rtrim($insert_query, ", ");
