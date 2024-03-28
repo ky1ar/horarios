@@ -216,10 +216,7 @@ require_once 'db.php';
         while ($row = $result->fetch_assoc()) {
             $users[$row["dni"]] = $row["id_user"];
         }
-        print_r($users);
-        foreach ($users as $dni => $user_id) {
-            echo "$dni $user_id";
-        }
+        //print_r($users);
 
         $csv = 'final.csv';
         $n = 0;
@@ -241,16 +238,16 @@ require_once 'db.php';
                         }
                     }
                 }
-                /*if ($n > 3) {
+                if ($n > 3) {
                     $full_row = implode(",", $row);
-                    foreach ($users as $user) {
-                        if (strpos($full_row, $user) !== false) {
-                            echo $user;
+                    foreach ($users as $dni => $id_user) {
+                        if (strpos($full_row, $dni) !== false) {
+                            echo "$n -> $user_id";
                             break;
                         }
                     }
 
-                }*/
+                }
                 $n++;
             }
             fclose($reader);
