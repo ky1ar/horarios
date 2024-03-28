@@ -210,24 +210,31 @@ require_once 'db.php';
 
         <?php
 
-        $archivo = 'final.csv';
+        $csv = 'final.csv';
         $n = 0;
 
-        if (($gestor = fopen($archivo, "r")) !== FALSE) {
-            while (($datos = fgetcsv($gestor, 1000, ",")) !== FALSE) {
+        if (($reader = fopen($csv, "r")) !== FALSE) {
+            while (($row = fgetcsv($reader, 1000, ",")) !== FALSE) {
                 if ($n == 2) {  
-                    foreach ($datos as $valor) {
-                        if (strpos($valor, "~") !== false) {
-                            $start = substr($valor, 0, 10);
-                            echo $start;
+                    foreach ($row as $element) {
+                        if (strpos($element, "~") !== false) {
+                            $start_date = substr($element, 0, 10);
+                            $end_date = substr($element, -10);}
 
+                            $start_time = strtotime($start_date);
+                            $end_time = strtotime($end_date);
+
+                            $seconds = $end_time - $start_time;
+                            $days = floor($seconds / (60 * 60 * 24));
+
+                            echo "Inicia el $start_date y $days son días.";
                         }
                     }
-                    //print_r($datos);
+                    //print_r($row);
                 }
                 $n++;
             }
-            fclose($gestor);
+            fclose($reader);
         } else {
             echo "No se pudo abrir el archivo.";
         }
