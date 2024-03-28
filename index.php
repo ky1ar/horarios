@@ -219,7 +219,7 @@ require_once 'db.php';
                     foreach ($row as $element) {
                         if (strpos($element, "~") !== false) {
                             $start_date = substr($element, 0, 10);
-                            $end_date = substr($element, -10);}
+                            $end_date = substr($element, -10);
 
                             $start_time = strtotime($start_date);
                             $end_time = strtotime($end_date);
