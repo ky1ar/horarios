@@ -242,7 +242,7 @@ require_once 'db.php';
                     $full_row = implode(",", $row);
                     foreach ($users as $dni => $id_user) {
                         if (strpos($full_row, $dni) !== false) {
-                            echo "$n -> $user_id";
+                            echo "$n -> $id_user";
                             break;
                         }
                     }
