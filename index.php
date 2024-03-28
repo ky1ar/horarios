@@ -46,10 +46,10 @@ require_once 'db.php';
                         <ul>
                             <?php 
                             $firstIndex = true;
-                            $sql = "SELECT u.id, u.slug, u.name, a.name as area FROM users u INNER JOIN prof p ON u.prof = p.id INNER JOIN area a ON u.area = a.id ORDER BY u.name";
+                            $sql = "SELECT u.id_user, u.slug, u.name, a.name as area FROM Users u INNER JOIN Profile p ON u.id_profile = p.id_profile INNER JOIN Area a ON u.id_area = a.id_area ORDER BY u.name";
                                 $result = $conn->query($sql);
                                 while ($row = $result->fetch_assoc()):?>
-                                    <li <?php echo $firstIndex ? 'class="active"':'' ?> data-id="<?php echo $row['id'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
+                                    <li <?php echo $firstIndex ? 'class="active"':'' ?> data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
                                         <img src="assets/img/<?php echo $row['slug'] ?>.png" alt="">
                                         <h3><?php echo $row['name'] ?></h3>
                                     </li>
@@ -208,8 +208,15 @@ require_once 'db.php';
             
         </ul>
 
-        <?php
-
+        <?php 
+        $firstIndex = true;
+        $sql = "SELECT id_user, dni FROM Users";
+        $result = $conn->query($sql);
+        $users = array();
+        while ($fila = $resultado->fetch_assoc()) {
+            $users[] = $fila;
+        }
+        print_r($users)
         $csv = 'final.csv';
         $n = 0;
 
@@ -226,11 +233,12 @@ require_once 'db.php';
 
                             $seconds = $end_time - $start_time;
                             $days = floor($seconds / (60 * 60 * 24));
-
-                            echo "Inicia el $start_date $end_date y $days son días.";
+                            //echo "Inicia el $start_date $end_date y $days son días.";
                         }
                     }
-                    //print_r($row);
+                }
+                if ($n > 3) {
+
                 }
                 $n++;
             }
