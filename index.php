@@ -207,6 +207,26 @@ require_once 'db.php';
             </li>
             
         </ul>
+
+        <?php
+
+        $archivo = 'final.csv';
+
+        if (($gestor = fopen($archivo, "r")) !== FALSE) {
+            while (($datos = fgetcsv($gestor, 1000, ",")) !== FALSE) {
+                // $datos es un array que contiene los valores de cada columna en la línea actual
+                // Puedes acceder a cada valor por su índice
+                // Ejemplo: $datos[0] es el primer valor de la línea actual, $datos[1] es el segundo, etc.
+
+                // Aquí puedes hacer lo que necesites con los datos de cada línea
+                // Por ejemplo, imprimirlos
+                print_r($datos);
+            }
+            fclose($gestor);
+        } else {
+            echo "No se pudo abrir el archivo.";
+        }
+        ?>
     </section>
 </body>
 </html>
