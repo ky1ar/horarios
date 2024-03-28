@@ -115,7 +115,8 @@ require_once 'db.php';
                 <?php 
                 $selected_interval = '2024-03-01';
                 $day_of_week = date('w', strtotime($selected_interval));
-                echo $day_of_week;
+                $new_date = date('Y-m-d', strtotime("-$day_of_week days", strtotime($selected_interval)));
+                echo $new_date;
 
                 $firstIndex = true;
                 $sql = "SELECT u.id_user, u.slug, u.name, a.name as area FROM Users u INNER JOIN Profile p ON u.id_profile = p.id_profile INNER JOIN Area a ON u.id_area = a.id_area WHERE u.id_location = 1 ORDER BY u.name";
