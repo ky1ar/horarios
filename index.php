@@ -16,9 +16,16 @@ require_once 'db.php';
     <aside id="ky1-lft">
         <a href="" class="ky1-lgo"><img src="assets/img/logod.webp" alt=""></a>
         <ul class="ky1-lst">
-            <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Horarios</li>
-            <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Historial</li>
-            <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Anuncios</li>
+            <?php 
+            $sql = "SELECT * FROM Location ORDER BY name";
+            $result = $conn->query($sql);
+            while ($row = $result->fetch_assoc()):?>
+                <li data-id="<?php echo $row['id_location'] ?>" data-slug="<?php echo $row['slug'] ?>">
+                    <img src="assets/img/cal.svg" width="20" height="20" alt=""><?php echo $row['name'] ?>
+                </li>
+            <?php 
+            endwhile; 
+            ?>
         </ul>
     </aside>
     <section id="ky1-rgt">
@@ -207,81 +214,6 @@ require_once 'db.php';
             </li>
             
         </ul>
-
-        <?php 
-        $firstIndex = true;
-        $sql = "SELECT id_user, dni FROM Users";
-        $result = $conn->query($sql);
-        $users = array();
-        while ($row = $result->fetch_assoc()) {
-            $users[$row["dni"]] = $row["id_user"];
-        }
-        //print_r($users);
-
-        $csv = 'final.csv';
-       
-
-        if (($reader = fopen($csv, "r")) !== FALSE) {
-            $n = 0;
-            $store = false;
-            $store_id = 0;
-            $start_date_id = 0;
-
-            while (($row = fgetcsv($reader, 1000, ",")) !== FALSE) {
-                if ($n == 2) {  
-                    foreach ($row as $element) {
-                        if (strpos($element, "~") !== false) {
-                            $start_date = substr($element, 0, 10);
-
-                            $sql = "SELECT id_date FROM Calendar WHERE calendar_date = ?";
-                            $stmt = $conn->prepare($sql);
-                            $stmt->bind_param("s", $start_date);
-                            $stmt->execute();
-                            $stmt->bind_result($id_date);
-                            if ($stmt->fetch()) {
-                                $start_date_id = $id_date;
-                            }
-                            $stmt->close();
-                            break;
-                        }
-                    }
-                } elseif ($n > 3) {
-                    if ($store){
-                        $insert_query = "INSERT IGNORE INTO Schedule (id_user, id_calendar, stamp) VALUES ";
-                        $offset = 0;
-                        foreach ($row as $element) {
-                            $date_id = $start_date_id + $offset;
-                            $insert_query .= "(" . $store_id . ", " . $date_id . ", '" . $element . "'), ";
-                            $offset++;
-                        }
-                        $insert_query = rtrim($insert_query, ", ");
-                        if ($conn->query($insert_query) === TRUE) {
-                            echo "Se insertaron los registros correctamente.";
-                        } else {
-                            echo "Error al insertar los registros: " . $conn->error;
-                        }
-                        //echo $insert_query;
-                        $store = false;
-                    } else {
-                        $full_row = implode(",", $row);
-                        foreach ($users as $dni => $id_user) {
-                            if (strpos($full_row, $dni) !== false) {
-                                $store = true;
-                                $store_id = $id_user;
-                                break;
-                            } else {
-                                $n++;
-                            }
-                        }
-                    }
-                }
-                $n++;
-            }
-            fclose($reader);
-        } else {
-            echo "No se pudo abrir el archivo.";
-        }
-        ?>
     </section>
 </body>
 </html>
