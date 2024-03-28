@@ -227,7 +227,7 @@ require_once 'db.php';
                             $seconds = $end_time - $start_time;
                             $days = floor($seconds / (60 * 60 * 24));
 
-                            echo "Inicia el $start_date y $days son días.";
+                            echo "Inicia el $start_date $end_date y $days son días.";
                         }
                     }
                     //print_r($row);
