@@ -126,8 +126,9 @@ require_once 'db.php';
                 if ($stmt->fetch()) {
                     $new_date_id = $id_date;
                 }
+                $stmt->close();
                 echo $new_date_id;
-                
+
                 $firstIndex = true;
                 $sql = "SELECT u.id_user, u.slug, u.name, a.name as area FROM Users u INNER JOIN Profile p ON u.id_profile = p.id_profile INNER JOIN Area a ON u.id_area = a.id_area WHERE u.id_location = 1 ORDER BY u.name";
                 $result = $conn->query($sql);
