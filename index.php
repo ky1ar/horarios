@@ -217,6 +217,10 @@ require_once 'db.php';
             $users[$row["dni"]] = $row["id_user"];
         }
         print_r($users);
+        foreach ($users as $user) {
+            echo $user;
+        }
+
         $csv = 'final.csv';
         $n = 0;
 
@@ -237,7 +241,7 @@ require_once 'db.php';
                         }
                     }
                 }
-                if ($n > 3) {
+                /*if ($n > 3) {
                     $full_row = implode(",", $row);
                     foreach ($users as $user) {
                         if (strpos($full_row, $user) !== false) {
@@ -246,7 +250,7 @@ require_once 'db.php';
                         }
                     }
 
-                }
+                }*/
                 $n++;
             }
             fclose($reader);
