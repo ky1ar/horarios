@@ -215,7 +215,7 @@ require_once 'db.php';
 
         if (($gestor = fopen($archivo, "r")) !== FALSE) {
             while (($datos = fgetcsv($gestor, 1000, ",")) !== FALSE) {
-                if ($n == 3) {
+                if ($n == 2) {
                     print_r($datos);
 
                 }
