@@ -220,7 +220,7 @@ require_once 'db.php';
 
                 // Aquí puedes hacer lo que necesites con los datos de cada línea
                 // Por ejemplo, imprimirlos
-                print_r($datos);
+                json_encode($datos);
             }
             fclose($gestor);
         } else {
