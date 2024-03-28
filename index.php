@@ -248,7 +248,7 @@ require_once 'db.php';
                     }
                 } elseif ($n > 3) {
                     if ($store){
-                        $insert_query = "INSERT INTO Schedule (id_user, id_calendar, stamp) VALUES ";
+                        $insert_query = "INSERT IGNORE INTO Schedule (id_user, id_calendar, stamp) VALUES ";
                         $offset = 0;
                         foreach ($row as $element) {
                             $date_id = $start_date_id + $offset;
@@ -256,6 +256,11 @@ require_once 'db.php';
                             $offset++;
                         }
                         $insert_query = rtrim($insert_query, ", ");
+                        if ($conn->query($insert_query) === TRUE) {
+                            echo "Se insertaron los registros correctamente.";
+                        } else {
+                            echo "Error al insertar los registros: " . $conn->error;
+                        }
                         echo $insert_query;
                         $store = false;
                     } else {
