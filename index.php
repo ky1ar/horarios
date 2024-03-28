@@ -260,7 +260,7 @@ require_once 'db.php';
                         } else {
                             echo "Error al insertar los registros: " . $conn->error;
                         }
-                        echo $insert_query;
+                        //echo $insert_query;
                         $store = false;
                     } else {
                         $full_row = implode(",", $row);
