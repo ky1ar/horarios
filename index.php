@@ -215,18 +215,15 @@ require_once 'db.php';
 
         if (($gestor = fopen($archivo, "r")) !== FALSE) {
             while (($datos = fgetcsv($gestor, 1000, ",")) !== FALSE) {
-                if ($n == 2) {
-
+                if ($n == 2) {  
                     foreach ($datos as $valor) {
                         if (strpos($valor, "~") !== false) {
-                            echo "El elemento que contiene '~' es: $valor";
-                            // Si deseas también puedes mostrar la fila completa que contiene el elemento
-                            // echo "La fila completa es: " . implode(",", $fila);
+                            $start = substr($valor, 0, 10);
+                            echo $start;
+
                         }
                     }
-                   
                     //print_r($datos);
-
                 }
                 $n++;
             }
