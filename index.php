@@ -217,7 +217,7 @@ require_once 'db.php';
             $users[$row["dni"]] = $row["id_user"];
         }
         print_r($users);
-        foreach ($users as $user => $user_id) {
+        foreach ($users as $dni => $user_id) {
             echo "$dni $user_id";
         }
 
