@@ -217,8 +217,8 @@ require_once 'db.php';
             $users[$row["dni"]] = $row["id_user"];
         }
         print_r($users);
-        foreach ($users as $user) {
-            echo $user;
+        foreach ($users as $user => $user_id) {
+            echo "$dni $user_id";
         }
 
         $csv = 'final.csv';
