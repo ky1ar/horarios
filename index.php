@@ -241,7 +241,7 @@ require_once 'db.php';
                     $full_row = implode(",", $row);
                     foreach ($users as $user) {
                         if (strpos($full_row, $user) !== false) {
-                            echo $user["id_user"];
+                            echo $user;
                             break;
                         }
                     }
