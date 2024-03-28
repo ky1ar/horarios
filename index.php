@@ -112,15 +112,25 @@ require_once 'db.php';
         </ul>
         <ul class="ky1-hrr">
             <li class="hrr-box">
+                <?php 
+                $selected_interval = '2024-03-01';
+                $day_of_week = date('w', strtotime($selected_interval));
+                echo $day_of_week;
+
+                $firstIndex = true;
+                $sql = "SELECT u.id_user, u.slug, u.name, a.name as area FROM Users u INNER JOIN Profile p ON u.id_profile = p.id_profile INNER JOIN Area a ON u.id_area = a.id_area WHERE u.id_location = 1 ORDER BY u.name";
+                $result = $conn->query($sql);
+                while ($row = $result->fetch_assoc()):?>
+                    <li <?php echo $firstIndex ? 'class="active"':'' ?> data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
+                        <img src="assets/img/<?php echo $row['slug'] ?>.png" alt="">
+                        <h3><?php echo $row['name'] ?></h3>
+                    </li>
+                <?php 
+                $firstIndex = false;
+                endwhile; 
+                ?>
                 <span>Semana 1</span>
                 <div class="hrr-day">
-                    <!--<ul>
-                        <li class="day-nam"></li>
-                        <li><img src="assets/img/a.svg" width="20" height="20" alt=""></li>
-                        <li><img src="assets/img/b.svg" width="20" height="20" alt=""></li>
-                        <li><img src="assets/img/c.svg" width="20" height="20" alt=""></li>
-                        <li><img src="assets/img/d.svg" width="20" height="20" alt=""></li>
-                    </ul>-->
                     <ul>
                         <li class="day-nam">lun 1</li>
                         <li class="day-trd">09:11</li>
