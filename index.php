@@ -213,7 +213,7 @@ require_once 'db.php';
         $sql = "SELECT id_user, dni FROM Users";
         $result = $conn->query($sql);
         $users = array();
-        while ($fila = $resultado->fetch_assoc()) {
+        while ($fila = $result->fetch_assoc()) {
             $users[] = $fila;
         }
         print_r($users);
