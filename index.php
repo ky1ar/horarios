@@ -239,6 +239,12 @@ require_once 'db.php';
                 }
                 if ($n > 3) {
                     $full_row = implode(",", $row);
+                    foreach ($users as $user) {
+                        if (strpos($full_row, $user) !== false) {
+                            echo $user["id_user"];
+                            break;
+                        }
+                    }
 
                 }
                 $n++;
