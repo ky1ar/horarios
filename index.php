@@ -211,16 +211,15 @@ require_once 'db.php';
         <?php
 
         $archivo = 'final.csv';
+        $n = 0;
 
         if (($gestor = fopen($archivo, "r")) !== FALSE) {
             while (($datos = fgetcsv($gestor, 1000, ",")) !== FALSE) {
-                // $datos es un array que contiene los valores de cada columna en la línea actual
-                // Puedes acceder a cada valor por su índice
-                // Ejemplo: $datos[0] es el primer valor de la línea actual, $datos[1] es el segundo, etc.
+                if ($n == 3) {
+                    print_r($datos);
 
-                // Aquí puedes hacer lo que necesites con los datos de cada línea
-                // Por ejemplo, imprimirlos
-                json_encode($datos);
+                }
+                $n++;
             }
             fclose($gestor);
         } else {
