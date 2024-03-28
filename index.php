@@ -113,7 +113,7 @@ require_once 'db.php';
         <ul class="ky1-hrr">
             <li class="hrr-box">
                 <?php 
-                $selected_interval = '2024-03-01';
+                $selected_interval = '2024-04-01';
                 $day_of_week = date('w', strtotime($selected_interval));
                 $new_date = date('Y-m-d', strtotime("-$day_of_week days +1 day", strtotime($selected_interval)));
                 echo $new_date;
