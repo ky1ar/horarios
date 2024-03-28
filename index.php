@@ -216,7 +216,7 @@ require_once 'db.php';
         while ($fila = $resultado->fetch_assoc()) {
             $users[] = $fila;
         }
-        print_r($users)
+        print_r($users);
         $csv = 'final.csv';
         $n = 0;
 
