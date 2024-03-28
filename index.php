@@ -242,7 +242,6 @@ require_once 'db.php';
                                 $start_date_id = $id_date;
                             }
                             $stmt->close();
-                            $conn->close();
                             break;
                         }
                     }
