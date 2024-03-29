@@ -111,142 +111,53 @@ require_once 'db.php';
             </li>
         </ul>
         <ul class="ky1-hrr">
-            <li class="hrr-box">
-                <?php 
-                $selected_interval = '2024-03-01';
+            <?php 
+            $selected_interval = '2024-03-01';
 
-                $total_days = date('t', strtotime($selected_interval));
-                $day_of_week = date('w', strtotime($selected_interval));
+            $total_days = date('t', strtotime($selected_interval));
+            $day_of_week = date('w', strtotime($selected_interval));
 
-                $start_date = date('Y-m-d', strtotime("-$day_of_week days +1 day", strtotime($selected_interval)));
-                $total_days = $total_days + $day_of_week;
-                $end_date = date('Y-m-d', strtotime("+$total_days days", strtotime($selected_interval)));
+            $start_date = date('Y-m-d', strtotime("-$day_of_week days +1 day", strtotime($selected_interval)));
+            $total_days = $total_days + $day_of_week;
+            $end_date = date('Y-m-d', strtotime("+$total_days days", strtotime($selected_interval)));
 
-                $start_date_id = 0;
-                $sql = "SELECT id_date FROM Calendar WHERE calendar_date = ?";
-                $stmt = $conn->prepare($sql);
-                $stmt->bind_param("s", $start_date);
-                $stmt->execute();
-                $stmt->bind_result($id_date);
-                if ($stmt->fetch()) {
-                    $start_date_id = $id_date;
-                }
-                $stmt->close();
+            $start_date_id = 0;
+            $sql = "SELECT id_date FROM Calendar WHERE calendar_date = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("s", $start_date);
+            $stmt->execute();
+            $stmt->bind_result($id_date);
+            if ($stmt->fetch()) {
+                $start_date_id = $id_date;
+            }
+            $stmt->close();
 
-                $sql = "SELECT s.id_schedule, c.id_date, c.calendar_date, s.stamp, s.id_user 
-                FROM Calendar c 
-                LEFT JOIN Schedule s ON s.id_calendar = c.id_date AND s.id_user = 2
-                WHERE c.id_date BETWEEN $start_date_id AND ($start_date_id + $total_days);";
-                ?>
-                <div class="hrr-day">
-                    <ul>
-                    <?php
-                    $result = $conn->query($sql);
-                    while ($row = $result->fetch_assoc()):
-                        //$day = date('w', strtotime($row['calendar_date']));
-                        $day = ltrim(date('d', strtotime($row['calendar_date'])), '0');
-                        ?>
-                            <li class="day-nam"><?php echo $day ?></li>
-                            <li><?php echo $row['stamp'] ?></li>
-                    <?php 
-                    endwhile;
-                    ?>
-                    </ul>
-                </div>
-                <span>Semana 1</span>
-                <div class="hrr-day">
-                    <ul>
-                        <li class="day-nam">lun 1</li>
-                        <li class="day-trd">09:11</li>
-                        <li>13:10</li>
-                        <li>14:08</li>
-                        <li>18:05</li>
-                    </ul>
-                    <ul>
-                        <li class="day-nam">mar 2</li>
-                        <li>09:00</li>
-                        <li class="day-rgs">13:10</li>
-                        <li>14:08</li>
-                        <li>18:05</li>
-                    </ul>
-                    <ul>
-                        <li class="day-nam">mie 3</li>
-                        <li>09:09</li>
-                        <li>13:10</li>
-                        <li>14:08</li>
-                        <li>18:05</li>
-                    </ul>
-                    <ul>
-                        <li class="day-nam">jue 4</li>
-                        <li>09:09</li>
-                        <li>13:10</li>
-                        <li>14:08</li>
-                        <li>18:05</li>
-                    </ul>
-                    <ul>
-                        <li class="day-nam">vie 5</li>
-                        <li>09:09</li>
-                        <li>13:10</li>
-                        <li>14:08</li>
-                        <li>18:05</li>
-                    </ul>
-                    <ul>
-                        <li class="day-nam">sab 6</li>
-                        <li>09:09</li>
-                        <li>13:10</li>
-                        <li>14:08</li>
-                        <li>18:05</li>
-                    </ul>
-                </div>
-            </li>
-            <li class="hrr-box">
-                <span>Semana 1</span>
-                <div class="hrr-day">
-                    <ul>
-                        <li class="day-nam">lun 1</li>
-                        <li class="day-trd">09:11</li>
-                        <li>13:10</li>
-                        <li>14:08</li>
-                        <li>18:05</li>
-                    </ul>
-                    <ul>
-                        <li class="day-nam">mar 2</li>
-                        <li>09:00</li>
-                        <li class="day-rgs">13:10</li>
-                        <li>14:08</li>
-                        <li>18:05</li>
-                    </ul>
-                    <ul>
-                        <li class="day-nam">mie 3</li>
-                        <li>09:09</li>
-                        <li>13:10</li>
-                        <li>14:08</li>
-                        <li>18:05</li>
-                    </ul>
-                    <ul>
-                        <li class="day-nam">jue 4</li>
-                        <li>09:09</li>
-                        <li>13:10</li>
-                        <li>14:08</li>
-                        <li>18:05</li>
-                    </ul>
-                    <ul>
-                        <li class="day-nam">vie 5</li>
-                        <li>09:09</li>
-                        <li>13:10</li>
-                        <li>14:08</li>
-                        <li>18:05</li>
-                    </ul>
-                    <ul>
-                        <li class="day-nam">sab 6</li>
-                        <li>09:09</li>
-                        <li>13:10</li>
-                        <li>14:08</li>
-                        <li>18:05</li>
-                    </ul>
-                </div>
-            </li>
-            
+            $sql = "SELECT s.id_schedule, c.id_date, c.calendar_date, s.stamp, s.id_user 
+            FROM Calendar c 
+            LEFT JOIN Schedule s ON s.id_calendar = c.id_date AND s.id_user = 2
+            WHERE c.id_date BETWEEN $start_date_id AND ($start_date_id + $total_days);";
+
+            $result = $conn->query($sql);
+            while ($row = $result->fetch_assoc()):
+                $day = date('w', strtotime($row['calendar_date']));
+                $day = ltrim(date('d', strtotime($row['calendar_date'])), '0');
+                if ($day == 1):?> 
+                    <li class="hrr-box">
+                        <span>Semana</span>
+                        <div class="hrr-day">
+                <?php endif ?> 
+                <ul>
+                    <li class="day-nam"><?php echo $day ?></li>
+                    <li><?php echo $row['stamp'] ?></li>
+                </ul>
+                <?php
+                if ($day == 6):?> 
+                        </li>
+                    </div>
+                <?php endif ?> 
+            <?php 
+            endwhile;
+            ?>
         </ul>
     </section>
 </body>
