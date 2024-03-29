@@ -334,7 +334,6 @@ body {
     padding: 0.5rem;
     display: flex;
     gap: 1rem;
-    flex-direction: column;
 }
 #timeline ul {
     margin: 0;
