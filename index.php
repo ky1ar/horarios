@@ -152,8 +152,8 @@ require_once 'db.php';
                 </ul>
                 <?php
                 if ($day == 6):?> 
-                        </li>
-                    </div>
+                        </div>
+                    </li>
                 <?php endif ?> 
             <?php 
             endwhile;
