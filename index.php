@@ -152,7 +152,7 @@ require_once 'includes/common/header.php';
                             $start = '08:00';
                             $margin = '0';
                             for ($i = 0; $i < $lenght; $i++) {
-                                if( $i = 0 ) {
+                                if( $i == 0 ) {
                                     $open = intval(substr($start, 0, 2)) * 60 + intval(substr($start, 3));
                                     $close = intval(substr($array[0], 0, 2)) * 60 + intval(substr($array[0], 3));
                                     $total = $close - $open;
