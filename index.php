@@ -113,6 +113,8 @@ require_once 'db.php';
         <ul class="ky1-hrr">
             <?php 
             $selected_interval = '2024-03-01';
+            
+            $day_names = ['lun','mar','mié','jue','vie','sáb','dom'];
 
             $total_days = date('t', strtotime($selected_interval));
             $day_of_week = date('w', strtotime($selected_interval));
@@ -149,7 +151,7 @@ require_once 'db.php';
                 if ($row['stamp'] || ($day_week<6 && $day_week !=0) ) {
                     echo
                     "<ul>
-                        <li class='day-nam'>$day</li>";
+                        <li class='day-nam'>" . $day_names[$day_week] . " $day</li>";
                         if ($row['stamp']){
                             $array = str_split(trim($row['stamp']), 5);
                             foreach ($array as $value){
