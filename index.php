@@ -144,9 +144,9 @@ require_once 'db.php';
 
                 if ($day_week == 1){
                     echo 
-                    "<li class='hrr-box'>
-                        <span>Semana</span>
-                            <div class='hrr-day'>";
+                    "<li class='hrr-box'>".
+                        //"<span>Semana</span>".
+                            "<div class='hrr-day'>";
                 } 
                 if ($row['stamp'] || ($day_week<6 && $day_week !=0) ) {
                     echo
