@@ -135,6 +135,7 @@ require_once 'includes/common/header.php';
             WHERE c.id_date BETWEEN $start_date_id AND ($start_date_id + $total_days);";
 
             $result = $conn->query($sql);
+            $box_start = '08:00';
             while ($row = $result->fetch_assoc()){
                 $day_week = date('w', strtotime($row['calendar_date']));
                 $day = ltrim(date('d', strtotime($row['calendar_date'])), '0');
@@ -150,7 +151,10 @@ require_once 'includes/common/header.php';
                         if ($row['stamp']){
                             $array = str_split(trim($row['stamp']), 5);
                             foreach ($array as $value){
-                                echo "<li>$value</li>";
+                                $box_open = intval(substr($box_start, 0, 2)) * 60 + intval(substr($box_start, 3));
+                                $box_close = intval(substr($value, 0, 2)) * 60 + intval(substr($value, 3));
+                                $box_total = $box_open - $box_close;
+                                echo "<li data-id='$box_total'>$value</li>";
                             }
                         }
                         echo
