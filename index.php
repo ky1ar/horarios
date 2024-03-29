@@ -150,7 +150,7 @@ require_once 'db.php';
                     <li>
                         <?php 
                         if ($row['stamp']) {
-                            $array = str_split($row['stamp'], 4);
+                            $array = str_split(trim($row['stamp']), 4);
                             foreach ($array as $value):?>
                             <li><?php echo $value ?></li>
                             <?php endforeach;
