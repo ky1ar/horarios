@@ -115,49 +115,32 @@ require_once 'db.php';
                 <?php 
                 $selected_interval = '2024-03-01';
                 $days_in_month = date('t', strtotime($selected_interval));
-                $day_of_week = date('w', strtotime($selected_interval));
-                $start_date = date('Y-m-d', strtotime("-$day_of_week days +1 day", strtotime($selected_interval)));
-
-                $total_days = $days_in_month + $day_of_week;
-                $end_date = date('Y-m-d', strtotime("+$total_days days", strtotime($selected_interval)));
-
-                $new_date_id = 0;
-                $sql = "SELECT id_date FROM Calendar WHERE calendar_date = ?";
+                
+                $sql = "SELECT s.stamp, c.calendar_date 
+                        FROM Schedule s 
+                        INNER JOIN Calendar c ON c.id_date = s.id_calendar 
+                        WHERE id_user = 2 AND c.calendar_date BETWEEN ? AND ?";
+                
                 $stmt = $conn->prepare($sql);
-                $stmt->bind_param("s", $start_date);
+                
+                $start_date = date('Y-m-d', strtotime("first day of $selected_interval"));
+                $end_date = date('Y-m-d', strtotime("last day of $selected_interval"));
+                
+                $stmt->bind_param("ss", $start_date, $end_date);
                 $stmt->execute();
-                $stmt->bind_result($id_date);
-                if ($stmt->fetch()) {
-                    $new_date_id = $id_date;
-                }
-                $stmt->close();
-
-                $sql = "SELECT s.stamp, c.calendar_date FROM Schedule s INNER JOIN Calendar c ON c.id_date = s.id_calendar WHERE id_user = 2 AND id_calendar >= $new_date_id AND id_calendar <= ($new_date_id + $total_days)";
-                $result = $conn->query($sql);
-                $result = $result->fetch_all(MYSQLI_ASSOC);
-
-                $intervalo_fechas = [];
-                $fecha_actual = new DateTime($start_date);
-                $fecha_final_obj = new DateTime($end_date);
-                while ($fecha_actual <= $fecha_final_obj) {
-                    $intervalo_fechas[] = $fecha_actual->format('Y-m-d');
-                    $fecha_actual->modify('+1 day');
-                }
-
+                $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+                
                 $final = [];
-                foreach ($intervalo_fechas as $fecha) {
-                    $encontrado = false;
-                    foreach ($result as $resultado) {
-                        if ($resultado['calendar_date'] === $fecha) {
-                            $final[] = $resultado;
-                            $encontrado = true;
-                            break;
-                        }
-                    }
-                    if (!$encontrado) {
-                        $final[] = ['a', $fecha];
-                    }
+                foreach ($result as $schedule) {
+                  $final[$schedule['calendar_date']] = $schedule;
                 }
+                
+                for ($date = $start_date; $date <= $end_date; $date = date('Y-m-d', strtotime($date.' +1 day'))) {
+                  if (!isset($final[$date])) {
+                    $final[$date] = ['a', $date];
+                  }
+                }
+                
                 print_r($final);
                 //$day = 1;
                 //while ($day <= $total_days) {
