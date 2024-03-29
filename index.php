@@ -134,11 +134,16 @@ require_once 'db.php';
                 }
                 $stmt->close();
 
-                $day = 1;
-                while ($day <= $total_days) {
+                $sql = "SELECT s.stamp, c.calendar_date FROM Schedule s INNER JOIN Calendar c ON c.id_date = s.id_calendar WHERE id_user = 2 AND id_calendar >= $new_date_id AND id_calendar <= ($new_date_id + $total_days)";
+                $result = $conn->query($sql);
+                $result->fetch_assoc();
+                print_r($result);
+
+                //$day = 1;
+                //while ($day <= $total_days) {
                     //$sql = "SELECT s.stamp, c.calendar_date FROM Schedule s INNER JOIN Calendar c ON c.id_date = s.id_calendar WHERE id_user = 2 AND id_calendar >= $new_date_id AND id_calendar <= ($new_date_id + $total_days)";
-                    $day++;
-                }
+                    //$day++;
+                //}
 
                 $firstIndex = true;
                 $sql = "SELECT u.id_user, u.slug, u.name, a.name as area FROM Users u INNER JOIN Profile p ON u.id_profile = p.id_profile INNER JOIN Area a ON u.id_area = a.id_area WHERE u.id_location = 1 ORDER BY u.name";
