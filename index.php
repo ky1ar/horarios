@@ -143,7 +143,7 @@ require_once 'includes/common/header.php';
                 if ($row['stamp']  ) {
                     echo
                     "<ul>
-                        <li class='day-nam'>" . $day_names[$day_week-1] . " $day</li>";
+                        <li class='name'><b>$day</b>".$day_names[$day_week-1]."</li>";
                         if ($row['stamp']){
                             $array = str_split(trim($row['stamp']), 5);
                             foreach ($array as $value){
