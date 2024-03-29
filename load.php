@@ -249,7 +249,8 @@ require_once 'db.php';
                         foreach ($row as $element) {
                             $date_id = $start_date_id + $offset;
                             if ($element != '') {
-                                $split = str_split(trim($element), 5);
+                                $split = str_split($element, 5);
+                                print_r($split);
                                 for ($i = 0; $i < count($split) - 1; $i++) {
                                     $current = strtotime($split[$i]);
                                     $next = strtotime($split[$i + 1]);
@@ -267,12 +268,12 @@ require_once 'db.php';
                             }
                             $offset++;
                         }
-                        $insert_query = rtrim($insert_query, ", ");
+                        /*$insert_query = rtrim($insert_query, ", ");
                         if ($conn->query($insert_query) === TRUE) {
                             echo "Se insertaron los registros correctamente.";
                         } else {
                             echo "Error al insertar los registros: " . $conn->error;
-                        }
+                        }*/
                         $store = false;
                     } else {
                         $full_row = implode(",", $row);
