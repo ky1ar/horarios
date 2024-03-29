@@ -136,7 +136,7 @@ require_once 'db.php';
 
                 $sql = "SELECT s.stamp, c.calendar_date FROM Schedule s INNER JOIN Calendar c ON c.id_date = s.id_calendar WHERE id_user = 2 AND id_calendar >= $new_date_id AND id_calendar <= ($new_date_id + $total_days)";
                 $result = $conn->query($sql);
-                $result->fetch_assoc();
+                $result = $result->fetch_all(MYSQLI_ASSOC);
                 print_r($result);
 
                 //$day = 1;
