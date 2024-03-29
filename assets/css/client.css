@@ -391,7 +391,7 @@ body {
 #timeline .block {
     background-color: #d0e6a5;
 }
-#timeline .block:nth-child(odd) {
+#timeline .block:nth-child(even) {
     background-color: #ffdd95;
 }
 /***********************************************************************************/
