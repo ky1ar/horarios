@@ -147,7 +147,7 @@ require_once 'includes/common/header.php';
                         <ul>";
                         if ($row['stamp']){
                             $array = str_split(trim($row['stamp']), 5);
-                            $lenght = count($array);
+                            $lenght = count($array)-1;
 
                             $start = '08:00';
                             $margin = '0';
