@@ -94,7 +94,7 @@ require_once 'includes/common/header.php';
         </ul>
         <section id="timeline">
             <ul class="schedule">
-                <li class="name">Hora</li>
+                <li class="hightlight name">Hora</li>
                 <li>08:00</li>
                 <li class="hightlight">09:00</li>
                 <li>10:00</li>
