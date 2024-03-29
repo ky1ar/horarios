@@ -95,18 +95,18 @@ require_once 'includes/common/header.php';
         <section id="timeline">
             <ul class="schedule">
                 <li class="name">Hora</li>
-                <li class="opacity">08:00</li>
-                <li>09:00</li>
-                <li class="opacity">10:00</li>
-                <li class="opacity">11:00</li>
-                <li class="opacity">12:00</li>
-                <li>13:00</li>
-                <li>14:00</li>
-                <li class="opacity">15:00</li>
-                <li class="opacity">16:00</li>
-                <li class="opacity">17:00</li>
-                <li>18:00</li>
-                <li class="opacity">19:00</li>
+                <li>08:00</li>
+                <li class="hightlight">09:00</li>
+                <li>10:00</li>
+                <li>11:00</li>
+                <li>12:00</li>
+                <li class="hightlight">13:00</li>
+                <li class="hightlight">14:00</li>
+                <li>15:00</li>
+                <li>16:00</li>
+                <li>17:00</li>
+                <li class="hightlight">18:00</li>
+                <li>19:00</li>
             </ul>
             <?php 
             $selected_interval = '2024-03-01';

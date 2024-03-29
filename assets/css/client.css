@@ -346,12 +346,23 @@ body {
 }
 #timeline .schedule li {
     position: relative;
+    opacity: 0.5;
 }
 #timeline .schedule li::after {
     content: "";
+    height: 1px;
+    position: absolute;
+    top: 50%;
+    width: 90vw;
+    background-color: #ebebeb;
+    left: 0;
+    margin-left: 4rem;
 }
-#timeline ul .opacity {
-    opacity: 0.25;
+#timeline .schedule .name::after {
+    opacity: 0;
+}
+#timeline ul .hightlight {
+    font-weight: 600;
 }
 #timeline ul .name {
     opacity: 0.5;
