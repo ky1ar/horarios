@@ -162,8 +162,8 @@ require_once 'includes/common/header.php';
                                 $close = intval(substr($array[$i+1], 0, 2)) * 60 + intval(substr($array[$i+1], 3));
                                 $total = $close - $open;
                                 $height = $total/60*32;
-
                                 echo "<div class='block' style='height: ".$height."px; margin-top: ".$margin."px;'>".$array[$i]."</div>";
+                                $margin = '0';
                             }
                         }
                         echo
