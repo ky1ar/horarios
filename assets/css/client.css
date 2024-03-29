@@ -398,6 +398,7 @@ body {
 }
 #timeline .block span {
     opacity: 0;
+    cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
 #timeline .container:hover span {
