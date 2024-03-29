@@ -92,12 +92,25 @@ require_once 'includes/common/header.php';
                 </div>
             </li>
         </ul>
-        <ul class="ky1-hrr">
+        <section id="timeline">
+            <ul class="schedule">
+                <li class="name">Hora</li>
+                <li class="opacity">08:00</li>
+                <li>09:00</li>
+                <li class="opacity">10:00</li>
+                <li class="opacity">11:00</li>
+                <li class="opacity">12:00</li>
+                <li>13:00</li>
+                <li>14:00</li>
+                <li class="opacity">15:00</li>
+                <li class="opacity">16:00</li>
+                <li class="opacity">17:00</li>
+                <li>18:00</li>
+                <li class="opacity">19:00</li>
+            </ul>
             <?php 
             $selected_interval = '2024-03-01';
-            
             $day_names = ['lun','mar','mié','jue','vie','sáb','dom'];
-
             $total_days = date('t', strtotime($selected_interval));
             $day_of_week = date('w', strtotime($selected_interval));
             $start_date = date('Y-m-d', strtotime("-$day_of_week days +1 day", strtotime($selected_interval)));
@@ -120,10 +133,6 @@ require_once 'includes/common/header.php';
             WHERE c.id_date BETWEEN $start_date_id AND ($start_date_id + $total_days);";
 
             $result = $conn->query($sql);
-            echo 
-                    "<li class='hrr-box'>".
-                        //"<span>Semana</span>".
-                            "<div class='hrr-day'>";
             while ($row = $result->fetch_assoc()){
                 $day_week = date('w', strtotime($row['calendar_date']));
                 $day = ltrim(date('d', strtotime($row['calendar_date'])), '0');
@@ -147,11 +156,9 @@ require_once 'includes/common/header.php';
                 if ($day_week == 7){
                     
                 }
-                
-            }echo "</div>
-            </li>";
+            }
             ?>
-        </ul>
+        </section>
     </section>
    
     <?php require_once 'includes/common/footer.php'; ?>
