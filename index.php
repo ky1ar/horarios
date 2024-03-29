@@ -154,7 +154,7 @@ require_once 'db.php';
                         if ($row['stamp']){
                             $array = str_split(trim($row['stamp']), 5);
                             foreach ($array as $value){
-                                echo "<li><$value</li>";
+                                echo "<li>$value</li>";
                             }
                         }
                         echo
