@@ -262,7 +262,7 @@ require_once 'db.php';
                                     }
                                 }
                                 $split = array_values($split);
-                                $element = implode(", ", $split);
+                                $element = implode("", $split);
                                 //$element = str_replace(":", "", $element);
                                 $insert_query .= "(" . $store_id . ", " . $date_id . ", '" . $element . "'), ";
                             }
