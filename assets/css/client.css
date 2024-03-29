@@ -378,14 +378,14 @@ body {
     content: "";
     height: 1px;
     position: absolute;
-    top: 50%;
+    top: 0.5rem;
     width: 90vw;
     background-color: #ebebeb;
     left: 0;
     margin-left: 4rem;
 }
 #timeline .container {
-
+    margin-top: 0.5rem;
 }
 #timeline .block {
     background-color: aquamarine;

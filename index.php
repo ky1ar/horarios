@@ -147,21 +147,23 @@ require_once 'includes/common/header.php';
                         <div class='container'>";
                         if ($row['stamp']){
                             $array = str_split(trim($row['stamp']), 5);
-                            $lenght = count($array)-1;
-
+                            $count = count($array);
                             $start = '08:00';
                             $margin = '0';
-                            for ($i = 0; $i < $lenght; $i++) {
+                            for ($i = 0; $i < $count; $i++) {
                                 if( $i == 0 ) {
                                     $open = intval(substr($start, 0, 2)) * 60 + intval(substr($start, 3));
                                     $close = intval(substr($array[0], 0, 2)) * 60 + intval(substr($array[0], 3));
                                     $total = $close - $open;
                                     $margin = $total/60*32;
-                                } 
-                                $open = intval(substr($array[$i], 0, 2)) * 60 + intval(substr($array[$i], 3));
-                                $close = intval(substr($array[$i+1], 0, 2)) * 60 + intval(substr($array[$i+1], 3));
-                                $total = $close - $open;
-                                $height = $total/60*32;
+                                } elseif ($i != $count-1) {
+                                    $open = intval(substr($array[$i], 0, 2)) * 60 + intval(substr($array[$i], 3));
+                                    $close = intval(substr($array[$i+1], 0, 2)) * 60 + intval(substr($array[$i+1], 3));
+                                    $total = $close - $open;
+                                    $height = $total/60*32;
+                                } else {
+                                    $height = '0';
+                                }
                                 echo "<div class='block' style='height: ".$height."px; margin-top: ".$margin."px;'>".$array[$i]."</div>";
                                 $margin = '0';
                             }
