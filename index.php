@@ -155,13 +155,13 @@ require_once 'includes/common/header.php';
                                     $open = intval(substr($start, 0, 2)) * 60 + intval(substr($start, 3));
                                     $close = intval(substr($array[0], 0, 2)) * 60 + intval(substr($array[0], 3));
                                     $total = $close - $open;
-                                    $margin = $total/60*32;
+                                    $margin = $total/60*40;
                                 }
                                 if ($i != $count-1) {
                                     $open = intval(substr($array[$i], 0, 2)) * 60 + intval(substr($array[$i], 3));
                                     $close = intval(substr($array[$i+1], 0, 2)) * 60 + intval(substr($array[$i+1], 3));
                                     $total = $close - $open;
-                                    $height = $total/60*32;
+                                    $height = $total/60*40;
                                 } else {
                                     $height = '0';
                                 }
