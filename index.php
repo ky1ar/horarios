@@ -93,21 +93,23 @@ require_once 'includes/common/header.php';
             </li>
         </ul>
         <section id="timeline">
-            <ul class="schedule">
-                <li class="hightlight name">Hora</li>
-                <li>08:00</li>
-                <li class="hightlight">09:00</li>
-                <li>10:00</li>
-                <li>11:00</li>
-                <li>12:00</li>
-                <li class="hightlight">13:00</li>
-                <li class="hightlight">14:00</li>
-                <li>15:00</li>
-                <li>16:00</li>
-                <li>17:00</li>
-                <li class="hightlight">18:00</li>
-                <li>19:00</li>
-            </ul>
+            <div class="schedule">
+                <span>Hora</span>
+                <ul>
+                    <li>08:00</li>
+                    <li class="hightlight">09:00</li>
+                    <li>10:00</li>
+                    <li>11:00</li>
+                    <li>12:00</li>
+                    <li class="hightlight">13:00</li>
+                    <li class="hightlight">14:00</li>
+                    <li>15:00</li>
+                    <li>16:00</li>
+                    <li>17:00</li>
+                    <li class="hightlight">18:00</li>
+                    <li>19:00</li>
+                </ul>
+            </div>
             <?php 
             $selected_interval = '2024-03-01';
             $day_names = ['lun','mar','mié','jue','vie','sáb','dom'];
@@ -142,7 +144,7 @@ require_once 'includes/common/header.php';
                 } 
                 if ($row['stamp']  ) {
                     echo
-                    "<ul>
+                    "<ul class='data'>
                         <li class='name'><b>$day</b>".$day_names[$day_week-1]."</li>";
                         if ($row['stamp']){
                             $array = str_split(trim($row['stamp']), 5);
