@@ -147,7 +147,7 @@ require_once 'db.php';
                         <span>Semana</span>
                             <div class='hrr-day'>";
                 } 
-                if ($row['stamp']) {
+                if ($row['stamp']||$day_week<6) {
                     echo
                     "<ul>
                         <li class='day-nam'>$day</li>";
