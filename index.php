@@ -94,7 +94,7 @@ require_once 'includes/common/header.php';
         </ul>
         <section id="timeline">
             <div class="schedule">
-                <span>Hora</span>
+                <span class="name">Hora</span>
                 <ul class="lines">
                     <li>08:00</li>
                     <li class="hightlight">09:00</li>
@@ -143,7 +143,7 @@ require_once 'includes/common/header.php';
                 if ($row['stamp']  ) {
                     echo
                     "<div class='schedule'>
-                        <span><b>$day</b>".$day_names[$day_week-1]."</span>
+                        <span class='name'><b>$day</b>".$day_names[$day_week-1]."</span>
                         <div class='container'>";
                         if ($row['stamp']){
                             $array = str_split(trim($row['stamp']), 5);
