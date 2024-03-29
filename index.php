@@ -147,9 +147,9 @@ require_once 'includes/common/header.php';
                 if ($day_week == 7){
                     
                 }
-                echo "</div>
-                    </li>";
-            }
+                
+            }echo "</div>
+            </li>";
             ?>
         </ul>
     </section>
