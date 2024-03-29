@@ -129,13 +129,10 @@ require_once 'includes/common/header.php';
             }
             $stmt->close();
 
-            $sql = "SELECT s.id_schedule, c.id_date, c.calendar_date, s.stamp, s.id_user 
-            FROM Calendar c 
-            LEFT JOIN Schedule s ON s.id_calendar = c.id_date AND s.id_user = 3
-            WHERE c.id_date BETWEEN $start_date_id AND ($start_date_id + $total_days);";
+            
 
+            $sql = "SELECT s.id_schedule, c.id_date, c.calendar_date, s.stamp, s.id_user FROM Calendar c LEFT JOIN Schedule s ON s.id_calendar = c.id_date AND s.id_user = 3 WHERE c.id_date BETWEEN $start_date_id AND ($start_date_id + $total_days);";
             $result = $conn->query($sql);
-            $box_start = '08:00';
             while ($row = $result->fetch_assoc()){
                 $day_week = date('w', strtotime($row['calendar_date']));
                 $day = ltrim(date('d', strtotime($row['calendar_date'])), '0');
@@ -150,11 +147,23 @@ require_once 'includes/common/header.php';
                         <ul>";
                         if ($row['stamp']){
                             $array = str_split(trim($row['stamp']), 5);
-                            foreach ($array as $value){
-                                $box_open = intval(substr($box_start, 0, 2)) * 60 + intval(substr($box_start, 3));
-                                $box_close = intval(substr($value, 0, 2)) * 60 + intval(substr($value, 3));
-                                $box_total = $box_open - $box_close;
-                                echo "<li data-id='$box_total'>$value</li>";
+                            $lenght = count($array)-1;
+
+                            $start = '08:00';
+                            $margin = '0';
+                            for ($i = 0; $i < $lenght; $i++) {
+                                if( $i = 0 ) {
+                                    $open = intval(substr($start, 0, 2)) * 60 + intval(substr($start, 3));
+                                    $close = intval(substr($array[0], 0, 2)) * 60 + intval(substr($array[0], 3));
+                                    $total = $close - $open;
+                                    $margin = $total/60*32;
+                                } 
+                                $open = intval(substr($array[$i], 0, 2)) * 60 + intval(substr($array[$i], 3));
+                                $close = intval(substr($array[$i+1], 0, 2)) * 60 + intval(substr($array[$i+1], 3));
+                                $total = $close - $open;
+                                $height = $total/60*32;
+
+                                echo "<li style='height: $height.px; margin-top=$margin.px;'>".$array[$i]."</li>";
                             }
                         }
                         echo
