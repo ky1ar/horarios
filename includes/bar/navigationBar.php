@@ -2,8 +2,14 @@
     <div class="wrapper">
         <a href="/"><img class="logo" width="150" height="42" src="assets/img/logod.webp" alt="Logo Krear 3D"></a>
         <ul>
-            <li><a <?php if($currentPage == 'Citas') echo 'class="active"'; ?> href="/">Consultar</a></li>
-            <li><a <?php if($currentPage == 'Capacitaciones') echo 'class="active"'; ?> href="capacitaciones">Capacitaciones</a></li>
+        <?php
+            $sql = "SELECT * FROM Location ORDER BY name";
+            $result = $conn->query($sql);
+            while ($row = $result->fetch_assoc()):?>
+                <li><a <?php if($currentPage == $row['name']) echo 'class="active"'; ?> href="/"><?php echo $row['name'] ?></a></li>
+            <?php 
+            endwhile; 
+            ?>
             <!--
             <li><a <?php //if($currentPage == 'Conocimiento') echo 'class="active"'; ?> href="#">Conocimiento</a></li>
             <li><a <?php //if($currentPage == 'Cursos') echo 'class="active"'; ?> href="#">Cursos</a></li>

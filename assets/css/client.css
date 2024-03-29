@@ -84,9 +84,10 @@ body {
 	padding: 1rem 0.5rem;
 }
 #navigationBar .wrapper {
-	display: flex;
+    display: flex;
     justify-content: space-between;
-	align-items: center;
+    align-items: center;
+    max-width: 120rem;
 }
 #navigationBar .logo {
 	width: 8rem;
@@ -142,6 +143,12 @@ body {
     opacity: 0.8;
 }
 /***********************************************************************************/
+#patternBody {
+    padding: 2rem;
+    background-color: var(--gray);
+    background-image: url(whirlpool.png);
+    box-shadow: inset 0 0 0.25rem var(--graydark);
+}
 /***********************************************************************************/
 /***********************************************************************************/
 /***********************************************************************************/

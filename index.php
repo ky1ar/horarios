@@ -1,5 +1,5 @@
 <?php 
-$currentPage = "Horarios"; 
+$currentPage = "Miraflores"; 
 require_once 'includes/app/db.php';
 require_once 'includes/app/globals.php'; 
 require_once 'includes/common/header.php';
@@ -10,6 +10,9 @@ require_once 'includes/common/header.php';
     require_once 'includes/bar/topBar.php';
     require_once 'includes/bar/navigationBar.php';  
     ?>
+    <section id="patternBody">
+
+    </section>
     <aside id="ky1-lft">
         <a href="" class="ky1-lgo"><img src="assets/img/logod.webp" alt=""></a>
         <ul class="ky1-lst">
