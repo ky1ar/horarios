@@ -388,7 +388,10 @@ body {
     margin-top: 0.5rem;
 }
 #timeline .block {
-    background-color: aquamarine;
+    background-color: #d0e6a5;
+}
+#timeline .block:nth-child(odd) {
+    background-color: #ffdd95;
 }
 /***********************************************************************************/
 
