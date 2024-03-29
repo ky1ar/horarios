@@ -344,6 +344,12 @@ body {
     align-items: center;
     padding: 0.75rem;
 }
+#timeline .schedule li {
+    position: relative;
+}
+#timeline .schedule li::after {
+    content: "";
+}
 #timeline ul .opacity {
     opacity: 0.25;
 }
@@ -360,9 +366,7 @@ body {
 #timeline ul .name b {
     font-size: 0.95rem;
 }
-#timeline .hrr-box .hrr-day .day-trd::after {
-    content: "";
-}
+
 /***********************************************************************************/
 /***********************************************************************************/
 /***********************************************************************************/
