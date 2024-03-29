@@ -156,7 +156,7 @@ require_once 'db.php';
                         }
                     }
                     if (!$encontrado) {
-                        $final[] = ['stamp' => '', 'calendar_date' => $fecha]
+                        $final[] = ['stamp' => '', 'calendar_date' => $fecha];
                     }
                 }
                 print_r($final);
