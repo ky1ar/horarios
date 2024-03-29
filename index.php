@@ -1,18 +1,14 @@
-<?php
-
-require_once 'db.php';
-
+<?php 
+$currentPage = "Horarios"; 
+require_once 'includes/app/globals.php'; 
+require_once 'includes/common/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="assets/img/fav.png">
-    <title>Krear 3D | Horarios</title>
-    <?php require_once 'header.php'; ?>
 </head>
 <body>
+    <?php 
+    require_once 'includes/bar/topBar.php';
+    require_once 'includes/bar/navigationBar.php';  
+    ?>
     <aside id="ky1-lft">
         <a href="" class="ky1-lgo"><img src="assets/img/logod.webp" alt=""></a>
         <ul class="ky1-lst">
@@ -169,5 +165,6 @@ require_once 'db.php';
             ?>
         </ul>
     </section>
+    <?php require_once 'includes/common/footer.php'; ?>
 </body>
 </html>
