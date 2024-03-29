@@ -134,7 +134,7 @@ require_once 'db.php';
 
             $sql = "SELECT s.id_schedule, c.id_date, c.calendar_date, s.stamp, s.id_user 
             FROM Calendar c 
-            LEFT JOIN Schedule s ON s.id_calendar = c.id_date AND s.id_user = 2
+            LEFT JOIN Schedule s ON s.id_calendar = c.id_date AND s.id_user = 3
             WHERE c.id_date BETWEEN $start_date_id AND ($start_date_id + $total_days);";
 
             $result = $conn->query($sql);
