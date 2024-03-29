@@ -137,34 +137,34 @@ require_once 'db.php';
             WHERE c.id_date BETWEEN $start_date_id AND ($start_date_id + $total_days);";
 
             $result = $conn->query($sql);
-            while ($row = $result->fetch_assoc()):
+            while ($row = $result->fetch_assoc()){
                 $day_week = date('w', strtotime($row['calendar_date']));
                 $day = ltrim(date('d', strtotime($row['calendar_date'])), '0');
-                if ($day_week == 1):?> 
-                    <li class="hrr-box">
+
+                if ($day_week == 1){
+                    echo 
+                    "<li class='hrr-box'>
                         <span>Semana</span>
-                        <div class="hrr-day">
-                <?php endif ?> 
-                <ul>
-                    <li class="day-nam"><?php echo $day ?></li>
-                    <li>
-                        <?php 
-                        if ($row['stamp']) {
+                            <div class='hrr-day'>";
+                } 
+                if ($day_week > 5 && $row['stamp']) {
+                    echo
+                    "<ul>
+                        <li class='day-nam'>$day</li>";
+                        if ($row['stamp']){
                             $array = str_split(trim($row['stamp']), 5);
-                            foreach ($array as $value):?>
-                            <li><?php echo $value ?></li>
-                            <?php endforeach;
+                            foreach ($array as $value){
+                                echo "<li><$value</li>";
+                            }
                         }
-                        ?>
-                    </li>
-                </ul>
-                <?php
-                if ($day_week == 7):?> 
-                        </div>
-                    </li>
-                <?php endif ?> 
-            <?php 
-            endwhile;
+                        echo
+                    "</ul>";
+                }
+                if ($day_week == 7){
+                    echo "</div>
+                    </li>";
+                }
+            }
             ?>
         </ul>
     </section>
