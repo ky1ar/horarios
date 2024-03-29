@@ -386,6 +386,7 @@ body {
 }
 #timeline .container {
     margin-top: 0.5rem;
+    z-index: 1;
 }
 #timeline .block {
     background-color: #d0e6a5;
