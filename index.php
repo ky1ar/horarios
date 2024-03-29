@@ -151,7 +151,7 @@ require_once 'db.php';
                 if ($row['stamp'] || ($day_week<6 && $day_week !=0) ) {
                     echo
                     "<ul>
-                        <li class='day-nam'>" . $day_names[$day_week+1] . " $day</li>";
+                        <li class='day-nam'>" . $day_names[$day_week-1] . " $day</li>";
                         if ($row['stamp']){
                             $array = str_split(trim($row['stamp']), 5);
                             foreach ($array as $value){
