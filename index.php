@@ -143,8 +143,8 @@ require_once 'db.php';
                     <?php
                     $result = $conn->query($sql);
                     while ($row = $result->fetch_assoc()):
-                        $day = date('w', strtotime($row['calendar_date']));
-                        $day = ltrim(date('d', strtotime($day)), '0');
+                        //$day = date('w', strtotime($row['calendar_date']));
+                        $day = ltrim(date('d', strtotime($row['calendar_date'])), '0');
                         ?>
                             <li class="day-nam"><?php echo $day ?></li>
                             <li><?php echo $row['stamp'] ?></li>
