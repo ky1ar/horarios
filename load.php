@@ -249,6 +249,17 @@ require_once 'db.php';
                         foreach ($row as $element) {
                             $date_id = $start_date_id + $offset;
                             if ($element != '') {
+                                for ($i = 0; $i < count($element) - 1; $i++) {
+                                    $current = strtotime($element[$i]);
+                                    $next = strtotime($element[$i + 1]);
+                                    $offset_minutes = ($next - $current) / 60;
+                                
+                                    if ($offset_minutes <= 7) {
+                                        unset($element[$i + 1]);
+                                    }
+                                }
+                                $element = array_values($element);
+                                //$element = str_replace(":", "", $element);
                                 $insert_query .= "(" . $store_id . ", " . $date_id . ", '" . $element . "'), ";
                             }
                             $offset++;
