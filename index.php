@@ -131,7 +131,7 @@ require_once 'includes/common/header.php';
 
             
 
-            $sql = "SELECT s.id_schedule, c.id_date, c.calendar_date, s.stamp, s.id_user FROM Calendar c LEFT JOIN Schedule s ON s.id_calendar = c.id_date AND s.id_user = 2 WHERE c.id_date BETWEEN $start_date_id AND ($start_date_id + $total_days);";
+            $sql = "SELECT s.id_schedule, c.id_date, c.calendar_date, s.stamp, s.id_user FROM Calendar c LEFT JOIN Schedule s ON s.id_calendar = c.id_date AND s.id_user = 14 WHERE c.id_date BETWEEN $start_date_id AND ($start_date_id + $total_days);";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc()){
                 $day_week = date('w', strtotime($row['calendar_date']));
