@@ -115,10 +115,13 @@ require_once 'db.php';
             $selected_interval = '2024-03-01';
 
             $total_days = date('t', strtotime($selected_interval));
+            echo "$total_days ";
             $day_of_week = date('w', strtotime($selected_interval));
-
+            echo "$day_of_week ";
             $start_date = date('Y-m-d', strtotime("-$day_of_week days +1 day", strtotime($selected_interval)));
+            echo "$start_date ";
             $total_days = $total_days + $day_of_week;
+            echo "$total_days ";
 
             $start_date_id = 0;
             $sql = "SELECT id_date FROM Calendar WHERE calendar_date = ?";
