@@ -140,7 +140,7 @@ require_once 'includes/common/header.php';
                 if ($day_week == 1){
                     
                 } 
-                if ($row['stamp'] || ($day_week<6 && $day_week !=0) ) {
+                if ($row['stamp']  ) {
                     echo
                     "<ul>
                         <li class='day-nam'>" . $day_names[$day_week-1] . " $day</li>";
