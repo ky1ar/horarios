@@ -11,25 +11,7 @@ require_once 'includes/common/header.php';
     require_once 'includes/bar/navigationBar.php';  
     ?>
     <section id="patternBody">
-
-    </section>
-    <aside id="ky1-lft">
-        <a href="" class="ky1-lgo"><img src="assets/img/logod.webp" alt=""></a>
-        <ul class="ky1-lst">
-            <?php 
-            $sql = "SELECT * FROM Location ORDER BY name";
-            $result = $conn->query($sql);
-            while ($row = $result->fetch_assoc()):?>
-                <li data-id="<?php echo $row['id_location'] ?>" data-slug="<?php echo $row['slug'] ?>">
-                    <img src="assets/img/cal.svg" width="20" height="20" alt=""><?php echo $row['name'] ?>
-                </li>
-            <?php 
-            endwhile; 
-            ?>
-        </ul>
-    </aside>
-    <section id="ky1-rgt">
-        <header>
+    <header>
             <div class="ky1-ttl">
                 <h1>Horarios</h1>
                 <span>Registro biométrico del mes</span>
@@ -169,6 +151,7 @@ require_once 'includes/common/header.php';
             ?>
         </ul>
     </section>
+   
     <?php require_once 'includes/common/footer.php'; ?>
 </body>
 </html>

@@ -6,7 +6,7 @@
             $sql = "SELECT * FROM Location ORDER BY name";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc()):?>
-                <li><a <?php if($currentPage == $row['name']) echo 'class="active"'; ?> href="/"><?php echo $row['name'] ?></a></li>
+                <li><a <?php if($currentPage == $row['name']) echo 'class="active"'; ?> href="/<?php echo $row['slug'] ?>"><?php echo $row['name'] ?></a></li>
             <?php 
             endwhile; 
             ?>
