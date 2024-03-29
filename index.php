@@ -163,7 +163,7 @@ require_once 'includes/common/header.php';
                                 $total = $close - $open;
                                 $height = $total/60*32;
 
-                                echo "<li style='height: $height.px; margin-top=$margin.px;'>".$array[$i]."</li>";
+                                echo "<li style='height: ".$height."px; margin-top: ".$margin."px;'>".$array[$i]."</li>";
                             }
                         }
                         echo
