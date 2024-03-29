@@ -120,15 +120,16 @@ require_once 'includes/common/header.php';
             WHERE c.id_date BETWEEN $start_date_id AND ($start_date_id + $total_days);";
 
             $result = $conn->query($sql);
+            echo 
+                    "<li class='hrr-box'>".
+                        //"<span>Semana</span>".
+                            "<div class='hrr-day'>";
             while ($row = $result->fetch_assoc()){
                 $day_week = date('w', strtotime($row['calendar_date']));
                 $day = ltrim(date('d', strtotime($row['calendar_date'])), '0');
 
                 if ($day_week == 1){
-                    echo 
-                    "<li class='hrr-box'>".
-                        //"<span>Semana</span>".
-                            "<div class='hrr-day'>";
+                    
                 } 
                 if ($row['stamp'] || ($day_week<6 && $day_week !=0) ) {
                     echo
@@ -144,9 +145,10 @@ require_once 'includes/common/header.php';
                     "</ul>";
                 }
                 if ($day_week == 7){
-                    echo "</div>
-                    </li>";
+                    
                 }
+                echo "</div>
+                    </li>";
             }
             ?>
         </ul>
