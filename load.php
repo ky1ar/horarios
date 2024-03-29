@@ -251,7 +251,7 @@ require_once 'db.php';
                             if ($element != '') {
                                 $split = str_split($element, 5);
                                 echo json_encode($split);
-                                echo "\n"
+                                echo "\n";
                                 foreach ($split as $id => $value) {
                                     if (isset($split[$id + 1])) {
                                         $current = strtotime($value);
