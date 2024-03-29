@@ -144,7 +144,7 @@ require_once 'includes/common/header.php';
                     echo
                     "<div class='schedule'>
                         <span><b>$day</b>".$day_names[$day_week-1]."</span>
-                        <ul>";
+                        <div class='container'>";
                         if ($row['stamp']){
                             $array = str_split(trim($row['stamp']), 5);
                             $lenght = count($array)-1;
@@ -163,11 +163,11 @@ require_once 'includes/common/header.php';
                                 $total = $close - $open;
                                 $height = $total/60*32;
 
-                                echo "<li style='height: ".$height."px; margin-top: ".$margin."px;'>".$array[$i]."</li>";
+                                echo "<div class='block' style='height: ".$height."px; margin-top: ".$margin."px;'>".$array[$i]."</div>";
                             }
                         }
                         echo
-                        "</ul>
+                        "</div>
                     </div>";
                 }
                 if ($day_week == 7){
