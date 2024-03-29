@@ -250,30 +250,30 @@ require_once 'db.php';
                             $date_id = $start_date_id + $offset;
                             if ($element != '') {
                                 $split = str_split($element, 5);
-                                print_r($split);
-                                for ($i = 0; $i < count($split) - 1; $i++) {
-                                    $current = strtotime($split[$i]);
-                                    $next = strtotime($split[$i + 1]);
-                                    $offset_minutes = ($next - $current) / 60;
+                                foreach ($split as $id => $value) {
+                                    if (isset($split[$id + 1])) {
+                                        $current = strtotime($value);
+                                        $next = strtotime($split[$id + 1]);
+                                        $offset_minutes = ($next - $current) / 60;
                                 
-                                    if ($offset_minutes <= 7) {
-                                        unset($split[$i + 1]);
+                                        if ($offset_minutes <= 7) {
+                                            unset($split[$id + 1]);
+                                        }
                                     }
                                 }
                                 $split = array_values($split);
                                 $element = implode(", ", $split);
-
                                 //$element = str_replace(":", "", $element);
                                 $insert_query .= "(" . $store_id . ", " . $date_id . ", '" . $element . "'), ";
                             }
                             $offset++;
                         }
-                        /*$insert_query = rtrim($insert_query, ", ");
+                        $insert_query = rtrim($insert_query, ", ");
                         if ($conn->query($insert_query) === TRUE) {
                             echo "Se insertaron los registros correctamente.";
                         } else {
                             echo "Error al insertar los registros: " . $conn->error;
-                        }*/
+                        }
                         $store = false;
                     } else {
                         $full_row = implode(",", $row);
