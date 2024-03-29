@@ -119,7 +119,6 @@ require_once 'db.php';
 
             $start_date = date('Y-m-d', strtotime("-$day_of_week days +1 day", strtotime($selected_interval)));
             $total_days = $total_days + $day_of_week;
-            $end_date = date('Y-m-d', strtotime("+$total_days days", strtotime($selected_interval)));
 
             $start_date_id = 0;
             $sql = "SELECT id_date FROM Calendar WHERE calendar_date = ?";
@@ -148,7 +147,16 @@ require_once 'db.php';
                 <?php endif ?> 
                 <ul>
                     <li class="day-nam"><?php echo $day ?></li>
-                    <li><?php echo $row['stamp'] ?></li>
+                    <li>
+                        <?php 
+                        if ($row['stamp']) {
+                            $array = str_split($row['stamp'], 4);
+                            foreach ($array as $value):?>
+                            <li><?php echo $value ?></li>
+                            <?php endforeach;
+                        }
+                        ?>
+                    </li>
                 </ul>
                 <?php
                 if ($day_week == 7):?> 
