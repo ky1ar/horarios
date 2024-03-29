@@ -368,6 +368,7 @@ body {
 #timeline .schedule ul li {
     position: relative;
     opacity: 0.35;
+    line-height: 1rem;
 }
 #timeline .schedule ul li.hightlight {
     font-weight: 600;
