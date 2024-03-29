@@ -333,7 +333,7 @@ body {
     box-shadow: 0 0 0.25rem var(--graydark);
     padding: 0.5rem;
     display: flex;
-    gap: 1rem;
+    gap: 0.25rem;
 }
 #timeline .schedule {
     display: flex;
@@ -389,9 +389,16 @@ body {
 }
 #timeline .block {
     background-color: #d0e6a5;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
 }
 #timeline .block:nth-child(even) {
     background-color: #ffdd95;
+}
+#timeline .block span {
+
 }
 /***********************************************************************************/
 

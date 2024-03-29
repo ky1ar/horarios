@@ -165,7 +165,7 @@ require_once 'includes/common/header.php';
                                 } else {
                                     $height = '0';
                                 }
-                                echo "<div class='block' style='height: ".$height."px; margin-top: ".$margin."px;'>".$array[$i]."</div>";
+                                echo "<div class='block' style='height: ".$height."px; margin-top: ".$margin."px;'><span>".$array[$i]."</span></div>";
                                 $margin = '0';
                             }
                         }
