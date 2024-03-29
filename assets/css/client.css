@@ -385,6 +385,7 @@ body {
 #timeline .container {
     margin-top: 0.5rem;
     z-index: 1;
+    cursor: pointer;
 }
 #timeline .block {
     background-color: #d0e6a5;
@@ -398,7 +399,6 @@ body {
 }
 #timeline .block span {
     opacity: 0;
-    cursor: pointer;
     transition: all 0.2s ease-in-out;
 }
 #timeline .container:hover span {
