@@ -367,12 +367,12 @@ body {
 }
 #timeline .schedule ul li {
     position: relative;
-    opacity: 0.35;
+    color: #d9d9d9;
     line-height: 1rem;
 }
 #timeline .schedule ul li.hightlight {
     font-weight: 600;
-    opacity: 0.5;
+    color: #999999;
 }
 #timeline .schedule ul.lines li::after {
     content: "";
@@ -380,7 +380,7 @@ body {
     position: absolute;
     top: 0.5rem;
     width: 90vw;
-    background-color: #ebebeb;
+    background-color: #f2f2f2;
     left: 0;
     margin-left: 4rem;
 }
