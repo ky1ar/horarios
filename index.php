@@ -151,7 +151,7 @@ require_once 'db.php';
                     <li><?php echo $row['stamp'] ?></li>
                 </ul>
                 <?php
-                if ($day_week == 6):?> 
+                if ($day_week == 7):?> 
                         </div>
                     </li>
                 <?php endif ?> 
