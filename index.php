@@ -148,7 +148,7 @@ require_once 'db.php';
                 foreach ($intervalo_fechas as $fecha) {
                     $encontrado = false;
                     foreach ($result as $resultado) {
-                        if ($resultado[1] === $fecha) {
+                        if ($resultado['calendar_date'] === $fecha) {
                             $final[] = $resultado;
                             $encontrado = true;
                             break;
