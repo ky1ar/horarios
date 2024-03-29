@@ -397,7 +397,11 @@ body {
     background-color: #ffdd95;
 }
 #timeline .block span {
-
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+}
+#timeline .container:hover span {
+    opacity: 1;
 }
 /***********************************************************************************/
 
