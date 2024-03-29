@@ -120,7 +120,7 @@ require_once 'db.php';
             echo "$day_of_week ";
             $start_date = date('Y-m-d', strtotime("-$day_of_week days +1 day", strtotime($selected_interval)));
             echo "$start_date ";
-            $total_days = $total_days + $day_of_week;
+            $total_days = $total_days + $day_of_week - 1;
             echo "$total_days ";
 
             $start_date_id = 0;
