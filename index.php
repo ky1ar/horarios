@@ -114,70 +114,45 @@ require_once 'db.php';
             <li class="hrr-box">
                 <?php 
                 $selected_interval = '2024-03-01';
-                $days_in_month = date('t', strtotime($selected_interval));
-                
-                $day_of_week = date('w', strtotime($selected_interval));
-                $start_date = date('Y-m-d', strtotime("-$day_of_week days +1 day", strtotime($selected_interval)));
 
-                $total_days = $days_in_month + $day_of_week;
+                $total_days = date('t', strtotime($selected_interval));
+                $day_of_week = date('w', strtotime($selected_interval));
+
+                $start_date = date('Y-m-d', strtotime("-$day_of_week days +1 day", strtotime($selected_interval)));
+                $total_days = $total_days + $day_of_week;
                 $end_date = date('Y-m-d', strtotime("+$total_days days", strtotime($selected_interval)));
 
-                $new_date_id = 0;
+                $start_date_id = 0;
                 $sql = "SELECT id_date FROM Calendar WHERE calendar_date = ?";
                 $stmt = $conn->prepare($sql);
                 $stmt->bind_param("s", $start_date);
                 $stmt->execute();
                 $stmt->bind_result($id_date);
                 if ($stmt->fetch()) {
-                    $new_date_id = $id_date;
+                    $start_date_id = $id_date;
                 }
                 $stmt->close();
 
-                $sql = "SELECT s.stamp, c.calendar_date FROM Schedule s INNER JOIN Calendar c ON c.id_date = s.id_calendar WHERE id_user = 2 AND id_calendar >= $new_date_id AND id_calendar <= ($new_date_id + $total_days)";
-                $result = $conn->query($sql);
-                $result = $result->fetch_all(MYSQLI_ASSOC);
-
-                $intervalo_fechas = [];
-                $fecha_actual = new DateTime($start_date);
-                $fecha_final_obj = new DateTime($end_date);
-                while ($fecha_actual <= $fecha_final_obj) {
-                    $intervalo_fechas[] = $fecha_actual->format('Y-m-d');
-                    $fecha_actual->modify('+1 day');
-                }
-
-                $final = [];
-                foreach ($intervalo_fechas as $fecha) {
-                    $encontrado = false;
-                    foreach ($result as $resultado) {
-                        if ($resultado['calendar_date'] === $fecha) {
-                            $final[] = $resultado;
-                            $encontrado = true;
-                            break;
-                        }
-                    }
-                    if (!$encontrado) {
-                        $final[] = ['stamp' => '', 'calendar_date' => $fecha];
-                    }
-                }
-                print_r($final);
-                //$day = 1;
-                //while ($day <= $total_days) {
-                    //$sql = "SELECT s.stamp, c.calendar_date FROM Schedule s INNER JOIN Calendar c ON c.id_date = s.id_calendar WHERE id_user = 2 AND id_calendar >= $new_date_id AND id_calendar <= ($new_date_id + $total_days)";
-                    //$day++;
-                //}
-
-                $firstIndex = true;
-                $sql = "SELECT u.id_user, u.slug, u.name, a.name as area FROM Users u INNER JOIN Profile p ON u.id_profile = p.id_profile INNER JOIN Area a ON u.id_area = a.id_area WHERE u.id_location = 1 ORDER BY u.name";
-                $result = $conn->query($sql);
-                while ($row = $result->fetch_assoc()):?>
-                    <li <?php echo $firstIndex ? 'class="active"':'' ?> data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
-                        <img src="assets/img/<?php echo $row['slug'] ?>.png" alt="">
-                        <h3><?php echo $row['name'] ?></h3>
-                    </li>
-                <?php 
-                $firstIndex = false;
-                endwhile; 
+                $sql = "SELECT s.id_schedule, c.id_date, c.calendar_date, s.stamp, s.id_user 
+                FROM Calendar c 
+                LEFT JOIN Schedule s ON s.id_calendar = c.id_date AND s.id_user = 2
+                WHERE c.id_date BETWEEN $start_date_id AND ($start_date_id + $total_days);";
                 ?>
+                <div class="hrr-day">
+                    <ul>
+                    <?php
+                    $result = $conn->query($sql);
+                    while ($row = $result->fetch_assoc()):
+                        $day = date('w', strtotime($row['calendar_date']));
+                        $day = ltrim(date('d', strtotime($day)), '0');
+                        ?>
+                            <li class="day-nam"><?php echo $day ?></li>
+                            <li><?php echo $row['stamp'] ?></li>
+                    <?php 
+                    endwhile;
+                    ?>
+                    </ul>
+                </div>
                 <span>Semana 1</span>
                 <div class="hrr-day">
                     <ul>
