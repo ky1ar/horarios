@@ -121,8 +121,6 @@ require_once 'db.php';
                 $total_days = $days_in_month + $day_of_week;
                 $end_date = date('Y-m-d', strtotime("+$total_days days", strtotime($selected_interval)));
 
-                echo "$start_date y $end_date";
-               
                 $new_date_id = 0;
                 $sql = "SELECT id_date FROM Calendar WHERE calendar_date = ?";
                 $stmt = $conn->prepare($sql);
@@ -137,8 +135,30 @@ require_once 'db.php';
                 $sql = "SELECT s.stamp, c.calendar_date FROM Schedule s INNER JOIN Calendar c ON c.id_date = s.id_calendar WHERE id_user = 2 AND id_calendar >= $new_date_id AND id_calendar <= ($new_date_id + $total_days)";
                 $result = $conn->query($sql);
                 $result = $result->fetch_all(MYSQLI_ASSOC);
-                print_r($result);
 
+                $intervalo_fechas = [];
+                $fecha_actual = new DateTime($start_date);
+                $fecha_final_obj = new DateTime($end_date);
+                while ($fecha_actual <= $fecha_final_obj) {
+                    $intervalo_fechas[] = $fecha_actual->format('Y-m-d');
+                    $fecha_actual->modify('+1 day');
+                }
+
+                $final = [];
+                foreach ($intervalo_fechas as $fecha) {
+                    $encontrado = false;
+                    foreach ($result as $resultado) {
+                        if ($resultado[1] === $fecha) {
+                            $final[] = $resultado;
+                            $encontrado = true;
+                            break;
+                        }
+                    }
+                    if (!$encontrado) {
+                        $final[] = ['a', $fecha];
+                    }
+                }
+                print_r($final);
                 //$day = 1;
                 //while ($day <= $total_days) {
                     //$sql = "SELECT s.stamp, c.calendar_date FROM Schedule s INNER JOIN Calendar c ON c.id_date = s.id_calendar WHERE id_user = 2 AND id_calendar >= $new_date_id AND id_calendar <= ($new_date_id + $total_days)";
