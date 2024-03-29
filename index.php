@@ -139,10 +139,10 @@ require_once 'db.php';
 
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc()):
-                $day = date('w', strtotime($row['calendar_date']));
+                $day_week = date('w', strtotime($row['calendar_date']));
                 echo $day;
                 $day = ltrim(date('d', strtotime($row['calendar_date'])), '0');
-                if ($day == 1):?> 
+                if ($day_week == 1):?> 
                     <li class="hrr-box">
                         <span>Semana</span>
                         <div class="hrr-day">
@@ -152,7 +152,7 @@ require_once 'db.php';
                     <li><?php echo $row['stamp'] ?></li>
                 </ul>
                 <?php
-                if ($day == 6):?> 
+                if ($day_week == 6):?> 
                         </div>
                     </li>
                 <?php endif ?> 
