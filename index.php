@@ -14,7 +14,7 @@ require_once 'includes/common/header.php';
     <header>
             <div class="ky1-ttl">
                 <h1>Horarios</h1>
-                <span>Registro biométrico del mes</span>
+                <span>Registro biométrico del mess</span>
             </div>
             <div class="ky1-dte">
                 <img src="assets/img/cal.svg" width="20" height="20" alt="">
