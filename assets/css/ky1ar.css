@@ -61,7 +61,7 @@ body {
 }
 /***************************************************************************/
 #ky1-lft {
-    padding: 2.5rem;
+    padding: 1.5rem;
 }
 #ky1-lft .ky1-lgo {
     display: block;
@@ -69,7 +69,6 @@ body {
 #ky1-lft .ky1-lgo img {
     width: 10rem;
     height: 3rem;
-    margin-right: 1rem;
 }
 #ky1-lft .ky1-lst {
     margin: 0;
@@ -86,6 +85,7 @@ body {
     font-size: 1rem;
     font-weight: 500;
     align-items: center;
+    justify-content: center;
 }
 /***************************************************************************/
 #ky1-rgt {
