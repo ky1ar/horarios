@@ -9,14 +9,14 @@ require_once 'db.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="assets/img/fav.png">
-    <title>Krear 3D | Horarioss</title>
+    <title>Krear 3D | Horarios</title>
     <?php require_once 'header.php'; ?>
 </head>
 <body>
     <aside id="ky1-lft">
         <a href="" class="ky1-lgo"><img src="assets/img/logod.webp" alt=""></a>
         <ul class="ky1-lst">
-            <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Horarios</li>
+            <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Horariosa</li>
             <!-- <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Historial</li>
             <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Anuncios</li> -->
         </ul>
