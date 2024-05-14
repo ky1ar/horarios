@@ -208,7 +208,7 @@ body {
     border-radius: 0.75rem;
 }
 #selectedUser #userList::-webkit-scrollbar-track {
-    background-color: transparent;
+    background-color: white;
 }
 
 
