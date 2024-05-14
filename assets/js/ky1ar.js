@@ -1,5 +1,3 @@
-
-
 $( document ).ready(function() {
   
     
@@ -67,7 +65,5 @@ $( document ).ready(function() {
         userName.text($this.data('name'));
         userCategory.text($this.data('category'));
     });
-
+    
 });
-
-

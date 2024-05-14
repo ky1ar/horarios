@@ -5,6 +5,7 @@ require_once 'db.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,7 @@ require_once 'db.php';
     <title>Krear 3D | Horarios</title>
     <?php require_once 'header.php'; ?>
 </head>
+
 <body>
     <aside id="ky1-lft">
         <a href="" class="ky1-lgo"><img src="assets/img/logod.webp" alt=""></a>
@@ -48,24 +50,26 @@ require_once 'db.php';
                     </span>
                     <div id="userList">
                         <ul>
-                            <?php 
+                            <?php
                             $firstIndex = true;
                             $sql = "SELECT u.id_user, u.slug, u.name, a.name as area FROM Users u INNER JOIN Profile p ON u.id_profile = p.id_profile INNER JOIN Area a ON u.id_area = a.id_area ORDER BY u.name";
-                                $result = $conn->query($sql);
-                                while ($row = $result->fetch_assoc()):?>
-                                    <li <?php echo $firstIndex ? 'class="active"':'' ?> data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
+                            $result = $conn->query($sql);
+                            while ($row = $result->fetch_assoc()) : ?>
+                                <li <?php echo $firstIndex ? 'class="active"' : '' ?> data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>" onclick="getUserSchedule(<?php echo $row['id_user'] ?>)">
                                     <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
                                     <h3><?php echo $row['name'] ?></h3>
-                                    </li>
-                                <?php 
+                                </li>
+                            <?php
                                 $firstIndex = false;
-                                endwhile; 
+                            endwhile;
                             ?>
                         </ul>
                     </div>
+
                 </div>
             </div>
         </header>
+
         <ul class="ky1-rsm">
             <li>
                 <div class="box-img img-1">
@@ -350,7 +354,7 @@ require_once 'db.php';
 
         </ul>
 
-        <?php 
+        <?php
         $firstIndex = true;
         $sql = "SELECT id_user, dni FROM Users";
         $result = $conn->query($sql);
@@ -367,7 +371,7 @@ require_once 'db.php';
             $start_date_id = 0;
 
             while (($row = fgetcsv($reader, 1000, ",")) !== FALSE) {
-                if ($n == 2) {  
+                if ($n == 2) {
                     foreach ($row as $element) {
                         if (strpos($element, "~") !== false) {
                             $start_date = substr($element, 0, 10);
@@ -385,21 +389,21 @@ require_once 'db.php';
                         }
                     }
                 } elseif ($n > 3) {
-                    if ($store){
+                    if ($store) {
                         $insert_query = "INSERT IGNORE INTO Schedule (id_user, id_calendar, stamp) VALUES ";
                         $offset = 0;
                         foreach ($row as $element) {
                             $date_id = $start_date_id + $offset;
                             if ($element != '') {
                                 $split = str_split($element, 5);
-                                echo json_encode($split);
-                                echo "\n";
+                                // echo json_encode($split);
+                                // echo "\n";
                                 foreach ($split as $id => $value) {
                                     if (isset($split[$id + 1])) {
                                         $current = strtotime($value);
                                         $next = strtotime($split[$id + 1]);
                                         $offset_minutes = ($next - $current) / 60;
-                                
+
                                         if ($offset_minutes <= 7) {
                                             unset($split[$id + 1]);
                                         }
@@ -440,5 +444,30 @@ require_once 'db.php';
         }
         ?>
     </section>
+    <script>
+        function getUserSchedule(userId) {
+    // Envía una solicitud AJAX al servidor
+    $.ajax({
+        url: 'get_user_schedule.php', // Ruta al script PHP
+        method: 'POST',
+        data: { userId: userId }, // Datos que se enviarán al servidor (el id del usuario)
+        dataType: 'json', // Esperamos recibir datos JSON del servidor
+        success: function(response) {
+            // Maneja la respuesta del servidor
+            if (response.success) {
+                // Procesa los datos y muestra el horario en la página
+                console.log(response.schedule); // Aquí puedes manejar los datos recibidos, por ejemplo, mostrándolos en una lista en la página
+            } else {
+                console.error(response.message); // Muestra un mensaje de error si algo salió mal en el servidor
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error en la solicitud AJAX:', error); // Muestra un mensaje de error si la solicitud AJAX falla
+        }
+    });
+}
+
+    </script>
 </body>
+
 </html>

@@ -303,8 +303,9 @@ body {
     margin: 0;
     list-style: none;
     display: flex;
-    gap: 2rem;
+    gap: 1.5rem;
     padding: 1rem;
+    flex-wrap: wrap;
 }
 #ky1-rgt .ky1-hrr .hrr-box {
     /* flex: 1; */
