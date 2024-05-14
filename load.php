@@ -37,6 +37,9 @@ require_once 'db.php';
                 <div class="usr-btn" id="previousUser">
                     <img src="assets/img/r.svg" width="12" height="12" alt="">
                 </div>
+                <div class="usr-btn" id="nextUser">
+                    <img src="assets/img/r.svg" width="12" height="12" alt="">
+                </div>
                 <div id="selectedUser" data-id="19">
                     <img id="userImage" src="assets/img/profiles/kenny.png" alt="">
                     <span>
@@ -60,9 +63,6 @@ require_once 'db.php';
                             ?>
                         </ul>
                     </div>
-                </div>
-                <div class="usr-btn" id="nextUser">
-                    <img src="assets/img/r.svg" width="12" height="12" alt="">
                 </div>
             </div>
         </header>
