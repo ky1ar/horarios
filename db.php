@@ -1,7 +1,7 @@
 <?php
 
 $servername = "localhost";
-$username = "root";
+$username = "u809802095_horarios";
 $password = "";
 $database = "u809802095_horarios";
 
