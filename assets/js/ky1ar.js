@@ -29,7 +29,7 @@ $( document ).ready(function() {
     const userCategory = $('#userCategory');
 
     const userImage = $('#userImage');
-    const imagePath = 'assets/img/';
+    const imagePath = 'assets/img/profiles/';
     
     function updateUser(offset){
 
