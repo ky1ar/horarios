@@ -16,7 +16,7 @@ require_once 'db.php';
     <aside id="ky1-lft">
         <a href="" class="ky1-lgo"><img src="assets/img/logod.webp" alt=""></a>
         <ul class="ky1-lst">
-            <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Horariosa</li>
+            <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Horarios</li>
             <!-- <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Historial</li>
             <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Anuncios</li> -->
         </ul>
@@ -251,8 +251,8 @@ require_once 'db.php';
                             $date_id = $start_date_id + $offset;
                             if ($element != '') {
                                 $split = str_split($element, 5);
-                                // echo json_encode($split);
-                                // echo "\n";
+                                echo json_encode($split);
+                                echo "\n";
                                 foreach ($split as $id => $value) {
                                     if (isset($split[$id + 1])) {
                                         $current = strtotime($value);
