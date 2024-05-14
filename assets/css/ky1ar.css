@@ -181,6 +181,7 @@ body {
     opacity: 0.75;
 }
 #selectedUser #userList {
+    border-radius: 0.75rem 0 0 0.75rem;
     margin: 0;
     padding: 0;
     position: absolute;
@@ -189,21 +190,26 @@ body {
     margin-top: 4rem;
     top: 0;
     z-index: 1;
-    visibility: hidden;
-    opacity: 0;
+    
     transition: all 0.25s ease-in-out;
     max-height: 700px;
     overflow-y: auto; 
+    box-shadow: 0px 0px 5px 5px rgb(206, 206, 206);
 }
 
 #selectedUser #userList::-webkit-scrollbar {
-    width: 5px;
+    width: 3px;
+    height: 10px;
 }
 
 #selectedUser #userList::-webkit-scrollbar-thumb {
-    background-color: #c7c7c7;
-    border-radius: 0.75rem; 
+    background-color: #ffa880;
+    border-radius: 0.75rem;
 }
+#selectedUser #userList::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
 
 #selectedUser:hover #userList, 
 #selectedUser #userList:hover {
@@ -220,7 +226,7 @@ body {
     gap: 1rem;
     background-color: #fff;
     padding: 1rem;
-    border-radius: 0.75rem;
+    /* border-radius: 0.75rem; */
     box-shadow: 0 0.5rem 1rem #bfbfbf;
 }
 #selectedUser #userList ul li {
