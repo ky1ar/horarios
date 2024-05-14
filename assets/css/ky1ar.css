@@ -129,7 +129,7 @@ body {
 #ky1-rgt header .ky1-usr {
     display: flex;
     justify-content: space-between;
-    gap: 2rem;
+    gap: 1rem;
     align-items: center;
 }
 #ky1-rgt header .ky1-usr .usr-btn {
@@ -149,6 +149,9 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
+}
+#ky1-rgt header .ky1-usr #previousUser img{
+    transform: scaleX(-1);  
 }
 /***************************************************************************/
 #selectedUser {
@@ -183,13 +186,25 @@ body {
     position: absolute;
     right: -2rem;
     left: -2rem;
-    padding-top: 4rem;
+    margin-top: 4rem;
     top: 0;
     z-index: 1;
     visibility: hidden;
     opacity: 0;
     transition: all 0.25s ease-in-out;
+    max-height: 700px;
+    overflow-y: auto; 
 }
+
+#selectedUser #userList::-webkit-scrollbar {
+    width: 5px;
+}
+
+#selectedUser #userList::-webkit-scrollbar-thumb {
+    background-color: #c7c7c7;
+    border-radius: 0.75rem; 
+}
+
 #selectedUser:hover #userList, 
 #selectedUser #userList:hover {
     visibility: visible;
