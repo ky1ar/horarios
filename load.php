@@ -17,8 +17,8 @@ require_once 'db.php';
         <a href="" class="ky1-lgo"><img src="assets/img/logod.webp" alt=""></a>
         <ul class="ky1-lst">
             <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Horarios</li>
-            <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Historial</li>
-            <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Anuncios</li>
+            <!-- <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Historial</li>
+            <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Anuncios</li> -->
         </ul>
     </aside>
     <section id="ky1-rgt">
@@ -28,16 +28,17 @@ require_once 'db.php';
                 <span>Registro biométrico del mes</span>
             </div>
             <div class="ky1-dte">
+                <img src="assets/img/r.svg" width="12" height="12" alt="">
                 <img src="assets/img/cal.svg" width="20" height="20" alt="">
                 <span>Enero, 2024</span>
-                <!--<img src="assets/img/r.svg" alt="">-->
+                <img src="assets/img/r.svg" width="12" height="12" alt="">
             </div>
             <div class="ky1-usr">
                 <div class="usr-btn" id="previousUser">
                     <img src="assets/img/r.svg" width="12" height="12" alt="">
                 </div>
                 <div id="selectedUser" data-id="19">
-                    <img id="userImage" src="assets/img/kenny.png" alt="">
+                    <img id="userImage" src="assets/img/profiles/kenny.png" alt="">
                     <span>
                         <h3 id="userName">Kenny Muñoz</h3>
                         <h4 id="userCategory">Sistemas</h4>
@@ -50,8 +51,8 @@ require_once 'db.php';
                                 $result = $conn->query($sql);
                                 while ($row = $result->fetch_assoc()):?>
                                     <li <?php echo $firstIndex ? 'class="active"':'' ?> data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
-                                        <img src="assets/img/<?php echo $row['slug'] ?>.png" alt="">
-                                        <h3><?php echo $row['name'] ?></h3>
+                                    <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
+                                    <h3><?php echo $row['name'] ?></h3>
                                     </li>
                                 <?php 
                                 $firstIndex = false;

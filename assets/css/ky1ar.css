@@ -116,8 +116,15 @@ body {
     font-weight: 500;
     font-size: 1rem;
     background-color: var(--white);
-    padding: 1rem 3rem;
+    padding: 1rem 1rem;
     border-radius: 2rem;
+}
+#ky1-rgt header .ky1-dte img:first-child{
+    transform: scaleX(-1);
+    margin-right: 5px;
+}
+#ky1-rgt header .ky1-dte img:last-child{
+    margin-left: 5px;
 }
 #ky1-rgt header .ky1-usr {
     display: flex;
