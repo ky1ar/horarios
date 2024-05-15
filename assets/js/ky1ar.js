@@ -55,48 +55,52 @@ $(document).ready(function () {
 });
 
 function getUserSchedule(userId) {
-    $.ajax({
-      url: "../routes/del/get_user_schedule.php",
-      method: "POST",
-      data: { userId: userId },
-      dataType: "json",
-      success: function (response) {
-        if (response.success) {
-          $(".ky1-hrr").empty();
-  
-          var daysCounter = 0; 
-          var $currentHrrBox; 
-          response.schedule.forEach(function (entry, index) {
-            if (index % 6 === 0) {
-              $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
-              $("<span>Semana " + (Math.floor(index / 6) + 1) + "</span>").appendTo($currentHrrBox);
-              $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
+  $.ajax({
+    url: "../routes/del/get_user_schedule.php",
+    method: "POST",
+    data: { userId: userId },
+    dataType: "json",
+    success: function (response) {
+      if (response.success) {
+        $(".ky1-hrr").empty();
+
+        var daysCounter = 0;
+        var $currentHrrBox;
+        response.schedule.forEach(function (entry, index) {
+          if (index % 6 === 0) {
+            $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
+              ".ky1-hrr"
+            );
+            $(
+              "<span>Semana " + (Math.floor(index / 6) + 1) + "</span>"
+            ).appendTo($currentHrrBox);
+            $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
+          }
+
+          var $hrrDay = $currentHrrBox.find(".hrr-day");
+          var $dayList = $("<ul></ul>").appendTo($hrrDay);
+          var dayName = entry.day_name_espanol.substring(0, 3);
+          var dayNumber = entry.day_number;
+
+          $(
+            "<li class='day-nam'>" + dayName + " " + dayNumber + "</li>"
+          ).appendTo($dayList);
+          var stamps = entry.stamp.split(",");
+          stamps.forEach(function (stamp) {
+            for (var i = 0; i < stamp.length; i += 5) {
+              $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
             }
-  
-            var $hrrDay = $currentHrrBox.find('.hrr-day');
-            var $dayList = $("<ul></ul>").appendTo($hrrDay);
-            var dayName = entry.day_name_espanol.substring(0, 3);
-            var dayNumber = entry.day_number; 
-  
-            $("<li class='day-nam'>" + dayName + " " + dayNumber + "</li>").appendTo($dayList);
-            var stamps = entry.stamp.split(",");
-            stamps.forEach(function (stamp) {
-              for (var i = 0; i < stamp.length; i += 5) {
-                $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
-              }
-            });
-            daysCounter++;
           });
-          console.log(response.schedule);
-        } else {
-          console.error(response.message);
-        }
-      },
-  
-      error: function (xhr, status, error) {
-        console.error("Error en la solicitud AJAX:", error);
-      },
-    });
-  }
-  
-  
+          daysCounter++;
+        });
+        console.log(response.schedule);
+      } else {
+        console.error(response.message);
+      }
+    },
+
+    error: function (xhr, status, error) {
+      console.error("Error en la solicitud AJAX:", error);
+    },
+  });
+}
