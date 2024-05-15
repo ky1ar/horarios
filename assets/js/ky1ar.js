@@ -64,13 +64,15 @@ function getUserSchedule(userId) {
       if (response.success) {
         $(".ky1-hrr").empty();
 
-        var daysCounter = 0; 
-        var $currentHrrBox; 
+        var daysCounter = 0;
+        var $currentHrrBox;
         response.schedule.forEach(function (entry, index) {
           var dayName = entry.day_name_espanol;
-          // Comprobar si es lunes o si es el primer día de la lista
-          if (dayName === "Lunes" || index === 0) {
-            // Crear una nueva caja para la semana
+          var dayNumber = entry.day_number;
+
+          // Comprobar si es lunes para crear una nueva caja de semana
+          if (dayName.toLowerCase() === "lunes" || index === 0) {
+            // Crear una nueva caja de semana
             $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
             $("<span>Semana " + (Math.floor(index / 6) + 1) + "</span>").appendTo($currentHrrBox);
             $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
@@ -78,15 +80,21 @@ function getUserSchedule(userId) {
 
           var $hrrDay = $currentHrrBox.find('.hrr-day');
           var $dayList = $("<ul></ul>").appendTo($hrrDay);
-          var dayNumber = entry.day_number; 
 
-          $("<li class='day-nam'>" + dayName + " " + dayNumber + "</li>").appendTo($dayList);
+          $("<li class='day-nam'>" + dayName.substring(0, 3) + " " + dayNumber + "</li>").appendTo($dayList);
           var stamps = entry.stamp.split(",");
           stamps.forEach(function (stamp) {
             for (var i = 0; i < stamp.length; i += 5) {
               $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
             }
           });
+
+          // Comprobar si es sábado para crear una nueva caja de semana
+          if (dayName.toLowerCase() === "sábado" || index === response.schedule.length - 1) {
+            // Cerrar la caja de semana actual
+            $currentHrrBox = null;
+          }
+
           daysCounter++;
         });
         console.log(response.schedule);
