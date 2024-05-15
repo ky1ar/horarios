@@ -76,7 +76,10 @@ function getUserSchedule(userId) {
             // Dividir el sello de tiempo en intervalos y agregarlos como elementos de la lista
             var stamps = entry.stamp.split(",");
             stamps.forEach(function (stamp) {
-              $("<li>" + stamp + "</li>").appendTo($dayList);
+              // Separar cada hora en li
+              for (var i = 0; i < stamp.length; i += 5) {
+                $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
+              }
             });
           });
         } else {
