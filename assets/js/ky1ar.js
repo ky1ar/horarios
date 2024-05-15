@@ -63,33 +63,30 @@ function getUserSchedule(userId) {
       success: function (response) {
         if (response.success) {
           $(".ky1-hrr").empty();
-  
-          // Array de nombres de los días de la semana
-          var daysOfWeek = ['lun', 'mar', 'mie', 'jue', 'vie', 'sab'];
-  
-          // Obtener el primer día de la semana
-          var firstDay = response.schedule[0].day_number % 7;
-          var firstDayIndex = daysOfWeek.indexOf(firstDay);
-  
-          // Iterar desde el primer día de la semana hasta el último
-          for (var i = 0; i < 6; i++) {
-            var currentDayIndex = (firstDayIndex + i) % 7;
-            var currentDayName = daysOfWeek[currentDayIndex];
-  
-            // Buscar si hay datos para este día en la respuesta AJAX
-            var currentDayData = response.schedule.find(function (entry) {
-              return entry.day_number % 7 === currentDayIndex + 1;
-            });
-  
-            // Si no hay datos para este día, añadir un objeto vacío
-            if (!currentDayData) {
-              currentDayData = { day_name_espanol: '', day_number: '' };
+
+          var daysCounter = 0; 
+          var $currentHrrBox; 
+          response.schedule.forEach(function (entry, index) {
+            if (index % 6 === 0) {
+              $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
+              $("<span>Semana " + (Math.floor(index / 6) + 1) + "</span>").appendTo($currentHrrBox);
+              $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
             }
   
-            // Agregar el día a la lista
-            addDayToList(currentDayName, currentDayData);
-          }
-  
+            var $hrrDay = $currentHrrBox.find('.hrr-day');
+            var $dayList = $("<ul></ul>").appendTo($hrrDay);
+            var dayName = entry.day_name_espanol.substring(0, 3);
+            var dayNumber = entry.day_number; 
+
+            $("<li class='day-nam'>" + dayName + " " + dayNumber + "</li>").appendTo($dayList);
+            var stamps = entry.stamp.split(",");
+            stamps.forEach(function (stamp) {
+              for (var i = 0; i < stamp.length; i += 5) {
+                $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
+              }
+            });
+            daysCounter++;
+          });
           console.log(response.schedule);
         } else {
           console.error(response.message);
@@ -100,35 +97,6 @@ function getUserSchedule(userId) {
         console.error("Error en la solicitud AJAX:", error);
       },
     });
-  
-    // Función para agregar un día a la lista
-    function addDayToList(dayName, dayData) {
-      var $currentHrrBox;
-      var $hrrDay;
-  
-      // Si es el primer día de la semana, crear un nuevo contenedor hrr-box
-      if (dayName === 'lun') {
-        $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
-        $("<span>Semana " + ($(".hrr-box").length + 1) + "</span>").appendTo($currentHrrBox);
-        $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
-        $hrrDay = $currentHrrBox.find('.hrr-day');
-      } else {
-        // Si no es el primer día de la semana, obtener el contenedor hrr-day del último hrr-box
-        $hrrDay = $(".ky1-hrr").find('.hrr-day').last();
-      }
-  
-      var $dayList = $("<ul></ul>").appendTo($hrrDay);
-      $("<li class='day-nam'>" + dayName + " " + dayData.day_number + "</li>").appendTo($dayList);
-  
-      // Agregar las horas correspondientes si hay datos para este día
-      if (dayData.stamp) {
-        var stamps = dayData.stamp.split(",");
-        stamps.forEach(function (stamp) {
-          for (var i = 0; i < stamp.length; i += 5) {
-            $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
-          }
-        });
-      }
-    }
   }
+  
   
