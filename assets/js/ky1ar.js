@@ -46,7 +46,7 @@ $(document).ready(function() {
         userName.text($this.data('name'));
         userCategory.text($this.data('category'));
 
-         
+        getUserSchedule($this.data('id'));  
     });
 });
 
