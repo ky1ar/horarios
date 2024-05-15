@@ -63,7 +63,7 @@ function getUserSchedule(userId) {
       success: function (response) {
         if (response.success) {
           $(".ky1-hrr").empty();
-
+  
           var daysCounter = 0; 
           var $currentHrrBox; 
           response.schedule.forEach(function (entry, index) {
@@ -77,7 +77,7 @@ function getUserSchedule(userId) {
             var $dayList = $("<ul></ul>").appendTo($hrrDay);
             var dayName = entry.day_name_espanol.substring(0, 3);
             var dayNumber = entry.day_number; 
-
+  
             $("<li class='day-nam'>" + dayName + " " + dayNumber + "</li>").appendTo($dayList);
             var stamps = entry.stamp.split(",");
             stamps.forEach(function (stamp) {
