@@ -66,44 +66,44 @@ function getUserSchedule(userId) {
 
         var daysCounter = 0;
         var $currentHrrBox;
-        var currentWeek = 1; // Inicializa el contador de semana en 1
-        var currentDayNumber; // Variable para llevar el seguimiento del día actual
-
         response.schedule.forEach(function (entry, index) {
           var dayName = entry.day_name_espanol;
           var dayNumber = entry.day_number;
-
-          // Crear un nuevo hrr-box al comienzo de cada grupo de días
           if (dayName.toLowerCase() === "lunes" || index === 0) {
-            // Si es un nuevo grupo de semana, reiniciar el día actual al inicio del grupo
-            currentDayNumber = parseInt(dayNumber);
-            $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
-            $("<span>Semana " + currentWeek + "</span>").appendTo($currentHrrBox);
+            $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
+              ".ky1-hrr"
+            );
+            $(
+              "<span>Semana " + (Math.floor(index / 6) + 1) + "</span>"
+            ).appendTo($currentHrrBox);
             $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
-            currentWeek++; // Aumentar el contador de semana
           }
 
-          // Agregar los días faltantes con valores específicos en base al día faltante en el grupo de semana
-          while (currentDayNumber < parseInt(dayNumber)) {
-            $("<li class='day-nam'>Dia " + currentDayNumber + "</li>").appendTo($dayList);
-            $("<li>No registrado</li>").appendTo($dayList);
-            currentDayNumber++;
-          }
-
-          var $hrrDay = $currentHrrBox.find('.hrr-day');
+          var $hrrDay = $currentHrrBox.find(".hrr-day");
           var $dayList = $("<ul></ul>").appendTo($hrrDay);
 
-          $("<li class='day-nam'>" + dayName.substring(0, 3) + " " + dayNumber + "</li>").appendTo($dayList);
+          $(
+            "<li class='day-nam'>" +
+              dayName.substring(0, 3) +
+              " " +
+              dayNumber +
+              "</li>"
+          ).appendTo($dayList);
           var stamps = entry.stamp.split(",");
           stamps.forEach(function (stamp) {
             for (var i = 0; i < stamp.length; i += 5) {
               $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
             }
           });
+          if (
+            dayName.toLowerCase() === "sábado" ||
+            index === response.schedule.length - 1
+          ) {
+            $currentHrrBox = null;
+          }
 
           daysCounter++;
         });
-
         console.log(response.schedule);
       } else {
         console.error(response.message);
