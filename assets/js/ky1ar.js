@@ -54,55 +54,6 @@ $(document).ready(function () {
   });
 });
 
-// function getUserSchedule(userId) {
-//   $.ajax({
-//     url: "../routes/del/get_user_schedule.php",
-//     method: "POST",
-//     data: { userId: userId },
-//     dataType: "json",
-//     success: function (response) {
-//       if (response.success) {
-//         $(".ky1-hrr").empty();
-
-//         var daysCounter = 0;
-//         var $currentHrrBox;
-//         response.schedule.forEach(function (entry, index) {
-//           var dayName = entry.day_name_espanol;
-//           var dayNumber = entry.day_number;
-//           if (dayName.toLowerCase() === "lunes" || index === 0) {
-//             $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
-//             $("<span>Semana " + (Math.floor(index / 6) + 1) + "</span>").appendTo($currentHrrBox);
-//             $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
-//           }
-
-//           var $hrrDay = $currentHrrBox.find('.hrr-day');
-//           var $dayList = $("<ul></ul>").appendTo($hrrDay);
-
-//           $("<li class='day-nam'>" + dayName.substring(0, 3) + " " + dayNumber + "</li>").appendTo($dayList);
-//           var stamps = entry.stamp.split(",");
-//           stamps.forEach(function (stamp) {
-//             for (var i = 0; i < stamp.length; i += 5) {
-//               $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
-//             }
-//           });
-//           if (dayName.toLowerCase() === "sábado" || index === response.schedule.length - 1) {
-//             $currentHrrBox = null;
-//           }
-
-//           daysCounter++;
-//         });
-//         console.log(response.schedule);
-//       } else {
-//         console.error(response.message);
-//       }
-//     },
-
-//     error: function (xhr, status, error) {
-//       console.error("Error en la solicitud AJAX:", error);
-//     },
-//   });
-// }
-
 function getUserSchedule(userId) {
   $.ajax({
     url: "../routes/del/get_user_schedule.php",
@@ -113,55 +64,43 @@ function getUserSchedule(userId) {
       if (response.success) {
         $(".ky1-hrr").empty();
 
-        var daysOfWeek = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
-        var currentWeek = 1;
-        var $currentHrrBox = null;
-        var currentDay = null;
-
-        response.schedule.sort(function (a, b) {
-          return new Date(a.day_name_espanol) - new Date(b.day_name_espanol);
-        });
-
-        var dayIndex = 0;
-        var lastDayNumber = response.schedule[0].day_number;
-
-        daysOfWeek.forEach(function (dayName) {
-          var entry = response.schedule.find(function (e) {
-            return e.day_name_espanol === dayName;
-          });
-
-          if (!entry) {
-            entry = { day_name_espanol: dayName, day_number: lastDayNumber, stamp: "" };
-          } else {
-            lastDayNumber = entry.day_number;
-          }
-
-          if (dayIndex % 6 === 0) {
+        var daysCounter = 0;
+        var $currentHrrBox;
+        response.schedule.forEach(function (entry, index) {
+          var dayName = entry.day_name_espanol;
+          var dayNumber = entry.day_number;
+          if (dayName.toLowerCase() === "lunes" || index === 0) {
             $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
-            $("<span>Semana " + currentWeek + "</span>").appendTo($currentHrrBox);
+            $("<span>Semana " + (Math.floor(index / 6) + 1) + "</span>").appendTo($currentHrrBox);
             $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
-            currentWeek++;
           }
 
-          var $hrrDay = $currentHrrBox.find(".hrr-day");
+          var $hrrDay = $currentHrrBox.find('.hrr-day');
           var $dayList = $("<ul></ul>").appendTo($hrrDay);
 
-          $("<li class='day-nam'>" + dayName.substring(0, 3) + " " + entry.day_number + "</li>").appendTo($dayList);
+          $("<li class='day-nam'>" + dayName.substring(0, 3) + " " + dayNumber + "</li>").appendTo($dayList);
           var stamps = entry.stamp.split(",");
           stamps.forEach(function (stamp) {
             for (var i = 0; i < stamp.length; i += 5) {
               $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
             }
           });
+          if (dayName.toLowerCase() === "sábado" || index === response.schedule.length - 1) {
+            $currentHrrBox = null;
+          }
 
-          dayIndex++;
+          daysCounter++;
         });
+        console.log(response.schedule);
       } else {
         console.error(response.message);
       }
     },
+
     error: function (xhr, status, error) {
       console.error("Error en la solicitud AJAX:", error);
     },
   });
 }
+
+  
