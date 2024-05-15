@@ -54,6 +54,53 @@ $(document).ready(function () {
   });
 });
 
+// function getUserSchedule(userId) {
+//   $.ajax({
+//     url: "../routes/del/get_user_schedule.php",
+//     method: "POST",
+//     data: { userId: userId },
+//     dataType: "json",
+//     success: function (response) {
+//       if (response.success) {
+//         $(".ky1-hrr").empty();
+
+//         var daysCounter = 0;
+//         var $currentHrrBox;
+//         var currentWeek = 1;
+//         response.schedule.forEach(function (entry, index) {
+//           var dayName = entry.day_name_espanol;
+//           var dayNumber = entry.day_number;
+//           if (dayName.toLowerCase() === "lunes" || index === 0) {
+//             $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
+//             $("<span>Semana " + currentWeek + "</span>").appendTo($currentHrrBox);
+//             $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
+//             currentWeek++; // Aumenta el contador de semana
+//           }
+
+//           var $hrrDay = $currentHrrBox.find('.hrr-day');
+//           var $dayList = $("<ul></ul>").appendTo($hrrDay);
+
+//           $("<li class='day-nam'>" + dayName.substring(0, 3) + " " + dayNumber + "</li>").appendTo($dayList);
+//           var stamps = entry.stamp.split(",");
+//           stamps.forEach(function (stamp) {
+//             for (var i = 0; i < stamp.length; i += 5) {
+//               $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
+//             }
+//           });
+//           daysCounter++;
+//         });
+
+//         console.log(response.schedule);
+//       } else {
+//         console.error(response.message);
+//       }
+//     },
+
+//     error: function (xhr, status, error) {
+//       console.error("Error en la solicitud AJAX:", error);
+//     },
+//   });
+// }
 function getUserSchedule(userId) {
   $.ajax({
     url: "../routes/del/get_user_schedule.php",
@@ -81,12 +128,20 @@ function getUserSchedule(userId) {
           var $dayList = $("<ul></ul>").appendTo($hrrDay);
 
           $("<li class='day-nam'>" + dayName.substring(0, 3) + " " + dayNumber + "</li>").appendTo($dayList);
-          var stamps = entry.stamp.split(",");
-          stamps.forEach(function (stamp) {
-            for (var i = 0; i < stamp.length; i += 5) {
-              $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
-            }
-          });
+
+          // Verifica si hay datos de estampas
+          if (entry.stamp) {
+            var stamps = entry.stamp.split(",");
+            stamps.forEach(function (stamp) {
+              for (var i = 0; i < stamp.length; i += 5) {
+                $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
+              }
+            });
+          } else {
+            // Si no hay estampas, muestra un elemento vacío
+            $("<li></li>").appendTo($dayList);
+          }
+
           daysCounter++;
         });
 
