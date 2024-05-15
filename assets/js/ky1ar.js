@@ -64,54 +64,36 @@ function getUserSchedule(userId) {
       if (response.success) {
         $(".ky1-hrr").empty();
 
-        var daysOfWeek = [
-          "Lunes",
-          "Martes",
-          "Miércoles",
-          "Jueves",
-          "Viernes",
-          "Sábado",
-        ];
-
-        daysOfWeek.forEach(function (dayName, dayIndex) {
-          var entry = response.schedule.find(function (e) {
-            return e.day_name_espanol === dayName;
-          });
-
-          var $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
-            ".ky1-hrr"
-          );
-          $(
-            "<span>Semana " + (Math.floor(dayIndex / 6) + 1) + "</span>"
-          ).appendTo($currentHrrBox);
-          $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
+        var daysCounter = 0;
+        var $currentHrrBox;
+        response.schedule.forEach(function (entry, index) {
+          if (index % 6 === 0) {
+            $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
+              ".ky1-hrr"
+            );
+            $(
+              "<span>Semana " + (Math.floor(index / 6) + 1) + "</span>"
+            ).appendTo($currentHrrBox);
+            $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
+          }
 
           var $hrrDay = $currentHrrBox.find(".hrr-day");
           var $dayList = $("<ul></ul>").appendTo($hrrDay);
+          var dayName = entry.day_name_espanol.substring(0, 3);
+          var dayNumber = entry.day_number;
 
-          if (entry) {
-            $(
-              "<li class='day-nam'>" +
-                dayName.substring(0, 3) +
-                " " +
-                entry.day_number +
-                "</li>"
-            ).appendTo($dayList);
-            var stamps = entry.stamp.split(",");
-            stamps.forEach(function (stamp) {
-              for (var i = 0; i < stamp.length; i += 5) {
-                $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
-              }
-            });
-          } else {
-            $(
-              "<li class='day-nam'>" + dayName.substring(0, 3) + "</li>"
-            ).appendTo($dayList);
-            for (var i = 0; i < 4; i++) {
-              $("<li></li>").appendTo($dayList);
+          $(
+            "<li class='day-nam'>" + dayName + " " + dayNumber + "</li>"
+          ).appendTo($dayList);
+          var stamps = entry.stamp.split(",");
+          stamps.forEach(function (stamp) {
+            for (var i = 0; i < stamp.length; i += 5) {
+              $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
             }
-          }
+          });
+          daysCounter++;
         });
+        console.log(response.schedule);
       } else {
         console.error(response.message);
       }
