@@ -6,7 +6,10 @@ if (isset($_POST['userId'])) {
     $userId = $_POST['userId'];
 
     // Consulta para obtener el horario del usuario seleccionado
-    $sql = "SELECT * FROM Schedule WHERE id_user = ?";
+    $sql = "SELECT s.*, c.day_name, c.calendar_date 
+            FROM Schedule s 
+            INNER JOIN Calendar c ON s.id_calendar = c.id_date
+            WHERE s.id_user = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $userId);
     $stmt->execute();
@@ -20,3 +23,5 @@ if (isset($_POST['userId'])) {
 } else {
     echo json_encode(array('success' => false, 'message' => 'No se recibió el id del usuario.'));
 }
+?>
+

@@ -79,10 +79,11 @@ function getUserSchedule(userId) {
   
             var $hrrDay = $currentHrrBox.find('.hrr-day');
             var $dayList = $("<ul></ul>").appendTo($hrrDay);
-            var dayName = entry.day_name; // Supongamos que hay un campo que indica el nombre del día
+            var dayName = entry.day_name; // Nombre del día obtenido de la base de datos
+            var date = entry.calendar_date; // Fecha obtenida de la base de datos
   
             // Agregar el nombre del día como primer elemento de la lista
-            $("<li class='day-nam'>" + "dia 1" + "</li>").appendTo($dayList);
+            $("<li class='day-nam'>" + dayName + " " + date + "</li>").appendTo($dayList);
   
             // Dividir el sello de tiempo en intervalos y agregarlos como elementos de la lista
             var stamps = entry.stamp.split(",");
