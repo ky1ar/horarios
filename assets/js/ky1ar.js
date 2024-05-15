@@ -54,7 +54,7 @@ $(document).ready(function () {
   });
 });
 
-ffunction getUserSchedule(userId) {
+function getUserSchedule(userId) {
   $.ajax({
     url: "../routes/del/get_user_schedule.php",
     method: "POST",
