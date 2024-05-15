@@ -71,7 +71,7 @@ function getUserSchedule(userId) {
             var dayName = entry.day_name; // Supongamos que hay un campo que indica el nombre del día
             
             // Agregar el nombre del día como primer elemento de la lista
-            $("<li class='day-nam'>" + dayName + "</li>").appendTo($dayList);
+            $("<li class='day-nam'>" + "dia" + "</li>").appendTo($dayList);
             
             // Dividir el sello de tiempo en intervalos y agregarlos como elementos de la lista
             var stamps = entry.stamp.split(",");
