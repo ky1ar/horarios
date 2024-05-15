@@ -26,7 +26,7 @@ require_once 'db.php';
     <section id="ky1-rgt">
         <header>
             <div class="ky1-ttl">
-                <h1>Horarios1</h1>
+                <h1>Horarios</h1>
                 <span>Registro biométrico del mes</span>
             </div>
             <div class="ky1-dte">
@@ -42,7 +42,7 @@ require_once 'db.php';
                 <div class="usr-btn" id="nextUser">
                     <img src="assets/img/r.svg" width="12" height="12" alt="">
                 </div>
-                <div id="selectedUser" data-id="1">
+                <div id="selectedUser" data-id="19">
                     <img id="userImage" src="assets/img/profiles/kenny.png" alt="">
                     <span>
                         <h3 id="userName">Kenny Muñoz</h3>
@@ -109,7 +109,60 @@ require_once 'db.php';
             </li>
         </ul>
         <ul class="ky1-hrr">
-            
+            <li class="hrr-box">
+                <span>Semana 1</span>
+                <div class="hrr-day">
+                    <!--<ul>
+                        <li class="day-nam"></li>
+                        <li><img src="assets/img/a.svg" width="20" height="20" alt=""></li>
+                        <li><img src="assets/img/b.svg" width="20" height="20" alt=""></li>
+                        <li><img src="assets/img/c.svg" width="20" height="20" alt=""></li>
+                        <li><img src="assets/img/d.svg" width="20" height="20" alt=""></li>
+                    </ul>-->
+                    <ul>
+                        <li class="day-nam">lun 1</li>
+                        <li class="day-trd">09:11</li>
+                        <li>13:10</li>
+                        <li>14:08</li>
+                        <li>18:05</li>
+                    </ul>
+                    <ul>
+                        <li class="day-nam">mar 2</li>
+                        <li>09:00</li>
+                        <li class="day-rgs">13:10</li>
+                        <li>14:08</li>
+                        <li>18:05</li>
+                    </ul>
+                    <ul>
+                        <li class="day-nam">mie 3</li>
+                        <li>09:09</li>
+                        <li>13:10</li>
+                        <li>14:08</li>
+                        <li>18:05</li>
+                    </ul>
+                    <ul>
+                        <li class="day-nam">jue 4</li>
+                        <li>09:09</li>
+                        <li>13:10</li>
+                        <li>14:08</li>
+                        <li>18:05</li>
+                    </ul>
+                    <ul>
+                        <li class="day-nam">vie 5</li>
+                        <li>09:09</li>
+                        <li>13:10</li>
+                        <li>14:08</li>
+                        <li>18:05</li>
+                    </ul>
+                    <ul>
+                        <li class="day-nam">sab 6</li>
+                        <li>09:09</li>
+                        <li>13:10</li>
+                        <li>14:08</li>
+                        <li>18:05</li>
+                    </ul>
+                </div>
+            </li>
         </ul>
 
         <?php
