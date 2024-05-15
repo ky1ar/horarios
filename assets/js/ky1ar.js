@@ -137,14 +137,6 @@ function getUserSchedule(userId) {
               "<span>Semana " + (Math.floor(index / 6) + 1) + "</span>"
             ).appendTo($currentHrrBox);
             $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
-
-            // Llenar los días vacíos hasta llegar al día de la semana actual
-            for (var i = 0; i < dayIndex; i++) {
-              var $dayList = $currentHrrBox.find(".hrr-day ul");
-              $("<li class='day-nam'>" + daysOfWeek[i] + "</li>").appendTo($dayList);
-              $("<ul></ul>").appendTo($dayList);
-              daysCounter++;
-            }
           }
 
           var $hrrDay = $currentHrrBox.find(".hrr-day");
