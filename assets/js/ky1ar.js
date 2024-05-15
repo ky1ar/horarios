@@ -1,3 +1,4 @@
+// Definir la función getUserSchedule como una función global
 function getUserSchedule(userId) {
     $.ajax({
         url: '../routes/del/get_user_schedule.php', 
@@ -48,13 +49,18 @@ $(document).ready(function() {
         userImage.attr('src', imagePath + newUser.data('slug') + '.png');
         userName.text(newUser.data('name'));
         userCategory.text(newUser.data('category'));
-
         
+        // Llamar a la función getUserSchedule cuando se actualiza el usuario
+        getUserSchedule(newUser.data('id'));  
     }
 
+    // Evento de clic para el botón "Siguiente Usuario"
     nextUser.on('click', function() { updateUser(1); });  
+    
+    // Evento de clic para el botón "Usuario Anterior"
     previousUser.on('click', function() { updateUser(-1); });
 
+    // Evento de clic para los elementos de la lista de usuarios
     userList.find('li').on('click', function() { 
         let $this = $(this);
         userList.find('li').removeClass('active');
@@ -65,8 +71,7 @@ $(document).ready(function() {
         userName.text($this.data('name'));
         userCategory.text($this.data('category'));
 
+        // Llamar a la función getUserSchedule cuando se hace clic en un usuario
         getUserSchedule($this.data('id'));  
     });
 });
-
-
