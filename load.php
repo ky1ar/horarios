@@ -42,11 +42,11 @@ require_once 'db.php';
                 <div class="usr-btn" id="nextUser">
                     <img src="assets/img/r.svg" width="12" height="12" alt="">
                 </div>
-                <div id="selectedUser" data-id="1">
-                    <img id="userImage" src="assets/img/profiles/kenny.png" alt="">
+                <div id="selectedUser" data-id="2">
+                    <img id="userImage" src="" alt="">
                     <span>
-                        <h3 id="userName">Kenny Muñoz</h3>
-                        <h4 id="userCategory">Sistemas</h4>
+                        <h3 id="userName"></h3>
+                        <h4 id="userCategory"></h4>
                     </span>
                     <div id="userList">
                         <ul>
