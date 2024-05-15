@@ -63,24 +63,16 @@ function getUserSchedule(userId) {
       success: function (response) {
         if (response.success) {
           // Limpiar contenido existente
-          $(".ky1-hrr").empty();
-  
-          var daysCounter = 0; // Contador de días
-  
+          $(".hrr-day").empty();
+          
           // Recorrer los datos del horario del usuario
-          response.schedule.forEach(function (entry, index) {
-            // Comprobar si es un múltiplo de 6 para crear un nuevo contenedor
-            if (index % 6 === 0) {
-              var $hrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
-              var $hrrDay = $("<div class='hrr-day'></div>").appendTo($hrrBox);
-            }
-  
-            var $dayList = $("<ul></ul>").appendTo($hrrDay);
+          response.schedule.forEach(function (entry) {
+            var $dayList = $("<ul></ul>").appendTo(".hrr-day");
             var dayName = entry.day_name; // Supongamos que hay un campo que indica el nombre del día
-  
+            
             // Agregar el nombre del día como primer elemento de la lista
-            $("<li class='day-nam'>" + dayName + "</li>").appendTo($dayList);
-  
+            $("<li class='day-nam'>" + "Lun 20" + "</li>").appendTo($dayList);
+            
             // Dividir el sello de tiempo en intervalos y agregarlos como elementos de la lista
             var stamps = entry.stamp.split(",");
             stamps.forEach(function (stamp) {
@@ -89,8 +81,6 @@ function getUserSchedule(userId) {
                 $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
               }
             });
-  
-            daysCounter++; // Incrementar el contador de días
           });
         } else {
           console.error(response.message);
@@ -102,5 +92,4 @@ function getUserSchedule(userId) {
       },
     });
   }
-  
   
