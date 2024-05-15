@@ -16,7 +16,7 @@ if (isset($_POST['userId'])) {
     while ($row = $result->fetch_assoc()) {
         $schedule[] = $row; 
     }
-    // echo json_encode(array('success' => true, 'schedule' => $schedule));
+    echo json_encode(array('success' => true, 'schedule' => $schedule));
 } else {
     echo json_encode(array('success' => false, 'message' => 'No se recibió el id del usuario.'));
 }
