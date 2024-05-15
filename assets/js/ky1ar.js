@@ -97,6 +97,7 @@ function getUserSchedule(userId) {
               }
             });
           });
+          console.error(response.schedule);
         } else {
           console.error(response.message);
         }
