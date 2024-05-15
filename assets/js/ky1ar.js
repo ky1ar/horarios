@@ -48,23 +48,23 @@ $(document).ready(function() {
 
         getUserSchedule($this.data('id'));  
     });
-});
 
-function getUserSchedule(userId) {
-    $.ajax({
-        url: '../routes/del/get_user_schedule.php', 
-        method: 'POST',
-        data: { userId: userId },
-        dataType: 'json',
-        success: function(response) {
-            if (response.success) {
-                console.log(response.schedule);
-            } else {
-                console.error(response.message);
+    function getUserSchedule(userId) {
+        $.ajax({
+            url: '../routes/del/get_user_schedule.php', 
+            method: 'POST',
+            data: { userId: userId },
+            dataType: 'json',
+            success: function(response) {
+                if (response.success) {
+                    console.log(response.schedule);
+                } else {
+                    console.error(response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error en la solicitud AJAX:', error);
             }
-        },
-        error: function(xhr, status, error) {
-            console.error('Error en la solicitud AJAX:', error);
-        }
-    });
-}
+        });
+    }
+});
