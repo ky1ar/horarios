@@ -66,37 +66,15 @@ function getUserSchedule(userId) {
 
         var daysCounter = 0;
         var $currentHrrBox;
-        var daysOfWeek = ['lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-
-        // Función para obtener el índice del día de la semana
-        function getDayIndex(dayName) {
-          return daysOfWeek.indexOf(dayName);
-        }
-
-        // Función para obtener el nombre completo del día de la semana
-        function getFullDayName(dayIndex) {
-          return daysOfWeek[dayIndex];
-        }
-
         response.schedule.forEach(function (entry, index) {
-          var dayIndex = getDayIndex(entry.day_name_espanol);
-          var weekIndex = Math.floor(daysCounter / 6);
-
-          // Crear una nueva semana si es el primer día de la semana o si es un nuevo grupo de 6 días
           if (index % 6 === 0) {
             $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
               ".ky1-hrr"
             );
-            $("<span>Semana " + (weekIndex + 1) + "</span>").appendTo($currentHrrBox);
+            $(
+              "<span>Semana " + (Math.floor(index / 6) + 1) + "</span>"
+            ).appendTo($currentHrrBox);
             $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
-
-            // Llenar los días vacíos hasta llegar al día de la semana actual
-            for (var i = 0; i < dayIndex; i++) {
-              var $dayList = $currentHrrBox.find(".hrr-day ul");
-              $("<li class='day-nam'>" + getFullDayName(i) + "</li>").appendTo($dayList);
-              $("<ul></ul>").appendTo($dayList);
-              daysCounter++;
-            }
           }
 
           var $hrrDay = $currentHrrBox.find(".hrr-day");
@@ -107,29 +85,14 @@ function getUserSchedule(userId) {
           $(
             "<li class='day-nam'>" + dayName + " " + dayNumber + "</li>"
           ).appendTo($dayList);
-
-          // Llenar los espacios vacíos en los días anteriores al actual
-          var emptyDays = dayIndex - (daysCounter % 6) - 1;
-          for (var i = 0; i < emptyDays; i++) {
-            $("<li></li>").appendTo($dayList);
-          }
-
           var stamps = entry.stamp.split(",");
           stamps.forEach(function (stamp) {
             for (var i = 0; i < stamp.length; i += 5) {
               $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
             }
           });
-
           daysCounter++;
         });
-
-        // Llenar los días restantes de la última semana con días vacíos si es necesario
-        var remainingDays = 6 - (daysCounter % 6);
-        for (var i = 0; i < remainingDays; i++) {
-          $("<li></li>").appendTo($currentHrrBox.find(".hrr-day ul"));
-        }
-
         console.log(response.schedule);
       } else {
         console.error(response.message);
@@ -141,4 +104,3 @@ function getUserSchedule(userId) {
     },
   });
 }
-
