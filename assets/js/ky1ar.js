@@ -30,7 +30,7 @@ $(document).ready(function() {
         userName.text(newUser.data('name'));
         userCategory.text(newUser.data('category'));
 
-        getUserSchedule(newUser.data('id'));  
+        
     }
 
     nextUser.on('click', function() { updateUser(1); });  
