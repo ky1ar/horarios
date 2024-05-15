@@ -1,3 +1,22 @@
+function getUserSchedule(userId) {
+    $.ajax({
+        url: '../routes/del/get_user_schedule.php', 
+        method: 'POST',
+        data: { userId: userId },
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                console.log(response.schedule);
+            } else {
+                console.error(response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error en la solicitud AJAX:', error);
+        }
+    });
+}
+
 $(document).ready(function() {
     const nextUser = $('#nextUser');
     const previousUser = $('#previousUser');
@@ -50,21 +69,4 @@ $(document).ready(function() {
     });
 });
 
-function getUserSchedule(userId) {
-    $.ajax({
-        url: '../routes/del/get_user_schedule.php', 
-        method: 'POST',
-        data: { userId: userId },
-        dataType: 'json',
-        success: function(response) {
-            if (response.success) {
-                console.log(response.schedule);
-            } else {
-                console.error(response.message);
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error('Error en la solicitud AJAX:', error);
-        }
-    });
-}
+
