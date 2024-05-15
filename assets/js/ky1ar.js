@@ -52,42 +52,40 @@ $(document).ready(function () {
 
     getUserSchedule($this.data("id"));
   });
-
-  function getUserSchedule(userId) {
-    $.ajax({
-      url: "../routes/del/get_user_schedule.php",
-      method: "POST",
-      data: { userId: userId },
-      dataType: "json",
-      success: function (response) {
-          if (response.success) {
-            // Limpiar contenido existente
-            $(".hrr-day").empty();
-            
-            // Recorrer los datos del horario del usuario
-            response.schedule.forEach(function (entry) {
-              var $dayList = $("<ul></ul>").appendTo(".hrr-day");
-              var dayName = entry.day_name; // Supongamos que hay un campo que indica el nombre del día
-              
-              // Agregar el nombre del día como primer elemento de la lista
-              $("<li class='day-nam'>" + dayName + "</li>").appendTo($dayList);
-              
-              // Dividir el sello de tiempo en intervalos y agregarlos como elementos de la lista
-              var stamps = entry.stamp.split(",");
-              stamps.forEach(function (stamp) {
-                $("<li>" + stamp + "</li>").appendTo($dayList);
-              });
-            });
-          } else {
-            console.error(response.message);
-          }
-        },
-        
-      error: function (xhr, status, error) {
-        console.error("Error en la solicitud AJAX:", error);
-      },
-    });
-  }
 });
 
-
+function getUserSchedule(userId) {
+  $.ajax({
+    url: "../routes/del/get_user_schedule.php",
+    method: "POST",
+    data: { userId: userId },
+    dataType: "json",
+    success: function (response) {
+        if (response.success) {
+          // Limpiar contenido existente
+          $(".hrr-day").empty();
+          
+          // Recorrer los datos del horario del usuario
+          response.schedule.forEach(function (entry) {
+            var $dayList = $("<ul></ul>").appendTo(".hrr-day");
+            var dayName = entry.day_name; // Supongamos que hay un campo que indica el nombre del día
+            
+            // Agregar el nombre del día como primer elemento de la lista
+            $("<li class='day-nam'>" + dayName + "</li>").appendTo($dayList);
+            
+            // Dividir el sello de tiempo en intervalos y agregarlos como elementos de la lista
+            var stamps = entry.stamp.split(",");
+            stamps.forEach(function (stamp) {
+              $("<li>" + stamp + "</li>").appendTo($dayList);
+            });
+          });
+        } else {
+          console.error(response.message);
+        }
+      },
+      
+    error: function (xhr, status, error) {
+      console.error("Error en la solicitud AJAX:", error);
+    },
+  });
+}
