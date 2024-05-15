@@ -95,6 +95,7 @@ function getUserSchedule(userId) {
   
             daysCounter++; // Incrementar el contador de días
           });
+          console.log(response.schedule);
         } else {
           console.error(response.message);
         }
