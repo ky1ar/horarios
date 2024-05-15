@@ -61,6 +61,7 @@ function getUserSchedule(userId) {
       data: { userId: userId },
       dataType: "json",
       success: function (response) {
+        console.error(response.schedule);
         if (response.success) {
           $(".ky1-hrr").empty();
           var daysOfWeek = ['lun', 'mar', 'mie', 'jue', 'vie', 'sab']; // Array de nombres de los días de la semana
@@ -97,7 +98,7 @@ function getUserSchedule(userId) {
               }
             });
           });
-          console.error(response.schedule);
+          
         } else {
           console.error(response.message);
         }
