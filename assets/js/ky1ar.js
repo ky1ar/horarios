@@ -66,16 +66,15 @@ function getUserSchedule(userId) {
 
         var daysCounter = 0;
         var $currentHrrBox;
-        var currentWeek = 1; // Variable para almacenar el número de semana actual
-        var firstDayOfWeek; // Variable para almacenar el primer día de la semana actual
+        var currentWeek = 1; // Inicializamos el contador de semana en 1
         response.schedule.forEach(function (entry, index) {
           var dayName = entry.day_name_espanol;
           var dayNumber = entry.day_number;
+
           if (dayName.toLowerCase() === "lunes" || index === 0) {
             $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
             $("<span>Semana " + currentWeek + "</span>").appendTo($currentHrrBox);
             $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
-            firstDayOfWeek = dayNumber; // Establecer el primer día de la semana
           }
 
           var $hrrDay = $currentHrrBox.find('.hrr-day');
@@ -88,14 +87,15 @@ function getUserSchedule(userId) {
               $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
             }
           });
+
           if (dayName.toLowerCase() === "sábado" || index === response.schedule.length - 1) {
             $currentHrrBox = null;
-            // Si es sábado o es el último día, incrementar el número de semana
-            currentWeek++;
+            currentWeek++; // Incrementamos el contador de semana al pasar al sábado o al final del bucle
           }
 
           daysCounter++;
         });
+
         console.log(response.schedule);
       } else {
         console.error(response.message);
