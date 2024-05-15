@@ -10,6 +10,9 @@ $(document).ready(function() {
     const userImage = $('#userImage');
     const imagePath = 'assets/img/profiles/';
 
+    // Bandera para controlar la ejecución de getUserSchedule
+    let getUserScheduleExecuted = false;
+
     function updateUser(offset) {
         let current = userList.find('.active').index();
         let total = userList.find('li').length - 1;
@@ -30,11 +33,25 @@ $(document).ready(function() {
         userName.text(newUser.data('name'));
         userCategory.text(newUser.data('category'));
 
-        getUserSchedule(newUser.data('id'));  
+        // Verificar si getUserSchedule ya se ejecutó
+        if (!getUserScheduleExecuted) {
+            getUserSchedule(newUser.data('id'));
+            // Cambiar el estado de la bandera
+            getUserScheduleExecuted = true;
+        }
     }
 
-    nextUser.on('click', function() { updateUser(1); });  
-    previousUser.on('click', function() { updateUser(-1); });
+    nextUser.on('click', function() { 
+        updateUser(1); 
+        // Reiniciar la bandera cuando cambias de usuario manualmente
+        getUserScheduleExecuted = false;
+    });  
+
+    previousUser.on('click', function() { 
+        updateUser(-1); 
+        // Reiniciar la bandera cuando cambias de usuario manualmente
+        getUserScheduleExecuted = false;
+    });
 
     userList.find('li').on('click', function() { 
         let $this = $(this);
@@ -45,6 +62,9 @@ $(document).ready(function() {
         userImage.attr('src', imagePath + $this.data('slug') + '.png');
         userName.text($this.data('name'));
         userCategory.text($this.data('category'));
+
+        // Reiniciar la bandera cuando cambias de usuario manualmente
+        getUserScheduleExecuted = false;
 
         getUserSchedule($this.data('id'));  
     });
