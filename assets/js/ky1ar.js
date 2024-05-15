@@ -64,41 +64,43 @@ function getUserSchedule(userId) {
       if (response.success) {
         $(".ky1-hrr").empty();
 
-        var daysCounter = 0;
+        var daysOfWeek = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+        var currentWeek = 1;
         var $currentHrrBox;
-        response.schedule.forEach(function (entry, index) {
-          if (index % 6 === 0) {
-            $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
-              ".ky1-hrr"
-            );
+
+        response.schedule.forEach(function (entry) {
+          var dayName = entry.day_name_espanol;
+          var dayNumber = entry.day_number;
+
+          if (dayName === "Lunes") {
+            if ($currentHrrBox) {
+              currentWeek++;
+            }
+            $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
             $(
-              "<span>Semana " + (Math.floor(index / 6) + 1) + "</span>"
+              "<span>Semana " + currentWeek + "</span>"
             ).appendTo($currentHrrBox);
             $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
           }
 
           var $hrrDay = $currentHrrBox.find(".hrr-day");
           var $dayList = $("<ul></ul>").appendTo($hrrDay);
-          var dayName = entry.day_name_espanol.substring(0, 3);
-          var dayNumber = entry.day_number;
 
           $(
-            "<li class='day-nam'>" + dayName + " " + dayNumber + "</li>"
+            "<li class='day-nam'>" + dayName.substring(0, 3) + " " + dayNumber + "</li>"
           ).appendTo($dayList);
+
           var stamps = entry.stamp.split(",");
           stamps.forEach(function (stamp) {
             for (var i = 0; i < stamp.length; i += 5) {
               $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
             }
           });
-          daysCounter++;
         });
-        console.log(response.schedule);
       } else {
         console.error(response.message);
       }
     },
-
     error: function (xhr, status, error) {
       console.error("Error en la solicitud AJAX:", error);
     },
