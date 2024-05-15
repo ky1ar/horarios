@@ -1,6 +1,6 @@
 <?php
 // Incluye el archivo de conexión a la base de datos
-require_once 'db.php';
+require_once '../../includes/app/db.php';
 
 // Verifica si se recibió el id del usuario en la solicitud AJAX
 if (isset($_POST['userId'])) {
