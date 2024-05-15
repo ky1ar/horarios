@@ -66,44 +66,35 @@ function getUserSchedule(userId) {
 
         var daysCounter = 0;
         var $currentHrrBox;
+        var currentWeek = 1; // Inicializa el contador de semana en 1
         response.schedule.forEach(function (entry, index) {
           var dayName = entry.day_name_espanol;
           var dayNumber = entry.day_number;
+          
+          // Crea un nuevo hrr-box al comienzo de cada grupo de días
           if (dayName.toLowerCase() === "lunes" || index === 0) {
-            $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
-              ".ky1-hrr"
-            );
-            $(
-              "<span>Semana " + (Math.floor(index / 6) + 1) + "</span>"
-            ).appendTo($currentHrrBox);
+            $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
+            $("<span>Semana " + currentWeek + "</span>").appendTo($currentHrrBox);
             $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
+            currentWeek++; // Aumenta el contador de semana
           }
 
-          var $hrrDay = $currentHrrBox.find(".hrr-day");
+          var $hrrDay = $currentHrrBox.find('.hrr-day');
           var $dayList = $("<ul></ul>").appendTo($hrrDay);
 
-          $(
-            "<li class='day-nam'>" +
-              dayName.substring(0, 3) +
-              " " +
-              dayNumber +
-              "</li>"
-          ).appendTo($dayList);
+          $("<li class='day-nam'>" + dayName.substring(0, 3) + " " + dayNumber + "</li>").appendTo($dayList);
           var stamps = entry.stamp.split(",");
           stamps.forEach(function (stamp) {
             for (var i = 0; i < stamp.length; i += 5) {
               $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
             }
           });
-          if (
-            dayName.toLowerCase() === "sábado" ||
-            index === response.schedule.length - 1
-          ) {
-            $currentHrrBox = null;
-          }
+
+          // No necesitas verificar "sábado" ni el final del bucle para aumentar el contador de semana
 
           daysCounter++;
         });
+
         console.log(response.schedule);
       } else {
         console.error(response.message);
