@@ -55,12 +55,12 @@ $(document).ready(function () {
 });
 
 function getUserSchedule(userId) {
-  $.ajax({
-    url: "../routes/del/get_user_schedule.php",
-    method: "POST",
-    data: { userId: userId },
-    dataType: "json",
-    success: function (response) {
+    $.ajax({
+      url: "../routes/del/get_user_schedule.php",
+      method: "POST",
+      data: { userId: userId },
+      dataType: "json",
+      success: function (response) {
         if (response.success) {
           // Limpiar contenido existente
           $(".hrr-day").empty();
@@ -83,9 +83,10 @@ function getUserSchedule(userId) {
           console.error(response.message);
         }
       },
-      
-    error: function (xhr, status, error) {
-      console.error("Error en la solicitud AJAX:", error);
-    },
-  });
-}
+  
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
+    });
+  }
+  
