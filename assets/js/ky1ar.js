@@ -62,15 +62,11 @@ function getUserSchedule(userId) {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-          // Limpiar contenido existente
           $(".ky1-hrr").empty();
-  
-          var daysCounter = 0; // Contador de días
-          var $currentHrrBox; // Contenedor de hrr-box actual
-  
-          // Recorrer los datos del horario del usuario
+
+          var daysCounter = 0; 
+          var $currentHrrBox; 
           response.schedule.forEach(function (entry, index) {
-            // Crear un nuevo contenedor hrr-box cada 6 días
             if (index % 6 === 0) {
               $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
               $("<span>Semana " + (Math.floor(index / 6) + 1) + "</span>").appendTo($currentHrrBox);
@@ -79,22 +75,17 @@ function getUserSchedule(userId) {
   
             var $hrrDay = $currentHrrBox.find('.hrr-day');
             var $dayList = $("<ul></ul>").appendTo($hrrDay);
-            var dayName = entry.day_name_espanol; // Nombre del día en español obtenido de la base de datos
-            var dayNumber = entry.day_number; // Número del día
-  
-            // Agregar el nombre del día como primer elemento de la lista
+            var dayName = entry.day_name_espanol.substring(0, 3);
+            var dayNumber = entry.day_number; 
+
             $("<li class='day-nam'>" + dayName + " " + dayNumber + "</li>").appendTo($dayList);
-  
-            // Dividir el sello de tiempo en intervalos y agregarlos como elementos de la lista
             var stamps = entry.stamp.split(",");
             stamps.forEach(function (stamp) {
-              // Separar cada hora en li
               for (var i = 0; i < stamp.length; i += 5) {
                 $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
               }
             });
-  
-            daysCounter++; // Incrementar el contador de días
+            daysCounter++;
           });
           console.log(response.schedule);
         } else {
