@@ -68,11 +68,12 @@ function getUserSchedule(userId) {
         var currentWeek = 1;
         var $currentHrrBox;
 
-        response.schedule.forEach(function (entry) {
-          var dayName = entry.day_name_espanol;
-          var dayNumber = entry.day_number;
+        daysOfWeek.forEach(function (dayName) {
+          var entry = response.schedule.find(function (e) {
+            return e.day_name_espanol === dayName;
+          });
 
-          if (daysOfWeek.includes(dayName)) {
+          if (entry) {
             if (dayName === "Lunes") {
               if ($currentHrrBox) {
                 currentWeek++;
@@ -88,7 +89,7 @@ function getUserSchedule(userId) {
             var $dayList = $("<ul></ul>").appendTo($hrrDay);
 
             $(
-              "<li class='day-nam'>" + dayName.substring(0, 3) + " " + dayNumber + "</li>"
+              "<li class='day-nam'>" + dayName.substring(0, 3) + " " + entry.day_number + "</li>"
             ).appendTo($dayList);
 
             var stamps = entry.stamp.split(",");
@@ -97,6 +98,28 @@ function getUserSchedule(userId) {
                 $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
               }
             });
+          } else {
+            if (dayName === "Lunes") {
+              if ($currentHrrBox) {
+                currentWeek++;
+              }
+              $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
+              $(
+                "<span>Semana " + currentWeek + "</span>"
+              ).appendTo($currentHrrBox);
+              $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
+            }
+
+            var $hrrDay = $currentHrrBox.find(".hrr-day");
+            var $dayList = $("<ul></ul>").appendTo($hrrDay);
+
+            $(
+              "<li class='day-nam'>" + dayName.substring(0, 3) + "</li>"
+            ).appendTo($dayList);
+
+            for (var i = 0; i < 4; i++) {
+              $("<li></li>").appendTo($dayList);
+            }
           }
         });
       } else {
