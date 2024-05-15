@@ -117,6 +117,12 @@ function getUserSchedule(userId) {
         response.schedule.forEach(function (entry, index) {
           var dayName = entry.day_name_espanol;
           var dayNumber = entry.day_number;
+
+          // Omitir los domingos
+          if (dayName.toLowerCase() === "domingo") {
+            return; // Salta este día y continúa con el siguiente
+          }
+
           if (dayName.toLowerCase() === "lunes" || index === 0) {
             $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
             $("<span>Semana " + currentWeek + "</span>").appendTo($currentHrrBox);
