@@ -110,7 +110,7 @@ function getUserSchedule(userId) {
       var $hrrDay = $currentHrrBox.find('.hrr-day');
   
       // Días de la semana ordenados por número de día
-      var daysOfWeek = ['lun', 'mar', 'mie', 'jue', 'vie', 'sab'];
+      var daysOfWeek = ['lun', 'mar', 'mié', 'jue', 'vie', 'sab'];
   
       // Recorrer los días de la semana
       for (var i = 1; i <= 6; i++) {
