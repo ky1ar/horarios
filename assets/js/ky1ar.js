@@ -54,56 +54,6 @@ $(document).ready(function () {
   });
 });
 
-// function getUserSchedule(userId) {
-//   $.ajax({
-//     url: "../routes/del/get_user_schedule.php",
-//     method: "POST",
-//     data: { userId: userId },
-//     dataType: "json",
-//     success: function (response) {
-//       if (response.success) {
-//         $(".ky1-hrr").empty();
-
-//         var daysCounter = 0;
-//         var $currentHrrBox;
-//         response.schedule.forEach(function (entry, index) {
-//           if (index % 6 === 0) {
-//             $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
-//               ".ky1-hrr"
-//             );
-//             $(
-//               "<span>Semana " + (Math.floor(index / 6) + 1) + "</span>"
-//             ).appendTo($currentHrrBox);
-//             $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
-//           }
-
-//           var $hrrDay = $currentHrrBox.find(".hrr-day");
-//           var $dayList = $("<ul></ul>").appendTo($hrrDay);
-//           var dayName = entry.day_name_espanol.substring(0, 3);
-//           var dayNumber = entry.day_number;
-
-//           $(
-//             "<li class='day-nam'>" + dayName + " " + dayNumber + "</li>"
-//           ).appendTo($dayList);
-//           var stamps = entry.stamp.split(",");
-//           stamps.forEach(function (stamp) {
-//             for (var i = 0; i < stamp.length; i += 5) {
-//               $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
-//             }
-//           });
-//           daysCounter++;
-//         });
-//         console.log(response.schedule);
-//       } else {
-//         console.error(response.message);
-//       }
-//     },
-
-//     error: function (xhr, status, error) {
-//       console.error("Error en la solicitud AJAX:", error);
-//     },
-//   });
-// }
 function getUserSchedule(userId) {
   $.ajax({
     url: "../routes/del/get_user_schedule.php",
@@ -114,21 +64,9 @@ function getUserSchedule(userId) {
       if (response.success) {
         $(".ky1-hrr").empty();
 
-        // Obtener el día de la semana para el primer registro
-        var firstDayIndex = response.schedule.length > 0 ? getDayIndex(response.schedule[0].day_name_espanol) : -1;
-
         var daysCounter = 0;
         var $currentHrrBox;
         response.schedule.forEach(function (entry, index) {
-          // Calcular el índice del día de la semana para el registro actual
-          var dayIndex = getDayIndex(entry.day_name_espanol);
-
-          // Ajustar el índice del día para que el primer día sea lunes
-          if (firstDayIndex !== -1) {
-            dayIndex = (dayIndex - firstDayIndex + 7) % 7;
-          }
-
-          // Crear una nueva semana si es el primer día de la semana o si es un nuevo grupo de 6 días
           if (index % 6 === 0) {
             $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
               ".ky1-hrr"
@@ -147,29 +85,14 @@ function getUserSchedule(userId) {
           $(
             "<li class='day-nam'>" + dayName + " " + dayNumber + "</li>"
           ).appendTo($dayList);
-
-          // Llenar los espacios vacíos en los días anteriores al actual
-          var emptyDays = dayIndex - (daysCounter % 6) - 1;
-          for (var i = 0; i < emptyDays; i++) {
-            $("<li></li>").appendTo($dayList);
-          }
-
           var stamps = entry.stamp.split(",");
           stamps.forEach(function (stamp) {
             for (var i = 0; i < stamp.length; i += 5) {
               $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
             }
           });
-
           daysCounter++;
         });
-
-        // Llenar los días restantes de la última semana con días vacíos si es necesario
-        var remainingDays = 6 - (daysCounter % 6);
-        for (var i = 0; i < remainingDays; i++) {
-          $("<li></li>").appendTo($currentHrrBox.find(".hrr-day ul"));
-        }
-
         console.log(response.schedule);
       } else {
         console.error(response.message);
@@ -180,12 +103,4 @@ function getUserSchedule(userId) {
       console.error("Error en la solicitud AJAX:", error);
     },
   });
-}
-
-// Días de la semana en orden
-var daysOfWeek = ['lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-
-// Función para obtener el índice del día de la semana
-function getDayIndex(dayName) {
-  return daysOfWeek.indexOf(dayName);
 }
