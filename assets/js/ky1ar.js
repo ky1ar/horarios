@@ -66,34 +66,69 @@ function getUserSchedule(userId) {
 
         var daysCounter = 0;
         var $currentHrrBox;
-        response.schedule.forEach(function (entry, index) {
-          if (index % 6 === 0) {
-            $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
-              ".ky1-hrr"
-            );
-            $(
-              "<span>Semana " + (Math.floor(index / 6) + 1) + "</span>"
-            ).appendTo($currentHrrBox);
-            $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
-          }
+        var daysOfWeek = [
+          "Lunes",
+          "Martes",
+          "Miércoles",
+          "Jueves",
+          "Viernes",
+          "Sábado",
+        ];
+        var dayNumbers = [];
+
+        // Primero, obtengo los números de día de la semana que hay en el registro
+        response.schedule.forEach(function (entry) {
+          dayNumbers.push(entry.day_number);
+        });
+
+        // Luego, itero sobre los 6 días de la semana
+        for (var i = 0; i < 6; i++) {
+          $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
+          $(
+            "<span>Semana " + (Math.floor(daysCounter / 6) + 1) + "</span>"
+          ).appendTo($currentHrrBox);
+          $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
 
           var $hrrDay = $currentHrrBox.find(".hrr-day");
           var $dayList = $("<ul></ul>").appendTo($hrrDay);
-          var dayName = entry.day_name_espanol.substring(0, 3);
-          var dayNumber = entry.day_number;
+          var dayName = daysOfWeek[i];
+          var dayNumber = i + 1;
 
-          $(
-            "<li class='day-nam'>" + dayName + " " + dayNumber + "</li>"
-          ).appendTo($dayList);
-          var stamps = entry.stamp.split(",");
-          stamps.forEach(function (stamp) {
-            for (var i = 0; i < stamp.length; i += 5) {
-              $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
-            }
+          // Verifico si hay un registro para este día
+          var entry = response.schedule.find(function (e) {
+            return e.day_name_espanol === dayName && e.day_number === dayNumber;
           });
+
+          if (entry) {
+            $(
+              "<li class='day-nam'>" +
+                dayName.substring(0, 3) +
+                " " +
+                dayNumber +
+                "</li>"
+            ).appendTo($dayList);
+            var stamps = entry.stamp.split(",");
+            stamps.forEach(function (stamp) {
+              for (var j = 0; j < stamp.length; j += 5) {
+                $("<li>" + stamp.slice(j, j + 5) + "</li>").appendTo($dayList);
+              }
+            });
+          } else {
+            // Si no hay registro, muestro campos vacíos
+            $(
+              "<li class='day-nam'>" +
+                dayName.substring(0, 3) +
+                " " +
+                dayNumber +
+                "</li>"
+            ).appendTo($dayList);
+            for (var j = 0; j < 4; j++) {
+              $("<li></li>").appendTo($dayList);
+            }
+          }
+
           daysCounter++;
-        });
-        console.log(response.schedule);
+        }
       } else {
         console.error(response.message);
       }
