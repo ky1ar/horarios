@@ -51,7 +51,7 @@ $(document).ready(function() {
 
     function getUserSchedule(userId) {
         $.ajax({
-            url: 'sroutes/del/get_user_schedule.php', 
+            url: 'routes/del/get_user_schedule.php', 
             method: 'POST',
             data: { userId: userId },
             dataType: 'json',

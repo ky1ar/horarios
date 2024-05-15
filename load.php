@@ -444,29 +444,6 @@ require_once 'db.php';
         }
         ?>
     </section>
-    <script>
-        function getUserSchedule(userId) {
-    // Envía una solicitud AJAX al servidor
-    $.ajax({
-        url: 'get_user_schedule.php', // Ruta al script PHP
-        method: 'POST',
-        data: { userId: userId }, // Datos que se enviarán al servidor (el id del usuario)
-        dataType: 'json', // Esperamos recibir datos JSON del servidor
-        success: function(response) {
-            // Maneja la respuesta del servidor
-            if (response.success) {
-                // Procesa los datos y muestra el horario en la página
-                console.log(response.schedule); // Aquí puedes manejar los datos recibidos, por ejemplo, mostrándolos en una lista en la página
-            } else {
-                console.error(response.message); // Muestra un mensaje de error si algo salió mal en el servidor
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error('Error en la solicitud AJAX:', error); // Muestra un mensaje de error si la solicitud AJAX falla
-        }
-    });
-}
-    </script>
 </body>
 
 </html>
