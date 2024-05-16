@@ -2,11 +2,10 @@
 // Incluye el archivo de conexión a la base de datos
 require_once '../../includes/app/db.php';
 
-if (isset($_POST['userId'])) {
+if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) {
     $userId = $_POST['userId'];
-    // $month = $_POST['month'];
-    $month = 3; // Mes fijo
-    $year = 2024; // Año fijo o puedes obtener el año dinámicamente
+    $month = $_POST['month'];
+    $year = $_POST['year'];
 
     // Calcular fechas dinámicamente en PHP
     $firstDayOfMonth = date('Y-m-01', strtotime("$year-$month-01"));
@@ -54,6 +53,6 @@ if (isset($_POST['userId'])) {
     }
     echo json_encode(array('success' => true, 'schedule' => $schedule));
 } else {
-    echo json_encode(array('success' => false, 'message' => 'No se recibió el id del usuario.'));
+    echo json_encode(array('success' => false, 'message' => 'No se recibieron los parámetros necesarios.'));
 }
 ?>
