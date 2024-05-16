@@ -1,5 +1,5 @@
 <?php
-// Incluye el archivo de conexión a la base de datos
+// Incluye el archivo de conexión a la base de datos v2
 require_once '../../includes/app/db.php';
 
 if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) {
@@ -25,10 +25,10 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     }
 
     // Consulta para obtener el horario del usuario seleccionado
-    $sql = "SELECT c.calendar_date, s.stamp, s.id_schedule,
+    $sql = "SELECT c.calendar_date, s.stamp, s.id_schedule, c.holiday,
                 CASE DAYOFWEEK(c.calendar_date)
                     WHEN 1 THEN 'Domingo'
-                    WHEN 2 THEN 'lunes'
+                    WHEN 2 THEN 'Lunes'
                     WHEN 3 THEN 'Martes'
                     WHEN 4 THEN 'Miércoles'
                     WHEN 5 THEN 'Jueves'
