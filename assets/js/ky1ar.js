@@ -299,7 +299,7 @@ $(document).ready(function () {
       userName.text(newUser.data("name"));
       userCategory.text(newUser.data("category"));
 
-      getUserSchedule(newUser.data("id"));
+      getUserSchedule(newUser.data("id"), currentMonth, currentYear); // Pasa mes y año actual
   }
 
   nextUser.on("click", function () {
@@ -313,14 +313,14 @@ $(document).ready(function () {
       currentMonth = (currentMonth % 12) + 1;
       if (currentMonth === 1) currentYear++;
       updateMonthDisplay();
-      getUserSchedule(selectedUser.data("id")); // Llamada a getUserSchedule al cambiar el mes
+      getUserSchedule(selectedUser.data("id"), currentMonth, currentYear); // Pasa mes y año actual
   });
 
   previousMonth.on("click", function () {
       currentMonth = (currentMonth === 1) ? 12 : currentMonth - 1;
       if (currentMonth === 12) currentYear--;
       updateMonthDisplay();
-      getUserSchedule(selectedUser.data("id")); // Llamada a getUserSchedule al cambiar el mes
+      getUserSchedule(selectedUser.data("id"), currentMonth, currentYear); // Pasa mes y año actual
   });
 
   userList.find("li").on("click", function () {
@@ -333,14 +333,14 @@ $(document).ready(function () {
       userName.text($this.data("name"));
       userCategory.text($this.data("category"));
 
-      getUserSchedule($this.data("id"));
+      getUserSchedule($this.data("id"), currentMonth, currentYear); // Pasa mes y año actual
   });
 
-  function getUserSchedule(userId) {
+  function getUserSchedule(userId, month, year) { // Agrega los parámetros mes y año
       $.ajax({
           url: "../routes/del/get_user_schedule.php",
           method: "POST",
-          data: { userId: userId, month: currentMonth, year: currentYear },
+          data: { userId: userId, month: month, year: year }, // Pasa mes y año al servidor
           dataType: "json",
           success: function (response) {
               if (response.success) {
@@ -386,7 +386,7 @@ $(document).ready(function () {
                       daysCounter++;
                   });
 
-                  console.log(response.schedule);
+                  console.log(response.schedule); // Verifica los datos recibidos
               } else {
                   console.error(response.message);
               }
@@ -398,5 +398,5 @@ $(document).ready(function () {
   }
 
   updateMonthDisplay();
-  getUserSchedule(selectedUser.data("id")); // Cargar horario del usuario activo al inicio
+  getUserSchedule(selectedUser.data("id"), currentMonth, currentYear); // Cargar horario del usuario activo al inicio
 });
