@@ -146,22 +146,3 @@ $(document).ready(function () {
   getUserSchedule(selectedUser.data("id"), currentMonth, currentYear); // Cargar horario del usuario activo al inicio
 });
 
-document.querySelectorAll('#userList > div').forEach(user => {
-  user.addEventListener('click', () => {
-      // Ocultar el contenedor mientras se actualizan los datos
-      const selectedUserContainer = document.getElementById('selectedUser');
-      selectedUserContainer.style.display = 'none';
-
-      const userId = user.dataset.id;
-      const userName = user.dataset.name;
-      const userCategory = user.dataset.category;
-      const userImage = user.dataset.image;
-
-      document.getElementById('userName').textContent = userName;
-      document.getElementById('userCategory').textContent = userCategory;
-      document.getElementById('userImage').src = userImage;
-
-      // Mostrar el contenedor después de que los datos se hayan actualizado
-      selectedUserContainer.style.display = 'block';
-  });
-});
