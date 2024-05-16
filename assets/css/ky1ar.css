@@ -334,6 +334,7 @@ body {
     padding: 1.5rem 0.75rem;
     border-radius: 4rem;
     height: 270px;
+    width: 70px;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:nth-child(odd) {
     background-color: #f5f5f5;
