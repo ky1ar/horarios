@@ -14,11 +14,16 @@ if (isset($_POST['userId'])) {
 
     // Calcular fecha de inicio ajustada
     $dayOfWeekFirst = date('N', strtotime($firstDayOfMonth));
-    $startDate = ($dayOfWeekFirst == 1) ? $firstDayOfMonth : date('Y-m-d', strtotime("$firstDayOfMonth - " . (($dayOfWeekFirst + 5) % 7) . " days"));
+    $startDate = ($dayOfWeekFirst == 1) ? $firstDayOfMonth : date('Y-m-d', strtotime("$firstDayOfMonth - " . (($dayOfWeekFirst + 6) % 7) . " days"));
 
     // Calcular fecha de fin ajustada
     $dayOfWeekLast = date('N', strtotime($lastDayOfMonth));
-    $endDate = ($dayOfWeekLast >= 6) ? $lastDayOfMonth : date('Y-m-d', strtotime("$lastDayOfMonth + " . (7 - $dayOfWeekLast) . " days"));
+    if ($dayOfWeekLast >= 6) {
+        $endDate = $lastDayOfMonth;
+    } else {
+        $daysToAdd = 6 - $dayOfWeekLast;
+        $endDate = date('Y-m-d', strtotime("$lastDayOfMonth + $daysToAdd days"));
+    }
 
     // Consulta para obtener el horario del usuario seleccionado
     $sql = "SELECT c.calendar_date, s.stamp, s.id_schedule,
