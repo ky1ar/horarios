@@ -118,6 +118,7 @@ body {
     background-color: var(--white);
     padding: 1rem 1rem;
     border-radius: 2rem;
+    width: 16rem;
 }
 #ky1-rgt header .ky1-dte img:first-child{
     transform: scaleX(-1);
