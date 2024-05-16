@@ -30,10 +30,10 @@ require_once 'db.php';
                 <span>Registro biométrico del mes</span>
             </div>
             <div class="ky1-dte">
-                <img src="assets/img/r.svg" width="12" height="12" alt="">
+                <img id="previousMonth" src="assets/img/r.svg" width="12" height="12" alt="">
                 <img src="assets/img/cal.svg" width="20" height="20" alt="">
                 <span>Enero, 2024</span>
-                <img src="assets/img/r.svg" width="12" height="12" alt="">
+                <img id="nextMonth" src="assets/img/r.svg" width="12" height="12" alt="">
             </div>
             <div class="ky1-usr">
                 <div class="usr-btn" id="previousUser">
