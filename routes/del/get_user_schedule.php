@@ -2,43 +2,39 @@
 // Incluye el archivo de conexión a la base de datos
 require_once '../../includes/app/db.php';
 
-if (isset($_POST['userId']) && isset($_POST['month'])) {
+if (isset($_POST['userId'])) {
     $userId = $_POST['userId'];
-    $month = $_POST['month'];
-    $year = 2024; // O puedes obtener el año dinámicamente
-
-    // Calcular fechas dinámicamente en PHP
-    $firstDayOfMonth = date('Y-m-01', strtotime("$year-$month-01"));
-    $lastDayOfMonth = date('Y-m-t', strtotime("$year-$month-01"));
-
-    // Calcular fecha de inicio ajustada
-    $dayOfWeekFirst = date('N', strtotime($firstDayOfMonth));
-    $startDate = ($dayOfWeekFirst == 1) ? $firstDayOfMonth : date('Y-m-d', strtotime("$firstDayOfMonth - " . (($dayOfWeekFirst + 5) % 7) . " days"));
-
-    // Calcular fecha de fin ajustada
-    $dayOfWeekLast = date('N', strtotime($lastDayOfMonth));
-    $endDate = ($dayOfWeekLast >= 6) ? $lastDayOfMonth : date('Y-m-d', strtotime("$lastDayOfMonth + " . (7 - $dayOfWeekLast) . " days"));
 
     // Consulta para obtener el horario del usuario seleccionado
     $sql = "SELECT c.calendar_date, s.stamp, s.id_schedule,
-                CASE DAYOFWEEK(c.calendar_date)
-                    WHEN 1 THEN 'Domingo'
-                    WHEN 2 THEN 'lunes'
-                    WHEN 3 THEN 'Martes'
-                    WHEN 4 THEN 'Miércoles'
-                    WHEN 5 THEN 'Jueves'
-                    WHEN 6 THEN 'Viernes'
-                    WHEN 7 THEN 'Sábado'
-                END AS day_name_espanol,
-                DAY(c.calendar_date) AS day_number
-            FROM Calendar c
-            LEFT JOIN Schedule s ON c.id_date = s.id_calendar
-                AND s.id_user = ?
-            WHERE c.calendar_date BETWEEN ? AND ?
-            ORDER BY c.calendar_date";
-
+    CASE DAYOFWEEK(c.calendar_date)
+        WHEN 1 THEN 'Domingo'
+        WHEN 2 THEN 'lunes'
+        WHEN 3 THEN 'Martes'
+        WHEN 4 THEN 'Miércoles'
+        WHEN 5 THEN 'Jueves'
+        WHEN 6 THEN 'Viernes'
+        WHEN 7 THEN 'Sábado'
+    END AS day_name_espanol,
+    DAY(c.calendar_date) AS day_number
+FROM Calendar c
+LEFT JOIN Schedule s ON c.id_date = s.id_calendar
+    AND s.id_user = ?
+WHERE c.calendar_date BETWEEN 
+    -- Start date calculation
+    CASE
+        WHEN DAYOFWEEK('2024-03-01') = 2 THEN '2024-03-01'
+        ELSE DATE_SUB('2024-03-01', INTERVAL (DAYOFWEEK('2024-03-01') + 5) % 7 DAY)
+    END
+    AND
+    -- End date calculation
+    CASE
+        WHEN DAYOFWEEK('2024-03-31') IN (1, 7) THEN '2024-03-31'
+        ELSE DATE_ADD('2024-03-31', INTERVAL (7 - DAYOFWEEK('2024-03-31')) % 7 DAY)
+    END
+ORDER BY c.calendar_date";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iss", $userId, $startDate, $endDate);
+    $stmt->bind_param("i", $userId);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -48,6 +44,6 @@ if (isset($_POST['userId']) && isset($_POST['month'])) {
     }
     echo json_encode(array('success' => true, 'schedule' => $schedule));
 } else {
-    echo json_encode(array('success' => false, 'message' => 'No se recibieron los parámetros necesarios.'));
+    echo json_encode(array('success' => false, 'message' => 'No se recibió el id del usuario.'));
 }
 ?>
