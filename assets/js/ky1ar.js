@@ -279,6 +279,14 @@ $(document).ready(function () {
       $(".ky1-dte span").text(`${monthNames[currentMonth - 1]}, ${currentYear}`);
   }
 
+  function updateUserDisplay() {
+      const activeUser = userList.find(".active");
+      selectedUser.attr("data-id", activeUser.data("id"));
+      userImage.attr("src", imagePath + activeUser.data("slug") + ".png");
+      userName.text(activeUser.data("name"));
+      userCategory.text(activeUser.data("category"));
+  }
+
   function updateUser(offset) {
       let current = userList.find(".active").index();
       let total = userList.find("li").length - 1;
@@ -293,11 +301,7 @@ $(document).ready(function () {
 
       let newUser = userList.find("li").eq(current);
       newUser.addClass("active");
-
-      selectedUser.attr("data-id", newUser.data("id"));
-      userImage.attr("src", imagePath + newUser.data("slug") + ".png");
-      userName.text(newUser.data("name"));
-      userCategory.text(newUser.data("category"));
+      updateUserDisplay();
 
       getUserSchedule(newUser.data("id"), currentMonth, currentYear); // Pasa mes y año actual
   }
@@ -324,16 +328,11 @@ $(document).ready(function () {
   });
 
   userList.find("li").on("click", function () {
-      let $this = $(this);
       userList.find("li").removeClass("active");
-      $this.addClass("active");
+      $(this).addClass("active");
+      updateUserDisplay();
 
-      selectedUser.attr("data-id", $this.data("id"));
-      userImage.attr("src", imagePath + $this.data("slug") + ".png");
-      userName.text($this.data("name"));
-      userCategory.text($this.data("category"));
-
-      getUserSchedule($this.data("id"), currentMonth, currentYear); // Pasa mes y año actual
+      getUserSchedule($(this).data("id"), currentMonth, currentYear); // Pasa mes y año actual
   });
 
   function getUserSchedule(userId, month, year) {
@@ -397,6 +396,11 @@ $(document).ready(function () {
       });
   }
 
+  // Inicializa el mes y el usuario al cargar la página
   updateMonthDisplay();
+  if (userList.find(".active").length === 0) {
+      userList.find("li").first().addClass("active");
+  }
+  updateUserDisplay();
   getUserSchedule(selectedUser.data("id"), currentMonth, currentYear); // Cargar horario del usuario activo al inicio
 });
