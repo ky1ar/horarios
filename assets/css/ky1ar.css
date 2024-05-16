@@ -337,7 +337,9 @@ body {
     height: 17rem;
     width: 4.3rem;
 }
-#ky1-rgt .ky1-hrr .hrr-box .hrr-day .holiday {
+/* Selecciona los ul que tienen un li hijo con la clase test */
+ul:has(> li.test) {
+    /* Estilos para el ul */
     gap: 0.8rem;
 }
 
