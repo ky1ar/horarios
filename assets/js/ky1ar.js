@@ -226,6 +226,7 @@ $(document).ready(function () {
 
   function getUserSchedule(userId, month, year) {
     console.log(`Fetching schedule for userId: ${userId}, month: ${month}, year: ${year}`); // Depuración
+    console.log(response.schedule); // Verifica los datos recibidos
     $.ajax({
       url: "../routes/del/get_user_schedule.php",
       method: "POST",
@@ -273,8 +274,6 @@ $(document).ready(function () {
 
             daysCounter++;
           });
-
-          console.log(response.schedule); // Verifica los datos recibidos
         } else {
           console.error(response.message);
         }
