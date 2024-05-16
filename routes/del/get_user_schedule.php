@@ -5,7 +5,7 @@ require_once '../../includes/app/db.php';
 if (isset($_POST['userId'])) {
     $userId = $_POST['userId'];
     // $month = $_POST['month'];
-    $month = 5; // Mes fijo
+    $month = 3; // Mes fijo
     $year = 2024; // Año fijo o puedes obtener el año dinámicamente
 
     // Calcular fechas dinámicamente en PHP
