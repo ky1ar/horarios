@@ -5,7 +5,7 @@ require_once '../../includes/app/db.php';
 if (isset($_POST['userId']) && isset($_POST['month'])) {
     $userId = $_POST['userId'];
     $month = $_POST['month'];
-    $year = 2024; // Puedes obtener el año dinámicamente
+    $year = 2024; // O puedes obtener el año dinámicamente
 
     // Calcular fechas dinámicamente en PHP
     $firstDayOfMonth = date('Y-m-01', strtotime("$year-$month-01"));
@@ -23,7 +23,7 @@ if (isset($_POST['userId']) && isset($_POST['month'])) {
     $sql = "SELECT c.calendar_date, s.stamp, s.id_schedule,
                 CASE DAYOFWEEK(c.calendar_date)
                     WHEN 1 THEN 'Domingo'
-                    WHEN 2 THEN 'Lunes'
+                    WHEN 2 THEN 'lunes'
                     WHEN 3 THEN 'Martes'
                     WHEN 4 THEN 'Miércoles'
                     WHEN 5 THEN 'Jueves'
