@@ -341,6 +341,10 @@ body {
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) li.test {
     color: var(--primary);
     transform: rotate(90deg);
+    margin-top: 4rem;
+    letter-spacing: 0.5rem;
+    font-weight: bold;
+    font-size: 1.1rem;
 }
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:nth-child(odd) {
