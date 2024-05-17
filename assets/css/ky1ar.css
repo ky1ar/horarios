@@ -338,17 +338,12 @@ body {
     height: 17rem;
     width: 4.3rem;
 }
-/* Selecciona los ul que tienen un li hijo con la clase test */
-/* #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) {
+#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) li.test {
     color: var(--primary);
+    gap: 0.8rem; /* Esto no se aplica a 'li', usa 'margin' en su lugar */
+    margin-right: 0.8rem;
     transform: rotate(90deg);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 5rem;
-    font-size: 1.3rem;
-    letter-spacing: 0.6rem;
-} */
+}
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:nth-child(odd) {
     background-color: #f5f5f5;
