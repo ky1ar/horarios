@@ -340,8 +340,6 @@ body {
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) li.test {
     color: var(--primary);
-    gap: 0.8rem; /* Esto no se aplica a 'li', usa 'margin' en su lugar */
-    margin-right: 0.8rem;
     transform: rotate(90deg);
 }
 
