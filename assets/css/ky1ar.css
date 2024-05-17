@@ -52,6 +52,7 @@ body {
     position: relative;
     min-width: 22rem;
     display: flex;
+    user-select: none;
 }
 .ky1-wrp {
 	width: 100%;
