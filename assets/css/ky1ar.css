@@ -339,7 +339,7 @@ body {
     width: 4.3rem;
 }
 /* Selecciona los ul que tienen un li hijo con la clase test */
-#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) {
+#ky1-rgt > ul.ky1-hrr > li:nth-child(1) > div > ul:nth-child(1) > li.test {
     gap: 0.8rem;
     color: var(--primary);
 }
