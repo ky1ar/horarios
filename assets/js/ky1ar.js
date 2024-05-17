@@ -112,13 +112,7 @@ $(document).ready(function () {
 
                       if (entry.holiday == 1) {
                           // Si es un feriado, muestra "FERIADO"
-                          $("<li class='test'>F</li>").appendTo($dayList);
-                          $("<li>E</li>").appendTo($dayList);
-                          $("<li>R</li>").appendTo($dayList);
-                          $("<li>I</li>").appendTo($dayList);
-                          $("<li>A</li>").appendTo($dayList);
-                          $("<li>D</li>").appendTo($dayList);
-                          $("<li>O</li>").appendTo($dayList);
+                          $("<li class='test'>FERIADO</li>").appendTo($dayList);
                       } else if (entry.stamp) {
                           // Verifica si hay datos de estampas
                           var stamps = entry.stamp.split(",");

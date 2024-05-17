@@ -338,9 +338,16 @@ body {
     height: 17rem;
     width: 4.3rem;
 }
-/* Selecciona los ul que tienen un li hijo con la clase test */
+
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) {
-    gap: 0.8rem;
+    color: red;
+    transform: rotate(90deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5rem;
+    font-size: 1.3rem;
+    letter-spacing: 0.6rem;
 }
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:nth-child(odd) {
