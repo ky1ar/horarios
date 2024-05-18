@@ -353,7 +353,7 @@ $(document).ready(function () {
                 console.log(response); // Verifica el contenido de la respuesta
 
                 if (response.success) {
-                  listItem.text(response.time_difference);
+                  console.log("Data:", response.data);
                 } else {
                   console.error(response.message);
                 }
