@@ -345,7 +345,7 @@ $(document).ready(function () {
             const calendarDate = listItem.data("date"); // Supongo que tienes un data-date en cada .calc
 
             $.ajax({
-              url: "get_time_difference.php",
+              url: "../routes/del/get_time_difference.php",
               method: "POST",
               data: { userId: userId, calendarDate: calendarDate },
               dataType: "json",
