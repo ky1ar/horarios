@@ -51,7 +51,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     while ($row = $result->fetch_assoc()) {
         $schedule[] = $row;
     }
-    echo json_encode(array('success' => true, 'schedule' => $schedule));
+    echo json_encode(array('success' => true, 'Schedule' => $schedule));
 } else {
     echo json_encode(array('success' => false, 'message' => 'No se recibieron los parámetros necesarios.'));
 }
