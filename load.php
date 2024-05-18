@@ -207,8 +207,8 @@ require_once 'db.php';
                             $date_id = $start_date_id + $offset;
                             if ($element != '') {
                                 $split = str_split($element, 5);
-                                echo json_encode($split);
-                                echo "\n";
+                                // echo json_encode($split);
+                                // echo "\n";
                                 foreach ($split as $id => $value) {
                                     if (isset($split[$id + 1])) {
                                         $current = strtotime($value);
