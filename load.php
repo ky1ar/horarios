@@ -109,7 +109,7 @@ require_once 'db.php';
             </li>
         </ul>
         <ul class="ky1-hrr">
-            <!-- <li class="hrr-box">
+            <li class="hrr-box">
                 <span>Semana 1</span>
                 <div class="hrr-day">
                     <ul>
@@ -162,7 +162,7 @@ require_once 'db.php';
                         <li>18:05</li>
                     </ul>
                 </div>
-            </li> -->
+            </li>
         </ul>
 
         <?php
