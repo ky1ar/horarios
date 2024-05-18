@@ -317,6 +317,7 @@ body {
     display: flex;
     gap: 1rem;
     flex-direction: column;
+    height: 27.5rem;
 }
 #ky1-rgt .ky1-hrr .hrr-box span {
     font-size: 1.25rem;
@@ -338,6 +339,7 @@ body {
     height: 17rem;
     width: 4.3rem;
 }
+
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) li.test {
     color: var(--primary);
     transform: rotate(90deg);
@@ -355,6 +357,18 @@ body {
     font-size: 0.9rem;
     position: relative;
 }
+#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc {
+    background-color: #ffffff;
+    text-align: center;
+    width: 4.3rem;
+    padding: 2rem 0;
+    border-radius: 0 0 4rem 4rem;
+    position: relative; 
+    box-shadow: inset 0 -4rem 0 0 #0baa75; /* borde interno de 4rem en la parte inferior */
+    color: white; 
+}
+
+
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day .day-nam {
     opacity: 0.5;
 }

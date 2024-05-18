@@ -125,6 +125,7 @@ require_once 'db.php';
                         <li>13:10</li>
                         <li>14:08</li>
                         <li>18:05</li>
+                        <li class="calc">+08:04</li>
                     </ul>
                     <ul>
                         <li class="day-nam">mar 2</li>
