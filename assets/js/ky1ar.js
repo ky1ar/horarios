@@ -350,8 +350,10 @@ $(document).ready(function () {
               data: { userId: userId, calendarDate: calendarDate },
               dataType: "json",
               success: function (response) {
+                console.log(response);
                 if (response.success) {
                   listItem.text(response.time_difference);
+                  
                 } else {
                   console.error(response.message);
                 }
