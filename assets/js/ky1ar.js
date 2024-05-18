@@ -330,12 +330,8 @@ $(document).ready(function () {
               $("<li></li>").appendTo($dayList);
             }
 
-            if (entry.date) {
-              // Generar el elemento <li> con la clase 'calc' y un atributo 'data-date'
-              $("<li class='calc' data-date='" + entry.date + "'></li>").appendTo($dayList);
-            } else {
-              console.error('Fecha no definida para la entrada', entry);
-            }
+            // Generar el elemento <li> con la clase 'calc' y un atributo 'data-date'
+            $("<li class='calc' data-date='" + entry.date + "'></li>").appendTo($dayList);
 
             daysCounter++;
           });
@@ -346,28 +342,24 @@ $(document).ready(function () {
           $(".calc").each(function () {
             const listItem = $(this);
             const userId = selectedUser.attr("data-id");
-            const calendarDate = listItem.data("date");
+            const calendarDate = listItem.data("date"); // Supongo que tienes un data-date en cada .calc
 
-            if (userId && calendarDate) {
-              $.ajax({
-                url: "get_time_difference.php",
-                method: "POST",
-                data: { userId: userId, calendarDate: calendarDate },
-                dataType: "json",
-                success: function (response) {
-                  if (response.success) {
-                    listItem.text(response.time_difference);
-                  } else {
-                    console.error(response.message);
-                  }
-                },
-                error: function (xhr, status, error) {
-                  console.error("Error en la solicitud AJAX:", error);
-                },
-              });
-            } else {
-              console.error("userId o calendarDate no definidos", { userId, calendarDate });
-            }
+            $.ajax({
+              url: "get_time_difference.php",
+              method: "POST",
+              data: { userId: userId, calendarDate: calendarDate },
+              dataType: "json",
+              success: function (response) {
+                if (response.success) {
+                  listItem.text(response.time_difference);
+                } else {
+                  console.error(response.message);
+                }
+              },
+              error: function (xhr, status, error) {
+                console.error("Error en la solicitud AJAX:", error);
+              },
+            });
           });
         } else {
           console.error(response.message);
