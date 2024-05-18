@@ -112,13 +112,13 @@ require_once 'db.php';
             <li class="hrr-box">
                 <span>Semana 1</span>
                 <div class="hrr-day">
-                    <ul>
+                    <!-- <ul>
                         <li class="day-nam"></li>
                         <li><img src="assets/img/a.svg" width="20" height="20" alt=""></li>
                         <li><img src="assets/img/b.svg" width="20" height="20" alt=""></li>
                         <li><img src="assets/img/c.svg" width="20" height="20" alt=""></li>
                         <li><img src="assets/img/d.svg" width="20" height="20" alt=""></li>
-                    </ul>
+                    </ul> -->
                     <ul>
                         <li class="day-nam">lun 1</li>
                         <li class="day-trd">09:11</li>
