@@ -345,11 +345,6 @@ $(document).ready(function () {
               dataType: "json",
               success: function (response) {
                 console.log(response);
-                if (response.success) {
-                  console.log("Data2:", response);
-                } else {
-                  console.error(response.message);
-                }
               },
               error: function (xhr, status, error) {
                 console.error("Error en la solicitud AJAX:", error);
@@ -362,39 +357,6 @@ $(document).ready(function () {
 
             daysCounter++;
           });
-
-          // Aquí puedes hacer la llamada AJAX para cada .calc
-          // $(".calc").each(function () {
-          //   const listItem = $(this);
-          //   const userId = selectedUser.attr("data-id");
-          //   const calendarDate = listItem.data("date");
-
-          //   // console.log(
-          //   //   `Solicitando diferencia de tiempo para userId: ${userId}, calendarDate: ${calendarDate}`
-          //   // ); // Debug
-
-          //   $.ajax({
-          //     url: "../routes/del/get_time_difference.php",
-          //     method: "POST",
-          //     data: { userId: userId, calendarDate: calendarDate },
-          //     cache: false,
-          //     contentType: false,
-          //     processData: false,
-          //     dataType: "json",
-          //     success: function (response) {
-          //       console.log(response); // Verifica el contenido de la respuesta
-
-          //       if (response.success) {
-          //         console.log("Data:", response.data);
-          //       } else {
-          //         console.error(response.message);
-          //       }
-          //     },
-          //     error: function (xhr, status, error) {
-          //       console.error("Error en la solicitud AJAX:", error);
-          //     },
-          //   });
-          // });
         } else {
           console.error(response.message);
         }
