@@ -329,7 +329,27 @@ $(document).ready(function () {
               // Si no hay estampas, muestra un elemento vacío
               $("<li></li>").appendTo($dayList);
             }
+            $.ajax({
+              url: "../routes/del/get_time_difference.php",
+              method: "POST",
+              data: { userId: userId, calendarDate: entry.calendar_date },
+              cache: false,
+              contentType: false,
+              processData: false,
+              dataType: "json",
+              success: function (response) {
+                console.log(response); // Verifica el contenido de la respuesta
 
+                if (response.success) {
+                  console.log("Data2:", response.data);
+                } else {
+                  console.error(response.message);
+                }
+              },
+              error: function (xhr, status, error) {
+                console.error("Error en la solicitud AJAX:", error);
+              },
+            });
             // Añadir el elemento calc con los datos necesarios
             $(
               "<li class='calc' data-date='" + entry.calendar_date + "'></li>"
