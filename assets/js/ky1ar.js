@@ -332,22 +332,24 @@ $(document).ready(function () {
             }
 
             // const listItem = $(".calc")
-            // const userId2 = selectedUser.attr("data-id");
-            // const calendarDate = entry.calendar_date;
-            // console.log(userId2);
-            // console.log(entry.calendar_date);
-            // $.ajax({
-            //   url: "../routes/del/get_time_difference.php",
-            //   method: "POST",
-            //   data: { userId: userId2, calendarDate: calendarDate },
-            //   dataType: "json",
-            //   success: function (response) {
-            //     console.log(response);
-            //   },
-            //   error: function (xhr, status, error) {
-            //     console.error("Error en la solicitud AJAX:", error);
-            //   },
-            // });
+            const userId2 = selectedUser.attr("data-id");
+            const calendarDate = entry.calendar_date;
+            console.log(userId2);
+            console.log(entry.calendar_date);
+            $.ajax({
+              url: "../routes/del/get_time_difference.php",
+              data: datos3,
+              cache: false,
+              contentType: false,
+              processData: false,
+              dataType: "json",
+              success: function (response) {
+                console.log(response);
+              },
+              error: function (xhr, status, error) {
+                console.error("Error en la solicitud AJAX:", error);
+              },
+            });
             // Añadir el elemento calc con los datos necesarios
             $("<li class='calc' data-date='" + entry.calendar_date + "'></li>").appendTo($dayList);
 
