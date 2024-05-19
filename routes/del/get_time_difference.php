@@ -1,5 +1,4 @@
 <?php
-header('Content-Type: application/json');
 require_once '../../includes/app/db.php';
 
 if (isset($_POST['userId2']) && isset($_POST['calendarDate'])) {
