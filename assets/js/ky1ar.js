@@ -345,7 +345,7 @@ $(document).ready(function () {
               processData: false,
               dataType: "json",
               success: function (response) {
-                console.log(response);
+                console.log('res:',response);
               },
               error: function (xhr, status, error) {
                 console.error("Error en la solicitud AJAX:", error);
