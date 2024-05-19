@@ -331,9 +331,9 @@ $(document).ready(function () {
               $("<li></li>").appendTo($dayList);
             }
 
-            const listItem = $(".calc")
+            // const listItem = $(".calc")
             const userId = selectedUser.attr("data-id");
-            const calendarDate = listItem.data("date");
+            const calendarDate = entry.calendar_date;
             console.log(userId);
             console.log(calendarDate);
             console.log(entry.calendar_date);
