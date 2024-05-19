@@ -329,6 +329,9 @@ $(document).ready(function () {
               // Si no hay estampas, muestra un elemento vacío
               $("<li></li>").appendTo($dayList);
             }
+            console.log(
+                `Solicitando diferencia de tiempo para userId: ${userId}, calendarDate: ${entry.calendar_date}`
+              );
             $.ajax({
               url: "../routes/del/get_time_difference.php",
               method: "POST",
@@ -339,7 +342,6 @@ $(document).ready(function () {
               dataType: "json",
               success: function (response) {
                 console.log(response); // Verifica el contenido de la respuesta
-
                 if (response.success) {
                   console.log("Data2:", response.data);
                 } else {
@@ -364,9 +366,9 @@ $(document).ready(function () {
             const userId = selectedUser.attr("data-id");
             const calendarDate = listItem.data("date"); // Asegúrate de que cada .calc tenga un data-date
 
-            console.log(
-              `Solicitando diferencia de tiempo para userId: ${userId}, calendarDate: ${calendarDate}`
-            ); // Debug
+            // console.log(
+            //   `Solicitando diferencia de tiempo para userId: ${userId}, calendarDate: ${calendarDate}`
+            // ); // Debug
 
             $.ajax({
               url: "../routes/del/get_time_difference.php",
