@@ -1,11 +1,12 @@
 <?php
+header('Content-Type: application/json');
 require_once '../../includes/app/db.php';
 
 if (isset($_POST['userId2']) && isset($_POST['calendarDate'])) {
     $userId = $_POST['userId2'];
     $calendarDate = $_POST['calendarDate'];
 
-    $query = "select * from Users where id_user= 12;";
+    $query = "select * from Users where id_user= $userId";
 //     $query = "SELECT 
 //     t.id_date,
 //     t.calendar_date,
@@ -208,7 +209,7 @@ if (isset($_POST['userId2']) && isset($_POST['calendarDate'])) {
 //             c.calendar_date = '2024-05-02'
 //     ) AS t;"
 
-    $stmt = $conn->prepare($query);
+    $stmt = $connection->prepare($query);
     // $stmt->bind_param("i", $userId);
     $stmt->execute();
     $result = $stmt->get_result();
