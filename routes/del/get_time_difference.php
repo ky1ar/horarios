@@ -1,10 +1,11 @@
 <?php
 require_once '../../includes/app/db.php';
 
-if (isset($_POST['userId2']) && isset($_POST['calendarDate'])) {
-    $userId = $_POST['userId2'];
+if (isset($_POST['userId']) && isset($_POST['calendarDate'])) {
+    $userId = $_POST['userId'];
     $calendarDate = $_POST['calendarDate'];
 
+    // Aquí va tu consulta SQL
     $query = "SELECT 
     t.id_date,
     t.calendar_date,
@@ -207,14 +208,13 @@ FROM
             c.calendar_date = ?
     ) AS t;";
 
-    $stmt = $connection->prepare($query);
-    $stmt->bind_param("is", $userId, $calendarDate);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
+    // Ejecuta la consulta preparada
+    $stmt = $pdo->prepare($query);
+    $stmt->execute([$userId, $calendarDate]);
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    echo json_encode(['success' => true, 'time_difference' => $userId, $calendarDate]);
+    echo json_encode(['success' => true, 'data' => $result]);
 } else {
-    echo json_encode(['success' => false, 'message' => 'Invalid parameters.']);
+    echo json_encode(['success' => false, 'message' => 'Faltan parámetros en la solicitud.']);
 }
 ?>
