@@ -334,6 +334,8 @@ $(document).ready(function () {
             const listItem = $(this);
             const userId = selectedUser.attr("data-id");
             const calendarDate = listItem.data("date");
+            console.log(userId);
+            console.log(calendarDate);
             $.ajax({
               url: "../routes/del/get_time_difference.php",
               method: "POST",
