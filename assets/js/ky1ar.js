@@ -270,6 +270,7 @@ $(document).ready(function () {
     console.log(
       `Fetching schedule for userId: ${userId}, month: ${month}, year: ${year}`
     ); // Depuración
+    var diff_time;
     $.ajax({
       url: "../routes/del/get_user_schedule.php",
       method: "POST",
@@ -345,13 +346,12 @@ $(document).ready(function () {
             console.log(`Solicitando diferencia de tiempo para userId: ${userId}, calendarDate: ${calendarDate}`); // Debug
 
             $.ajax({
-              url: "../routes/del/get_time_difference.php",
+              url: "../routese/del/get_time_difference.php",
               method: "POST",
               data: { userId: userId, calendarDate: calendarDate },
               dataType: "json",
               success: function (response) {
                 console.log(response); // Verifica el contenido de la respuesta
-
                 if (response.success) {
                   console.log("Data:", response.data);
                 } else {
