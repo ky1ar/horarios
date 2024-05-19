@@ -329,9 +329,9 @@ $(document).ready(function () {
               // Si no hay estampas, muestra un elemento vacío
               $("<li></li>").appendTo($dayList);
             }
-            console.log(
-              `Solicitando diferencia de tiempo para userId: ${userId}, calendarDate: ${entry.calendar_date}`
-            );
+            // console.log(
+            //   `Solicitando diferencia de tiempo para userId: ${userId}, calendarDate: ${entry.calendar_date}`
+            // );
             var formData = new FormData();
             formData.append("userId2", userId);
             formData.append("calendarDate", entry.calendar_date);
