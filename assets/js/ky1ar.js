@@ -331,20 +331,8 @@ $(document).ready(function () {
               $("<li></li>").appendTo($dayList);
             }
 
-            // Añadir el elemento calc con los datos necesarios
-            $("<li class='calc' data-date='" + entry.calendar_date + "'></li>").appendTo($dayList);
-
-            daysCounter++;
-          });
-
-          // Aquí puedes hacer la llamada AJAX para cada .calc
-          $(".calc").each(function () {
-            const listItem = $(this);
             const userId = selectedUser.attr("data-id");
-            const calendarDate = listItem.data("date"); // Asegúrate de que cada .calc tenga un data-date
-
-            console.log(`Solicitando diferencia de tiempo para userId: ${userId}, calendarDate: ${calendarDate}`); // Debug
-
+            const calendarDate = listItem.data("date");
             $.ajax({
               url: "../routes/del/get_time_difference.php",
               method: "POST",
@@ -357,7 +345,20 @@ $(document).ready(function () {
                 console.error("Error en la solicitud AJAX:", error);
               },
             });
+            // Añadir el elemento calc con los datos necesarios
+            // $("<li class='calc' data-date='" + entry.calendar_date + "'></li>").appendTo($dayList);
+
+            daysCounter++;
           });
+
+          // Aquí puedes hacer la llamada AJAX para cada .calc
+          // $(".calc").each(function () {
+          //   const listItem = $(this);
+          //   const userId = selectedUser.attr("data-id");
+          //   const calendarDate = listItem.data("date"); // Asegúrate de que cada .calc tenga un data-date
+
+          //   console.log(`Solicitando diferencia de tiempo para userId: ${userId}, calendarDate: ${calendarDate}`); // Debug
+          // });
 
         } else {
           console.error(response.message);
