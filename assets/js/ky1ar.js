@@ -338,7 +338,8 @@ $(document).ready(function () {
             console.log(entry.calendar_date);
             $.ajax({
               url: "../routes/del/get_time_difference.php",
-              data: datos3,
+              method: "POST",
+              data: { userId: userId2, calendarDate: calendarDate },
               cache: false,
               contentType: false,
               processData: false,
@@ -351,7 +352,9 @@ $(document).ready(function () {
               },
             });
             // Añadir el elemento calc con los datos necesarios
-            $("<li class='calc' data-date='" + entry.calendar_date + "'></li>").appendTo($dayList);
+            $(
+              "<li class='calc' data-date='" + entry.calendar_date + "'></li>"
+            ).appendTo($dayList);
 
             daysCounter++;
           });
@@ -364,7 +367,6 @@ $(document).ready(function () {
 
           //   console.log(`Solicitando diferencia de tiempo para userId: ${userId}, calendarDate: ${calendarDate}`); // Debug
           // });
-
         } else {
           console.error(response.message);
         }
