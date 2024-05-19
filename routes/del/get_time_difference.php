@@ -214,7 +214,8 @@ FROM
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
 
-    echo json_encode(['success' => true, 'time_difference' => $row['time_difference']]);
+    // echo json_encode(['success' => true, 'time_difference' => $row['time_difference']]);
+    echo json_encode($row);
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid parameters.']);
 }
