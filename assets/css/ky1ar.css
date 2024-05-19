@@ -349,7 +349,7 @@ body {
     font-size: 1.1rem;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul{
-    background-color: #bbbbbb;
+    background-color: #e0e0e0;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:nth-child(odd) {
     background-color: #f5f5f5;
