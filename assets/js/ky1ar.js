@@ -346,17 +346,12 @@ $(document).ready(function () {
             console.log(`Solicitando diferencia de tiempo para userId: ${userId}, calendarDate: ${calendarDate}`); // Debug
 
             $.ajax({
-              url: "../routese/del/get_time_difference.php",
+              url: "../routes/del/get_time_difference.php",
               method: "POST",
               data: { userId: userId, calendarDate: calendarDate },
               dataType: "json",
               success: function (response) {
-                console.log(response); // Verifica el contenido de la respuesta
-                if (response.success) {
-                  console.log("Data:", response.data);
-                } else {
-                  console.error(response.message);
-                }
+                console.log(response);
               },
               error: function (xhr, status, error) {
                 console.error("Error en la solicitud AJAX:", error);
