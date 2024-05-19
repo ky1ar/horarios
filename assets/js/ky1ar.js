@@ -105,7 +105,7 @@ $(document).ready(function () {
           var $currentHrrBox;
           var currentWeek = 1;
           response.schedule.forEach(function (entry, index) {
-            var dayName = entry.day_name_espanol;
+            var dayName = entry.day_of_week_es;
             var dayNumber = entry.day_number;
 
             // Omitir los domingos
