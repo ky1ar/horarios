@@ -331,7 +331,9 @@ $(document).ready(function () {
             }
 
             // Añadir el elemento calc con los datos necesarios
-            $("<li class='calc' data-date='" + entry.calendar_date + "'></li>").appendTo($dayList);
+            $(
+              "<li class='calc' data-date='" + entry.calendar_date + "'></li>"
+            ).appendTo($dayList);
 
             daysCounter++;
           });
@@ -342,12 +344,17 @@ $(document).ready(function () {
             const userId = selectedUser.attr("data-id");
             const calendarDate = listItem.data("date"); // Asegúrate de que cada .calc tenga un data-date
 
-            console.log(`Solicitando diferencia de tiempo para userId: ${userId}, calendarDate: ${calendarDate}`); // Debug
+            console.log(
+              `Solicitando diferencia de tiempo para userId: ${userId}, calendarDate: ${calendarDate}`
+            ); // Debug
 
             $.ajax({
               url: "../routes/del/get_time_difference.php",
               method: "POST",
               data: { userId: userId, calendarDate: calendarDate },
+              cache: false,
+              contentType: false,
+              processData: false,
               dataType: "json",
               success: function (response) {
                 console.log(response); // Verifica el contenido de la respuesta
@@ -363,7 +370,6 @@ $(document).ready(function () {
               },
             });
           });
-
         } else {
           console.error(response.message);
         }
