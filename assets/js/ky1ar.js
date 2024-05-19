@@ -346,7 +346,7 @@ $(document).ready(function () {
               success: function (response) {
                 console.log(response);
                 if (response.success) {
-                  console.log("Data2:", response.data);
+                  console.log("Data2:", response);
                 } else {
                   console.error(response.message);
                 }
