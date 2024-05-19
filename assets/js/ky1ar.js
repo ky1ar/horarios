@@ -364,7 +364,7 @@ $(document).ready(function () {
           $(".calc").each(function () {
             const listItem = $(this);
             const userId = selectedUser.attr("data-id");
-            const calendarDate = listItem.data("date"); // Asegúrate de que cada .calc tenga un data-date
+            const calendarDate = listItem.data("date");
 
             // console.log(
             //   `Solicitando diferencia de tiempo para userId: ${userId}, calendarDate: ${calendarDate}`
