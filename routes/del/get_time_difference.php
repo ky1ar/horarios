@@ -1,11 +1,11 @@
 <?php
+header('Content-Type: application/json');
 require_once '../../includes/app/db.php';
 
 if (isset($_POST['userId2']) && isset($_POST['calendarDate'])) {
     $userId = $_POST['userId2'];
     $calendarDate = $_POST['calendarDate'];
 
-    // Aquí va tu consulta SQL
     $query = "SELECT 
     t.id_date,
     t.calendar_date,
@@ -202,19 +202,20 @@ FROM
             END AS new_column
         FROM 
             Calendar c
-        LEFT JOIN Schedule s ON c.id_date = s.id_calendar AND s.id_user = 18
+        LEFT JOIN Schedule s ON c.id_date = s.id_calendar AND s.id_user = 12
         LEFT JOIN Users u ON s.id_user = u.id_user
         WHERE
             c.calendar_date = '2024-05-02'
-    ) AS t";
+    ) AS t;";
 
-    // Ejecuta la consulta preparada
-    $stmt = $pdo->prepare($query);
-    $stmt->execute([$userId, $calendarDate]);
-    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $stmt = $connection->prepare($query);
+    // $stmt->bind_param("is", $userId, $calendarDate);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
 
-    echo json_encode(['success' => true, 'data' => $result]);
+    echo json_encode(['success' => true, 'time_difference' => $row['time_difference']]);
 } else {
-    echo json_encode(['success' => false, 'message' => 'Faltan parámetros en la solicitud']);
+    echo json_encode(['success' => false, 'message' => 'Invalid parameters.']);
 }
 ?>
