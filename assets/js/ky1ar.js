@@ -335,13 +335,13 @@ $(document).ready(function () {
             $.ajax({
               url: "../routes/del/get_time_difference.php",
               method: "POST",
-              data: { userId2: userId, calendarDate: entry.calendar_date },
+              data: { "userId2": userId, calendarDate: entry.calendar_date },
               cache: false,
               contentType: false,
               processData: false,
               dataType: "json",
               success: function (response) {
-                console.log(response); // Verifica el contenido de la respuesta
+                console.log(response);
                 if (response.success) {
                   console.log("Data2:", response.data);
                 } else {

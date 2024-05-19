@@ -220,6 +220,6 @@ require_once '../../includes/app/db.php';
 if (isset($_POST['userId2'])){
     echo json_encode(['success' => true, 'message' => 'funciona.']);
 } else {
-    echo json_encode(['success' => false, 'message' => 'no funciona.']);
+    echo json_encode(['success' => false, 'message' => 'no funciona']);
 }
 ?>
