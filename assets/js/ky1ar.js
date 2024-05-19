@@ -335,7 +335,7 @@ $(document).ready(function () {
             $.ajax({
               url: "../routes/del/get_time_difference.php",
               method: "POST",
-              data: { userId: userId, calendarDate: entry.calendar_date },
+              data: { userId2: userId, calendarDate: entry.calendar_date },
               cache: false,
               contentType: false,
               processData: false,
@@ -361,37 +361,37 @@ $(document).ready(function () {
           });
 
           // Aquí puedes hacer la llamada AJAX para cada .calc
-          $(".calc").each(function () {
-            const listItem = $(this);
-            const userId = selectedUser.attr("data-id");
-            const calendarDate = listItem.data("date");
+          // $(".calc").each(function () {
+          //   const listItem = $(this);
+          //   const userId = selectedUser.attr("data-id");
+          //   const calendarDate = listItem.data("date");
 
-            // console.log(
-            //   `Solicitando diferencia de tiempo para userId: ${userId}, calendarDate: ${calendarDate}`
-            // ); // Debug
+          //   // console.log(
+          //   //   `Solicitando diferencia de tiempo para userId: ${userId}, calendarDate: ${calendarDate}`
+          //   // ); // Debug
 
-            $.ajax({
-              url: "../routes/del/get_time_difference.php",
-              method: "POST",
-              data: { userId: userId, calendarDate: calendarDate },
-              cache: false,
-              contentType: false,
-              processData: false,
-              dataType: "json",
-              success: function (response) {
-                console.log(response); // Verifica el contenido de la respuesta
+          //   $.ajax({
+          //     url: "../routes/del/get_time_difference.php",
+          //     method: "POST",
+          //     data: { userId: userId, calendarDate: calendarDate },
+          //     cache: false,
+          //     contentType: false,
+          //     processData: false,
+          //     dataType: "json",
+          //     success: function (response) {
+          //       console.log(response); // Verifica el contenido de la respuesta
 
-                if (response.success) {
-                  console.log("Data:", response.data);
-                } else {
-                  console.error(response.message);
-                }
-              },
-              error: function (xhr, status, error) {
-                console.error("Error en la solicitud AJAX:", error);
-              },
-            });
-          });
+          //       if (response.success) {
+          //         console.log("Data:", response.data);
+          //       } else {
+          //         console.error(response.message);
+          //       }
+          //     },
+          //     error: function (xhr, status, error) {
+          //       console.error("Error en la solicitud AJAX:", error);
+          //     },
+          //   });
+          // });
         } else {
           console.error(response.message);
         }
