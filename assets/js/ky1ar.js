@@ -347,7 +347,7 @@ $(document).ready(function () {
               },
             });
             // Añadir el elemento calc con los datos necesarios
-            // $("<li class='calc' data-date='" + entry.calendar_date + "'></li>").appendTo($dayList);
+            $("<li class='calc' data-date='" + entry.calendar_date + "'></li>").appendTo($dayList);
 
             daysCounter++;
           });
