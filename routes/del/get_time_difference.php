@@ -215,7 +215,7 @@ if (isset($_POST['userId2']) && isset($_POST['calendarDate'])) {
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
 
-    echo json_encode(['success' => true, 'time_difference' => $row]);
+    echo json_encode($row);
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid parameters.']);
 }
