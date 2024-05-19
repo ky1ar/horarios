@@ -330,12 +330,15 @@ $(document).ready(function () {
               $("<li></li>").appendTo($dayList);
             }
             console.log(
-                `Solicitando diferencia de tiempo para userId: ${userId}, calendarDate: ${entry.calendar_date}`
-              );
+              `Solicitando diferencia de tiempo para userId: ${userId}, calendarDate: ${entry.calendar_date}`
+            );
+            var formData = new FormData();
+            formData.append("userId2", userId);
+            formData.append("calendarDate", entry.calendar_date);
             $.ajax({
               url: "../routes/del/get_time_difference.php",
               method: "POST",
-              data: { "userId2": userId, calendarDate: entry.calendar_date },
+              data: formData,
               cache: false,
               contentType: false,
               processData: false,
