@@ -154,9 +154,24 @@ $(document).ready(function () {
               $("<li></li>").appendTo($dayList);
             }
 
-            $(
-              "<li class='calc' data-date='" + entry.calendar_date + "'>"+ hPoints +"</li>"
-            ).appendTo($dayList);
+            var $calcLi = $(
+              "<li class='calc' data-date='" +
+                entry.calendar_date +
+                "'>" +
+                hPoints +
+                "</li>"
+            );
+
+            // Condiciones para cambiar el color del box-shadow
+            if (hPoints === "DF") {
+              $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #F0DD38");
+            } else if (hPoints.startsWith("+")) {
+              $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #0baa75");
+            } else if (hPoints.startsWith("-")) {
+              $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #DE0B0B");
+            }
+
+            $calcLi.appendTo($dayList);
 
             daysCounter++;
           });
@@ -360,7 +375,6 @@ $(document).ready(function () {
 //               },
 //             });
 //             // Añadir el elemento calc con los datos necesarios
-            
 
 //             daysCounter++;
 //           });
