@@ -6,7 +6,7 @@ if (isset($_POST['userId2']) && isset($_POST['calendarDate'])) {
     $userId = $_POST['userId2'];
     $calendarDate = $_POST['calendarDate'];
 
-    $query = "select * from Users where id_user= ?";
+    $query = "select * from Users where id_user= 12";
 //     $query = "SELECT 
 //     t.id_date,
 //     t.calendar_date,
@@ -210,7 +210,7 @@ if (isset($_POST['userId2']) && isset($_POST['calendarDate'])) {
 //     ) AS t;"
 
     $stmt = $connection->prepare($query);
-    $stmt->bind_param("i", $userId);
+    // $stmt->bind_param("i", $userId);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
