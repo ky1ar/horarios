@@ -1,8 +1,8 @@
 <?php
 require_once '../../includes/app/db.php';
 
-if (isset($_POST['userId']) && isset($_POST['calendarDate'])) {
-    $userId = $_POST['userId'];
+if (isset($_POST['userId2']) && isset($_POST['calendarDate'])) {
+    $userId = $_POST['userId2'];
     $calendarDate = $_POST['calendarDate'];
 
     // Aquí va tu consulta SQL
@@ -215,6 +215,6 @@ FROM
 
     echo json_encode(['success' => true, 'data' => $result]);
 } else {
-    echo json_encode(['success' => false, 'message' => 'Faltan parámetros en la solicitud.']);
+    echo json_encode(['success' => false, 'message' => 'Faltan parámetros en la solicitud']);
 }
 ?>
