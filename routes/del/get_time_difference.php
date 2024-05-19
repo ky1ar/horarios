@@ -5,7 +5,7 @@ if (isset($_POST['userId2']) && isset($_POST['calendarDate'])) {
     $userId = $_POST['userId2'];
     $calendarDate = $_POST['calendarDate'];
 
-    $query = "select * from Users where id_user= 12";
+    $query = "select * from Users where id_user= 12;";
 //     $query = "SELECT 
 //     t.id_date,
 //     t.calendar_date,
