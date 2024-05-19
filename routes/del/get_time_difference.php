@@ -209,7 +209,7 @@ if (isset($_POST['userId2']) && isset($_POST['calendarDate'])) {
 //             c.calendar_date = '2024-05-02'
 //     ) AS t;"
 
-    $stmt = $connection->prepare($query);
+    $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $userId);
     $stmt->execute();
     $result = $stmt->get_result();
