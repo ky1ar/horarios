@@ -202,11 +202,11 @@ FROM
             END AS new_column
         FROM 
             Calendar c
-        LEFT JOIN Schedule s ON c.id_date = s.id_calendar AND s.id_user = ?
+        LEFT JOIN Schedule s ON c.id_date = s.id_calendar AND s.id_user = 18
         LEFT JOIN Users u ON s.id_user = u.id_user
         WHERE
-            c.calendar_date = ?
-    ) AS t;";
+            c.calendar_date = '2024-05-02'
+    ) AS t";
 
     // Ejecuta la consulta preparada
     $stmt = $pdo->prepare($query);
