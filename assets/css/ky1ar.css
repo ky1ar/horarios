@@ -360,14 +360,14 @@ body {
     position: relative;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc {
-    background-color: #ffffff;
+    background-color: transparent;
     text-align: center;
     width: 4.3rem;
     padding: 2rem 0;
     border-radius: 0 0 4rem 4rem;
     position: absolute;
     color: white;
-    margin-top: 15.5rem;
+    margin-top: 14.7rem;
 }
 
 
