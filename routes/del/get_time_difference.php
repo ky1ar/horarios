@@ -202,20 +202,19 @@ FROM
             END AS new_column
         FROM 
             Calendar c
-        LEFT JOIN Schedule s ON c.id_date = s.id_calendar AND s.id_user = ?
+        LEFT JOIN Schedule s ON c.id_date = s.id_calendar AND s.id_user = 18
         LEFT JOIN Users u ON s.id_user = u.id_user
         WHERE
-            c.calendar_date = ?
+            c.calendar_date = '2024-05-02'
     ) AS t;";
 
     $stmt = $connection->prepare($query);
-    $stmt->bind_param("is", $userId, $calendarDate);
+    // $stmt->bind_param("is", $userId, $calendarDate);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
 
-    // echo json_encode(['success' => true, 'time_difference' => $row['time_difference']]);
-    echo json_encode($row);
+    echo json_encode(['success' => true, 'time_difference' => $row['time_difference']]);
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid parameters.']);
 }
