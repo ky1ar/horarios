@@ -345,15 +345,16 @@ $(document).ready(function () {
               dataType: "json",
               success: function (response) {
                 console.log(response);
+                $(
+                  "<li class='calc' data-date='" + entry.calendar_date + "'>"+ response.time_difference +"</li>"
+                ).appendTo($dayList);
               },
               error: function (xhr, status, error) {
                 console.error("Error en la solicitud AJAX:", error);
               },
             });
             // Añadir el elemento calc con los datos necesarios
-            $(
-              "<li class='calc' data-date='" + entry.calendar_date + "'></li>"
-            ).appendTo($dayList);
+            
 
             daysCounter++;
           });
