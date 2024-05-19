@@ -331,6 +331,7 @@ $(document).ready(function () {
               $("<li></li>").appendTo($dayList);
             }
 
+            const listItem = $(this);
             const userId = selectedUser.attr("data-id");
             const calendarDate = listItem.data("date");
             $.ajax({
@@ -346,7 +347,7 @@ $(document).ready(function () {
               },
             });
             // Añadir el elemento calc con los datos necesarios
-            // $("<li class='calc' data-date='" + entry.calendar_date + "'></li>").appendTo($dayList);
+            $("<li class='calc' data-date='" + entry.calendar_date + "'></li>").appendTo($dayList);
 
             daysCounter++;
           });
