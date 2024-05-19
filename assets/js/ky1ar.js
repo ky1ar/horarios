@@ -107,6 +107,7 @@ $(document).ready(function () {
           response.schedule.forEach(function (entry, index) {
             var dayName = entry.day_of_week_es;
             var dayNumber = entry.day_number;
+            var hPoints = entry.time_difference;
 
             // Omitir los domingos
             if (dayName.toLowerCase() === "domingo") {
@@ -154,7 +155,7 @@ $(document).ready(function () {
             }
 
             $(
-              "<li class='calc' data-date='" + entry.calendar_date + "'>"+ entry.time_difference +"</li>"
+              "<li class='calc' data-date='" + entry.calendar_date + "'>"+ hPoints +"</li>"
             ).appendTo($dayList);
 
             daysCounter++;
