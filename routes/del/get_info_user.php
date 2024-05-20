@@ -14,7 +14,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     // Crear conexión y setear variables de sesión
     $sql = "SET @year = ?, SET @month = ?, SET @id_user = ?, SET @current_date = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iiis", $year, $month, $userId, $currentDate);
+    $stmt->bind_param("ssis", $year, $month, $userId, $currentDate);
     $stmt->execute();
     $stmt->close();
 
