@@ -56,8 +56,8 @@ $(document).ready(function () {
     let newUser = userList.find("li").eq(current);
     newUser.addClass("active");
     updateUserDisplay();
-
     getUserSchedule(newUser.data("id"), currentMonth, currentYear);
+    getUserData(newUser.data("id"), currentMonth, currentYear)
   }
 
   nextUser.on("click", function () {
@@ -72,6 +72,7 @@ $(document).ready(function () {
     if (currentMonth === 1) currentYear++;
     updateMonthDisplay();
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
   });
 
   previousMonth.on("click", function () {
@@ -79,6 +80,7 @@ $(document).ready(function () {
     if (currentMonth === 12) currentYear--;
     updateMonthDisplay();
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
   });
 
   userList.find("li").on("click", function () {
@@ -86,6 +88,7 @@ $(document).ready(function () {
     $(this).addClass("active");
     updateUserDisplay();
     getUserSchedule($(this).data("id"), currentMonth, currentYear);
+    getUserData($(this).data("id"), currentMonth, currentYear);
   });
 
   function getUserSchedule(userId, month, year) {
@@ -218,15 +221,8 @@ $(document).ready(function () {
       },
     });
   }
+  getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
 
-  // Asegurémonos de que selectedUser tenga un atributo 'data-id' definido
-  if (selectedUser.attr("data-id") !== undefined) {
-    // Si el atributo 'data-id' está definido, lo pasamos a getUserData
-    getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
-  } else {
-    // Si el atributo 'data-id' no está definido, mostramos un mensaje de error
-    console.error("El atributo 'data-id' de selectedUser no está definido.");
-  }
   updateMonthDisplay();
   if (userList.find(".active").length === 0) {
     userList.find("li").first().addClass("active");
