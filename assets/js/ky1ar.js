@@ -181,14 +181,14 @@ $(document).ready(function () {
       },
     });
   }
-  function loadUserSchedule(userId, month, year) {
+  function loadUserSchedule(userId, currentMonth, currentYear) {
     $.ajax({
       url: "../routes/del/get_info_user.php",
       type: "POST",
       data: {
         userId: userId,
-        month: month,
-        year: year,
+        month: currentMonth,
+        year: currentYear,
       },
       cache: false,
       contentType: false,
