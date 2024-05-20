@@ -111,7 +111,7 @@ WHERE
     u.id_user = ?;";
 
 
-    $stmt = $conn->prepare($sql);
+    $result = $conn->query($sql);
     $stmt->bind_param("issssiissssiissssiissssii", $userId, $year, $month, $year, $month, $userId, $userId, $year, $month, $year, $month, $userId, $userId, $year, $month, $year, $month, $userId, $userId, $year, $month, $year, $month, $userId, $userId);
     $stmt->execute();
     $result = $stmt->get_result();
