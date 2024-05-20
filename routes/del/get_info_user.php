@@ -134,9 +134,9 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         ? AS id_user,
         u.id_profile,
         ? AS total_hours_required,
-        ? AS total_sin_registro,
-        ? AS total_tardanzas,
-        ? AS total_faltas_injustificadas
+        ? AS total_missing_points,
+        ? AS total_late_points,
+        ? AS total_unjustified_absences
     FROM
         Users u
     WHERE

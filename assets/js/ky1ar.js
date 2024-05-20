@@ -184,17 +184,17 @@ $(document).ready(function () {
       },
     });
   }
-  function updateUserData(
-    totalHours,
-    totalMissingPoints,
-    totalLatePoints,
-    totalUnjustifiedAbsences
-  ) {
-    $("#totalHours").text(totalHours + " h");
-    $("#totalMissingPoints").text(totalMissingPoints);
-    $("#totalLatePoints").text(totalLatePoints);
-    $("#totalUnjustifiedAbsences").text(totalUnjustifiedAbsences);
-  }
+  // function updateUserData(
+  //   totalHours,
+  //   totalMissingPoints,
+  //   totalLatePoints,
+  //   totalUnjustifiedAbsences
+  // ) {
+  //   $("#totalHours").text(totalHours + " h");
+  //   $("#totalMissingPoints").text(totalMissingPoints);
+  //   $("#totalLatePoints").text(totalLatePoints);
+  //   $("#totalUnjustifiedAbsences").text(totalUnjustifiedAbsences);
+  // }
   function getUserData(userId, month, year) {
     console.log(`Data: ${userId}, month: ${month}, year: ${year}`); 
     $.ajax({
