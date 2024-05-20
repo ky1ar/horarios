@@ -87,8 +87,8 @@ $(document).ready(function () {
     userList.find("li").removeClass("active");
     $(this).addClass("active");
     updateUserDisplay();
-
-    getUserSchedule($(this).data("id"), currentMonth, currentYear); // Pasa mes y año actual
+    getUserSchedule($(this).data("id"), currentMonth, currentYear);
+    loadUserSchedule($(this).data("id"), currentMonth, currentYear); 
   });
 
   function loadUserSchedule(userId, month, year) {
