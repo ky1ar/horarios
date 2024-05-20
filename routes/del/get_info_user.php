@@ -11,8 +11,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $year = $_POST['year'];
     $currentDate = date('Y-m-d');
 
-    // Crear conexión y setear variables de sesión
-    $sql = "SET @year = ?, SET @month = ?, SET @id_user = ?, SET @current_date = ?";
+    $sql = "SET @year = ?, @month = ?, @id_user = ?, @current_date = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ssis", $year, $month, $userId, $currentDate);
     $stmt->execute();
