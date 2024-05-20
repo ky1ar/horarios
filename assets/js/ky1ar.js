@@ -56,8 +56,8 @@ $(document).ready(function () {
     let newUser = userList.find("li").eq(current);
     newUser.addClass("active");
     updateUserDisplay();
-
     getUserSchedule(newUser.data("id"), currentMonth, currentYear); // Pasa mes y año actual
+    loadUserSchedule(newUser.data("id"), currentMonth, currentYear);
   }
 
   nextUser.on("click", function () {
@@ -72,6 +72,7 @@ $(document).ready(function () {
     if (currentMonth === 1) currentYear++;
     updateMonthDisplay();
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear); // Pasa mes y año actual
+    loadUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
   });
 
   previousMonth.on("click", function () {
@@ -79,6 +80,7 @@ $(document).ready(function () {
     if (currentMonth === 12) currentYear--;
     updateMonthDisplay();
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear); // Pasa mes y año actual
+    loadUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
   });
 
   userList.find("li").on("click", function () {
@@ -88,6 +90,33 @@ $(document).ready(function () {
 
     getUserSchedule($(this).data("id"), currentMonth, currentYear); // Pasa mes y año actual
   });
+
+  function loadUserSchedule(userId, month, year) {
+    $.ajax({
+        url: '../routes/del/get_info_user.php', // Cambia esta ruta por la correcta
+        type: 'POST',
+        data: {
+            userId: userId,
+            month: month,
+            year: year
+        },
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                var data = response.data[0];
+                $('#totalHours').text(data.total_hours_required + ' h');
+                $('#totalMissingPoints').text(data.total_sin_registro);
+                $('#totalLatePoints').text(data.total_tardanzas);
+                $('#totalUnjustifiedAbsences').text(data.total_faltas_injustificadas);
+            } else {
+                alert('Error: ' + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            alert('Error: ' + error);
+        }
+    });
+}
 
   function getUserSchedule(userId, month, year) {
     console.log(

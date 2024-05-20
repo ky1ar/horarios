@@ -76,7 +76,7 @@ require_once 'db.php';
                     <img src="assets/img/tot.svg" width="40" height="40" alt="">
                 </div>
                 <div class="box-txt">
-                    <span>42:30 h</span>
+                    <span id="totalHours">42:30 h</span>
                     <p>Total Horas</p>
                 </div>
             </li>
@@ -85,7 +85,7 @@ require_once 'db.php';
                     <img src="assets/img/rgs.svg" width="40" height="40" alt="">
                 </div>
                 <div class="box-txt">
-                    <span>4</span>
+                    <span id="totalMissingPoints">4</span>
                     <p>Sin Registro</p>
                 </div>
             </li>
@@ -94,7 +94,7 @@ require_once 'db.php';
                     <img src="assets/img/trd.svg" width="40" height="40" alt="">
                 </div>
                 <div class="box-txt">
-                    <span>0</span>
+                    <span id="totalLatePoints">0</span>
                     <p>Tardanzas</p>
                 </div>
             </li>
@@ -103,7 +103,7 @@ require_once 'db.php';
                     <img src="assets/img/flt.svg" width="40" height="40" alt="">
                 </div>
                 <div class="box-txt">
-                    <span>1</span>
+                    <span id="totalUnjustifiedAbsences">1</span>
                     <p>Faltas Injustificadas</p>
                 </div>
             </li>

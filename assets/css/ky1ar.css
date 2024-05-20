@@ -52,6 +52,7 @@ body {
     position: relative;
     min-width: 22rem;
     display: flex;
+    -webkit-user-select: none;
     user-select: none;
 }
 .ky1-wrp {
