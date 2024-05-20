@@ -9,7 +9,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $userId = $_POST['userId'];
     $month = $_POST['month'];
     $year = $_POST['year'];
-    date_default_timezone_set('America/Lima');
+    // date_default_timezone_set('America/Lima');
     $currentDate = date('Y-m-d');
 
     $query = "SELECT
