@@ -75,7 +75,7 @@ $(document).ready(function () {
     });
   }
   
-  getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
+  getUserData(selectedUser.attr("data-id"), currentYear);
 
   function updateUser(offset) {
     let current = userList.find(".active").index();
