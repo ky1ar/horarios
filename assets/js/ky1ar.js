@@ -53,37 +53,25 @@ $(document).ready(function () {
   }
   function getUserData(userId, month, year) {
     $.ajax({
-      url: "../routes/del/get_user_schedule.php",
+      url: "../routes/del/get_info_user.php", // Actualiza la ruta a tu archivo PHP
       method: "POST",
       data: { userId: userId, month: month, year: year },
       dataType: "json",
       success: function (response) {
-        console.log(response); // Verifica la estructura de la respuesta
+        console.log("Datos recibidos del servidor:", response); // Agrega un console.log aquí
         if (response.success) {
-          if (response.data && response.data.length > 0) {
-            // Verifica que response.data esté definido y no sea una matriz vacía
-            const userData = response.data[0]; // Accede a la primera entrada de la matriz
-            updateUserData(
-              userData.total_hours_required,
-              userData.total_sin_registro,
-              userData.total_tardanzas,
-              userData.total_faltas_injustificadas
-            );
-          } else {
-            console.error(
-              "No se encontraron datos de usuario en la respuesta."
-            );
-          }
+          const userData = response.data[0]; // Se asume que el servidor devuelve un solo conjunto de datos
+          updateUserData(userData.total_hours_required, userData.total_sin_registro, userData.total_tardanzas, userData.total_faltas_injustificadas);
         } else {
           console.error(response.message);
         }
       },
-
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
       },
     });
   }
+  
   getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
   function updateUser(offset) {
     let current = userList.find(".active").index();
