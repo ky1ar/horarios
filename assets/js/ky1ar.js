@@ -40,7 +40,32 @@ $(document).ready(function () {
     userName.text(activeUser.data("name"));
     userCategory.text(activeUser.data("category"));
   }
-
+  function updateUserData(totalHours, totalMissingPoints, totalLatePoints, totalUnjustifiedAbsences) {
+    $('#totalHours').text(totalHours + ' h');
+    $('#totalMissingPoints').text(totalMissingPoints);
+    $('#totalLatePoints').text(totalLatePoints);
+    $('#totalUnjustifiedAbsences').text(totalUnjustifiedAbsences);
+  }
+  function getUserData(userId, month, year) {
+    $.ajax({
+      url: "../routes/del/get_user_schedule.php", 
+      method: "POST",
+      data: { userId: userId, month: month, year: year },
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          const userData = response.data[0];
+          updateUserData(userData.total_hours_required, userData.total_sin_registro, userData.total_tardanzas, userData.total_faltas_injustificadas);
+        } else {
+          console.error(response.message);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
+    });
+  }
+  getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
   function updateUser(offset) {
     let current = userList.find(".active").index();
     let total = userList.find("li").length - 1;
