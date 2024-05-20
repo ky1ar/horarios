@@ -210,7 +210,7 @@ $(document).ready(function () {
       processData: false,
       dataType: "json",
       success: function (response) {
-        console.log("Datos recibidos del servidor:", response);
+        console.log("Datos recibidos del servidor:", response.total_hours_required);
         if (response.success) {
           let data = response.data[0];
           $("#totalHours").text(data.total_hours_required + " h");
