@@ -57,7 +57,7 @@ $(document).ready(function () {
     newUser.addClass("active");
     updateUserDisplay();
     getUserSchedule(newUser.data("id"), currentMonth, currentYear);
-    getUserData(newUser.data("id"), currentMonth, currentYear);
+    getUserData(newUser.data("id"), currentMonth, currentYear)
   }
 
   nextUser.on("click", function () {
@@ -196,18 +196,13 @@ $(document).ready(function () {
   //   $("#totalUnjustifiedAbsences").text(totalUnjustifiedAbsences);
   // }
   function getUserData(userId, month, year) {
-    console.log(`Data: ${userId}, month: ${month}, year: ${year}`);
-    var formData = new FormData();
-    formData.append("userId", userId);
-    formData.append("month", month);
-    formData.append("year", year);
+    console.log(`Data: ${userId}, month: ${month}, year: ${year}`); 
     $.ajax({
       url: "../routes/del/get_info_user.php",
       method: "POST",
-      data: formData,
+      data: { userId: userId, month: month, year: year },
       cache: false,
       contentType: false,
-      processData: false,
       dataType: "json",
       success: function (response) {
         console.log("Datos recibidos del servidor:", response);
@@ -228,7 +223,7 @@ $(document).ready(function () {
       },
     });
   }
-
+  
   updateMonthDisplay();
   if (userList.find(".active").length === 0) {
     userList.find("li").first().addClass("active");
