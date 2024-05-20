@@ -11,10 +11,7 @@ $(document).ready(function () {
 
   const userImage = $("#userImage");
   const imagePath = "assets/img/profiles/";
-  $("li").each(function () {
-    var parentId = $(this).data("id");
-    $(this).find("span").attr("data-id", parentId);
-  });
+
   const monthNames = [
     "Enero",
     "Febrero",
@@ -224,14 +221,12 @@ $(document).ready(function () {
       },
     });
   }
-  if (selectedUser.attr("data-id")) {
-    getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
-  }
   
   updateMonthDisplay();
   if (userList.find(".active").length === 0) {
     userList.find("li").first().addClass("active");
   }
   updateUserDisplay();
+  getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
 });
