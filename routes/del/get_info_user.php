@@ -151,7 +151,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     while ($row = $resultFinal->fetch_assoc()) {
         $finalData[] = $row;
     }
-    echo json_encode(array('success' => true, 'data' => $finalData));
+    echo json_encode(array($finalData));
 } else {
     echo json_encode(array('success' => false, 'message' => 'No se recibieron los parámetros necesarios.'));
 }
