@@ -195,7 +195,7 @@ $(document).ready(function () {
   //   $("#totalLatePoints").text(totalLatePoints);
   //   $("#totalUnjustifiedAbsences").text(totalUnjustifiedAbsences);
   // }
-  function getUserData(userId, month, year) {
+  function getUserData(userId2, month, year) {
     console.log(`Data: ${userId}, month: ${month}, year: ${year}`); 
     $.ajax({
       url: "../routes/del/get_info_user.php",
