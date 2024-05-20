@@ -57,7 +57,7 @@ $(document).ready(function () {
     newUser.addClass("active");
     updateUserDisplay();
     getUserSchedule(newUser.data("id"), currentMonth, currentYear);
-    getUserData(newUser.data("id"), currentMonth, currentYear)
+    getUserData(newUser.data("id"), currentMonth, currentYear);
   }
 
   nextUser.on("click", function () {
@@ -196,7 +196,7 @@ $(document).ready(function () {
   //   $("#totalUnjustifiedAbsences").text(totalUnjustifiedAbsences);
   // }
   function getUserData(userId, month, year) {
-    console.log(`Data: ${userId}, month: ${month}, year: ${year}`); 
+    console.log(`Data: ${userId}, month: ${month}, year: ${year}`);
     $.ajax({
       url: "../routes/del/get_info_user.php",
       method: "POST",
@@ -207,13 +207,11 @@ $(document).ready(function () {
       success: function (response) {
         console.log("Datos recibidos del servidor:", response);
         if (response.success) {
-          const userData = response.data[0];
-          updateUserData(
-            userData.total_hours_required,
-            userData.total_missing_points,
-            userData.total_late_points,
-            userData.total_unjustified_absences
-          );
+          let data = response.data[0];
+          $("#totalHours").text(data.total_hours_required + " h");
+          $("#totalMissingPoints").text(data.total_sin_registro);
+          $("#totalLatePoints").text(data.total_tardanzas);
+          $("#totalUnjustifiedAbsences").text(data.total_faltas_injustificadas);
         } else {
           console.error(response.message);
         }
@@ -223,7 +221,7 @@ $(document).ready(function () {
       },
     });
   }
-  
+
   updateMonthDisplay();
   if (userList.find(".active").length === 0) {
     userList.find("li").first().addClass("active");
