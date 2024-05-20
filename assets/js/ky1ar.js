@@ -53,7 +53,7 @@ $(document).ready(function () {
   }
   function getUserData(userId2, month, year) {
     console.log(
-      `Data: ${userId2}, month: ${month}, year: ${year}`
+      `Data: id: ${userId2}, month: ${month}, year: ${year}`
     ); // Depuración
     $.ajax({
       url: "../routes/del/get_info_user.php", // Actualiza la ruta a tu archivo PHP
@@ -75,7 +75,7 @@ $(document).ready(function () {
     });
   }
   
-  getUserData(selectedUser.attr("data-id"), currentYear);
+  getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
 
   function updateUser(offset) {
     let current = userList.find(".active").index();
