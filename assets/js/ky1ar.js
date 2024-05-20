@@ -11,7 +11,10 @@ $(document).ready(function () {
 
   const userImage = $("#userImage");
   const imagePath = "assets/img/profiles/";
-
+  $("li").each(function () {
+    var parentId = $(this).data("id");
+    $(this).find("span").attr("data-id", parentId);
+  });
   const monthNames = [
     "Enero",
     "Febrero",
