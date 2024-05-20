@@ -200,7 +200,7 @@ $(document).ready(function () {
     $.ajax({
       url: "../routes/del/get_info_user.php",
       method: "POST",
-      data: { userId: userId, month: month, year: year },
+      data: { userId2: userId, month: month, year: year },
       dataType: "json",
       success: function (response) {
         console.log("Datos recibidos del servidor:", response);

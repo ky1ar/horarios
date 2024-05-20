@@ -2,7 +2,7 @@
 require_once '../../includes/app/db.php';
 
 if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) {
-    $userId = $_POST['userId'];
+    $userId = $_POST['userId2'];
     $month = $_POST['month'];
     $year = $_POST['year'];
     $currentDate = date('Y-m-d');
