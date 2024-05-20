@@ -208,9 +208,9 @@ $(document).ready(function () {
           const userData = response.data[0];
           updateUserData(
             userData.total_hours_required,
-            userData.total_sin_registro,
-            userData.total_tardanzas,
-            userData.total_faltas_injustificadas
+            userData.total_missing_points,
+            userData.total_late_points,
+            userData.total_unjustified_absences
           );
         } else {
           console.error(response.message);
