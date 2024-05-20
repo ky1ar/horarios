@@ -1,10 +1,5 @@
 <?php
 require_once '../../includes/app/db.php';
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) {
     $userId = $_POST['userId'];
     $month = $_POST['month'];
