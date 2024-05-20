@@ -183,13 +183,16 @@ $(document).ready(function () {
   }
   function loadUserSchedule(userId, month, year) {
     $.ajax({
-      url: "../routes/del/get_info_user.php", // Cambia esta ruta por la correcta
+      url: "../routes/del/get_info_user.php",
       type: "POST",
       data: {
         userId: userId,
         month: month,
         year: year,
       },
+      cache: false,
+      contentType: false,
+      processData: false,
       dataType: "json",
       success: function (response) {
         if (response.success) {
