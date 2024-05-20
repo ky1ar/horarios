@@ -198,32 +198,32 @@ $(document).ready(function () {
   function getUserData(userId, month, year) {
     console.log(`Data: ${userId}, month: ${month}, year: ${year}`);
     $.ajax({
-        url: "../routes/del/get_info_user.php",  // Asegúrate de que esta ruta sea correcta
-        method: "POST",
-        data: {
-            userId: userId,
-            month: month,
-            year: year
-        },
-        contentType: application/x-www-form-urlencoded,
-        dataType: "json",
-        success: function (response) {
-            console.log("Datos recibidos del servidor:", response);
-            if (response.success) {
-                let data = response.data[0];
-                $("#totalHours").text(data.total_hours_required + " h");
-                $("#totalMissingPoints").text(data.total_sin_registro);
-                $("#totalLatePoints").text(data.total_tardanzas);
-                $("#totalUnjustifiedAbsences").text(data.total_faltas_injustificadas);
-            } else {
-                console.error(response.message);
-            }
-        },
-        error: function (xhr, status, error) {
-            console.error("Error en la solicitud AJAX:", error);
+      url: "../routes/del/get_info_user.php", // Asegúrate de que esta ruta sea correcta
+      method: "POST",
+      data: {
+        userId: userId,
+        month: month,
+        year: year,
+      },
+      contentType: "application/x-www-form-urlencoded", // Corregido: contentType como cadena
+      dataType: "json",
+      success: function (response) {
+        console.log("Datos recibidos del servidor:", response);
+        if (response.success) {
+          let data = response.data[0];
+          $("#totalHours").text(data.total_hours_required + " h");
+          $("#totalMissingPoints").text(data.total_sin_registro);
+          $("#totalLatePoints").text(data.total_tardanzas);
+          $("#totalUnjustifiedAbsences").text(data.total_faltas_injustificadas);
+        } else {
+          console.error(response.message);
         }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
     });
-}
+  }
 
   updateMonthDisplay();
   if (userList.find(".active").length === 0) {
