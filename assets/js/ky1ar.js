@@ -198,14 +198,14 @@ $(document).ready(function () {
   function getUserData(userId, month, year) {
     console.log(`Data: ${userId}, month: ${month}, year: ${year}`);
     $.ajax({
-      url: "../routes/del/get_info_user.php", // Asegúrate de que esta ruta sea correcta
+      url: "../routes/del/get_info_user.php",
       method: "POST",
       data: {
         userId: userId,
         month: month,
         year: year,
       },
-      contentType: "application/x-www-form-urlencoded", // Corregido: contentType como cadena
+      // contentType: "application/x-www-form-urlencoded", 
       dataType: "json",
       success: function (response) {
         console.log("Datos recibidos del servidor:", response);
