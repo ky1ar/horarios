@@ -221,8 +221,10 @@ $(document).ready(function () {
       },
     });
   }
-  getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
-
+  if (selectedUser.attr("data-id")) {
+    getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
+  }
+  
   updateMonthDisplay();
   if (userList.find(".active").length === 0) {
     userList.find("li").first().addClass("active");
