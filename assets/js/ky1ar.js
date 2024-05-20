@@ -26,6 +26,7 @@ $(document).ready(function () {
     "Noviembre",
     "Diciembre",
   ];
+  
   let currentMonth = new Date().getMonth() + 1;
   let currentYear = new Date().getFullYear();
 
@@ -184,17 +185,7 @@ $(document).ready(function () {
       },
     });
   }
-  // function updateUserData(
-  //   totalHours,
-  //   totalMissingPoints,
-  //   totalLatePoints,
-  //   totalUnjustifiedAbsences
-  // ) {
-  //   $("#totalHours").text(totalHours + " h");
-  //   $("#totalMissingPoints").text(totalMissingPoints);
-  //   $("#totalLatePoints").text(totalLatePoints);
-  //   $("#totalUnjustifiedAbsences").text(totalUnjustifiedAbsences);
-  // }
+
   function getUserData(userId, month, year) {
     console.log(`Data: ${userId}, month: ${month}, year: ${year}`);
     var formData = new FormData();
