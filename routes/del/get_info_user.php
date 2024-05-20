@@ -6,7 +6,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $month = $_POST['month'];
     $year = $_POST['year'];
     $currentDate = date('Y-m-d');
-    
+
     $sql = "SELECT
     u.id_user,
     u.id_profile,
@@ -104,8 +104,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
 FROM
     Users u
 WHERE
-    u.id_user = ?
-";
+    u.id_user = ?";
 
 
     $stmt = $conn->prepare($sql);
