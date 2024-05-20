@@ -51,14 +51,14 @@ $(document).ready(function () {
     $("#totalLatePoints").text(totalLatePoints);
     $("#totalUnjustifiedAbsences").text(totalUnjustifiedAbsences);
   }
-  function getUserData(userId, month, year) {
+  function getUserData(userId2, month, year) {
     console.log(
-      `Data: ${userId}, month: ${month}, year: ${year}`
+      `Data: ${userId2}, month: ${month}, year: ${year}`
     ); // Depuración
     $.ajax({
       url: "../routes/del/get_info_user.php", // Actualiza la ruta a tu archivo PHP
       method: "POST",
-      data: { userId: userId, month: month, year: year },
+      data: { userId: userId2, month: month, year: year },
       dataType: "json",
       success: function (response) {
         console.log("Datos recibidos del servidor:", response); // Agrega un console.log aquí
