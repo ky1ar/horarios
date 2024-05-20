@@ -11,8 +11,8 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $year = $_POST['year'];
     $currentDate = date('Y-m-d');
 
-    $sql = "SET @year = ?, @month = ?, @id_user = ?, @current_date = ?";
-    $stmt = $conn->prepare($sql);
+    $sql1 = "SET @year = ?, @month = ?, @id_user = ?, @current_date = ?";
+    $stmt = $conn->prepare($sql1);
     $stmt->bind_param("ssis", $year, $month, $userId, $currentDate);
     $stmt->execute();
     $stmt->close();
