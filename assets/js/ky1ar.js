@@ -205,7 +205,9 @@ $(document).ready(function () {
         month: month,
         year: year,
       },
-      // contentType: "application/x-www-form-urlencoded", 
+      cache: false,
+      contentType: false,
+      processData: false,
       dataType: "json",
       success: function (response) {
         console.log("Datos recibidos del servidor:", response);
