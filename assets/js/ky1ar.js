@@ -52,6 +52,9 @@ $(document).ready(function () {
     $("#totalUnjustifiedAbsences").text(totalUnjustifiedAbsences);
   }
   function getUserData(userId, month, year) {
+    console.log(
+      `Data: ${userId}, month: ${month}, year: ${year}`
+    ); // Depuración
     $.ajax({
       url: "../routes/del/get_info_user.php", // Actualiza la ruta a tu archivo PHP
       method: "POST",
@@ -73,6 +76,7 @@ $(document).ready(function () {
   }
   
   getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
+
   function updateUser(offset) {
     let current = userList.find(".active").index();
     let total = userList.find("li").length - 1;
