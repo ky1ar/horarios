@@ -188,4 +188,33 @@ $(document).ready(function () {
   }
   updateUserDisplay();
   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear); 
+  loadUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
+
+  function loadUserSchedule(userId, month, year) {
+    $.ajax({
+        url: '../routes/del/get_info_user.php', // Cambia esta ruta por la correcta
+        type: 'POST',
+        data: {
+            userId: userId,
+            month: month,
+            year: year
+        },
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                var data = response.data[0];
+                $('#totalHours').text(data.total_hours_required + ' h');
+                $('#totalMissingPoints').text(data.total_sin_registro);
+                $('#totalLatePoints').text(data.total_tardanzas);
+                $('#totalUnjustifiedAbsences').text(data.total_faltas_injustificadas);
+            } else {
+                alert('Error: ' + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            alert('Error: ' + error);
+        }
+    });
+}
+
 });
