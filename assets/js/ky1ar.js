@@ -93,30 +93,33 @@ $(document).ready(function () {
 
   function loadUserSchedule(userId, month, year) {
     $.ajax({
-        url: '../routes/del/get_info_user.php', // Cambia esta ruta por la correcta
-        type: 'POST',
-        data: {
-            userId: userId,
-            month: month,
-            year: year
-        },
-        dataType: 'json',
-        success: function(response) {
-            if (response.success) {
-                var data = response.data[0];
-                $('#totalHours').text(data.total_hours_required + ' h');
-                $('#totalMissingPoints').text(data.total_sin_registro);
-                $('#totalLatePoints').text(data.total_tardanzas);
-                $('#totalUnjustifiedAbsences').text(data.total_faltas_injustificadas);
-            } else {
-                alert('Error: ' + response.message);
-            }
-        },
-        error: function(xhr, status, error) {
-            alert('Error: ' + error);
+      url: "../routes/del/get_info_user.php", // Cambia esta ruta por la correcta
+      type: "POST",
+      data: {
+        userId: userId,
+        month: month,
+        year: year,
+      },
+      cache: false,
+      contentType: false,
+      processData: false,
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          var data = response.data[0];
+          $("#totalHours").text(data.total_hours_required + " h");
+          $("#totalMissingPoints").text(data.total_sin_registro);
+          $("#totalLatePoints").text(data.total_tardanzas);
+          $("#totalUnjustifiedAbsences").text(data.total_faltas_injustificadas);
+        } else {
+          alert("Error: " + response.message);
         }
+      },
+      error: function (xhr, status, error) {
+        alert("Error: " + error);
+      },
     });
-}
+  }
 
   function getUserSchedule(userId, month, year) {
     console.log(
