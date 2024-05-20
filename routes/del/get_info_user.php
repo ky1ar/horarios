@@ -12,10 +12,12 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $currentDate = date('Y-m-d');
 
     // Crear conexión y setear variables de sesión
-    $conn->query("SET @year = $year");
-    $conn->query("SET @month = $month");
-    $conn->query("SET @id_user = $userId");
-    $conn->query("SET @current_date = '$currentDate'");
+    $sql = "SET @year = ?, SET @month = ?, SET @id_user = ?, SET @current_date = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("iiis", $year, $month, $userId, $currentDate);
+    $stmt->execute();
+    $stmt->close();
+
 
     // Consulta para calcular todas las sumatorias requeridas
     $sql = "SELECT
@@ -132,4 +134,3 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
 } else {
     echo json_encode(array('success' => false, 'message' => 'No se recibieron los parámetros necesarios.'));
 }
-?>
