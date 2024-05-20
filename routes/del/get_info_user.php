@@ -108,7 +108,7 @@ WHERE
 
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("issssssssssssi", $year, $month, $year, $month, $userId, $year, $month, $year, $month, $currentDate, $userId, $year, $month, $year, $month, $currentDate, $userId, $userId);
+    $stmt->bind_param("ssssssssssssssssss", $year, $month, $year, $month, $userId, $year, $month, $year, $month, $currentDate, $userId, $year, $month, $year, $month, $currentDate, $userId);
     $stmt->execute();
     $result = $stmt->get_result();
 
