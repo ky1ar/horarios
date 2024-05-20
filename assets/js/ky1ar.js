@@ -40,52 +40,6 @@ $(document).ready(function () {
     userName.text(activeUser.data("name"));
     userCategory.text(activeUser.data("category"));
   }
-  function updateUserData(
-    totalHours,
-    totalMissingPoints,
-    totalLatePoints,
-    totalUnjustifiedAbsences
-  ) {
-    $("#totalHours").text(totalHours + " h");
-    $("#totalMissingPoints").text(totalMissingPoints);
-    $("#totalLatePoints").text(totalLatePoints);
-    $("#totalUnjustifiedAbsences").text(totalUnjustifiedAbsences);
-  }
-  function getUserData(userId, month, year) {
-    console.log(`Data: ${userId}, month: ${month}, year: ${year}`); // Depuración
-    $.ajax({
-      url: "../routes/del/get_info_user.php", // Actualiza la ruta a tu archivo PHP
-      method: "POST",
-      data: { userId: userId, month: month, year: year },
-      dataType: "json",
-      success: function (response) {
-        console.log("Datos recibidos del servidor:", response); // Agrega un console.log aquí
-        if (response.success) {
-          const userData = response.data[0]; // Se asume que el servidor devuelve un solo conjunto de datos
-          updateUserData(
-            userData.total_hours_required,
-            userData.total_sin_registro,
-            userData.total_tardanzas,
-            userData.total_faltas_injustificadas
-          );
-        } else {
-          console.error(response.message);
-        }
-      },
-      error: function (xhr, status, error) {
-        console.error("Error en la solicitud AJAX:", error);
-      },
-    });
-  }
-
-  // Asegurémonos de que selectedUser tenga un atributo 'data-id' definido
-  if (selectedUser.attr("data-id") !== undefined) {
-    // Si el atributo 'data-id' está definido, lo pasamos a getUserData
-    getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
-  } else {
-    // Si el atributo 'data-id' no está definido, mostramos un mensaje de error
-    console.error("El atributo 'data-id' de selectedUser no está definido.");
-  }
 
   function updateUser(offset) {
     let current = userList.find(".active").index();
@@ -227,7 +181,52 @@ $(document).ready(function () {
       },
     });
   }
+  function updateUserData(
+    totalHours,
+    totalMissingPoints,
+    totalLatePoints,
+    totalUnjustifiedAbsences
+  ) {
+    $("#totalHours").text(totalHours + " h");
+    $("#totalMissingPoints").text(totalMissingPoints);
+    $("#totalLatePoints").text(totalLatePoints);
+    $("#totalUnjustifiedAbsences").text(totalUnjustifiedAbsences);
+  }
+  function getUserData(userId, month, year) {
+    console.log(`Data: ${userId}, month: ${month}, year: ${year}`); // Depuración
+    $.ajax({
+      url: "../routes/del/get_info_user.php", // Actualiza la ruta a tu archivo PHP
+      method: "POST",
+      data: { userId: userId, month: month, year: year },
+      dataType: "json",
+      success: function (response) {
+        console.log("Datos recibidos del servidor:", response); // Agrega un console.log aquí
+        if (response.success) {
+          const userData = response.data[0]; // Se asume que el servidor devuelve un solo conjunto de datos
+          updateUserData(
+            userData.total_hours_required,
+            userData.total_sin_registro,
+            userData.total_tardanzas,
+            userData.total_faltas_injustificadas
+          );
+        } else {
+          console.error(response.message);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
+    });
+  }
 
+  // Asegurémonos de que selectedUser tenga un atributo 'data-id' definido
+  if (selectedUser.attr("data-id") !== undefined) {
+    // Si el atributo 'data-id' está definido, lo pasamos a getUserData
+    getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
+  } else {
+    // Si el atributo 'data-id' no está definido, mostramos un mensaje de error
+    console.error("El atributo 'data-id' de selectedUser no está definido.");
+  }
   updateMonthDisplay();
   if (userList.find(".active").length === 0) {
     userList.find("li").first().addClass("active");
