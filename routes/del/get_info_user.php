@@ -11,7 +11,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $year = $_POST['year'];
     $currentDate = date('Y-m-d');
 
-    $sql = "SELECT
+    $query = "SELECT
     u.id_user AS id_user,
     u.id_profile,
     SUM(
@@ -65,27 +65,24 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
 FROM
     Calendar c
 JOIN
-    Users u ON u.id_user = $userId
+    Users u ON u.id_user = ?
 LEFT JOIN
-    Schedule s ON c.id_date = s.id_calendar AND s.id_user = $userId
+    Schedule s ON c.id_date = s.id_calendar AND s.id_user = ?
 WHERE
-    c.calendar_date BETWEEN DATE(CONCAT($year, '-', $month, '-01')) AND LAST_DAY(DATE(CONCAT($year, '-', $month, '-01')))
+    c.calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND LAST_DAY(DATE(CONCAT(?, '-', ?, '-01')))
     AND c.holiday = 0
 GROUP BY
     u.id_user,
     u.id_profile;";
 
-    $result = $conn->query($sql);
+$stmt = $conn->prepare($query);
+$stmt->bind_param("iissss", $userId, $userId, $year, $month, $year ,$month);
+$stmt->execute();
+$result = $stmt->get_result();
+$row = $result->fetch_assoc();
 
-    $finalData = array();
-    if ($result) {
-        while ($row = $result->fetch_assoc()) {
-            $finalData[] = $row;
-        }
-        echo json_encode(array('success' => true, 'data' => $finalData));
-    } else {
-        echo json_encode(array('success' => false, 'message' => 'Error en la consulta.'));
-    }
+echo json_encode($row);
 } else {
-    echo json_encode(array('success' => false, 'message' => 'No se recibieron los parámetros necesarios.'));
+echo json_encode(['success' => false, 'message' => 'Invalid parameters.']);
 }
+?>
