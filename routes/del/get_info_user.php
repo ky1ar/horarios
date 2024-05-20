@@ -40,7 +40,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     ) AS total_missing_points,
     SUM(
         CASE
-            WHEN LEFT(s.stamp, 5) > '09:00' THEN 1
+            WHEN LEFT(s.stamp, 5) > '10:00' THEN 1
             ELSE 0
         END
     ) AS total_late_points,
