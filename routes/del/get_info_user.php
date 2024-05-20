@@ -1,5 +1,4 @@
 <?php
-// Incluye el archivo de conexión a la base de datos
 require_once '../../includes/app/db.php';
 
 if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) {
@@ -8,7 +7,6 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $year = $_POST['year'];
     $currentDate = date('Y-m-d');
 
-    // Calcular la sumatoria total de horas requeridas para el mes
     $sql1 = "SELECT
         SUM(
             CASE
@@ -153,7 +151,6 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     while ($row = $resultFinal->fetch_assoc()) {
         $finalData[] = $row;
     }
-
     echo json_encode(array('success' => true, 'data' => $finalData));
 } else {
     echo json_encode(array('success' => false, 'message' => 'No se recibieron los parámetros necesarios.'));
