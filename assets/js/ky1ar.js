@@ -201,7 +201,9 @@ $(document).ready(function () {
       url: "../routes/del/get_info_user.php",
       method: "POST",
       data: { userId: userId, month: month, year: year },
-      
+      cache: false,
+      contentType: false,
+      processData: false,
       dataType: "json",
       success: function (response) {
         console.log("Datos recibidos del servidor:", response);
