@@ -6,7 +6,10 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $month = $_POST['month'];
     $year = $_POST['year'];
     $currentDate = date('Y-m-d');
-
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
+    
     $sql = "SELECT
         u.id_user,
         u.id_profile,
