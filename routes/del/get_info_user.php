@@ -13,8 +13,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $conn->query("SET @current_date = '$currentDate'");
 
     // Consulta para calcular todas las sumatorias requeridas
-    $sql = "
-        SELECT
+    $sql = "SELECT
             u.id_user,
             u.id_profile,
             (
@@ -111,8 +110,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         FROM
             Users u
         WHERE
-            u.id_user = @id_user
-    ";
+            u.id_user = @id_user";
 
     $result = $conn->query($sql);
 
