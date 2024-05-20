@@ -196,16 +196,16 @@ $(document).ready(function () {
     $("#totalUnjustifiedAbsences").text(totalUnjustifiedAbsences);
   }
   function getUserData(userId, month, year) {
-    console.log(`Data: ${userId}, month: ${month}, year: ${year}`); // Depuración
+    console.log(`Data: ${userId}, month: ${month}, year: ${year}`); 
     $.ajax({
-      url: "../routes/del/get_info_user.php", // Actualiza la ruta a tu archivo PHP
+      url: "../routes/dels/get_info_user.php",
       method: "POST",
       data: { userId: userId, month: month, year: year },
       dataType: "json",
       success: function (response) {
-        console.log("Datos recibidos del servidor:", response); // Agrega un console.log aquí
+        console.log("Datos recibidos del servidor:", response);
         if (response.success) {
-          const userData = response.data[0]; // Se asume que el servidor devuelve un solo conjunto de datos
+          const userData = response.data[0];
           updateUserData(
             userData.total_hours_required,
             userData.total_sin_registro,
