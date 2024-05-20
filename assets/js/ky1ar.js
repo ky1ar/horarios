@@ -197,14 +197,14 @@ $(document).ready(function () {
   // }
   function getUserData(userId, month, year) {
     console.log(`Data: ${userId}, month: ${month}, year: ${year}`);
+    var formData = new FormData();
+    formData.append("userId", userId);
+    formData.append("month", month);
+    formData.append("year", year);
     $.ajax({
       url: "../routes/del/get_info_user.php",
       method: "POST",
-      data: {
-        userId: userId,
-        month: month,
-        year: year,
-      },
+      data: formData,
       cache: false,
       contentType: false,
       processData: false,
