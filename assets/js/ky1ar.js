@@ -214,9 +214,9 @@ $(document).ready(function () {
         if (response.success) {
           let data = response.data[0];
           $("#totalHours").text(data.total_hours_required + " h");
-          $("#totalMissingPoints").text(data.total_sin_registro);
-          $("#totalLatePoints").text(data.total_tardanzas);
-          $("#totalUnjustifiedAbsences").text(data.total_faltas_injustificadas);
+          $("#totalMissingPoints").text(data.total_missing_points);
+          $("#totalLatePoints").text(data.total_late_points);
+          $("#totalUnjustifiedAbsences").text(data.total_unjustified_absences);
         } else {
           console.error(response.message);
         }
