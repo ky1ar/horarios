@@ -181,40 +181,12 @@ $(document).ready(function () {
       },
     });
   }
-  function loadUserSchedule(userId, currentMonth, currentYear) {
-    $.ajax({
-      url: "../routes/del/get_info_user.php",
-      type: "POST",
-      data: {
-        userId: userId,
-        month: currentMonth,
-        year: currentYear,
-      },
-      cache: false,
-      contentType: false,
-      processData: false,
-      dataType: "json",
-      success: function (response) {
-        if (response.success) {
-          var data = response.data[0];
-          $("#totalHours").text(data.total_hours_required + " h");
-          $("#totalMissingPoints").text(data.total_sin_registro);
-          $("#totalLatePoints").text(data.total_tardanzas);
-          $("#totalUnjustifiedAbsences").text(data.total_faltas_injustificadas);
-        } else {
-          alert("Error: " + response.message);
-        }
-      },
-      error: function (xhr, status, error) {
-        alert("Error: " + error);
-      },
-    });
-  }
+  
   updateMonthDisplay();
   if (userList.find(".active").length === 0) {
     userList.find("li").first().addClass("active");
   }
   updateUserDisplay();
   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
-  loadUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
+  
 });
