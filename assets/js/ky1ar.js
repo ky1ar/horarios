@@ -211,15 +211,11 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         console.log("Datos recibidos del servidor:", response.total_hours_required);
-        if (response.success) {
-          let data = response.data[0];
-          $("#totalHours").text(data.total_hours_required + " h");
-          $("#totalMissingPoints").text(data.total_missing_points);
-          $("#totalLatePoints").text(data.total_late_points);
-          $("#totalUnjustifiedAbsences").text(data.total_unjustified_absences);
-        } else {
-          console.error(response.message);
-        }
+        var data = response;
+        $("#totalHours").text(data.total_hours_required + " h");
+        $("#totalMissingPoints").text(data.total_missing_points);
+        $("#totalLatePoints").text(data.total_late_points);
+        $("#totalUnjustifiedAbsences").text(data.total_unjustified_absences);
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
