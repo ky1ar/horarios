@@ -110,17 +110,17 @@ FROM
 WHERE
     u.id_user = ?;";
 
-
     $result = $conn->query($sql);
-    $stmt->bind_param("issssiissssiissssiissssii", $userId, $year, $month, $year, $month, $userId, $userId, $year, $month, $year, $month, $userId, $userId, $year, $month, $year, $month, $userId, $userId, $year, $month, $year, $month, $userId, $userId);
-    $stmt->execute();
-    $result = $stmt->get_result();
 
-    $finalData = array();
-    while ($row = $result->fetch_assoc()) {
-        $finalData[] = $row;
+    if ($result) {
+        $finalData = array();
+        while ($row = $result->fetch_assoc()) {
+            $finalData[] = $row;
+        }
+        echo json_encode(array('success' => true, 'data' => $finalData));
+    } else {
+        echo json_encode(array('success' => false, 'message' => 'Error en la consulta SQL.'));
     }
-    echo json_encode(array('success' => true, 'data' => $finalData));
 } else {
     echo json_encode(array('success' => false, 'message' => 'No se recibieron los parámetros necesarios.'));
 }
