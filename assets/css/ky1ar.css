@@ -378,3 +378,18 @@ body {
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day .day-trd::after {
     content: "";
 }
+
+.modal-stamp{
+    position: relative;
+    left: 50%;
+    top: 50%;
+}
+
+.modal-stamp .fond{
+    background-color: #bfbfbf;
+    z-index: 2;
+}
+
+.modal-stamp form{
+    z-index: 3;
+}

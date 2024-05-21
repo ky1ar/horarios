@@ -256,6 +256,19 @@ require_once 'db.php';
         }
         ?>
     </section>
+    <div class="modal-stamp">
+        <div class="fond"></div>
+        <form action="" method="POST">
+            <label for="">Ingreso:</label>
+            <input type="date">
+            <label for="">Inicio de descanso:</label>
+            <input type="date">
+            <label for="">Fin de descanso:</label>
+            <input type="date">
+            <label for="">Salida:</label>
+            <input type="date">
+        </form>
+    </div>
 </body>
 
 </html>
