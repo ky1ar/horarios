@@ -380,16 +380,15 @@ body {
 }
 
 .modal-stamp{
-    position: absolute;
-    left: 50%;
-    top: 50%;
+    /* position: absolute; */
+    height: 100vh;
 }
 
-.modal-stamp .fond{
+/* .modal-stamp .fond{
     background-color: #bfbfbf;
     z-index: 2;
-}
+} */
 
-.modal-stamp form{
+/* .modal-stamp form{
     z-index: 3;
-}
+} */
