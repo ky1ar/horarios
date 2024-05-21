@@ -257,16 +257,25 @@ require_once 'db.php';
         ?>
     </section>
     <div class="modal-stamp">
-        <div class="fond"></div>
         <form action="" method="POST">
-            <label for="">Ingreso:</label>
-            <input type="date">
-            <label for="">Inicio de descanso:</label>
-            <input type="date">
-            <label for="">Fin de descanso:</label>
-            <input type="date">
-            <label for="">Salida:</label>
-            <input type="date">
+            <h1>Actualizar Registro</h1>
+            <div>
+                <label for="">Ingreso:</label>
+                <input type="time">
+            </div>
+            <div>
+                <label for="">Inicio de descanso:</label>
+                <input type="time">
+            </div>
+            <div>
+                <label for="">Fin de descanso:</label>
+                <input type="time">
+            </div>
+            <div>
+                <label for="">Salida:</label>
+                <input type="time">
+            </div>
+            <input type="submit" value="Guardar">
         </form>
     </div>
 </body>

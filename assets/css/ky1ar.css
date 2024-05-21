@@ -9,387 +9,436 @@ License: GNU General Public License v3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 */
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@200;300;400;500;600;700;800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@200;300;400;500;600;700;800&display=swap");
 
 :root {
-	--primary: #ed5d1f;
-	--primaryopacity: #ffeee4;
+  --primary: #ed5d1f;
+  --primaryopacity: #ffeee4;
 
-	--secondary: #182d36;
-	--tertiary: #ffa02a;
+  --secondary: #182d36;
+  --tertiary: #ffa02a;
 
-    --white: #ffffff;
-	--gray: #f0f0f0;
-	--graydark: #e6e6e6;
-    --graydarkest : #cccccc;
-	--black: #0f2027;
+  --white: #ffffff;
+  --gray: #f0f0f0;
+  --graydark: #e6e6e6;
+  --graydarkest: #cccccc;
+  --black: #0f2027;
 }
-*, 
-*:before, 
+*,
+*:before,
 *:after {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 ::selection {
-    color: var(--primary) !important;
-    background-color: var(--primaryopacity) !important;
+  color: var(--primary) !important;
+  background-color: var(--primaryopacity) !important;
 }
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
-img, 
+img,
 svg {
-    vertical-align: middle;
-    max-width: 100%;
-    height: auto;
+  vertical-align: middle;
+  max-width: 100%;
+  height: auto;
 }
 /*********************************** START **********************************/
 body {
-	background-color: var(--white);
-    margin: 0;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
-    color: var(--black);
-    position: relative;
-    min-width: 22rem;
-    display: flex;
-    -webkit-user-select: none;
-    user-select: none;
+  background-color: var(--white);
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.85rem;
+  color: var(--black);
+  position: relative;
+  min-width: 22rem;
+  display: flex;
+  -webkit-user-select: none;
+  user-select: none;
 }
 .ky1-wrp {
-	width: 100%;
-    margin: 0 auto;
-    max-width: 100rem;
-	padding: 0 1rem;
+  width: 100%;
+  margin: 0 auto;
+  max-width: 100rem;
+  padding: 0 1rem;
 }
 /***************************************************************************/
 #ky1-lft {
-    padding: 2.5rem;
+  padding: 2.5rem;
 }
 #ky1-lft .ky1-lgo {
-    display: block;
+  display: block;
 }
 #ky1-lft .ky1-lgo img {
-    width: 10rem;
-    height: 3rem;
-    margin-right: 1rem;
+  width: 10rem;
+  height: 3rem;
+  margin-right: 1rem;
 }
 #ky1-lft .ky1-lst {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    list-style: none;
-    flex-direction: column;
-    gap: 2.5rem;
-    padding-top: 2.5rem;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  list-style: none;
+  flex-direction: column;
+  gap: 2.5rem;
+  padding-top: 2.5rem;
 }
 #ky1-lft .ky1-lst li {
-    display: flex;
-    gap: 1rem;
-    font-size: 1rem;
-    font-weight: 500;
-    align-items: center;
+  display: flex;
+  gap: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  align-items: center;
 }
 /***************************************************************************/
 #ky1-rgt {
-    background-color: var(--gray);
-    flex: 1;
-    padding: 1rem;
+  background-color: var(--gray);
+  flex: 1;
+  padding: 1rem;
 }
 #ky1-rgt header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
 }
 #ky1-rgt header .ky1-ttl {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
 }
 #ky1-rgt header .ky1-ttl h1 {
-    margin: 0;
-    font-size: 1.5rem;
+  margin: 0;
+  font-size: 1.5rem;
 }
 #ky1-rgt header .ky1-dte {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 500;
-    font-size: 1rem;
-    background-color: var(--white);
-    padding: 1rem 1rem;
-    border-radius: 2rem;
-    width: 16rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  font-size: 1rem;
+  background-color: var(--white);
+  padding: 1rem 1rem;
+  border-radius: 2rem;
+  width: 16rem;
 }
-#ky1-rgt header .ky1-dte img:first-child{
-    transform: scaleX(-1);
-    margin-right: 5px;
+#ky1-rgt header .ky1-dte img:first-child {
+  transform: scaleX(-1);
+  margin-right: 5px;
 }
-#ky1-rgt header .ky1-dte img:last-child{
-    margin-left: 5px;
+#ky1-rgt header .ky1-dte img:last-child {
+  margin-left: 5px;
 }
 #ky1-rgt header .ky1-usr {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
 }
 #ky1-rgt header .ky1-usr .usr-btn {
-    width: 2.5rem;
-    border-radius: 2rem;
-    height: 2.5rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    background-color: var(--white);
+  width: 2.5rem;
+  border-radius: 2rem;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: var(--white);
 }
 #ky1-rgt header .ky1-usr #usr-prv img {
-    transform: rotateZ(180deg);
+  transform: rotateZ(180deg);
 }
 #ky1-rgt header .ky1-usr #usr-nxt {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
-#ky1-rgt header .ky1-usr #previousUser img{
-    transform: scaleX(-1);  
+#ky1-rgt header .ky1-usr #previousUser img {
+  transform: scaleX(-1);
 }
 /***************************************************************************/
 #selectedUser {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    position: relative;
-    min-width: 14rem;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  min-width: 14rem;
+  justify-content: center;
 }
 #selectedUser img {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 2rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 2rem;
 }
 #selectedUser span {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 #selectedUser h3 {
-    margin: 0;
-    font-weight: 500;
+  margin: 0;
+  font-weight: 500;
 }
 #selectedUser h4 {
-    margin: 0;
-    font-weight: 400;
-    opacity: 0.75;
+  margin: 0;
+  font-weight: 400;
+  opacity: 0.75;
 }
 #selectedUser #userList {
-    border-radius: 0.75rem 0 0 0.75rem;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    /* right: -2rem;
+  border-radius: 0.75rem 0 0 0.75rem;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  /* right: -2rem;
     left: -2rem; */
-    margin-top: 4rem;
-    top: 0;
-    z-index: 1;
-    visibility: hidden;
-    opacity: 0;
-    transition: all 0.25s ease-in-out;
-    max-height: 700px;
-    overflow-y: auto; 
-    box-shadow: 0px 0px 5px 5px rgb(206, 206, 206);
+  margin-top: 4rem;
+  top: 0;
+  z-index: 1;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.25s ease-in-out;
+  max-height: 700px;
+  overflow-y: auto;
+  box-shadow: 0px 0px 5px 5px rgb(206, 206, 206);
 }
 
 #selectedUser #userList::-webkit-scrollbar {
-    width: 3px;
-    height: 10px;
+  width: 3px;
+  height: 10px;
 }
 
 #selectedUser #userList::-webkit-scrollbar-thumb {
-    background-color: #ffa880;
-    border-radius: 0.75rem;
+  background-color: #ffa880;
+  border-radius: 0.75rem;
 }
 #selectedUser #userList::-webkit-scrollbar-track {
-    background-color: white;
+  background-color: white;
 }
 
-
-#selectedUser:hover #userList, 
+#selectedUser:hover #userList,
 #selectedUser #userList:hover {
-    visibility: visible;
-    opacity: 1;
+  visibility: visible;
+  opacity: 1;
 }
 #selectedUser #userList ul {
-    margin: 0;
-    list-style: none;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    background-color: #fff;
-    padding: 1rem;
-    /* border-radius: 0.75rem; */
-    box-shadow: 0 0.5rem 1rem #bfbfbf;
+  margin: 0;
+  list-style: none;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  background-color: #fff;
+  padding: 1rem;
+  /* border-radius: 0.75rem; */
+  box-shadow: 0 0.5rem 1rem #bfbfbf;
 }
 #selectedUser #userList ul li {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
 }
 #selectedUser #userList ul li {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
 }
 #selectedUser #userList ul li img {
-    width: 2rem;
-    height: 2rem;
+  width: 2rem;
+  height: 2rem;
 }
 #selectedUser #userList ul li h3 {
-    font-size: 0.85rem;
-    font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 600;
 }
 /***************************************************************************/
 #ky1-rgt .ky1-rsm {
-    margin: 0;
-    list-style: none;
-    display: flex;
-    gap: 2rem;
-    padding: 1rem;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  padding: 1rem;
 }
 #ky1-rgt .ky1-rsm li {
-    flex: 1;
-    background-color: var(--white);
-    padding: 1.5rem;
-    border-radius: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
+  flex: 1;
+  background-color: var(--white);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
 }
 #ky1-rgt .ky1-rsm .box-img {
-    display: flex;
-    padding: 1rem;
-    border-radius: 1rem;
+  display: flex;
+  padding: 1rem;
+  border-radius: 1rem;
 }
 #ky1-rgt .ky1-rsm .box-img.img-1 {
-    background-color: #86e3ce;
+  background-color: #86e3ce;
 }
 #ky1-rgt .ky1-rsm .box-img.img-2 {
-    background-color: #d0e6a5;
+  background-color: #d0e6a5;
 }
 #ky1-rgt .ky1-rsm .box-img.img-3 {
-    background-color: #ffdd95;
+  background-color: #ffdd95;
 }
 #ky1-rgt .ky1-rsm .box-img.img-4 {
-    background-color: #fc887b;
+  background-color: #fc887b;
 }
 #ky1-rgt .ky1-rsm .box-txt {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 #ky1-rgt .ky1-rsm .box-txt span {
-    font-size: 1.75rem;
-    font-weight: 700;
+  font-size: 1.75rem;
+  font-weight: 700;
 }
 #ky1-rgt .ky1-rsm .box-txt p {
-    margin: 0;
-    font-size: 1rem;
-    opacity: 0.75;
+  margin: 0;
+  font-size: 1rem;
+  opacity: 0.75;
 }
 /***************************************************************************/
 #ky1-rgt .ky1-hrr {
-    margin: 0;
-    list-style: none;
-    display: flex;
-    gap: 1.2rem;
-    padding: 1rem;
-    flex-wrap: wrap;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  gap: 1.2rem;
+  padding: 1rem;
+  flex-wrap: wrap;
 }
 #ky1-rgt .ky1-hrr .hrr-box {
-    /* flex: 1; */
-    background-color: var(--white);
-    padding: 1.25rem 1.5rem;
-    border-radius: 1rem;
-    display: flex;
-    gap: 1rem;
-    flex-direction: column;
-    height: 27.5rem;
+  /* flex: 1; */
+  background-color: var(--white);
+  padding: 1.25rem 1.5rem;
+  border-radius: 1rem;
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  height: 27.5rem;
 }
 #ky1-rgt .ky1-hrr .hrr-box span {
-    font-size: 1.25rem;
-    font-weight: 600;
+  font-size: 1.25rem;
+  font-weight: 600;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day {
-    display: flex;
-    gap: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul {
-    margin: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    align-items: center;
-    padding: 1.5rem 0.5rem;
-    border-radius: 4rem;
-    height: 17rem;
-    width: 4.3rem;
+  margin: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  padding: 1.5rem 0.5rem;
+  border-radius: 4rem;
+  height: 17rem;
+  width: 4.3rem;
 }
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) li.test {
-    color: var(--primary);
-    transform: rotate(90deg);
-    margin-top: 4.5rem;
-    letter-spacing: 0.5rem;
-    font-weight: bold;
-    font-size: 1.1rem;
+  color: var(--primary);
+  transform: rotate(90deg);
+  margin-top: 4.5rem;
+  letter-spacing: 0.5rem;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
-#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul{
-    background-color: #e0e0e0;
+#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul {
+  background-color: #e0e0e0;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:nth-child(odd) {
-    background-color: #f5f5f5;
+  background-color: #f5f5f5;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day li {
-    font-weight: 400;
-    font-size: 0.9rem;
-    position: relative;
+  font-weight: 400;
+  font-size: 0.9rem;
+  position: relative;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc {
-    background-color: transparent;
-    text-align: center;
-    width: 4.3rem;
-    padding: 2rem 0;
-    border-radius: 0 0 4rem 4rem;
-    position: absolute;
-    color: white;
-    margin-top: 14.7rem;
+  background-color: transparent;
+  text-align: center;
+  width: 4.3rem;
+  padding: 2rem 0;
+  border-radius: 0 0 4rem 4rem;
+  position: absolute;
+  color: white;
+  margin-top: 14.7rem;
 }
-
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day .day-nam {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day .day-trd::after {
-    content: "";
+  content: "";
 }
 
-.modal-stamp{
-    /* position: absolute; */
-    height: 100vh;
-    background-color: #cccccc;
+.super {
+  width: 100vw;
+  height: 100vh;
 }
 
-/* .modal-stamp .fond{
-    background-color: #bfbfbf;
-    z-index: 2;
-} */
+.modal-stamp {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-/* .modal-stamp form{
-    z-index: 3;
-} */
+.modal-stamp::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #8a8a8a;
+  opacity: 0.8;
+  top: 0;
+  left: 0;
+  z-index: 4;
+}
+
+.modal-stamp form {
+  display: flex;
+  padding: 1.5rem 1rem;
+  flex-direction: column;
+  width: 20rem;
+  background-color: white;
+  box-shadow: 0 0 1rem 0.25rem rgb(195, 195, 195);
+  border-radius: 1rem;
+  z-index: 5;
+}
+
+.modal-stamp form h1 {
+  text-align: center;
+  margin: 0;
+  margin-bottom: 2rem;
+}
+
+.modal-stamp form div {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.modal-stamp form div label {
+  font-weight: 500;
+}
+
+.modal-stamp form div input {
+  margin-left: auto;
+}
+
+.modal-stamp form input[type="submit"] {
+  width: 5rem;
+  background-color: var(--primary);
+  border: 0;
+  color: white;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin: auto;
+}
