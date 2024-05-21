@@ -382,6 +382,7 @@ body {
 .modal-stamp{
     /* position: absolute; */
     height: 100vh;
+    background-color: #cccccc;
 }
 
 /* .modal-stamp .fond{
