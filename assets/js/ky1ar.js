@@ -117,9 +117,7 @@ $(document).ready(function () {
   $(document).on("click", ".calc", function () {
     var date = $(this).data("date");
     var userId = selectedUser.attr("data-id");
-    console.log(
-      `Fetching schedule for date: ${date}, userId: ${userId}`
-    )
+    console.log(`Fetching schedule for date: ${date}, userId: ${userId}`);
     // Llama a get_stamp.php para obtener los datos del stamp
     $.ajax({
       url: "../routes/del/get_stamp.php",
@@ -129,6 +127,8 @@ $(document).ready(function () {
       success: function (response) {
         if (response.success) {
           showModal(response.stamp, date, userId);
+        } else if (response.message === "El día es un feriado") {
+          alert("No se puede abrir el modal porque el día es un feriado.");
         } else {
           showModal("", date, userId); // Si no hay stamp, muestra el modal vacío
         }
