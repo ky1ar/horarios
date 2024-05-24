@@ -96,7 +96,7 @@ $(document).ready(function () {
     $("#stampInput").val(stamp);
     $("#dateInput").val(date);
     $("#userIdInput").val(userId);
-    const delay = 3000;
+    const delay = 1000;
 
     setTimeout(function () {
       $(".modal-stamp").fadeIn();
