@@ -336,8 +336,8 @@ body {
   align-items: center;
   padding: 1.5rem 0.5rem;
   border-radius: 4rem;
-  height: 17rem;
   width: 4.3rem;
+  padding-bottom: 0;
 }
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) li.test {
@@ -357,7 +357,6 @@ body {
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day li {
   font-weight: 400;
   font-size: 0.9rem;
-  position: relative;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc {
   background-color: transparent;
@@ -365,9 +364,8 @@ body {
   width: 4.3rem;
   padding: 2rem 0;
   border-radius: 0 0 4rem 4rem;
-  position: absolute;
   color: white;
-  margin-top: 14.7rem;
+  margin-top: auto;
 }
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day .day-nam {
