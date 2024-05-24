@@ -108,7 +108,7 @@ $(document).ready(function () {
     ];
 
     const [year, month, day] = dateString.split("-");
-    const formattedDate = `el ${day} de ${
+    const formattedDate = `${day} de ${
       months[parseInt(month) - 1]
     } del ${year}`;
     return formattedDate;
