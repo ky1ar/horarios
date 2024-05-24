@@ -402,7 +402,7 @@ body {
   display: flex;
   padding: 1.5rem 1rem;
   flex-direction: column;
-  width: 20rem;
+  width: 22rem;
   background-color: white;
   box-shadow: 0 0 1rem 0.25rem rgb(195, 195, 195);
   border-radius: 1rem;
@@ -422,6 +422,7 @@ body {
 .modal-stamp form div {
   display: flex;
   margin-bottom: 1rem;
+  align-items: center;
 }
 
 .modal-stamp form div label {
@@ -433,7 +434,8 @@ body {
   border: 0;
   border-radius: 0.5rem;
   box-shadow: 0 0.25rem 0.5rem 0.1rem rgb(206, 206, 206);
-  padding: 0.2rem;
+  padding: 0.5rem;
+  width: 14rem;
 }
 .modal-stamp form div input:focus{
     outline: none;
