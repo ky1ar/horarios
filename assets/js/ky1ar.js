@@ -11,7 +11,8 @@ $(document).ready(function () {
 
   const userImage = $("#userImage");
   const imagePath = "assets/img/profiles/";
-
+  const stampInput = $("#stampInput");
+  const styledStamp = $("#styledStamp");
   const monthNames = [
     "Enero",
     "Febrero",
@@ -33,7 +34,17 @@ $(document).ready(function () {
   function updateMonthDisplay() {
     $(".ky1-dte span").text(`${monthNames[currentMonth - 1]}, ${currentYear}`);
   }
-
+  function applyColors() {
+    const text = stampInput.val();
+    const styledText = text
+      .split("")
+      .map((char, index) => {
+        const color = Math.floor(index / 5) % 2 === 0 ? "#41CD41" : "#1F7FEB";
+        return `<span style="color: ${color};">${char}</span>`;
+      })
+      .join("");
+    styledStamp.html(styledText);
+  }
   function updateUserDisplay() {
     const activeUser = userList.find(".active");
     selectedUser.attr("data-id", activeUser.data("id"));
@@ -125,10 +136,11 @@ $(document).ready(function () {
   }
 
   function showModal(stamp, date, userId) {
-    $("#stampInput").val(stamp);
+    stampInput.val(stamp);
+    applyColors();
     $("#dateInput").val(date);
     const formattedDate = formatDate(date);
-    $("#dayInput").val(formattedDate); // Cambiado a dayInput
+    $("#dayInput").val(formattedDate);
     $("#userIdInput").val(userId);
     $(".modal-stamp").fadeIn();
   }
@@ -159,11 +171,11 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-          showModal(response.stamp, date, userId); // Pasar la fecha al modal
+          showModal(response.stamp, date, userId);
         } else if (response.message === "El día es un feriado") {
           console.log("No se abrió un modal por ser feriado");
         } else {
-          showModal("", date, userId); // Si no hay stamp, muestra el modal vacío
+          showModal("", date, userId);
         }
       },
       error: function (xhr, status, error) {
@@ -171,7 +183,11 @@ $(document).ready(function () {
       },
     });
   });
+  // Apply colors on input change
+  stampInput.on("input", applyColors);
 
+  // Initial application of colors
+  applyColors();
   // Prevenir el comportamiento por defecto del form y cerrar el modal al enviar
   $("#stampForm").on("submit", function (event) {
     event.preventDefault();

@@ -263,7 +263,8 @@ require_once 'db.php';
                 <label for="dayInput">Día:</label>
                 <input type="text" id="dayInput" name="day" disabled> <!-- Añadir ID -->
                 <label for="stampInput">Registro:</label>
-                <input type="text" id="stampInput" name="stamp">
+                <input type="text" id="stampInput" name="stamp" style="display:none;">
+                <div id="styledStamp"></div>
                 <input type="hidden" id="dateInput" name="date">
                 <input type="hidden" id="userIdInput" name="userId">
                 <input type="submit" value="Guardar">
