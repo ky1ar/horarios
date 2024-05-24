@@ -236,16 +236,16 @@ $(document).ready(function () {
   //     },
   //   });
   // }
-  function getUserSchedule(userId) {
+  function getUserSchedule(userId, month, year) {
+    console.log(`Fetching schedule for userId: ${userId}, month: ${month}, year: ${year}`); // Depuración
     $.ajax({
-        url: "../routes/del/get_user_schedule.php",
+        url: "../routes/del/get_user_schedule1.php",
         method: "POST",
-        data: { userId: userId, month: currentMonth },
+        data: { userId: userId, month: month, year: year },
         dataType: "json",
         success: function (response) {
             if (response.success) {
                 $(".ky1-hrr").empty();
-
                 var daysCounter = 0;
                 var $currentHrrBox;
                 var currentWeek = 1;
@@ -253,15 +253,16 @@ $(document).ready(function () {
                     var dayName = entry.day_name_espanol;
                     var dayNumber = entry.day_number;
 
+                    // Omitir los domingos
                     if (dayName.toLowerCase() === "domingo") {
-                        return;
+                        return; // Salta este día y continúa con el siguiente
                     }
 
                     if (dayName.toLowerCase() === "lunes" || index === 0) {
                         $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
                         $("<span>Semana " + currentWeek + "</span>").appendTo($currentHrrBox);
                         $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
-                        currentWeek++;
+                        currentWeek++; // Aumenta el contador de semana
                     }
 
                     var $hrrDay = $currentHrrBox.find('.hrr-day');
@@ -269,7 +270,17 @@ $(document).ready(function () {
 
                     $("<li class='day-nam'>" + dayName.substring(0, 3) + " " + dayNumber + "</li>").appendTo($dayList);
 
-                    if (entry.stamp) {
+                    if (entry.holiday == 1) {
+                        // Si es un feriado, muestra "FERIADO"
+                        $("<li class='test'>F</li>").appendTo($dayList);
+                        $("<li>E</li>").appendTo($dayList);
+                        $("<li>R</li>").appendTo($dayList);
+                        $("<li>I</li>").appendTo($dayList);
+                        $("<li>A</li>").appendTo($dayList);
+                        $("<li>D</li>").appendTo($dayList);
+                        $("<li>O</li>").appendTo($dayList);
+                    } else if (entry.stamp) {
+                        // Verifica si hay datos de estampas
                         var stamps = entry.stamp.split(",");
                         stamps.forEach(function (stamp) {
                             for (var i = 0; i < stamp.length; i += 5) {
@@ -277,13 +288,14 @@ $(document).ready(function () {
                             }
                         });
                     } else {
+                        // Si no hay estampas, muestra un elemento vacío
                         $("<li></li>").appendTo($dayList);
                     }
 
                     daysCounter++;
                 });
 
-                console.log(response.schedule);
+                console.log(response.schedule); // Verifica los datos recibidos
             } else {
                 console.error(response.message);
             }
