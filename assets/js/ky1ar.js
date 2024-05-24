@@ -91,11 +91,34 @@ $(document).ready(function () {
     getUserSchedule($(this).data("id"), currentMonth, currentYear);
     getUserData($(this).data("id"), currentMonth, currentYear);
   });
+  function formatDate(dateString) {
+    const months = [
+      "enero",
+      "febrero",
+      "marzo",
+      "abril",
+      "mayo",
+      "junio",
+      "julio",
+      "agosto",
+      "septiembre",
+      "octubre",
+      "noviembre",
+      "diciembre",
+    ];
+
+    const [year, month, day] = dateString.split("-");
+    const formattedDate = `el ${day} de ${
+      months[parseInt(month) - 1]
+    } del ${year}`;
+    return formattedDate;
+  }
 
   function showModal(stamp, date, userId) {
     $("#stampInput").val(stamp);
     $("#dateInput").val(date);
-    $("#dayInput").val(date); // Cargar la fecha en el campo del día
+    const formattedDate = formatDate(date);
+    $("#dayInput").val(formattedDate); // Cambiado a dayInput
     $("#userIdInput").val(userId);
     $(".modal-stamp").fadeIn();
   }
