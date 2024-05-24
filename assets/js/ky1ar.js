@@ -13,8 +13,18 @@ $(document).ready(function () {
   const imagePath = "assets/img/profiles/";
 
   const monthNames = [
-    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-    "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+    "Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre",
   ];
 
   let currentMonth = new Date().getMonth() + 1;
@@ -83,16 +93,36 @@ $(document).ready(function () {
   });
 
   function formatDate(dateString) {
-    const daysOfWeek = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+    const daysOfWeek = [
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+      "Domingo",
+    ];
     const months = [
-      "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-      "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+      "Enero",
+      "Febrero",
+      "Marzo",
+      "Abril",
+      "Mayo",
+      "Junio",
+      "Julio",
+      "Agosto",
+      "Septiembre",
+      "Octubre",
+      "Noviembre",
+      "Diciembre",
     ];
 
     const [year, month, day] = dateString.split("-");
     const date = new Date(`${year}-${month}-${day}`);
     const dayOfWeek = daysOfWeek[date.getDay()];
-    const formattedDate = `${dayOfWeek} ${day} de ${months[parseInt(month) - 1]} del ${year}`;
+    const formattedDate = `${dayOfWeek} ${day} de ${
+      months[parseInt(month) - 1]
+    } del ${year}`;
     return formattedDate;
   }
 
@@ -110,7 +140,10 @@ $(document).ready(function () {
   }
 
   $(document).on("click", function (event) {
-    if (!$(event.target).closest(".modal-content").length && !$(event.target).closest(".schedule-item").length) {
+    if (
+      !$(event.target).closest(".modal-content").length &&
+      !$(event.target).closest(".schedule-item").length
+    ) {
       hideModal();
     }
   });
@@ -166,7 +199,9 @@ $(document).ready(function () {
   });
 
   function getUserSchedule(userId, month, year) {
-    console.log(`Fetching schedule for userId: ${userId}, month: ${month}, year: ${year}`);
+    console.log(
+      `Fetching schedule for userId: ${userId}, month: ${month}, year: ${year}`
+    );
     $.ajax({
       url: "../routes/del/get_user_schedule.php",
       method: "POST",
@@ -187,16 +222,30 @@ $(document).ready(function () {
             }
 
             if (dayName.toLowerCase() === "lunes" || index === 0) {
-              $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
-              $("<span>Semana " + currentWeek + "</span>").appendTo($currentHrrBox);
+              $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
+                ".ky1-hrr"
+              );
+              $("<span>Semana " + currentWeek + "</span>").appendTo(
+                $currentHrrBox
+              );
               $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
               currentWeek++;
             }
 
             var $hrrDay = $currentHrrBox.find(".hrr-day");
-            var $dayList = $("<ul class='schedule-item' data-date='" + entry.calendar_date + "'></ul>").appendTo($hrrDay);
+            var $dayList = $(
+              "<ul class='schedule-item' data-date='" +
+                entry.calendar_date +
+                "'></ul>"
+            ).appendTo($hrrDay);
 
-            $("<li class='day-nam'>" + dayName.substring(0, 3) + " " + dayNumber + "</li>").appendTo($dayList);
+            $(
+              "<li class='day-nam'>" +
+                dayName.substring(0, 3) +
+                " " +
+                dayNumber +
+                "</li>"
+            ).appendTo($dayList);
 
             if (entry.holiday == 1) {
               $("<li class='test'>FERIADO</li>").appendTo($dayList);
@@ -204,14 +253,22 @@ $(document).ready(function () {
               var stamps = entry.stamp.split(",");
               stamps.forEach(function (stamp) {
                 for (var i = 0; i < stamp.length; i += 5) {
-                  $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
+                  $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo(
+                    $dayList
+                  );
                 }
               });
             } else {
               $("<li></li>").appendTo($dayList);
             }
 
-            var $calcLi = $("<li class='calc' data-date='" + entry.calendar_date + "'>" + hPoints + "</li>");
+            var $calcLi = $(
+              "<li class='calc' data-date='" +
+                entry.calendar_date +
+                "'>" +
+                hPoints +
+                "</li>"
+            );
 
             if (hPoints === "DF") {
               $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #F0DD38");
@@ -236,7 +293,7 @@ $(document).ready(function () {
       },
     });
   }
-  
+
   function getUserData(userId, month, year) {
     console.log(`Data: ${userId}, month: ${month}, year: ${year}`);
     var formData = new FormData();
