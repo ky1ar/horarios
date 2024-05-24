@@ -128,7 +128,7 @@ $(document).ready(function () {
         if (response.success) {
           showModal(response.stamp, date, userId);
         } else if (response.message === "El día es un feriado") {
-          alert("No se puede abrir el modal porque el día es un feriado.");
+          console.log("No se abrio un modal por ser feriado");
         } else {
           showModal("", date, userId); // Si no hay stamp, muestra el modal vacío
         }
