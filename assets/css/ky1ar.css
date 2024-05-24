@@ -317,7 +317,6 @@ body {
   display: flex;
   gap: 1rem;
   flex-direction: column;
-  height: 27.5rem;
 }
 #ky1-rgt .ky1-hrr .hrr-box span {
   font-size: 1.25rem;
