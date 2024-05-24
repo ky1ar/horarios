@@ -183,16 +183,7 @@ $(document).ready(function () {
             var dayNumber = entry.day_number;
             var stamps = entry.stamp ? entry.stamp.split(",") : [];
             
-            if (dayName.toLowerCase() === "domingo") {
-              return;
-            }
-  
-            if (dayName.toLowerCase() === "lunes" || index === 0) {
-              $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
-              $("<span>Semana " + currentWeek + "</span>").appendTo($currentHrrBox);
-              $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
-              currentWeek++;
-            }
+            
   
             var $hrrDay = $currentHrrBox.find(".hrr-day");
             var $dayList = $("<ul class='schedule-item' data-date='" + entry.calendar_date + "'></ul>").appendTo($hrrDay);
