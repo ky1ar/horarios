@@ -125,13 +125,33 @@ $(document).ready(function () {
   }
 
   function showModal(stamp, date, userId) {
-    $("#stampInput").val(stamp);
+    // Asignar los valores a los inputs
     $("#dateInput").val(date);
     const formattedDate = formatDate(date);
-    $("#dayInput").val(formattedDate); // Cambiado a dayInput
+    $("#dayInput").val(formattedDate);
     $("#userIdInput").val(userId);
+    
+    // Asignar el valor del input de texto
+    $("#stampInput").val(stamp);
+
+    // Aplicar el efecto de colores al valor del input de texto
+    applyColorChangesToStampInput();
+    
     $(".modal-stamp").fadeIn();
-  }
+}
+
+function applyColorChangesToStampInput() {
+    const value = $("#stampInput").val();
+    let formattedValue = '';
+
+    for (let i = 0; i < value.length; i += 5) {
+        const chunk = value.substring(i, i + 5);
+        const color = i % 10 === 0 ? '#24D315' : '#177BE5';
+        formattedValue += `<span style="color: ${color}">${chunk}</span>`;
+    }
+
+    $("#stampInput").html(formattedValue);
+}
 
   function hideModal() {
     $(".modal-stamp").fadeOut();
@@ -160,7 +180,6 @@ $(document).ready(function () {
       success: function (response) {
         if (response.success) {
           showModal(response.stamp, date, userId);
-          console.log(response.stamp);
         } else if (response.message === "El día es un feriado") {
           console.log("No se abrió un modal por ser feriado");
         } else {
