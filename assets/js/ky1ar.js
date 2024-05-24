@@ -179,53 +179,39 @@ $(document).ready(function () {
           var $currentHrrBox;
           var currentWeek = 1;
           response.schedule.forEach(function (entry, index) {
-            var dayName = entry.day_of_week_es;
+            var dayName = entry.day_name_espanol;
             var dayNumber = entry.day_number;
-            var hPoints = entry.time_difference;
+            var stamps = entry.stamp ? entry.stamp.split(",") : [];
+            
             if (dayName.toLowerCase() === "domingo") {
               return;
             }
-
+  
             if (dayName.toLowerCase() === "lunes" || index === 0) {
               $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
               $("<span>Semana " + currentWeek + "</span>").appendTo($currentHrrBox);
               $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
               currentWeek++;
             }
-
+  
             var $hrrDay = $currentHrrBox.find(".hrr-day");
             var $dayList = $("<ul class='schedule-item' data-date='" + entry.calendar_date + "'></ul>").appendTo($hrrDay);
-
+  
             $("<li class='day-nam'>" + dayName.substring(0, 3) + " " + dayNumber + "</li>").appendTo($dayList);
-
+  
             if (entry.holiday == 1) {
               $("<li class='test'>FERIADO</li>").appendTo($dayList);
-            } else if (entry.stamp) {
-              var stamps = entry.stamp.split(",");
+            } else {
               stamps.forEach(function (stamp) {
                 for (var i = 0; i < stamp.length; i += 5) {
                   $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
                 }
               });
-            } else {
-              $("<li></li>").appendTo($dayList);
             }
-
-            var $calcLi = $("<li class='calc' data-date='" + entry.calendar_date + "'>" + hPoints + "</li>");
-
-            if (hPoints === "DF") {
-              $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #F0DD38");
-            } else if (hPoints.startsWith("+")) {
-              $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #0baa75");
-            } else if (hPoints.startsWith("-")) {
-              $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #DE0B0B");
-            }
-
-            $calcLi.appendTo($dayList);
-
+  
             daysCounter++;
           });
-
+  
           console.log(response.schedule);
         } else {
           console.error(response.message);
@@ -236,6 +222,7 @@ $(document).ready(function () {
       },
     });
   }
+  
 
   function getUserData(userId, month, year) {
     console.log(`Data: ${userId}, month: ${month}, year: ${year}`);
