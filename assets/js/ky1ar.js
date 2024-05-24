@@ -496,9 +496,9 @@ $(document).ready(function () {
             var dayName = entry.day_of_week_es;
             var dayNumber = entry.day_number;
             var hPoints = entry.time_difference;
-            if (dayName.toLowerCase() === "domingo") {
-              return;
-            }
+            // if (dayName.toLowerCase() === "domingo") {
+            //   return;
+            // }
 
             if (dayName.toLowerCase() === "lunes" || index === 0) {
               $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
