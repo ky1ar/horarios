@@ -159,7 +159,8 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-          showModal(response.stamp, date, userId); // Pasar la fecha al modal
+          showModal(response.stamp, date, userId);
+          console.log(response.stamp);
         } else if (response.message === "El día es un feriado") {
           console.log("No se abrió un modal por ser feriado");
         } else {
