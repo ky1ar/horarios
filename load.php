@@ -256,10 +256,12 @@ require_once 'db.php';
         }
         ?>
     </section>
-    <div class="modal-stamp" style="display: none;">
+    <div class="modal-stamp">
         <div class="modal-content">
             <h1>Actualizar Registro</h1>
             <form id="stampForm">
+                <label for="dayInput">Día:</label>
+                <input type="text" id="dayInput" name="day" disabled> <!-- Añadir ID -->
                 <label for="stampInput">Registro:</label>
                 <input type="text" id="stampInput" name="stamp">
                 <input type="hidden" id="dateInput" name="date">
@@ -268,6 +270,7 @@ require_once 'db.php';
             </form>
         </div>
     </div>
+
 
 
 

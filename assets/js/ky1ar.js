@@ -95,6 +95,7 @@ $(document).ready(function () {
   function showModal(stamp, date, userId) {
     $("#stampInput").val(stamp);
     $("#dateInput").val(date);
+    $("#dayInput").val(date); // Cargar la fecha en el campo del día
     $("#userIdInput").val(userId);
     $(".modal-stamp").fadeIn();
   }
@@ -125,9 +126,9 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-          showModal(response.stamp, date, userId);
+          showModal(response.stamp, date, userId); // Pasar la fecha al modal
         } else if (response.message === "El día es un feriado") {
-          console.log("No se abrio un modal por ser feriado");
+          console.log("No se abrió un modal por ser feriado");
         } else {
           showModal("", date, userId); // Si no hay stamp, muestra el modal vacío
         }
@@ -182,13 +183,18 @@ $(document).ready(function () {
             }
 
             var $hrrDay = $currentHrrBox.find(".hrr-day");
-            var $dayList = $("<ul class='schedule-item' data-date='" + entry.calendar_date + "'></ul>").appendTo($hrrDay);
+            var $dayList = $(
+              "<ul class='schedule-item' data-date='" +
+                entry.calendar_date +
+                "'></ul>"
+            ).appendTo($hrrDay);
 
-            $("<li class='day-nam'>" +
-              dayName.substring(0, 3) +
-              " " +
-              dayNumber +
-              "</li>"
+            $(
+              "<li class='day-nam'>" +
+                dayName.substring(0, 3) +
+                " " +
+                dayNumber +
+                "</li>"
             ).appendTo($dayList);
 
             if (entry.holiday == 1) {
