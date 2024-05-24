@@ -238,7 +238,7 @@ $(document).ready(function () {
   // }
   function getUserSchedule(userId) {
     $.ajax({
-        url: "../routes/del/get_user_schedule1.php",
+        url: "../routes/del/get_user_schedule.php",
         method: "POST",
         data: { userId: userId, month: currentMonth },
         dataType: "json",
