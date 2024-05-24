@@ -482,7 +482,7 @@ $(document).ready(function () {
   function getUserSchedule(userId, month, year) {
     console.log(`Fetching schedule for userId: ${userId}, month: ${month}, year: ${year}`);
     $.ajax({
-      url: "../routes/del/get_user_schedule.php",
+      url: "../routes/del/get_user_schedule1.php",
       method: "POST",
       data: { userId: userId, month: month, year: year },
       dataType: "json",
