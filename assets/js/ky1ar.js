@@ -26,7 +26,7 @@ $(document).ready(function () {
     "Noviembre",
     "Diciembre",
   ];
-  
+
   let currentMonth = new Date().getMonth() + 1;
   let currentYear = new Date().getFullYear();
 
@@ -185,7 +185,60 @@ $(document).ready(function () {
       },
     });
   }
+  function fetchStamp(userId, date) {
+    $.ajax({
+      url: "../routes/del/get_stamp.php",
+      method: "POST",
+      data: { userId: userId, date: date },
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          $("#stampInput").val(response.stamp);
+        } else {
+          $("#stampInput").val(""); // Clear input if no stamp found
+        }
+        $("#dateInput").val(date);
+        $("#userIdInput").val(userId);
+        $(".modal-stamp").show();
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
+    });
+  }
 
+  // Evento submit del formulario de estampas
+  $("#stampForm").on("submit", function (e) {
+    e.preventDefault();
+
+    var formData = $(this).serialize();
+
+    $.ajax({
+      url: "update_stamp.php",
+      method: "POST",
+      data: formData,
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          alert("Stamp updated successfully");
+          $(".modal-stamp").hide();
+          getUserSchedule($("#userIdInput").val(), currentMonth, currentYear);
+        } else {
+          alert("Failed to update stamp: " + response.message);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
+    });
+  });
+
+  // Función para cerrar el modal
+  $(".modal-stamp").on("click", function (e) {
+    if (e.target === this) {
+      $(this).hide();
+    }
+  });
   function getUserData(userId, month, year) {
     console.log(`Data: ${userId}, month: ${month}, year: ${year}`);
     var formData = new FormData();

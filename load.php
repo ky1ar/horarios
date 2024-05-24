@@ -256,16 +256,20 @@ require_once 'db.php';
         }
         ?>
     </section>
-    <div class="modal-stamp">
+    <div class="modal-stamp" style="display: none;">
         <div>
             <h1>Actualizar Registro</h1>
-            <form action="" method="POST">
-                <label for="">Registro:</label>
-                <input type="text">
+            <form id="stampForm">
+                <label for="stampInput">Registro:</label>
+                <input type="text" id="stampInput" name="stamp">
+                <input type="hidden" id="dateInput" name="date">
+                <input type="hidden" id="userIdInput" name="userId">
                 <input type="submit" value="Guardar">
             </form>
         </div>
     </div>
+
+
 </body>
 
 </html>
