@@ -165,81 +165,8 @@ $(document).ready(function () {
     });
   });
 
-  // function getUserSchedule(userId, month, year) {
-  //   console.log(`Fetching schedule for userId: ${userId}, month: ${month}, year: ${year}`);
-  //   $.ajax({
-  //     url: "../routes/del/get_user_schedule1.php",
-  //     method: "POST",
-  //     data: { userId: userId, month: month, year: year },
-  //     dataType: "json",
-  //     success: function (response) {
-  //       if (response.success) {
-  //         $(".ky1-hrr").empty();
-  //         var daysCounter = 0;
-  //         var $currentHrrBox;
-  //         var currentWeek = 1;
-  //         response.schedule.forEach(function (entry, index) {
-  //           var dayName = entry.day_of_week_es;
-  //           var dayNumber = entry.day_number;
-  //           var hPoints = entry.time_difference;
-  //           if (dayName.toLowerCase() === "domingo") {
-  //             return;
-  //           }
-
-  //           if (dayName.toLowerCase() === "lunes" || index === 0) {
-  //             $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
-  //             $("<span>Semana " + currentWeek + "</span>").appendTo($currentHrrBox);
-  //             $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
-  //             currentWeek++;
-  //           }
-
-  //           var $hrrDay = $currentHrrBox.find(".hrr-day");
-  //           var $dayList = $("<ul class='schedule-item' data-date='" + entry.calendar_date + "'></ul>").appendTo($hrrDay);
-
-  //           $("<li class='day-nam'>" + dayName.substring(0, 3) + " " + dayNumber + "</li>").appendTo($dayList);
-
-  //           if (entry.holiday == 1) {
-  //             $("<li class='test'>FERIADO</li>").appendTo($dayList);
-  //           } else if (entry.stamp) {
-  //             var stamps = entry.stamp.split(",");
-  //             stamps.forEach(function (stamp) {
-  //               for (var i = 0; i < stamp.length; i += 5) {
-  //                 $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
-  //               }
-  //             });
-  //           } else {
-  //             $("<li></li>").appendTo($dayList);
-  //           }
-
-  //           var $calcLi = $("<li class='calc' data-date='" + entry.calendar_date + "'>" + hPoints + "</li>");
-
-  //           if (hPoints === "DF") {
-  //             $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #F0DD38");
-  //           } else if (hPoints.startsWith("+")) {
-  //             $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #0baa75");
-  //           } else if (hPoints.startsWith("-")) {
-  //             $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #DE0B0B");
-  //           }
-
-  //           $calcLi.appendTo($dayList);
-
-  //           daysCounter++;
-  //         });
-
-  //         console.log(response.schedule);
-  //       } else {
-  //         console.error(response.message);
-  //       }
-  //     },
-  //     error: function (xhr, status, error) {
-  //       console.error("Error en la solicitud AJAX:", error);
-  //     },
-  //   });
-  // }
   function getUserSchedule(userId, month, year) {
-    console.log(
-      `Fetching schedule for userId: ${userId}, month: ${month}, year: ${year}`
-    ); // Depuración
+    console.log(`Fetching schedule for userId: ${userId}, month: ${month}, year: ${year}`);
     $.ajax({
       url: "../routes/del/get_user_schedule1.php",
       method: "POST",
@@ -252,58 +179,54 @@ $(document).ready(function () {
           var $currentHrrBox;
           var currentWeek = 1;
           response.schedule.forEach(function (entry, index) {
-            var dayName = entry.day_name_espanol;
+            var dayName = entry.day_of_week_es;
             var dayNumber = entry.day_number;
-
-            // Omitir los domingos
+            var hPoints = entry.time_difference;
             if (dayName.toLowerCase() === "domingo") {
-              return; // Salta este día y continúa con el siguiente
+              return;
             }
 
             if (dayName.toLowerCase() === "lunes" || index === 0) {
-              $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
-                ".ky1-hrr"
-              );
-              $("<span>Semana " + currentWeek + "</span>").appendTo(
-                $currentHrrBox
-              );
+              $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
+              $("<span>Semana " + currentWeek + "</span>").appendTo($currentHrrBox);
               $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
-              currentWeek++; // Aumenta el contador de semana
+              currentWeek++;
             }
 
             var $hrrDay = $currentHrrBox.find(".hrr-day");
-            var $dayList = $("<ul></ul>").appendTo($hrrDay);
+            var $dayList = $("<ul class='schedule-item' data-date='" + entry.calendar_date + "'></ul>").appendTo($hrrDay);
 
-            $(
-              "<li class='day-nam'>" +
-                dayName.substring(0, 3) +
-                " " +
-                dayNumber +
-                "</li>"
-            ).appendTo($dayList);
+            $("<li class='day-nam'>" + dayName.substring(0, 3) + " " + dayNumber + "</li>").appendTo($dayList);
 
             if (entry.holiday == 1) {
-              // Si es un feriado, muestra "FERIADO" en una sola línea
               $("<li class='test'>FERIADO</li>").appendTo($dayList);
             } else if (entry.stamp) {
-              // Verifica si hay datos de estampas
               var stamps = entry.stamp.split(",");
               stamps.forEach(function (stamp) {
                 for (var i = 0; i < stamp.length; i += 5) {
-                  $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo(
-                    $dayList
-                  );
+                  $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
                 }
               });
             } else {
-              // Si no hay estampas, muestra un elemento vacío
               $("<li></li>").appendTo($dayList);
             }
+
+            var $calcLi = $("<li class='calc' data-date='" + entry.calendar_date + "'>" + hPoints + "</li>");
+
+            if (hPoints === "DF") {
+              $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #F0DD38");
+            } else if (hPoints.startsWith("+")) {
+              $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #0baa75");
+            } else if (hPoints.startsWith("-")) {
+              $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #DE0B0B");
+            }
+
+            $calcLi.appendTo($dayList);
 
             daysCounter++;
           });
 
-          console.log(response.schedule); // Verifica los datos recibidos
+          console.log(response.schedule);
         } else {
           console.error(response.message);
         }
@@ -313,6 +236,7 @@ $(document).ready(function () {
       },
     });
   }
+  
   function getUserData(userId, month, year) {
     console.log(`Data: ${userId}, month: ${month}, year: ${year}`);
     var formData = new FormData();
