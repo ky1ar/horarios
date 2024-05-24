@@ -338,6 +338,7 @@ body {
   width: 4.3rem;
   padding-bottom: 0;
   background-color: #e0e0e0;
+  min-height: 20rem;
 }
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) li.test {
