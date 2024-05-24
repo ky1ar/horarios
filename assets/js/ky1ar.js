@@ -125,23 +125,30 @@ $(document).ready(function () {
   }
 
   function showModal(stamp, date, userId) {
-    // Formatear el valor del input con colores
-    let formattedStamp = val(stamp);
-    for (let i = 0; i < stamp.length; i += 5) {
-      const chunk = stamp.substring(i, i + 5);
-      const color = i % 10 === 0 ? "#24D315" : "#177BE5"; // Alternar entre los dos colores
-      formattedStamp += `<span style="color: ${color}">${chunk}</span>`;
-    }
-
     // Asignar los valores a los inputs
-    $("#stampInput").html(formattedStamp);
     $("#dateInput").val(date);
     const formattedDate = formatDate(date);
     $("#dayInput").val(formattedDate);
     $("#userIdInput").val(userId);
+
+    // Aplicar el efecto de colores al input de texto después de asignar el valor
+    $("#stampInput").val(stamp).trigger("input");
+
     $(".modal-stamp").fadeIn();
   }
+  // Código JavaScript que alterna los colores
+  $("#stampInput").on("input", function () {
+    const value = $(this).val();
+    let formattedValue = "";
 
+    for (let i = 0; i < value.length; i += 5) {
+      const chunk = value.substring(i, i + 5);
+      const color = i % 10 === 0 ? "#24D315" : "#177BE5";
+      formattedValue += `<span style="color: ${color}">${chunk}</span>`;
+    }
+
+    $(this).html(formattedValue);
+  });
   function hideModal() {
     $(".modal-stamp").fadeOut();
   }
