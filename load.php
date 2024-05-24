@@ -257,14 +257,14 @@ require_once 'db.php';
         ?>
     </section>
     <div class="modal-stamp">
-        <form action="" method="POST">
+        <div>
             <h1>Actualizar Registro</h1>
-            <div>
+            <form action="" method="POST">
                 <label for="">Registro:</label>
                 <input type="text">
-            </div>
-            <input type="submit" value="Guardar">
-        </form>
+                <input type="submit" value="Guardar">
+            </form>
+        </div>
     </div>
 </body>
 

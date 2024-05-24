@@ -397,47 +397,44 @@ body {
   left: 0;
   z-index: 4;
 }
-
-.modal-stamp form {
+.modal-stamp div{
   display: flex;
   padding: 1.5rem 1rem;
+  background-color: white;
   flex-direction: column;
   width: 22rem;
-  background-color: white;
-  box-shadow: 0 0 1rem 0.25rem rgb(195, 195, 195);
-  border-radius: 1rem;
   z-index: 5;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  box-shadow: 0 0 1rem 0.25rem rgb(195, 195, 195);
+  border-radius: 1rem;
 }
-
-.modal-stamp form h1 {
+.modal-stamp div h1{
   text-align: center;
   margin: 0;
-  margin-bottom: 2rem;
 }
-
-.modal-stamp form div {
+.modal-stamp form {
   display: flex;
-  margin-bottom: 1rem;
-  align-items: center;
+  padding: 1rem;
+  padding-bottom: 0;
+  flex-direction: column;
 }
-
-.modal-stamp form div label {
+.modal-stamp form label {
   font-weight: 600;
+  margin-bottom: 1rem;
 }
 
-.modal-stamp form div input {
-  margin-left: auto;
+.modal-stamp form input {
   border: 0;
   border-radius: 0.5rem;
   box-shadow: 0 0.25rem 0.5rem 0.1rem rgb(206, 206, 206);
-  padding: 1rem;
-  width: 14rem;
+  padding: 0.5rem;
+  margin-bottom: 2rem;
+  
 }
-.modal-stamp form div input:focus{
+.modal-stamp form input:focus{
     outline: none;
     border: none;
 }
