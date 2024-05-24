@@ -92,82 +92,33 @@ $(document).ready(function () {
     getUserData($(this).data("id"), currentMonth, currentYear);
   });
 
-  function getUserSchedule(userId, month, year) {
-    console.log(`Fetching schedule for userId: ${userId}, month: ${month}, year: ${year}`);
-    $.ajax({
-        url: "../routes/del/get_user_schedule.php",
-        method: "POST",
-        data: { userId: userId, month: month, year: year },
-        dataType: "json",
-        success: function (response) {
-            if (response.success) {
-                $(".ky1-hrr").empty();
-                var daysCounter = 0;
-                var $currentHrrBox;
-                var currentWeek = 1;
-                response.schedule.forEach(function (entry, index) {
-                    var dayName = entry.day_of_week_es;
-                    var dayNumber = entry.day_number;
-                    var hPoints = entry.time_difference;
-                    if (dayName.toLowerCase() === "domingo") {
-                        return;
-                    }
+  function showModal(stamp, date, userId) {
+    $("#stampInput").val(stamp);
+    $("#dateInput").val(date);
+    $("#userIdInput").val(userId);
+    $(".modal-stamp").fadeIn();
+  }
 
-                    if (dayName.toLowerCase() === "lunes" || index === 0) {
-                        $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(".ky1-hrr");
-                        $("<span>Semana " + currentWeek + "</span>").appendTo($currentHrrBox);
-                        $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
-                        currentWeek++; // Aumenta el contador de semana
-                    }
+  function hideModal() {
+    $(".modal-stamp").fadeOut();
+  }
 
-                    var $hrrDay = $currentHrrBox.find(".hrr-day");
-                    var $dayList = $("<ul></ul>").appendTo($hrrDay);
+  // Detecta clics en el documento para cerrar el modal
+  $(document).on("click", function (event) {
+    if (
+      !$(event.target).closest(".modal-content").length &&
+      !$(event.target).closest(".calc").length
+    ) {
+      hideModal();
+    }
+  });
 
-                    $("<li class='day-nam'>" + dayName.substring(0, 3) + " " + dayNumber + "</li>").appendTo($dayList);
+  // Muestra el modal al hacer clic en un ul específico
+  $(document).on("click", ".calc", function () {
+    var date = $(this).data("date");
+    var userId = selectedUser.attr("data-id");
 
-                    if (entry.holiday == 1) {
-                        $("<li class='test'>FERIADO</li>").appendTo($dayList);
-                    } else if (entry.stamp) {
-                        var stamps = entry.stamp.split(",");
-                        stamps.forEach(function (stamp) {
-                            for (var i = 0; i < stamp.length; i += 5) {
-                                $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo($dayList);
-                            }
-                        });
-                    } else {
-                        $("<li></li>").appendTo($dayList);
-                    }
-
-                    var $calcLi = $("<li class='calc' data-date='" + entry.calendar_date + "'>" + hPoints + "</li>");
-                    if (hPoints === "DF") {
-                        $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #F0DD38");
-                    } else if (hPoints.startsWith("+")) {
-                        $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #0baa75");
-                    } else if (hPoints.startsWith("-")) {
-                        $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #DE0B0B");
-                    }
-
-                    $calcLi.appendTo($dayList);
-
-                    // Evento click para abrir el modal y obtener la estampa existente
-                    $dayList.on("click", function () {
-                        fetchStamp(userId, entry.calendar_date);
-                    });
-
-                    daysCounter++;
-                });
-
-                console.log(response.schedule);
-            } else {
-                console.error(response.message);
-            }
-        },
-        error: function (xhr, status, error) {
-            console.error("Error en la solicitud AJAX:", error);
-        },
-    });
-}
-  function fetchStamp(userId, date) {
+    // Llama a get_stamp.php para obtener los datos del stamp
     $.ajax({
       url: "../routes/del/get_stamp.php",
       method: "POST",
@@ -175,13 +126,111 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-          $("#stampInput").val(response.stamp);
+          showModal(response.stamp, date, userId);
         } else {
-          $("#stampInput").val(""); // Clear input if no stamp found
+          showModal("", date, userId); // Si no hay stamp, muestra el modal vacío
         }
-        $("#dateInput").val(date);
-        $("#userIdInput").val(userId);
-        $(".modal-stamp").show();
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
+    });
+  });
+
+  // Prevenir el comportamiento por defecto del form y cerrar el modal al enviar
+  $("#stampForm").on("submit", function (event) {
+    event.preventDefault();
+    // Lógica para guardar el stamp puede ir aquí
+    hideModal();
+  });
+
+  // Restante código ...
+
+  function getUserSchedule(userId, month, year) {
+    console.log(
+      `Fetching schedule for userId: ${userId}, month: ${month}, year: ${year}`
+    );
+    $.ajax({
+      url: "../routes/del/get_user_schedule.php",
+      method: "POST",
+      data: { userId: userId, month: month, year: year },
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          $(".ky1-hrr").empty();
+          var daysCounter = 0;
+          var $currentHrrBox;
+          var currentWeek = 1;
+          response.schedule.forEach(function (entry, index) {
+            var dayName = entry.day_of_week_es;
+            var dayNumber = entry.day_number;
+            var hPoints = entry.time_difference;
+            if (dayName.toLowerCase() === "domingo") {
+              return;
+            }
+
+            if (dayName.toLowerCase() === "lunes" || index === 0) {
+              $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
+                ".ky1-hrr"
+              );
+              $("<span>Semana " + currentWeek + "</span>").appendTo(
+                $currentHrrBox
+              );
+              $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
+              currentWeek++;
+            }
+
+            var $hrrDay = $currentHrrBox.find(".hrr-day");
+            var $dayList = $("<ul></ul>").appendTo($hrrDay);
+
+            $(
+              "<li class='day-nam'>" +
+                dayName.substring(0, 3) +
+                " " +
+                dayNumber +
+                "</li>"
+            ).appendTo($dayList);
+
+            if (entry.holiday == 1) {
+              $("<li class='test'>FERIADO</li>").appendTo($dayList);
+            } else if (entry.stamp) {
+              var stamps = entry.stamp.split(",");
+              stamps.forEach(function (stamp) {
+                for (var i = 0; i < stamp.length; i += 5) {
+                  $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo(
+                    $dayList
+                  );
+                }
+              });
+            } else {
+              $("<li></li>").appendTo($dayList);
+            }
+
+            var $calcLi = $(
+              "<li class='calc' data-date='" +
+                entry.calendar_date +
+                "'>" +
+                hPoints +
+                "</li>"
+            );
+
+            if (hPoints === "DF") {
+              $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #F0DD38");
+            } else if (hPoints.startsWith("+")) {
+              $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #0baa75");
+            } else if (hPoints.startsWith("-")) {
+              $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #DE0B0B");
+            }
+
+            $calcLi.appendTo($dayList);
+
+            daysCounter++;
+          });
+
+          console.log(response.schedule);
+        } else {
+          console.error(response.message);
+        }
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
@@ -189,38 +238,6 @@ $(document).ready(function () {
     });
   }
 
-  // Evento submit del formulario de estampas
-  $("#stampForm").on("submit", function (e) {
-    e.preventDefault();
-
-    var formData = $(this).serialize();
-
-    $.ajax({
-      url: "update_stamp.php",
-      method: "POST",
-      data: formData,
-      dataType: "json",
-      success: function (response) {
-        if (response.success) {
-          alert("Stamp updated successfully");
-          $(".modal-stamp").hide();
-          getUserSchedule($("#userIdInput").val(), currentMonth, currentYear);
-        } else {
-          alert("Failed to update stamp: " + response.message);
-        }
-      },
-      error: function (xhr, status, error) {
-        console.error("Error en la solicitud AJAX:", error);
-      },
-    });
-  });
-
-  // Función para cerrar el modal
-  $(".modal-stamp").on("click", function (e) {
-    if (e.target === this) {
-      $(this).hide();
-    }
-  });
   function getUserData(userId, month, year) {
     console.log(`Data: ${userId}, month: ${month}, year: ${year}`);
     var formData = new FormData();

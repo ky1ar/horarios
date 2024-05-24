@@ -257,7 +257,7 @@ require_once 'db.php';
         ?>
     </section>
     <div class="modal-stamp" style="display: none;">
-        <div>
+        <div class="modal-content">
             <h1>Actualizar Registro</h1>
             <form id="stampForm">
                 <label for="stampInput">Registro:</label>
@@ -268,6 +268,7 @@ require_once 'db.php';
             </form>
         </div>
     </div>
+
 
 
 </body>
