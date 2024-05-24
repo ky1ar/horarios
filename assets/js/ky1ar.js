@@ -11,7 +11,7 @@ $(document).ready(function () {
 
   const userImage = $("#userImage");
   const imagePath = "assets/img/profiles/";
-
+  const stampInput = $("#stampInput");
   const monthNames = [
     "Enero",
     "Febrero",
@@ -146,7 +146,27 @@ $(document).ready(function () {
       hideModal();
     }
   });
+  function applyColors() {
+    const text = stampInput.val();
+    const styledText = text
+      .split("")
+      .map((char, index) => {
+        const color = Math.floor(index / 5) % 2 === 0 ? "#00FF00" : "#0000FF"; // Usa valores hexadecimales aquí
+        return `<span style="color: ${color};">${char}</span>`;
+      })
+      .join("");
+    const html = `<div>${styledText}</div>`;
+    stampInput.next(".styled-stamp").html(html);
+  }
 
+  // Initial application
+  stampInput.after('<div class="styled-stamp"></div>');
+  applyColors();
+
+  // Apply colors on input
+  stampInput.on("input", function () {
+    applyColors();
+  });
   // Muestra el modal al hacer clic en un ul específico
   $(document).on("click", ".schedule-item", function () {
     var date = $(this).data("date");
