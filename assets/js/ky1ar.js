@@ -126,7 +126,7 @@ $(document).ready(function () {
 
   function showModal(stamp, date, userId) {
     // Formatear el valor del input con colores
-    let formattedStamp = "";
+    let formattedStamp = val(stamp);
     for (let i = 0; i < stamp.length; i += 5) {
       const chunk = stamp.substring(i, i + 5);
       const color = i % 10 === 0 ? "#24D315" : "#177BE5"; // Alternar entre los dos colores
