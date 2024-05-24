@@ -201,7 +201,6 @@ $(document).ready(function () {
       processData: false,
       dataType: "json",
       success: function (response) {
-        console.log("Datos recibidos del servidor:", response.total_hours_required);
         var data = response;
         $("#totalHours").text(data.total_hours_required + " h");
         $("#totalMissingPoints").text(data.total_missing_points);
