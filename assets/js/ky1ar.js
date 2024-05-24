@@ -93,7 +93,6 @@ $(document).ready(function () {
   });
   function formatDate(dateString) {
     const daysOfWeek = [
-      "Domingo",
       "Lunes",
       "Martes",
       "Miércoles",
