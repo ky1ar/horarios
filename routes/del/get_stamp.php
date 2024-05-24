@@ -9,6 +9,7 @@ if (isset($_POST['userId']) && isset($_POST['date'])) {
     $sql = "SELECT 
                 c.id_date,
                 c.calendar_date, 
+                c.holiday,
                 s.stamp
             FROM 
                 Calendar c
@@ -26,10 +27,14 @@ if (isset($_POST['userId']) && isset($_POST['date'])) {
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        $stamp = isset($row['stamp']) ? $row['stamp'] : '';
-        echo json_encode(['success' => true, 'stamp' => $stamp]);
+        if ($row['holiday'] == 1) {
+            echo json_encode(['success' => false, 'message' => 'El día es un feriado']);
+        } else {
+            $stamp = isset($row['stamp']) ? $row['stamp'] : '';
+            echo json_encode(['success' => true, 'stamp' => $stamp]);
+        }
     } else {
-        echo json_encode(['success' => false, 'message' => 'No stamp found']);
+        echo json_encode(['success' => false, 'message' => 'No se encontró ningún registro']);
     }
 
     $stmt->close();
@@ -38,3 +43,4 @@ if (isset($_POST['userId']) && isset($_POST['date'])) {
 }
 
 $conn->close();
+?>
