@@ -125,10 +125,19 @@ $(document).ready(function () {
   }
 
   function showModal(stamp, date, userId) {
-    $("#stampInput").val(stamp);
+    // Formatear el valor del input con colores
+    let formattedStamp = "";
+    for (let i = 0; i < stamp.length; i += 5) {
+      const chunk = stamp.substring(i, i + 5);
+      const color = i % 10 === 0 ? "#24D315" : "#177BE5"; // Alternar entre los dos colores
+      formattedStamp += `<span style="color: ${color}">${chunk}</span>`;
+    }
+
+    // Asignar los valores a los inputs
+    $("#stampInput").html(formattedStamp);
     $("#dateInput").val(date);
     const formattedDate = formatDate(date);
-    $("#dayInput").val(formattedDate); // Cambiado a dayInput
+    $("#dayInput").val(formattedDate);
     $("#userIdInput").val(userId);
     $(".modal-stamp").fadeIn();
   }
