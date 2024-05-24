@@ -92,6 +92,15 @@ $(document).ready(function () {
     getUserData($(this).data("id"), currentMonth, currentYear);
   });
   function formatDate(dateString) {
+    const daysOfWeek = [
+      "Domingo",
+      "Lunes",
+      "Martes",
+      "Miércoles",
+      "Jueves",
+      "Viernes",
+      "Sábado",
+    ];
     const months = [
       "Enero",
       "Febrero",
@@ -108,7 +117,9 @@ $(document).ready(function () {
     ];
 
     const [year, month, day] = dateString.split("-");
-    const formattedDate = `${day} de ${
+    const date = new Date(`${year}-${month}-${day}`);
+    const dayOfWeek = daysOfWeek[date.getDay()];
+    const formattedDate = `${dayOfWeek} ${day} de ${
       months[parseInt(month) - 1]
     } del ${year}`;
     return formattedDate;
