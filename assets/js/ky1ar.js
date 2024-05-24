@@ -96,11 +96,7 @@ $(document).ready(function () {
     $("#stampInput").val(stamp);
     $("#dateInput").val(date);
     $("#userIdInput").val(userId);
-    const delay = 1000;
-
-    setTimeout(function () {
-      $(".modal-stamp").fadeIn();
-    }, delay);
+    $(".modal-stamp").fadeIn();
   }
 
   function hideModal() {
@@ -121,7 +117,9 @@ $(document).ready(function () {
   $(document).on("click", ".calc", function () {
     var date = $(this).data("date");
     var userId = selectedUser.attr("data-id");
-    console.log(`Fetching schedule for date: ${date}, userId: ${userId}`);
+    console.log(
+      `Fetching schedule for date: ${date}, userId: ${userId}`
+    )
     // Llama a get_stamp.php para obtener los datos del stamp
     $.ajax({
       url: "../routes/del/get_stamp.php",
