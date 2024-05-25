@@ -177,6 +177,21 @@ FROM
             -- New column based on conditions
             CASE 
                 WHEN s.id_schedule IS NULL THEN 'DF' -- No hay registro en schedule para este día
+                WHEN LENGTH(s.stamp) = 30 THEN 
+                CONCAT(
+                FLOOR(
+                (TIME_TO_SEC(STR_TO_DATE(RIGHT(s.stamp, 5), '%H:%i')) - 
+                TIME_TO_SEC(STR_TO_DATE(LEFT(s.stamp, 5), '%H:%i')) - 
+                (TIME_TO_SEC(STR_TO_DATE(SUBSTRING(s.stamp, 11, 5), '%H:%i')) - TIME_TO_SEC(STR_TO_DATE(SUBSTRING(s.stamp, 6, 5), '%H:%i'))) - 
+                (TIME_TO_SEC(STR_TO_DATE(SUBSTRING(s.stamp, 21, 5), '%H:%i')) - TIME_TO_SEC(STR_TO_DATE(SUBSTRING(s.stamp, 16, 5), '%H:%i')))) / 3600), 
+                ':', 
+                LPAD(
+                FLOOR(
+                    ((TIME_TO_SEC(STR_TO_DATE(RIGHT(s.stamp, 5), '%H:%i')) - 
+                    TIME_TO_SEC(STR_TO_DATE(LEFT(s.stamp, 5), '%H:%i')) - 
+                    (TIME_TO_SEC(STR_TO_DATE(SUBSTRING(s.stamp, 11, 5), '%H:%i')) - TIME_TO_SEC(STR_TO_DATE(SUBSTRING(s.stamp, 6, 5), '%H:%i'))) - 
+                    (TIME_TO_SEC(STR_TO_DATE(SUBSTRING(s.stamp, 21, 5), '%H:%i')) - TIME_TO_SEC(STR_TO_DATE(SUBSTRING(s.stamp, 16, 5), '%H:%i')))) % 3600) / 60), 
+                    2, '0'))
                 WHEN DAYNAME(c.calendar_date) IN ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday') THEN 
                     CASE 
                         WHEN LENGTH(s.stamp) = 20 THEN 
