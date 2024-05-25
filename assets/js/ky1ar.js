@@ -298,18 +298,33 @@ $(document).ready(function () {
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
       var semana = index + 1;
-      var suma = 0;
+      var sumaHoras = 0;
+      var sumaMinutos = 0;
 
       $hrrBox.find(".calc").each(function () {
         var calc = $(this).text();
         if (calc !== "DF") {
-          suma += parseFloat(calc.replace(":", "."));
+          var signo = calc.startsWith("-") ? -1 : 1;
+          var tiempo = calc.substring(1).split(":");
+          var horas = parseInt(tiempo[0]);
+          var minutos = parseInt(tiempo[1]);
+          sumaHoras += horas;
+          sumaMinutos += minutos;
         }
       });
 
-      console.log("Semana " + semana + ", suma: " + suma.toFixed(2));
+      // Convertir minutos a horas si es mayor a 60
+      if (sumaMinutos >= 60) {
+        sumaHoras += Math.floor(sumaMinutos / 60);
+        sumaMinutos %= 60;
+      }
+
+      console.log(
+        "Semana " + semana + ", suma: " + sumaHoras + ":" + sumaMinutos
+      );
     });
   }
+
   function getUserData(userId, month, year) {
     var formData = new FormData();
     formData.append("userId", userId);
@@ -340,7 +355,7 @@ $(document).ready(function () {
     userList.find("li").first().addClass("active");
   }
   updateUserDisplay();
- calcularSumaCalcPorSemana();
+  calcularSumaCalcPorSemana();
   getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
 });
