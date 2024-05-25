@@ -285,27 +285,29 @@ $(document).ready(function () {
 
             daysCounter++;
           });
-          $(".hrr-box").each(function () {
+
+          $(".hrr-box").each(function (index) {
             var totalHours = 0;
-            $(this)
-              .find(".calc")
-              .each(function () {
+            $(this).find(".calc").each(function () {
                 var hPoints = $(this).text();
                 if (hPoints !== "DF") {
-                  var sign = hPoints.charAt(0);
-                  var hours = parseInt(hPoints.substring(1, 3));
-                  var minutes = parseInt(hPoints.substring(4));
-                  if (sign === "+") {
-                    totalHours += hours;
-                    totalHours += minutes / 60;
-                  } else if (sign === "-") {
-                    totalHours -= hours;
-                    totalHours -= minutes / 60;
-                  }
+                    var sign = hPoints.charAt(0);
+                    var hours = parseInt(hPoints.substring(1, 3));
+                    var minutes = parseInt(hPoints.substring(4));
+                    if (sign === "+") {
+                        totalHours += hours;
+                        totalHours += minutes / 60;
+                    } else if (sign === "-") {
+                        totalHours -= hours;
+                        totalHours -= minutes / 60;
+                    }
                 }
-              });
-            console.log("Suma de horas en esta semana:", totalHours.toFixed(2));
-          });
+            });
+            console.log("Semana(" + (index + 1) + "): Total de horas " + (totalHours >= 0 ? "+" : "") + totalHours.toFixed(2));
+        });
+        
+
+
           console.log(response.schedule);
         } else {
           console.error(response.message);
