@@ -289,11 +289,27 @@ $(document).ready(function () {
           $(".hrr-box").each(function (index) {
             var totalHours = 0;
             var sumValues = [];
+            var daysInWeek = [];
+            var currentDay = null;
+
             $(this)
               .find(".calc")
               .each(function () {
                 var hPoints = $(this).text();
-                if (hPoints !== "DF") {
+                var day = $(this).parent().siblings(".day-nam").text().trim();
+                if (day === "Sábado") {
+                  currentDay = null;
+                  if (daysInWeek.length > 0) {
+                    sumValues.push(daysInWeek.join(", "));
+                    totalHours += sumValues.reduce((a, b) => a + b, 0);
+                    sumValues = [];
+                    daysInWeek = [];
+                  }
+                }
+                if (currentDay === null) {
+                  currentDay = day;
+                }
+                if (hPoints !== "DF" && currentDay !== null) {
                   var sign = hPoints.charAt(0);
                   var hours = parseInt(hPoints.substring(1, 3));
                   var minutes = parseInt(hPoints.substring(4));
@@ -301,10 +317,7 @@ $(document).ready(function () {
                     sign === "+"
                       ? hours + minutes / 60
                       : -1 * (hours + minutes / 60);
-                  sumValues.push(value);
-                  totalHours += value;
-                } else {
-                  sumValues.push(0);
+                  daysInWeek.push(value);
                 }
               });
             console.log(
@@ -312,9 +325,7 @@ $(document).ready(function () {
                 (index + 1) +
                 "): Total de horas " +
                 (totalHours >= 0 ? "+" : "") +
-                totalHours.toFixed(2) +
-                ", Valores: " +
-                sumValues.join(", ")
+                totalHours.toFixed(2)
             );
           });
 
