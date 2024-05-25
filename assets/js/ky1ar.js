@@ -294,25 +294,25 @@ $(document).ready(function () {
       },
     });
   }
-  function calcularSumaCalcPorSemana() {
-    $(".hrr-box").each(function (index) {
-      var $hrrBox = $(this);
-      var semana = index + 1;
-      var calcSemana = [];
+  // function calcularSumaCalcPorSemana() {
+  //   $(".hrr-box").each(function (index) {
+  //     var $hrrBox = $(this);
+  //     var semana = index + 1;
+  //     var calcSemana = [];
   
-      $hrrBox.find(".calc").each(function () {
-        var calc = $(this).text();
-        var fecha = new Date($(this).data("date"));
-        var mesCalc = fecha.getMonth() + 1; // Obtener el mes del calc
+  //     $hrrBox.find(".calc").each(function () {
+  //       var calc = $(this).text();
+  //       var fecha = new Date($(this).data("date"));
+  //       var mesCalc = fecha.getMonth() + 1; // Obtener el mes del calc
   
-        if (mesCalc === currentMonth) {
-          calcSemana.push(calc);
-        }
-      });
+  //       if (mesCalc === currentMonth) {
+  //         calcSemana.push(calc);
+  //       }
+  //     });
   
-      console.log("Semana " + semana + ", calc: " + calcSemana.join(", "));
-    });
-  }
+  //     console.log("Semana " + semana + ", calc: " + calcSemana.join(", "));
+  //   });
+  // }
   
 
   function getUserData(userId, month, year) {
@@ -348,5 +348,5 @@ $(document).ready(function () {
   
   getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
-  calcularSumaCalcPorSemana();
+  // calcularSumaCalcPorSemana();
 });
