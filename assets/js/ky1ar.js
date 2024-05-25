@@ -214,28 +214,12 @@ $(document).ready(function () {
           var $currentHrrBox;
           var currentWeek = 1;
           response.schedule.forEach(function (entry, index) {
-            var firstWeekCalc = [];
-            response.schedule.forEach(function (entry, index) {
-              var dayName = entry.day_of_week_es;
-              var dayNumber = entry.day_number;
-              var hPoints = entry.time_difference;
-              if (dayName.toLowerCase() === "domingo") {
-                return;
-              }
-
-              if (dayName.toLowerCase() !== "sábado") {
-                if (entry.holiday != 1 && hPoints !== "DF") {
-                  firstWeekCalc.push(hPoints);
-                }
-              } else {
-                // Si es sábado, termina la primera semana
-                console.log(
-                  "Valores de 'calc' de la primera semana:",
-                  firstWeekCalc
-                );
-                return false; // Detiene el bucle forEach
-              }
-            });
+            var dayName = entry.day_of_week_es;
+            var dayNumber = entry.day_number;
+            var hPoints = entry.time_difference;
+            if (dayName.toLowerCase() === "domingo") {
+              return;
+            }
 
             if (dayName.toLowerCase() === "lunes" || index === 0) {
               $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
