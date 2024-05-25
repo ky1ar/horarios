@@ -262,23 +262,26 @@ $(document).ready(function () {
               $("<li></li>").appendTo($dayList);
             }
 
-            var $calcLi = $(
-              "<li class='calc' data-date='" +
-                entry.calendar_date +
-                "'>" +
-                hPoints +
-                "</li>"
-            );
+            if (entry.holiday != 1) {
+              // Añade esta condición
+              var $calcLi = $(
+                "<li class='calc' data-date='" +
+                  entry.calendar_date +
+                  "'>" +
+                  hPoints +
+                  "</li>"
+              );
 
-            if (hPoints === "DF") {
-              $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #F0DD38");
-            } else if (hPoints.startsWith("+")) {
-              $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #0baa75");
-            } else if (hPoints.startsWith("-")) {
-              $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #DE0B0B");
+              if (hPoints === "DF") {
+                $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #F0DD38");
+              } else if (hPoints.startsWith("+")) {
+                $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #0baa75");
+              } else if (hPoints.startsWith("-")) {
+                $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #DE0B0B");
+              }
+
+              $calcLi.appendTo($dayList);
             }
-
-            $calcLi.appendTo($dayList);
 
             daysCounter++;
           });
@@ -313,7 +316,6 @@ $(document).ready(function () {
         $("#totalHours").text(data.total_hours_required + " h");
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
-        // $("#totalUnjustifiedAbsences").text(data.total_unjustified_absences);
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
