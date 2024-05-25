@@ -294,7 +294,22 @@ $(document).ready(function () {
       },
     });
   }
+  function calcularSumaCalcPorSemana() {
+    $(".hrr-box").each(function (index) {
+      var $hrrBox = $(this);
+      var semana = index + 1;
+      var suma = 0;
 
+      $hrrBox.find(".calc").each(function () {
+        var calc = $(this).text();
+        if (calc !== "DF") {
+          suma += parseFloat(calc.replace(":", "."));
+        }
+      });
+
+      console.log("Semana " + semana + ", suma: " + suma.toFixed(2));
+    });
+  }
   function getUserData(userId, month, year) {
     var formData = new FormData();
     formData.append("userId", userId);
@@ -325,6 +340,7 @@ $(document).ready(function () {
     userList.find("li").first().addClass("active");
   }
   updateUserDisplay();
+ calcularSumaCalcPorSemana();
   getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
 });
