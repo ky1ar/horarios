@@ -361,7 +361,8 @@ $(document).ready(function () {
     userList.find("li").first().addClass("active");
   }
   updateUserDisplay();
-  calcularSumaCalcPorSemana();
+  
   getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
+  calcularSumaCalcPorSemana();
 });
