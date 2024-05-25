@@ -313,7 +313,7 @@ $(document).ready(function () {
         $("#totalHours").text(data.total_hours_required + " h");
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
-        $("#totalUnjustifiedAbsences").text(data.total_unjustified_absences);
+        // $("#totalUnjustifiedAbsences").text(data.total_unjustified_absences);
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);

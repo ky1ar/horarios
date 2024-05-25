@@ -98,7 +98,7 @@ require_once 'db.php';
                     <p>Tardanzas</p>
                 </div>
             </li>
-            <li>
+            <!-- <li>
                 <div class="box-img img-4">
                     <img src="assets/img/flt.svg" width="40" height="40" alt="">
                 </div>
@@ -106,7 +106,7 @@ require_once 'db.php';
                     <span id="totalUnjustifiedAbsences"></span>
                     <p>Faltas Injustificadas</p>
                 </div>
-            </li>
+            </li> -->
         </ul>
         <ul class="ky1-hrr">
             <li class="hrr-box">

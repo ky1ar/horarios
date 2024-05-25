@@ -43,26 +43,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
             WHEN LEFT(s.stamp, 5) > '09:00' THEN 1
             ELSE 0
         END
-    ) AS total_late_points,
-    SUM(
-        CASE
-            WHEN (CASE
-                    WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
-                    WHEN u.id_profile = 2 THEN
-                        CASE
-                            WHEN DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
-                            WHEN DAYOFWEEK(c.calendar_date) = 7 THEN 4
-                            ELSE 0
-                        END
-                    WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 THEN 8
-                    ELSE 0
-                END) > 0
-                AND (s.stamp IS NULL OR LENGTH(s.stamp) = 0)
-                AND (c.just IS NULL OR c.just = '')
-                AND c.calendar_date < CURDATE() THEN 1
-            ELSE 0
-        END
-    ) AS total_unjustified_absences
+    ) AS total_late_points
 FROM
     Calendar c
 JOIN
