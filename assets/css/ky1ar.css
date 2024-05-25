@@ -317,6 +317,7 @@ body {
   display: flex;
   gap: 1rem;
   flex-direction: column;
+  position: relative;
 }
 #ky1-rgt .ky1-hrr .hrr-box span {
   font-size: 1.25rem;
@@ -378,7 +379,27 @@ body {
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day .day-trd::after {
   content: "";
 }
-
+#ky1-rgt .ky1-hrr .hrr-box .data-sem {
+  position: absolute;
+  right: 0rem;
+  top: 0;
+  display: flex;
+  color: white;
+}
+#ky1-rgt .ky1-hrr .hrr-box .data-sem p{
+  padding: 0.5rem;
+  font-size: 1rem;
+  text-align: center;
+  font-weight: 600;
+  
+}
+#ky1-rgt .ky1-hrr .hrr-box .data-sem p:first-child{
+  background-color: #177BE5;
+  border-radius: 0.5rem 0 0 0.5rem;
+}
+#ky1-rgt .ky1-hrr .hrr-box .data-sem p:last-child{
+  background-color: #2FCE66;
+}
 .super {
   width: 100vw;
   height: 100vh;
