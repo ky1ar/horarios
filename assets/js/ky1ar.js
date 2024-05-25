@@ -285,8 +285,6 @@ $(document).ready(function () {
 
             daysCounter++;
           });
-
-          console.log(response.schedule);
         } else {
           console.error(response.message);
         }
@@ -298,7 +296,6 @@ $(document).ready(function () {
   }
 
   function getUserData(userId, month, year) {
-    console.log(`Data: ${userId}, month: ${month}, year: ${year}`);
     var formData = new FormData();
     formData.append("userId", userId);
     formData.append("month", month);
