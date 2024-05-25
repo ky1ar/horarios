@@ -298,38 +298,22 @@ $(document).ready(function () {
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
       var semana = index + 1;
-      var sumaHoras = 0;
-      var sumaMinutos = 0;
-
+      var calcSemana = [];
+  
       $hrrBox.find(".calc").each(function () {
         var calc = $(this).text();
-        if (calc !== "DF") {
-          var signo = calc.startsWith("-") ? -1 : 1;
-          var tiempo = calc.substring(1).split(":");
-          var horas = parseInt(tiempo[0]);
-          var minutos = parseInt(tiempo[1]) * signo; // Multiplicar por el signo para mantener la dirección de la suma
-          sumaHoras += horas;
-          sumaMinutos += minutos;
+        var fecha = new Date($(this).data("date"));
+        var mesCalc = fecha.getMonth() + 1; // Obtener el mes del calc
+  
+        if (mesCalc === currentMonth) {
+          calcSemana.push(calc);
         }
       });
-
-      // Convertir minutos a horas si es mayor a 60 o menor a -60
-      if (sumaMinutos >= 60 || sumaMinutos <= -60) {
-        var horasExtra = Math.floor(sumaMinutos / 60);
-        sumaHoras += horasExtra;
-        sumaMinutos -= horasExtra * 60;
-      }
-
-      console.log(
-        "Semana " +
-          semana +
-          ", suma: " +
-          sumaHoras +
-          ":" +
-          Math.abs(sumaMinutos)
-      ); // Utilizar Math.abs para obtener el valor absoluto de los minutos
+  
+      console.log("Semana " + semana + ", calc: " + calcSemana.join(", "));
     });
   }
+  
 
   function getUserData(userId, month, year) {
     var formData = new FormData();
