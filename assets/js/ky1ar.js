@@ -307,21 +307,27 @@ $(document).ready(function () {
           var signo = calc.startsWith("-") ? -1 : 1;
           var tiempo = calc.substring(1).split(":");
           var horas = parseInt(tiempo[0]);
-          var minutos = parseInt(tiempo[1]);
+          var minutos = parseInt(tiempo[1]) * signo; // Multiplicar por el signo para mantener la dirección de la suma
           sumaHoras += horas;
           sumaMinutos += minutos;
         }
       });
 
-      // Convertir minutos a horas si es mayor a 60
-      if (sumaMinutos >= 60) {
-        sumaHoras += Math.floor(sumaMinutos / 60);
-        sumaMinutos %= 60;
+      // Convertir minutos a horas si es mayor a 60 o menor a -60
+      if (sumaMinutos >= 60 || sumaMinutos <= -60) {
+        var horasExtra = Math.floor(sumaMinutos / 60);
+        sumaHoras += horasExtra;
+        sumaMinutos -= horasExtra * 60;
       }
 
       console.log(
-        "Semana " + semana + ", suma: " + sumaHoras + ":" + sumaMinutos
-      );
+        "Semana " +
+          semana +
+          ", suma: " +
+          sumaHoras +
+          ":" +
+          Math.abs(sumaMinutos)
+      ); // Utilizar Math.abs para obtener el valor absoluto de los minutos
     });
   }
 
