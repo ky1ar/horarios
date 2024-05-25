@@ -214,12 +214,28 @@ $(document).ready(function () {
           var $currentHrrBox;
           var currentWeek = 1;
           response.schedule.forEach(function (entry, index) {
-            var dayName = entry.day_of_week_es;
-            var dayNumber = entry.day_number;
-            var hPoints = entry.time_difference;
-            if (dayName.toLowerCase() === "domingo") {
-              return;
-            }
+            var firstWeekCalc = [];
+            response.schedule.forEach(function (entry, index) {
+              var dayName = entry.day_of_week_es;
+              var dayNumber = entry.day_number;
+              var hPoints = entry.time_difference;
+              if (dayName.toLowerCase() === "domingo") {
+                return;
+              }
+
+              if (dayName.toLowerCase() !== "sábado") {
+                if (entry.holiday != 1 && hPoints !== "DF") {
+                  firstWeekCalc.push(hPoints);
+                }
+              } else {
+                // Si es sábado, termina la primera semana
+                console.log(
+                  "Valores de 'calc' de la primera semana:",
+                  firstWeekCalc
+                );
+                return false; // Detiene el bucle forEach
+              }
+            });
 
             if (dayName.toLowerCase() === "lunes" || index === 0) {
               $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
@@ -284,49 +300,6 @@ $(document).ready(function () {
             }
 
             daysCounter++;
-          });
-
-          $(".hrr-box").each(function (index) {
-            var totalHours = 0;
-            var sumValues = [];
-            var daysInWeek = [];
-            var currentDay = null;
-
-            $(this)
-              .find(".calc")
-              .each(function () {
-                var hPoints = $(this).text();
-                var day = $(this).parent().siblings(".day-nam").text().trim();
-                if (day === "Sábado") {
-                  currentDay = null;
-                  if (daysInWeek.length > 0) {
-                    sumValues.push(daysInWeek.join(", "));
-                    totalHours += sumValues.reduce((a, b) => a + b, 0);
-                    sumValues = [];
-                    daysInWeek = [];
-                  }
-                }
-                if (currentDay === null) {
-                  currentDay = day;
-                }
-                if (hPoints !== "DF" && currentDay !== null) {
-                  var sign = hPoints.charAt(0);
-                  var hours = parseInt(hPoints.substring(1, 3));
-                  var minutes = parseInt(hPoints.substring(4));
-                  var value =
-                    sign === "+"
-                      ? hours + minutes / 60
-                      : -1 * (hours + minutes / 60);
-                  daysInWeek.push(value);
-                }
-              });
-            console.log(
-              "Semana(" +
-                (index + 1) +
-                "): Total de horas " +
-                (totalHours >= 0 ? "+" : "") +
-                totalHours.toFixed(2)
-            );
           });
 
           console.log(response.schedule);
