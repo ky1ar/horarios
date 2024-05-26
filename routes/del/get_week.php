@@ -70,6 +70,8 @@ GROUP BY
 
         // Itera sobre los resultados
         while ($row = $result->fetch_assoc()) {
+            // Agrega ":00" a la hora obtenida
+            $row['acumulado_valor_dia'] .= ":00";
             $response['data'][] = $row;
         }
 
@@ -79,6 +81,7 @@ GROUP BY
         // Si no se encontraron resultados, envía un mensaje de error
         echo json_encode(array("success" => false, "message" => "No se encontraron resultados"));
     }
+
 
     // Cierra la conexión y el statement
     $stmt->close();
