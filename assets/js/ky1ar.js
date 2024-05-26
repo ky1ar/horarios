@@ -313,13 +313,26 @@ $(document).ready(function () {
                 sumaMinutos = sumaMinutos % 60;
             }
 
+            // Sumar el acumulado_valor_dia (en horas) a la suma calculada
+            var totalHoras = sumaHoras + acumuladoValorDia;
+            var totalMinutos = sumaMinutos;
+
+            // Ajustar horas y minutos nuevamente si es necesario
+            if (totalMinutos >= 60) {
+                totalHoras += Math.floor(totalMinutos / 60);
+                totalMinutos = totalMinutos % 60;
+            } else if (totalMinutos <= -60) {
+                totalHoras += Math.ceil(totalMinutos / 60);
+                totalMinutos = totalMinutos % 60;
+            }
+
             // Asegurar que los minutos tengan siempre dos dígitos y sean positivos
-            var resultadoHoras = sumaHoras;
-            var resultadoMinutos = Math.abs(sumaMinutos).toString().padStart(2, "0");
+            var resultadoHoras = totalHoras;
+            var resultadoMinutos = Math.abs(totalMinutos).toString().padStart(2, "0");
 
             // Ajustar el formato para horas y minutos
             var resultado;
-            if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
+            if (totalHoras < 0 || (totalHoras === 0 && totalMinutos < 0)) {
                 resultado =
                     "-" +
                     Math.abs(resultadoHoras).toString().padStart(2, "0") +
@@ -334,7 +347,7 @@ $(document).ready(function () {
 
             // Calcular porcentaje
             var totalMinutosAcumulado = acumuladoValorDia * 60;
-            var totalMinutosActual = sumaHoras * 60 + sumaMinutos;
+            var totalMinutosActual = totalHoras * 60 + totalMinutos;
             var porcentaje = (totalMinutosActual / totalMinutosAcumulado) * 100;
             
             // Actualizar el DOM con los valores calculados
@@ -343,6 +356,7 @@ $(document).ready(function () {
         });
     });
 }
+
 
 
   function getWeeklyData(userId, week, year, month, callback) {
