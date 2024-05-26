@@ -197,7 +197,28 @@ $(document).ready(function () {
       },
     });
   });
+  function calcularSumaCalcPorSemana() {
+    $(".hrr-box").each(function (index) {
+      var $hrrBox = $(this);
+      var semana = index + 1;
+      var sumaCalc = 0; // Variable para almacenar la suma de los calc de la semana actual
 
+      $hrrBox.find(".calc").each(function () {
+        var calc = $(this).text();
+        var fecha = new Date($(this).data("date"));
+        var mesCalc = fecha.getMonth() + 1; // Obtener el mes del calc
+
+        // Filtrar por el mes actual
+        if (mesCalc === currentMonth) {
+          if (calc !== "DF") {
+            sumaCalc += parseFloat(calc);
+          }
+        }
+      });
+
+      console.log("Semana " + semana + ", suma calc: " + sumaCalc);
+    });
+  }
   function getUserSchedule(userId, month, year) {
     console.log(
       `Fetching schedule for userId: ${userId}, month: ${month}, year: ${year}`
@@ -285,6 +306,7 @@ $(document).ready(function () {
 
             daysCounter++;
           });
+          calcularSumaCalcPorSemana();
         } else {
           console.error(response.message);
         }
@@ -294,26 +316,6 @@ $(document).ready(function () {
       },
     });
   }
-  // function calcularSumaCalcPorSemana() {
-  //   $(".hrr-box").each(function (index) {
-  //     var $hrrBox = $(this);
-  //     var semana = index + 1;
-  //     var calcSemana = [];
-  
-  //     $hrrBox.find(".calc").each(function () {
-  //       var calc = $(this).text();
-  //       var fecha = new Date($(this).data("date"));
-  //       var mesCalc = fecha.getMonth() + 1; // Obtener el mes del calc
-  
-  //       if (mesCalc === currentMonth) {
-  //         calcSemana.push(calc);
-  //       }
-  //     });
-  
-  //     console.log("Semana " + semana + ", calc: " + calcSemana.join(", "));
-  //   });
-  // }
-  
 
   function getUserData(userId, month, year) {
     var formData = new FormData();
@@ -345,7 +347,7 @@ $(document).ready(function () {
     userList.find("li").first().addClass("active");
   }
   updateUserDisplay();
-  
+
   getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
   // calcularSumaCalcPorSemana();
