@@ -277,73 +277,74 @@ $(document).ready(function () {
   // }
   function calcularSumaCalcPorSemana(userId, year, month) {
     var currentMonth = new Date().getMonth() + 1; // Obtener el mes actual (1-12)
-    
+
     $(".hrr-box").each(function (index) {
-        var $hrrBox = $(this);
-        var semana = index + 1;
-        var sumaHoras = 0; // Variable para la suma de horas
-        var sumaMinutos = 0; // Variable para la suma de minutos
+      var $hrrBox = $(this);
+      var semana = index + 1;
+      var sumaHoras = 0; // Variable para la suma de horas
+      var sumaMinutos = 0; // Variable para la suma de minutos
 
-        // Realiza la solicitud para obtener acumulado_valor_dia
-        getWeeklyData(userId, semana, year, month, function (acumuladoValorDia) {
-            $hrrBox.find(".calc").each(function () {
-                var calc = $(this).text().trim();
-                var fecha = new Date($(this).data("date"));
-                var mesCalc = fecha.getMonth() + 1; // Obtener el mes del calc
+      // Realiza la solicitud para obtener acumulado_valor_dia
+      getWeeklyData(userId, semana, year, month, function (acumuladoValorDia) {
+        $hrrBox.find(".calc").each(function () {
+          var calc = $(this).text().trim();
+          var fecha = new Date($(this).data("date"));
+          var mesCalc = fecha.getMonth() + 1; // Obtener el mes del calc
 
-                // Filtrar por el mes actual
-                if (mesCalc === currentMonth) {
-                    if (calc !== "DF") {
-                        var sign = calc.startsWith("-") ? -1 : 1; // Determinar si es negativo
-                        var tiempo = calc.replace(/[^\d:]/g, "").split(":");
-                        var horas = parseInt(tiempo[0], 10) * sign;
-                        var minutos = parseInt(tiempo[1], 10) * sign;
-                        sumaHoras += horas;
-                        sumaMinutos += minutos;
-                    }
-                }
-            });
-
-            // Ajustar horas y minutos
-            if (sumaMinutos >= 60) {
-                sumaHoras += Math.floor(sumaMinutos / 60);
-                sumaMinutos = sumaMinutos % 60;
-            } else if (sumaMinutos <= -60) {
-                sumaHoras += Math.ceil(sumaMinutos / 60);
-                sumaMinutos = sumaMinutos % 60;
+          // Filtrar por el mes actual
+          if (mesCalc === currentMonth) {
+            if (calc !== "DF") {
+              var sign = calc.startsWith("-") ? -1 : 1; // Determinar si es negativo
+              var tiempo = calc.replace(/[^\d:]/g, "").split(":");
+              var horas = parseInt(tiempo[0], 10) * sign;
+              var minutos = parseInt(tiempo[1], 10) * sign;
+              sumaHoras += horas;
+              sumaMinutos += minutos;
             }
-
-            // Asegurar que los minutos tengan siempre dos dígitos y sean positivos
-            var resultadoHoras = sumaHoras;
-            var resultadoMinutos = Math.abs(sumaMinutos).toString().padStart(2, "0");
-
-            // Ajustar el formato para horas y minutos
-            var resultado;
-            if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
-                resultado =
-                    "-" +
-                    Math.abs(resultadoHoras).toString().padStart(2, "0") +
-                    ":" +
-                    resultadoMinutos;
-            } else {
-                resultado =
-                    resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
-            }
-
-            console.log("Semana " + semana + ", suma calc: " + resultado);
-
-            // Calcular porcentaje
-            var totalMinutosAcumulado = acumuladoValorDia * 60;
-            var totalMinutosActual = sumaHoras * 60 + sumaMinutos;
-            var porcentaje = (totalMinutosActual / totalMinutosAcumulado) * 100;
-            
-            // Actualizar el DOM con los valores calculados
-            $hrrBox.find(".porT").text(porcentaje.toFixed(2) + "%");
-            $hrrBox.find(".minS").text(resultado + "h");
+          }
         });
-    });
-}
 
+        // Ajustar horas y minutos
+        if (sumaMinutos >= 60) {
+          sumaHoras += Math.floor(sumaMinutos / 60);
+          sumaMinutos = sumaMinutos % 60;
+        } else if (sumaMinutos <= -60) {
+          sumaHoras += Math.ceil(sumaMinutos / 60);
+          sumaMinutos = sumaMinutos % 60;
+        }
+
+        // Asegurar que los minutos tengan siempre dos dígitos y sean positivos
+        var resultadoHoras = sumaHoras;
+        var resultadoMinutos = Math.abs(sumaMinutos)
+          .toString()
+          .padStart(2, "0");
+
+        // Ajustar el formato para horas y minutos
+        var resultado;
+        if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
+          resultado =
+            "-" +
+            Math.abs(resultadoHoras).toString().padStart(2, "0") +
+            ":" +
+            resultadoMinutos;
+        } else {
+          resultado =
+            resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
+        }
+
+        console.log("Semana " + semana + ", suma calc: " + resultado);
+
+        // Calcular porcentaje
+        var totalMinutosAcumulado = acumuladoValorDia * 60;
+        var totalMinutosActual = sumaHoras * 60 + sumaMinutos;
+        var porcentaje = (totalMinutosActual / totalMinutosAcumulado) * 100;
+
+        // Actualizar el DOM con los valores calculados
+        $hrrBox.find(".porT").text(porcentaje.toFixed(2) + "%");
+        $hrrBox.find(".minS").text(resultado + "h");
+      });
+    });
+  }
 
   function getWeeklyData(userId, week, year, month, callback) {
     console.log(
@@ -356,8 +357,18 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-          callback(response.acumulado_valor_dia);
-          console.log(response.acumulado_valor_dia);
+          // Verifica si hay datos en la respuesta
+          if (response.data.length > 0) {
+            // Obtén el valor de acumulado_valor_dia del primer elemento de data
+            var acumuladoValorDia = response.data[0].acumulado_valor_dia;
+            // Llama a la función de devolución de llamada con el valor obtenido
+            callback(acumuladoValorDia);
+            // Muestra el valor en la consola para verificar
+            console.log(acumuladoValorDia);
+          } else {
+            // Si no hay datos en la respuesta, muestra un mensaje de error
+            console.error("No se encontraron datos en la respuesta");
+          }
         } else {
           console.error(response.message);
         }
@@ -367,6 +378,7 @@ $(document).ready(function () {
       },
     });
   }
+
   // function getUserSchedule(userId, month, year) {
   //   console.log(
   //     `Fetching schedule for userId: ${userId}, month: ${month}, year: ${year}`
