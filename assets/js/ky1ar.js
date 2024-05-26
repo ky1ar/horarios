@@ -281,15 +281,25 @@ $(document).ready(function () {
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
       var semana = index + 1;
-      var sumaHoras = 0; 
-      var sumaMinutos = 0; 
+      var sumaHoras = 0;
+      var sumaMinutos = 0;
 
       // Realiza la solicitud para obtener acumulado_valor_dia
       getWeeklyData(userId, semana, year, month, function (acumuladoValorDia) {
+        // Convertir acumuladoValorDia a formato de horas y minutos
+        var horasAcumuladas = Math.floor(acumuladoValorDia);
+        var minutosAcumulados = Math.round(
+          (acumuladoValorDia - horasAcumuladas) * 60
+        );
+        var acumuladoFormato =
+          horasAcumuladas.toString().padStart(2, "0") +
+          ":" +
+          minutosAcumulados.toString().padStart(2, "0");
+
         $hrrBox.find(".calc").each(function () {
           var calc = $(this).text().trim();
           var fecha = new Date($(this).data("date"));
-          var mesCalc = fecha.getMonth() + 1; 
+          var mesCalc = fecha.getMonth() + 1;
           if (mesCalc === currentMonth) {
             if (calc !== "DF") {
               var sign = calc.startsWith("-") ? -1 : 1;
@@ -301,6 +311,7 @@ $(document).ready(function () {
             }
           }
         });
+
         if (sumaMinutos >= 60) {
           sumaHoras += Math.floor(sumaMinutos / 60);
           sumaMinutos = sumaMinutos % 60;
@@ -308,24 +319,31 @@ $(document).ready(function () {
           sumaHoras += Math.ceil(sumaMinutos / 60);
           sumaMinutos = sumaMinutos % 60;
         }
-        var resultadoHoras = sumaHoras;
-        var resultadoMinutos = Math.abs(sumaMinutos)
-          .toString()
-          .padStart(2, "0");
+
+        // Ajustar el formato de la suma a horas y minutos
+        var sumaFormato =
+          sumaHoras.toString().padStart(2, "0") +
+          ":" +
+          Math.abs(sumaMinutos).toString().padStart(2, "0");
+
+        // Sumar o restar según el valor acumulado y mostrar el resultado en .minS
         var resultado;
-        if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
-          resultado =
-            "-" +
-            Math.abs(resultadoHoras).toString().padStart(2, "0") +
-            ":" +
-            resultadoMinutos;
+        if (acumuladoValorDia >= 0) {
+          resultado = sumaFormato;
         } else {
+          var totalMinutosAcumulado = horasAcumuladas * 60 + minutosAcumulados;
+          var totalMinutosActual = sumaHoras * 60 + sumaMinutos;
+          var minutosResultado = totalMinutosAcumulado + totalMinutosActual;
+          var horasResultado = Math.floor(minutosResultado / 60);
+          var minutosRestantes = minutosResultado % 60;
           resultado =
-            resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
+            horasResultado.toString().padStart(2, "0") +
+            ":" +
+            Math.abs(minutosRestantes).toString().padStart(2, "0");
         }
+
         console.log("Semana " + semana + ", suma calc: " + resultado);
-        var totalMinutosAcumulado = acumuladoValorDia * 60;
-        var totalMinutosActual = sumaHoras * 60 + sumaMinutos;
+
         var porcentaje = (totalMinutosActual / totalMinutosAcumulado) * 100;
         $hrrBox.find(".porT").text(porcentaje.toFixed(2) + "%");
         $hrrBox.find(".minS").text(resultado + "h");
