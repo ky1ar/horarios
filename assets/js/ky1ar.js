@@ -367,7 +367,6 @@ $(document).ready(function () {
       },
     });
   }
-
   // function getUserSchedule(userId, month, year) {
   //   console.log(
   //     `Fetching schedule for userId: ${userId}, month: ${month}, year: ${year}`
