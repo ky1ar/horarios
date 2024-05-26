@@ -357,6 +357,7 @@ $(document).ready(function () {
       success: function (response) {
         if (response.success) {
           callback(response.acumulado_valor_dia);
+          console.log(response.acumulado_valor_dia);
         } else {
           console.error(response.message);
         }
