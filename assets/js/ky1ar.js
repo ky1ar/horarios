@@ -308,6 +308,10 @@ $(document).ready(function () {
                 sumaMinutos = sumaMinutos % 60;
             }
 
+            // Suma el valor de acumuladoValorDia a la suma de horas y minutos
+            sumaHoras += Math.floor(acumuladoValorDia / 60);
+            sumaMinutos += acumuladoValorDia % 60;
+
             // Formateo de horas y minutos
             var resultadoHoras = sumaHoras;
             var resultadoMinutos = Math.abs(sumaMinutos).toString().padStart(2, "0");
@@ -321,14 +325,14 @@ $(document).ready(function () {
 
             // Realiza cálculos adicionales aquí usando 'acumuladoValorDia'
 
-            var totalMinutosAcumulado = acumuladoValorDia * 60;
             var totalMinutosActual = sumaHoras * 60 + sumaMinutos;
-            var porcentaje = (totalMinutosActual / totalMinutosAcumulado) * 100;
+            var porcentaje = (totalMinutosActual / acumuladoValorDia) * 100;
             $hrrBox.find(".porT").text(porcentaje.toFixed(2) + "%");
             $hrrBox.find(".minS").text(resultado + "h");
         });
     });
 }
+
 
 
   function getWeeklyData(userId, week, year, month, callback) {
