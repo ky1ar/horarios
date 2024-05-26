@@ -348,7 +348,7 @@ $(document).ready(function () {
 
   function getWeeklyData(userId, week, year, month, callback) {
     console.log(
-      `Fetching schedule for userId: ${userId}, week: ${week}, year: ${year}, month: ${month}`
+      `Datos Semana, Id: ${userId}, Semana: ${week}, year: ${year}, month: ${month}`
     );
     $.ajax({
       url: "../routes/del/get_week.php",
