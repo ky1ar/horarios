@@ -233,20 +233,22 @@ $(document).ready(function () {
         sumaMinutos = sumaMinutos % 60;
       }
   
-      // Formato correcto de horas y minutos
+      // Asegurar que los minutos tengan siempre dos dígitos y sean positivos
       var resultadoHoras = sumaHoras;
       var resultadoMinutos = Math.abs(sumaMinutos).toString().padStart(2, '0');
   
-      // Asegurar que los minutos tengan siempre dos dígitos
-      if (sumaMinutos < 0 && sumaMinutos > -10) {
-        resultadoMinutos = "-0" + Math.abs(sumaMinutos);
-      } else if (sumaMinutos < 0) {
-        resultadoMinutos = "-" + Math.abs(sumaMinutos).toString().padStart(2, '0');
+      // Ajustar el formato para horas y minutos
+      var resultado;
+      if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
+        resultado = "-" + Math.abs(resultadoHoras).toString().padStart(2, '0') + ":" + resultadoMinutos;
+      } else {
+        resultado = resultadoHoras.toString().padStart(2, '0') + ":" + resultadoMinutos;
       }
   
-      console.log("Semana " + semana + ", suma calc: " + resultadoHoras + ":" + resultadoMinutos);
+      console.log("Semana " + semana + ", suma calc: " + resultado);
     });
   }
+  
   
   
   function getUserSchedule(userId, month, year) {
