@@ -57,7 +57,7 @@ GROUP BY
 
     // Prepara y ejecuta la consulta
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ississississ", $userId, $year, $month, $week, $year, $month, $userId, $year, $month, $week, $year, $month);
+    $stmt->bind_param("isssssisssss", $userId, $year, $month, $week, $year, $month, $userId, $year, $month, $week, $year, $month);
     $stmt->execute();
     $result = $stmt->get_result();
 
