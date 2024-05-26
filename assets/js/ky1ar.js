@@ -276,25 +276,23 @@ $(document).ready(function () {
   //   });
   // }
   function calcularSumaCalcPorSemana(userId, year, month) {
-    var currentMonth = new Date().getMonth() + 1; // Obtener el mes actual (1-12)
+    var currentMonth = new Date().getMonth() + 1;
 
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
       var semana = index + 1;
-      var sumaHoras = 0; // Variable para la suma de horas
-      var sumaMinutos = 0; // Variable para la suma de minutos
+      var sumaHoras = 0; 
+      var sumaMinutos = 0; 
 
       // Realiza la solicitud para obtener acumulado_valor_dia
       getWeeklyData(userId, semana, year, month, function (acumuladoValorDia) {
         $hrrBox.find(".calc").each(function () {
           var calc = $(this).text().trim();
           var fecha = new Date($(this).data("date"));
-          var mesCalc = fecha.getMonth() + 1; // Obtener el mes del calc
-
-          // Filtrar por el mes actual
+          var mesCalc = fecha.getMonth() + 1; 
           if (mesCalc === currentMonth) {
             if (calc !== "DF") {
-              var sign = calc.startsWith("-") ? -1 : 1; // Determinar si es negativo
+              var sign = calc.startsWith("-") ? -1 : 1;
               var tiempo = calc.replace(/[^\d:]/g, "").split(":");
               var horas = parseInt(tiempo[0], 10) * sign;
               var minutos = parseInt(tiempo[1], 10) * sign;
@@ -303,8 +301,6 @@ $(document).ready(function () {
             }
           }
         });
-
-        // Ajustar horas y minutos
         if (sumaMinutos >= 60) {
           sumaHoras += Math.floor(sumaMinutos / 60);
           sumaMinutos = sumaMinutos % 60;
@@ -312,14 +308,10 @@ $(document).ready(function () {
           sumaHoras += Math.ceil(sumaMinutos / 60);
           sumaMinutos = sumaMinutos % 60;
         }
-
-        // Asegurar que los minutos tengan siempre dos dígitos y sean positivos
         var resultadoHoras = sumaHoras;
         var resultadoMinutos = Math.abs(sumaMinutos)
           .toString()
           .padStart(2, "0");
-
-        // Ajustar el formato para horas y minutos
         var resultado;
         if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
           resultado =
@@ -331,15 +323,10 @@ $(document).ready(function () {
           resultado =
             resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
         }
-
         console.log("Semana " + semana + ", suma calc: " + resultado);
-
-        // Calcular porcentaje
         var totalMinutosAcumulado = acumuladoValorDia * 60;
         var totalMinutosActual = sumaHoras * 60 + sumaMinutos;
         var porcentaje = (totalMinutosActual / totalMinutosAcumulado) * 100;
-
-        // Actualizar el DOM con los valores calculados
         $hrrBox.find(".porT").text(porcentaje.toFixed(2) + "%");
         $hrrBox.find(".minS").text(resultado + "h");
       });
@@ -357,16 +344,11 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-          // Verifica si hay datos en la respuesta
           if (response.data.length > 0) {
-            // Obtén el valor de acumulado_valor_dia del primer elemento de data
             var acumuladoValorDia = response.data[0].acumulado_valor_dia;
-            // Llama a la función de devolución de llamada con el valor obtenido
             callback(acumuladoValorDia);
-            // Muestra el valor en la consola para verificar
             console.log(acumuladoValorDia);
           } else {
-            // Si no hay datos en la respuesta, muestra un mensaje de error
             console.error("No se encontraron datos en la respuesta");
           }
         } else {
@@ -379,112 +361,6 @@ $(document).ready(function () {
     });
   }
 
-  // function getUserSchedule(userId, month, year) {
-  //   console.log(
-  //     `Fetching schedule for userId: ${userId}, month: ${month}, year: ${year}`
-  //   );
-  //   $.ajax({
-  //     url: "../routes/del/get_user_schedule.php",
-  //     method: "POST",
-  //     data: { userId: userId, month: month, year: year },
-  //     dataType: "json",
-  //     success: function (response) {
-  //       if (response.success) {
-  //         $(".ky1-hrr").empty();
-  //         var daysCounter = 0;
-  //         var $currentHrrBox;
-  //         var currentWeek = 1;
-  //         response.schedule.forEach(function (entry, index) {
-  //           var dayName = entry.day_of_week_es;
-  //           var dayNumber = entry.day_number;
-  //           var hPoints = entry.time_difference;
-  //           if (dayName.toLowerCase() === "domingo") {
-  //             return;
-  //           }
-
-  //           if (dayName.toLowerCase() === "lunes" || index === 0) {
-  //             $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
-  //               ".ky1-hrr"
-  //             );
-  //             $("<span>Semana " + currentWeek + "</span>").appendTo(
-  //               $currentHrrBox
-  //             );
-
-  //             // Añadir el bloque HTML data-sem
-  //             $(
-  //               "<div class='data-sem'>" +
-  //                 "<p class='porT'>80%</p>" +
-  //                 "<p class='minS'>20:00h</p>" +
-  //                 "</div>"
-  //             ).appendTo($currentHrrBox);
-
-  //             $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
-  //             currentWeek++;
-  //           }
-
-  //           var $hrrDay = $currentHrrBox.find(".hrr-day");
-  //           var $dayList = $(
-  //             "<ul class='schedule-item' data-date='" +
-  //               entry.calendar_date +
-  //               "'></ul>"
-  //           ).appendTo($hrrDay);
-
-  //           $(
-  //             "<li class='day-nam'>" +
-  //               dayName.substring(0, 3) +
-  //               " " +
-  //               dayNumber +
-  //               "</li>"
-  //           ).appendTo($dayList);
-
-  //           if (entry.holiday == 1) {
-  //             $("<li class='test'>FERIADO</li>").appendTo($dayList);
-  //           } else if (entry.stamp) {
-  //             var stamps = entry.stamp.split(",");
-  //             stamps.forEach(function (stamp) {
-  //               for (var i = 0; i < stamp.length; i += 5) {
-  //                 $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo(
-  //                   $dayList
-  //                 );
-  //               }
-  //             });
-  //           } else {
-  //             $("<li></li>").appendTo($dayList);
-  //           }
-
-  //           if (entry.holiday != 1) {
-  //             // Añade esta condición
-  //             var $calcLi = $(
-  //               "<li class='calc' data-date='" +
-  //                 entry.calendar_date +
-  //                 "'>" +
-  //                 hPoints +
-  //                 "</li>"
-  //             );
-
-  //             if (hPoints === "DF") {
-  //               $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #F0DD38");
-  //             } else if (hPoints.startsWith("+")) {
-  //               $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #0baa75");
-  //             } else if (hPoints.startsWith("-")) {
-  //               $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #DE0B0B");
-  //             }
-
-  //             $calcLi.appendTo($dayList);
-  //           }
-
-  //           daysCounter++;
-  //         });
-  //         calcularSumaCalcPorSemana();
-  //       } else {
-  //         console.error(response.message);
-  //       }
-  //     },
-  //     error: function (xhr, status, error) {
-  //       console.error("Error en la solicitud AJAX:", error);
-  //     },
-  //   });
-  // }
   function getUserSchedule(userId, month, year) {
     console.log(
       `Fetching schedule for userId: ${userId}, month: ${month}, year: ${year}`
