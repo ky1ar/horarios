@@ -279,18 +279,18 @@ $(document).ready(function () {
     var userId = selectedUser.attr("data-id");
     var currentMonth = new Date().getMonth() + 1;
     var currentYear = new Date().getFullYear();
-
+  
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
       var weekNumber = index + 1;
       var sumaHoras = 0;
       var sumaMinutos = 0;
-
+  
       $hrrBox.find(".calc").each(function () {
         var calc = $(this).text().trim();
         var fecha = new Date($(this).data("date"));
         var mesCalc = fecha.getMonth() + 1;
-
+  
         if (mesCalc === currentMonth) {
           if (calc !== "DF") {
             var sign = calc.startsWith("-") ? -1 : 1;
@@ -302,7 +302,7 @@ $(document).ready(function () {
           }
         }
       });
-
+  
       if (sumaMinutos >= 60) {
         sumaHoras += Math.floor(sumaMinutos / 60);
         sumaMinutos = sumaMinutos % 60;
@@ -310,10 +310,10 @@ $(document).ready(function () {
         sumaHoras += Math.ceil(sumaMinutos / 60);
         sumaMinutos = sumaMinutos % 60;
       }
-
+  
       var resultadoHoras = sumaHoras;
       var resultadoMinutos = Math.abs(sumaMinutos).toString().padStart(2, "0");
-
+  
       var resultado;
       if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
         resultado =
@@ -325,7 +325,15 @@ $(document).ready(function () {
         resultado =
           resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
       }
-
+  
+      // Log the week data before calling getWeeklyData
+      console.log("Calculating week data:", {
+        userId: userId,
+        weekNumber: weekNumber,
+        currentYear: currentYear,
+        currentMonth: currentMonth
+      });
+  
       // Get weekly data from the server
       getWeeklyData(
         userId,
@@ -333,29 +341,23 @@ $(document).ready(function () {
         currentYear,
         currentMonth,
         function (acumuladoValorDia) {
-          var totalRequiredHours = acumuladoValorDia; // Get the total required hours for the week
+          var totalRequiredHours = acumuladoValorDia;
           var totalCompletedHours = sumaHoras + sumaMinutos / 60;
-          var percentageCompleted =
-            (totalCompletedHours / totalRequiredHours) * 100;
+          var percentageCompleted = (totalCompletedHours / totalRequiredHours) * 100;
           var formattedPercentage = Math.round(percentageCompleted) + "%";
-          var formattedTime =
-            resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
-
+          var formattedTime = resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
+  
           // Append the dynamically generated data-sem element
-          $(
-            "<div class='data-sem'>" +
-              "<p class='porT'>" +
-              formattedPercentage +
-              "</p>" +
-              "<p class='minS'>" +
-              formattedTime +
-              "h</p>" +
-              "</div>"
+          $("<div class='data-sem'>" +
+            "<p class='porT'>" + formattedPercentage + "</p>" +
+            "<p class='minS'>" + formattedTime + "h</p>" +
+            "</div>"
           ).appendTo($hrrBox);
         }
       );
     });
   }
+  
 
   // function getUserSchedule(userId, month, year) {
   //   console.log(
