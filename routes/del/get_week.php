@@ -63,18 +63,27 @@ GROUP BY
 
     // Verifica si hay resultados
     if ($result->num_rows > 0) {
+        // Inicializa un array para almacenar los resultados
+        $response = array();
+        $response['success'] = true;
+        $response['data'] = array();
+
         // Itera sobre los resultados
         while ($row = $result->fetch_assoc()) {
-            // Imprime los resultados
-            echo "Semana: " . $row["semana"] . ", ID Usuario: " . $row["id_user"] . ", ID Profile: " . $row["id_profile"] . ", Acumulado: " . $row["acumulado_valor_dia"] . "<br>";
+            $response['data'][] = $row;
         }
+
+        // Envía la respuesta como JSON
+        echo json_encode($response);
     } else {
-        echo "No se encontraron resultados";
+        // Si no se encontraron resultados, envía un mensaje de error
+        echo json_encode(array("success" => false, "message" => "No se encontraron resultados"));
     }
 
     // Cierra la conexión y el statement
     $stmt->close();
     $conn->close();
 } else {
-    echo "No se recibieron los parámetros necesarios en la solicitud POST.";
+    // Si no se recibieron los parámetros necesarios, envía un mensaje de error
+    echo json_encode(array("success" => false, "message" => "No se recibieron los parámetros necesarios en la solicitud POST"));
 }
