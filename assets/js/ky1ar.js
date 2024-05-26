@@ -199,23 +199,23 @@ $(document).ready(function () {
   });
   function calcularSumaCalcPorSemana() {
     var currentMonth = new Date().getMonth() + 1; // Obtener el mes actual (1-12)
-  
+
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
       var semana = index + 1;
       var sumaHoras = 0; // Variable para la suma de horas
       var sumaMinutos = 0; // Variable para la suma de minutos
-  
+
       $hrrBox.find(".calc").each(function () {
         var calc = $(this).text().trim();
         var fecha = new Date($(this).data("date"));
         var mesCalc = fecha.getMonth() + 1; // Obtener el mes del calc
-  
+
         // Filtrar por el mes actual
         if (mesCalc === currentMonth) {
           if (calc !== "DF") {
             var sign = calc.startsWith("-") ? -1 : 1; // Determinar si es negativo
-            var tiempo = calc.replace(/[^\d:]/g, '').split(':');
+            var tiempo = calc.replace(/[^\d:]/g, "").split(":");
             var horas = parseInt(tiempo[0], 10) * sign;
             var minutos = parseInt(tiempo[1], 10) * sign;
             sumaHoras += horas;
@@ -223,7 +223,7 @@ $(document).ready(function () {
           }
         }
       });
-  
+
       // Ajustar horas y minutos
       if (sumaMinutos >= 60) {
         sumaHoras += Math.floor(sumaMinutos / 60);
@@ -232,25 +232,28 @@ $(document).ready(function () {
         sumaHoras += Math.ceil(sumaMinutos / 60);
         sumaMinutos = sumaMinutos % 60;
       }
-  
+
       // Asegurar que los minutos tengan siempre dos dígitos y sean positivos
       var resultadoHoras = sumaHoras;
-      var resultadoMinutos = Math.abs(sumaMinutos).toString().padStart(2, '0');
-  
+      var resultadoMinutos = Math.abs(sumaMinutos).toString().padStart(2, "0");
+
       // Ajustar el formato para horas y minutos
       var resultado;
       if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
-        resultado = "-" + Math.abs(resultadoHoras).toString().padStart(2, '0') + ":" + resultadoMinutos;
+        resultado =
+          "-" +
+          Math.abs(resultadoHoras).toString().padStart(2, "0") +
+          ":" +
+          resultadoMinutos;
       } else {
-        resultado = resultadoHoras.toString().padStart(2, '0') + ":" + resultadoMinutos;
+        resultado =
+          resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
       }
-  
+
       console.log("Semana " + semana + ", suma calc: " + resultado);
     });
   }
-  
-  
-  
+
   function getUserSchedule(userId, month, year) {
     console.log(
       `Fetching schedule for userId: ${userId}, month: ${month}, year: ${year}`
@@ -281,6 +284,15 @@ $(document).ready(function () {
               $("<span>Semana " + currentWeek + "</span>").appendTo(
                 $currentHrrBox
               );
+
+              // Añadir el bloque HTML data-sem
+              $(
+                "<div class='data-sem'>" +
+                  "<p class='porT'>80%</p>" +
+                  "<p class='minS'>20:00h</p>" +
+                  "</div>"
+              ).appendTo($currentHrrBox);
+
               $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
               currentWeek++;
             }
@@ -382,5 +394,4 @@ $(document).ready(function () {
 
   getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
-  // calcularSumaCalcPorSemana();
 });
