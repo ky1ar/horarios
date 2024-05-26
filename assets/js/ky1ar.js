@@ -219,89 +219,89 @@ $(document).ready(function () {
     });
   }
 
-  function calcularSumaCalcPorSemana() {
-    var currentMonth = new Date().getMonth() + 1; // Obtener el mes actual (1-12)
-
-    $(".hrr-box").each(function (index) {
-      var $hrrBox = $(this);
-      var semana = index + 1;
-      var sumaHoras = 0; // Variable para la suma de horas
-      var sumaMinutos = 0; // Variable para la suma de minutos
-
-      $hrrBox.find(".calc").each(function () {
-        var calc = $(this).text().trim();
-        var fecha = new Date($(this).data("date"));
-        var mesCalc = fecha.getMonth() + 1; // Obtener el mes del calc
-
-        // Filtrar por el mes actual
-        if (mesCalc === currentMonth) {
-          if (calc !== "DF") {
-            var sign = calc.startsWith("-") ? -1 : 1; // Determinar si es negativo
-            var tiempo = calc.replace(/[^\d:]/g, "").split(":");
-            var horas = parseInt(tiempo[0], 10) * sign;
-            var minutos = parseInt(tiempo[1], 10) * sign;
-            sumaHoras += horas;
-            sumaMinutos += minutos;
-          }
-        }
-      });
-
-      // Ajustar horas y minutos
-      if (sumaMinutos >= 60) {
-        sumaHoras += Math.floor(sumaMinutos / 60);
-        sumaMinutos = sumaMinutos % 60;
-      } else if (sumaMinutos <= -60) {
-        sumaHoras += Math.ceil(sumaMinutos / 60);
-        sumaMinutos = sumaMinutos % 60;
-      }
-
-      // Asegurar que los minutos tengan siempre dos dígitos y sean positivos
-      var resultadoHoras = sumaHoras;
-      var resultadoMinutos = Math.abs(sumaMinutos).toString().padStart(2, "0");
-
-      // Ajustar el formato para horas y minutos
-      var resultado;
-      if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
-        resultado =
-          "-" +
-          Math.abs(resultadoHoras).toString().padStart(2, "0") +
-          ":" +
-          resultadoMinutos;
-      } else {
-        resultado =
-          resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
-      }
-
-      console.log("Semana " + semana + ", suma calc: " + resultado);
-    });
-  }
-
-  // function calcularSumaCalcPorSemana(userId, year, month) {
+  // function calcularSumaCalcPorSemana() {
   //   var currentMonth = new Date().getMonth() + 1; // Obtener el mes actual (1-12)
 
   //   $(".hrr-box").each(function (index) {
   //     var $hrrBox = $(this);
   //     var semana = index + 1;
+  //     var sumaHoras = 0; // Variable para la suma de horas
+  //     var sumaMinutos = 0; // Variable para la suma de minutos
 
-  //     // Realiza la solicitud para obtener acumulado_valor_dia
-  //     getWeeklyData(userId, semana, year, month, function (acumuladoValorDia) {
-  //       // Formatear acumulado_valor_dia como HH:MM
-  //       var horas = Math.floor(acumuladoValorDia);
-  //       var minutos = Math.round((acumuladoValorDia - horas) * 60);
-  //       var resultadoMinutos = minutos.toString().padStart(2, "0");
+  //     $hrrBox.find(".calc").each(function () {
+  //       var calc = $(this).text().trim();
+  //       var fecha = new Date($(this).data("date"));
+  //       var mesCalc = fecha.getMonth() + 1; // Obtener el mes del calc
 
-  //       var resultado =
-  //         horas.toString().padStart(2, "0") + ":" + resultadoMinutos;
-
-  //       console.log(
-  //         "Semana " + semana + ", acumulado valor dia: " + resultado + "h"
-  //       );
-
-  //       // Actualizar el DOM con el valor formateado
-  //       $hrrBox.find(".minS").text(resultado + "h");
+  //       // Filtrar por el mes actual
+  //       if (mesCalc === currentMonth) {
+  //         if (calc !== "DF") {
+  //           var sign = calc.startsWith("-") ? -1 : 1; // Determinar si es negativo
+  //           var tiempo = calc.replace(/[^\d:]/g, "").split(":");
+  //           var horas = parseInt(tiempo[0], 10) * sign;
+  //           var minutos = parseInt(tiempo[1], 10) * sign;
+  //           sumaHoras += horas;
+  //           sumaMinutos += minutos;
+  //         }
+  //       }
   //     });
+
+  //     // Ajustar horas y minutos
+  //     if (sumaMinutos >= 60) {
+  //       sumaHoras += Math.floor(sumaMinutos / 60);
+  //       sumaMinutos = sumaMinutos % 60;
+  //     } else if (sumaMinutos <= -60) {
+  //       sumaHoras += Math.ceil(sumaMinutos / 60);
+  //       sumaMinutos = sumaMinutos % 60;
+  //     }
+
+  //     // Asegurar que los minutos tengan siempre dos dígitos y sean positivos
+  //     var resultadoHoras = sumaHoras;
+  //     var resultadoMinutos = Math.abs(sumaMinutos).toString().padStart(2, "0");
+
+  //     // Ajustar el formato para horas y minutos
+  //     var resultado;
+  //     if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
+  //       resultado =
+  //         "-" +
+  //         Math.abs(resultadoHoras).toString().padStart(2, "0") +
+  //         ":" +
+  //         resultadoMinutos;
+  //     } else {
+  //       resultado =
+  //         resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
+  //     }
+
+  //     console.log("Semana " + semana + ", suma calc: " + resultado);
   //   });
   // }
+
+  function calcularSumaCalcPorSemana(userId, year, month) {
+    var currentMonth = new Date().getMonth() + 1; // Obtener el mes actual (1-12)
+
+    $(".hrr-box").each(function (index) {
+      var $hrrBox = $(this);
+      var semana = index + 1;
+
+      // Realiza la solicitud para obtener acumulado_valor_dia
+      getWeeklyData(userId, semana, year, month, function (acumuladoValorDia) {
+        // Formatear acumulado_valor_dia como HH:MM
+        var horas = Math.floor(acumuladoValorDia);
+        var minutos = Math.round((acumuladoValorDia - horas) * 60);
+        var resultadoMinutos = minutos.toString().padStart(2, "0");
+
+        var resultado =
+          horas.toString().padStart(2, "0") + ":" + resultadoMinutos;
+
+        console.log(
+          "Semana " + semana + ", acumulado valor dia: " + resultado + "h"
+        );
+
+        // Actualizar el DOM con el valor formateado
+        $hrrBox.find(".minS").text(resultado + "h");
+      });
+    });
+  }
 
   function getWeeklyData(userId, week, year, month, callback) {
     console.log(
