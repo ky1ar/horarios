@@ -203,26 +203,51 @@ $(document).ready(function () {
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
       var semana = index + 1;
-      var calcPorSemana = []; // Array para almacenar los calc de la semana actual
+      var sumaHoras = 0; // Variable para la suma de horas
+      var sumaMinutos = 0; // Variable para la suma de minutos
   
       $hrrBox.find(".calc").each(function () {
-        var calc = $(this).text();
+        var calc = $(this).text().trim();
         var fecha = new Date($(this).data("date"));
         var mesCalc = fecha.getMonth() + 1; // Obtener el mes del calc
   
         // Filtrar por el mes actual
         if (mesCalc === currentMonth) {
           if (calc !== "DF") {
-            var horas = fecha.getHours().toString().padStart(2, '0');
-            var minutos = fecha.getMinutes().toString().padStart(2, '0');
-            calcPorSemana.push(horas + ":" + minutos);
+            var sign = calc.startsWith("-") ? -1 : 1; // Determinar si es negativo
+            var tiempo = calc.replace(/[^\d:]/g, '').split(':');
+            var horas = parseInt(tiempo[0], 10) * sign;
+            var minutos = parseInt(tiempo[1], 10) * sign;
+            sumaHoras += horas;
+            sumaMinutos += minutos;
           }
         }
       });
   
-      console.log("Semana " + semana + ", calc: " + calcPorSemana.join(", "));
+      // Ajustar horas y minutos
+      if (sumaMinutos >= 60) {
+        sumaHoras += Math.floor(sumaMinutos / 60);
+        sumaMinutos = sumaMinutos % 60;
+      } else if (sumaMinutos <= -60) {
+        sumaHoras += Math.ceil(sumaMinutos / 60);
+        sumaMinutos = sumaMinutos % 60;
+      }
+  
+      // Formato correcto de horas y minutos
+      var resultadoHoras = sumaHoras;
+      var resultadoMinutos = Math.abs(sumaMinutos).toString().padStart(2, '0');
+  
+      // Asegurar que los minutos tengan siempre dos dígitos
+      if (sumaMinutos < 0 && sumaMinutos > -10) {
+        resultadoMinutos = "-0" + Math.abs(sumaMinutos);
+      } else if (sumaMinutos < 0) {
+        resultadoMinutos = "-" + Math.abs(sumaMinutos).toString().padStart(2, '0');
+      }
+  
+      console.log("Semana " + semana + ", suma calc: " + resultadoHoras + ":" + resultadoMinutos);
     });
   }
+  
   
   function getUserSchedule(userId, month, year) {
     console.log(
