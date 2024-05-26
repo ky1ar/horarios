@@ -198,27 +198,32 @@ $(document).ready(function () {
     });
   });
   function calcularSumaCalcPorSemana() {
+    var currentMonth = new Date().getMonth() + 1; // Obtener el mes actual (1-12)
+  
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
       var semana = index + 1;
-      var sumaCalc = 0; // Variable para almacenar la suma de los calc de la semana actual
-
+      var calcPorSemana = []; // Array para almacenar los calc de la semana actual
+  
       $hrrBox.find(".calc").each(function () {
         var calc = $(this).text();
         var fecha = new Date($(this).data("date"));
         var mesCalc = fecha.getMonth() + 1; // Obtener el mes del calc
-
+  
         // Filtrar por el mes actual
         if (mesCalc === currentMonth) {
           if (calc !== "DF") {
-            sumaCalc += parseFloat(calc);
+            var horas = fecha.getHours().toString().padStart(2, '0');
+            var minutos = fecha.getMinutes().toString().padStart(2, '0');
+            calcPorSemana.push(horas + ":" + minutos);
           }
         }
       });
-
-      console.log("Semana " + semana + ", suma calc: " + sumaCalc);
+  
+      console.log("Semana " + semana + ", calc: " + calcPorSemana.join(", "));
     });
   }
+  
   function getUserSchedule(userId, month, year) {
     console.log(
       `Fetching schedule for userId: ${userId}, month: ${month}, year: ${year}`
