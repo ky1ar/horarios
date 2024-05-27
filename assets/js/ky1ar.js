@@ -356,8 +356,6 @@ $(document).ready(function () {
         function calcularPorcentaje(tiempoInicial, resultado) {
           const minutosInicial = horaAMinutos(tiempoInicial);
           const minutosResultado = horaAMinutos(resultado);
-          console.log(minutosInicial);
-          console.log(minutosResultado);
           var porcentaje = (minutosResultado / minutosInicial) * 100;
 
           return porcentaje;
@@ -368,7 +366,6 @@ $(document).ready(function () {
             resultado,
             true
           );
-          console.log(`Resultado de la resta: ${nuevaHoraResta}`);
           const porcentaje = calcularPorcentaje(acumuladoValorDia, nuevaHoraResta);
           $hrrBox.find(".minS").text(nuevaHoraResta + "h");
           $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
@@ -381,15 +378,11 @@ $(document).ready(function () {
           $hrrBox.find(".minS").text(nuevaHoraSuma + "h");
           $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
         }
-        // $hrrBox.find(".porT").text(porcentaje.toFixed(2) + "%");
       });
     });
   }
 
   function getWeeklyData(userId, week, year, month, callback) {
-    // console.log(
-    //   `Datos Semana, Id: ${userId}, Semana: ${week}, year: ${year}, month: ${month}`
-    // );
     $.ajax({
       url: "../routes/del/get_week.php",
       method: "POST",
