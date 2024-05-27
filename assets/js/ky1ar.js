@@ -468,6 +468,7 @@ $(document).ready(function () {
         $("#totalHours").text(data.total_hours_required + " h");
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
+        console.log("id_profile: "+ data.id_profile);
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
