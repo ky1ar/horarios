@@ -368,7 +368,7 @@ $(document).ready(function () {
             }
 
             // Convertimos acumuladoValorDia a minutos
-            var totalMinutosAcumulado = convertirATotalMinutos(acumuladoValorDia + ":00");
+            var totalMinutosAcumulado = convertirATotalMinutos(acumuladoValorDia);
             var totalMinutosActual = (sumaHoras * 60) + sumaMinutos;
 
             // Calculamos la diferencia en minutos
