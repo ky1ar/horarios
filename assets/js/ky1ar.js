@@ -306,7 +306,7 @@ $(document).ready(function () {
             true
           );
           const porcentaje = calcularPorcentaje(acumuladoValorDia, nuevaHoraResta);
-          $hrrBox.find(".minS").text(nuevaHoraResta + "h");
+          $hrrBox.find(".minS").text(acumuladoValorDia + " / " + nuevaHoraResta + "h");
           $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
         } else {
           const nuevaHoraSuma = sumarRestarHoras(
