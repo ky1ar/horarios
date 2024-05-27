@@ -333,7 +333,7 @@ $(document).ready(function () {
             if (mesCalc === currentMonth) {
               if (calc === "DF") {
                 // Ajustar sumaHoras según el idProfile y el día de la semana
-                if (idProfile === 1 && diaSemana >= 1 && diaSemana <= 5) {
+                if (idProfile === 1 && diaSemana >= 1 && diaSemana <= 6) {
                   sumaHoras -= 8;
                 } else if (idProfile === 2) {
                   if (diaSemana >= 1 && diaSemana <= 5) {
