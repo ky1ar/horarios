@@ -342,6 +342,8 @@ $(document).ready(function () {
       if (resultado.includes('-')) {
         const nuevaHoraResta = sumarRestarHoras(totalMinutosActual.toString(), resultado, true);
         console.log(`Resultado de la resta: ${nuevaHoraResta}`);
+        console.log(resultado);
+        console.log(totalMinutosActual);
     } else {
       const nuevaHoraSuma = sumarRestarHoras(totalMinutosActual.toString(), resultado);
       console.log(`Resultado de la suma: ${nuevaHoraSuma}`);
