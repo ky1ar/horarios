@@ -379,8 +379,8 @@ $(document).ready(function () {
               // Añadir el bloque HTML data-sem
               $(
                 "<div class='data-sem'>" +
-                  "<p class='porT'>80%</p>" +
-                  "<p class='minS'>20:00h</p>" +
+                  "<p class='porT'></p>" +
+                  "<p class='minS'></p>" +
                   "</div>"
               ).appendTo($currentHrrBox);
 
