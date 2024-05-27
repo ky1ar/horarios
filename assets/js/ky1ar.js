@@ -328,7 +328,7 @@ $(document).ready(function () {
         var totalMinutosAcumulado = acumuladoValorDia * 60;
         var totalMinutosActual = sumaHoras * 60 + sumaMinutos;
         var porcentaje = (totalMinutosActual / totalMinutosAcumulado) * 100;
-        console.log(totalMinutosActual)
+        // console.log(totalMinutosActual)
 
         function sumarRestarHoras(totalMinutosActual, resultado, restar = false) {
         const [horas, minutos] = totalMinutosActual.split(':').map(Number);
