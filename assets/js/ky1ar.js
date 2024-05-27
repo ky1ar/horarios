@@ -213,6 +213,7 @@ $(document).ready(function () {
           var calc = $(this).text().trim();
           var fecha = new Date($(this).data("date"));
           var mesCalc = fecha.getMonth() + 1;
+          var diaSemana = fecha.getDay(); // Obtener el día de la semana
           if (mesCalc === currentMonth) {
             if (calc !== "DF") {
               var sign = calc.startsWith("-") ? -1 : 1;
