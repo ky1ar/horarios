@@ -335,9 +335,9 @@ $(document).ready(function () {
   }
 
   function getWeeklyData(userId, week, year, month, callback) {
-    console.log(
-      `Datos Semana, Id: ${userId}, Semana: ${week}, year: ${year}, month: ${month}`
-    );
+    // console.log(
+    //   `Datos Semana, Id: ${userId}, Semana: ${week}, year: ${year}, month: ${month}`
+    // );
     $.ajax({
       url: "../routes/del/get_week.php",
       method: "POST",
