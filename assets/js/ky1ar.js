@@ -208,12 +208,11 @@ $(document).ready(function () {
       var sumaMinutos = 0;
 
       // Realiza la solicitud para obtener acumulado_valor_dia
-      getWeeklyData(userId, semana, year, month, function (acumuladoValorDia, idProfile) {
+      getWeeklyData(userId, semana, year, month, function (acumuladoValorDia) {
         $hrrBox.find(".calc").each(function () {
           var calc = $(this).text().trim();
           var fecha = new Date($(this).data("date"));
           var mesCalc = fecha.getMonth() + 1;
-          var diaSemana = fecha.getDay(); // Obtener el día de la semana
           if (mesCalc === currentMonth) {
             if (calc !== "DF") {
               var sign = calc.startsWith("-") ? -1 : 1;
@@ -250,54 +249,39 @@ $(document).ready(function () {
         function sumarRestarHoras(
           totalMinutosActual,
           resultado,
-          restar = false,
-          idProfile = 1, // Valor predeterminado para id_profile
-          diaSemana = 1 // Valor predeterminado para día de la semana
+          restar = false
         ) {
-          let descuento = 0;
+          const [horas, minutos] = totalMinutosActual.split(":").map(Number);
+          const [horas2, minutos2] = resultado.split(":").map(Number);
+          const totalMinutos = horas * 60 + minutos;
+          const totalminutos2 = horas2 * 60 + minutos2;
+          const signo = restar ? -1 : 1;
+          const nuevoTotalMinutos = totalMinutos + signo * totalminutos2;
 
-          // Aplicar descuentos según el perfil y el día de la semana
-          if (idProfile === 1 && diaSemana >= 1 && diaSemana <= 5) {
-            descuento = 8; // Descuento de 8 horas por día de lunes a viernes
-          } else if (idProfile === 2) {
-            if (diaSemana >= 1 && diaSemana <= 5) {
-              descuento = 8; // Descuento de 8 horas por día de lunes a viernes
-            } else if (diaSemana === 6) {
-              descuento = 4; // Descuento de 4 horas para los sábados
-            }
-          } else if (idProfile === 3 && diaSemana >= 1 && diaSemana <= 6) {
-            descuento = 8; // Descuento de 8 horas por día de lunes a sábado
-          }
-
-          // Realizar el cálculo con el descuento
-          let totalMinutos = horaAMinutos(totalMinutosActual);
-          if (restar) {
-            totalMinutos -= descuento * 60; // Convertir las horas de descuento a minutos
-          } else {
-            totalMinutos += descuento * 60; // Convertir las horas de descuento a minutos
-          }
-
-          // Calcular las horas y minutos resultantes
-          const horas = Math.floor(totalMinutos / 60);
-          const minutos = totalMinutos % 60;
-
-          // Formatear la nueva hora
-          const nuevaHora = `${horas < 10 ? "0" : ""}${horas}:${
-            minutos < 10 ? "0" : ""
-          }${minutos}`;
+          const nuevaHora = `${Math.floor(nuevoTotalMinutos / 60)}:${(
+            nuevoTotalMinutos % 60
+          )
+            .toString()
+            .padStart(2, "0")}`;
           return nuevaHora;
         }
+        function horaAMinutos(hora) {
+          const [horas, minutos] = hora.split(":").map(Number);
+          return horas * 60 + minutos;
+        }
 
-        // Luego, en tu función principal donde se calcula el resultado,
-        // puedes llamar a esta función para obtener la nueva hora con el descuento aplicado:
+        function calcularPorcentaje(tiempoInicial, resultado) {
+          const minutosInicial = horaAMinutos(tiempoInicial);
+          const minutosResultado = horaAMinutos(resultado);
+          var porcentaje = (minutosResultado / minutosInicial) * 100;
 
+          return porcentaje;
+        }
         if (resultado.includes("-")) {
           const nuevaHoraResta = sumarRestarHoras(
             acumuladoValorDia.toString(),
             resultado,
-            true,
-            idProfile,
-            diaSemana
+            true
           );
           const porcentaje = calcularPorcentaje(
             acumuladoValorDia,
@@ -310,10 +294,7 @@ $(document).ready(function () {
         } else {
           const nuevaHoraSuma = sumarRestarHoras(
             acumuladoValorDia.toString(),
-            resultado,
-            false,
-            idProfile,
-            diaSemana
+            resultado
           );
           const porcentaje = calcularPorcentaje(
             acumuladoValorDia,
