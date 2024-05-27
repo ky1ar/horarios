@@ -249,39 +249,54 @@ $(document).ready(function () {
         function sumarRestarHoras(
           totalMinutosActual,
           resultado,
-          restar = false
+          restar = false,
+          idProfile = 1, // Valor predeterminado para id_profile
+          diaSemana = 1 // Valor predeterminado para día de la semana
         ) {
-          const [horas, minutos] = totalMinutosActual.split(":").map(Number);
-          const [horas2, minutos2] = resultado.split(":").map(Number);
-          const totalMinutos = horas * 60 + minutos;
-          const totalminutos2 = horas2 * 60 + minutos2;
-          const signo = restar ? -1 : 1;
-          const nuevoTotalMinutos = totalMinutos + signo * totalminutos2;
+          let descuento = 0;
 
-          const nuevaHora = `${Math.floor(nuevoTotalMinutos / 60)}:${(
-            nuevoTotalMinutos % 60
-          )
-            .toString()
-            .padStart(2, "0")}`;
+          // Aplicar descuentos según el perfil y el día de la semana
+          if (idProfile === 1 && diaSemana >= 1 && diaSemana <= 5) {
+            descuento = 8; // Descuento de 8 horas por día de lunes a viernes
+          } else if (idProfile === 2) {
+            if (diaSemana >= 1 && diaSemana <= 5) {
+              descuento = 8; // Descuento de 8 horas por día de lunes a viernes
+            } else if (diaSemana === 6) {
+              descuento = 4; // Descuento de 4 horas para los sábados
+            }
+          } else if (idProfile === 3 && diaSemana >= 1 && diaSemana <= 6) {
+            descuento = 8; // Descuento de 8 horas por día de lunes a sábado
+          }
+
+          // Realizar el cálculo con el descuento
+          let totalMinutos = horaAMinutos(totalMinutosActual);
+          if (restar) {
+            totalMinutos -= descuento * 60; // Convertir las horas de descuento a minutos
+          } else {
+            totalMinutos += descuento * 60; // Convertir las horas de descuento a minutos
+          }
+
+          // Calcular las horas y minutos resultantes
+          const horas = Math.floor(totalMinutos / 60);
+          const minutos = totalMinutos % 60;
+
+          // Formatear la nueva hora
+          const nuevaHora = `${horas < 10 ? "0" : ""}${horas}:${
+            minutos < 10 ? "0" : ""
+          }${minutos}`;
           return nuevaHora;
         }
-        function horaAMinutos(hora) {
-          const [horas, minutos] = hora.split(":").map(Number);
-          return horas * 60 + minutos;
-        }
 
-        function calcularPorcentaje(tiempoInicial, resultado) {
-          const minutosInicial = horaAMinutos(tiempoInicial);
-          const minutosResultado = horaAMinutos(resultado);
-          var porcentaje = (minutosResultado / minutosInicial) * 100;
+        // Luego, en tu función principal donde se calcula el resultado,
+        // puedes llamar a esta función para obtener la nueva hora con el descuento aplicado:
 
-          return porcentaje;
-        }
         if (resultado.includes("-")) {
           const nuevaHoraResta = sumarRestarHoras(
             acumuladoValorDia.toString(),
             resultado,
-            true
+            true,
+            idProfile,
+            diaSemana
           );
           const porcentaje = calcularPorcentaje(
             acumuladoValorDia,
@@ -294,7 +309,10 @@ $(document).ready(function () {
         } else {
           const nuevaHoraSuma = sumarRestarHoras(
             acumuladoValorDia.toString(),
-            resultado
+            resultado,
+            false,
+            idProfile,
+            diaSemana
           );
           const porcentaje = calcularPorcentaje(
             acumuladoValorDia,
