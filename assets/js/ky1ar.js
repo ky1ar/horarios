@@ -323,7 +323,7 @@ $(document).ready(function () {
                 var fecha = new Date($(this).data("date"));
                 var diaSemana = fecha.getDay();
                 var mesCalc = fecha.getMonth() + 1;
-                console.log(idProfile);
+                console.log(idProfile.toString());
                 if (mesCalc === currentMonth) {
                     if (calc === "DF") {
                         if (idProfile === 1 && diaSemana >= 1 && diaSemana <= 5) {
