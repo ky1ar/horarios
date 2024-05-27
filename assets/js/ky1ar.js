@@ -308,7 +308,6 @@ $(document).ready(function () {
   //     });
   //   });
   // }
-
   function calcularSumaCalcPorSemana(userId, year, month) {
     var currentMonth = new Date().getMonth() + 1;
   
@@ -323,16 +322,16 @@ $(document).ready(function () {
         $hrrBox.find(".calc").each(function () {
           var calc = $(this).text().trim();
           var fecha = new Date($(this).data("date"));
+          var diaSemana = fecha.getDay();
           var mesCalc = fecha.getMonth() + 1;
-          if (mesCalc === currentMonth) {
-            if (calc !== "DF") {
-              var sign = calc.startsWith("-") ? -1 : 1;
-              var tiempo = calc.replace(/[^\d:]/g, "").split(":");
-              var horas = parseInt(tiempo[0], 10) * sign;
-              var minutos = parseInt(tiempo[1], 10) * sign;
-              sumaHoras += horas;
-              sumaMinutos += minutos;
-            }
+  
+          if (mesCalc === currentMonth && calc !== "DF") {
+            var sign = calc.startsWith("-") ? -1 : 1;
+            var tiempo = calc.replace(/[^\d:]/g, "").split(":");
+            var horas = parseInt(tiempo[0], 10) * sign;
+            var minutos = parseInt(tiempo[1], 10) * sign;
+            sumaHoras += horas;
+            sumaMinutos += minutos;
           }
         });
   
@@ -357,7 +356,11 @@ $(document).ready(function () {
             resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
         }
   
-        function sumarRestarHoras(totalMinutosActual, resultado, restar = false) {
+        function sumarRestarHoras(
+          totalMinutosActual,
+          resultado,
+          restar = false
+        ) {
           const [horas, minutos] = totalMinutosActual.split(":").map(Number);
           const [horas2, minutos2] = resultado.split(":").map(Number);
           const totalMinutos = horas * 60 + minutos;
@@ -386,67 +389,52 @@ $(document).ready(function () {
           return porcentaje;
         }
   
-        if (resultado.includes("-")) {
-          const nuevaHoraResta = sumarRestarHoras(
-            acumuladoValorDia.toString(),
-            resultado,
-            true
-          );
-          const porcentaje = calcularPorcentaje(
-            acumuladoValorDia,
-            nuevaHoraResta
-          );
-          $hrrBox
-            .find(".minS")
-            .text(nuevaHoraResta + "h" + " / " + acumuladoValorDia + "h");
-          $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
-        } else {
-          const nuevaHoraSuma = sumarRestarHoras(
-            acumuladoValorDia.toString(),
-            resultado
-          );
-          const porcentaje = calcularPorcentaje(
-            acumuladoValorDia,
-            nuevaHoraSuma
-          );
-          $hrrBox
-            .find(".minS")
-            .text(nuevaHoraSuma + "h" + " / " + acumuladoValorDia + "h");
-          $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
-        }
-  
         // Aplicar las condiciones de DF y ajustar acumuladoValorDia
         var ajusteDFHoras = 0;
-        $hrrBox.find(".calc").each(function () {
-          var calc = $(this).text().trim();
-          var fecha = new Date($(this).data("date"));
-          var diaSemana = fecha.getDay();
-          var mesCalc = fecha.getMonth() + 1;
-  
-          if (mesCalc === currentMonth && calc === "DF") {
-            if (idProfile === 1 && diaSemana >= 1 && diaSemana <= 5) {
-              ajusteDFHoras -= 8;
-            } else if (idProfile === 2) {
-              if (diaSemana >= 1 && diaSemana <= 5) {
-                ajusteDFHoras -= 8;
-              } else if (diaSemana === 6) {
-                ajusteDFHoras -= 4;
-              }
-            } else if (idProfile === 3 && diaSemana >= 1 && diaSemana <= 6) {
-              ajusteDFHoras -= 8;
-            }
+        if (idProfile === 1 && (diaSemana >= 1 && diaSemana <= 5)) {
+          ajusteDFHoras -= 8;
+        } else if (idProfile === 2) {
+          if (diaSemana >= 1 && diaSemana <= 5) {
+            ajusteDFHoras -= 8;
+          } else if (diaSemana === 6) {
+            ajusteDFHoras -= 4;
           }
-        });
+        } else if (idProfile === 3 && (diaSemana >= 1 && diaSemana <= 6)) {
+          ajusteDFHoras -= 8;
+        }
   
         var ajusteDFMinutos = ajusteDFHoras * 60;
-        acumuladoValorDiaMinutos = horaAMinutos(acumuladoValorDia);
-        var nuevoAcumuladoValorDiaMinutos = acumuladoValorDiaMinutos + ajusteDFMinutos;
+        var nuevoAcumuladoValorDiaMinutos = horaAMinutos(acumuladoValorDia) + ajusteDFMinutos;
   
         var nuevaHoraAcumuladoValorDia = `${Math.floor(nuevoAcumuladoValorDiaMinutos / 60)}:${(
           nuevoAcumuladoValorDiaMinutos % 60
         ).toString().padStart(2, "0")}`;
   
-        console.log(`Diferencia calculada para la semana ${semana}: ${nuevaHoraAcumuladoValorDia}h / ${acumuladoValorDia}h`);
+        // Ajustar nuevaHoraResta y nuevaHoraSuma según el tipo de id_profile
+        var nuevaHoraResta = sumarRestarHoras(
+          nuevaHoraAcumuladoValorDia,
+          resultado,
+          true
+        );
+  
+        var nuevaHoraSuma = sumarRestarHoras(
+          nuevaHoraAcumuladoValorDia,
+          resultado
+        );
+  
+        const porcentajeResta = calcularPorcentaje(
+          nuevaHoraAcumuladoValorDia,
+          nuevaHoraResta
+        );
+  
+        const porcentajeSuma = calcularPorcentaje(
+          nuevaHoraAcumuladoValorDia,
+          nuevaHoraSuma
+        );
+  
+        // Mostrar resultados
+        $hrrBox.find(".minS").text(nuevaHoraResta + "h / " + nuevaHoraSuma + "h");
+        $hrrBox.find(".porT").text(porcentajeResta.toFixed(1) + "% / " + porcentajeSuma.toFixed(1) + "%");
       });
     });
   }
