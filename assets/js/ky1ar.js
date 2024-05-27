@@ -356,15 +356,17 @@ $(document).ready(function () {
           console.log(`Resultado de la resta: ${nuevaHoraResta}`);
           console.log(resultado);
           console.log(acumuladoValorDia);
+          $hrrBox.find(".minS").text(nuevaHoraResta + "h");
         } else {
           const nuevaHoraSuma = sumarRestarHoras(
             acumuladoValorDia.toString(),
             resultado
           );
           console.log(`Resultado de la suma: ${nuevaHoraSuma}`);
+          $hrrBox.find(".minS").text(nuevaHoraSuma + "h");
         }
         // $hrrBox.find(".porT").text(porcentaje.toFixed(2) + "%");
-        $hrrBox.find(".minS").text(resultado + "h");
+        
       });
     });
   }
