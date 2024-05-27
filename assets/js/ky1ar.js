@@ -301,6 +301,7 @@ $(document).ready(function () {
             }
           }
         });
+
         if (sumaMinutos >= 60) {
           sumaHoras += Math.floor(sumaMinutos / 60);
           sumaMinutos = sumaMinutos % 60;
@@ -308,6 +309,7 @@ $(document).ready(function () {
           sumaHoras += Math.ceil(sumaMinutos / 60);
           sumaMinutos = sumaMinutos % 60;
         }
+
         var resultadoHoras = sumaHoras;
         var resultadoMinutos = Math.abs(sumaMinutos)
           .toString()
@@ -323,10 +325,31 @@ $(document).ready(function () {
           resultado =
             resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
         }
+
         console.log("Semana " + semana + ", suma calc: " + resultado);
         console.log("Acumulado: " + acumuladoValorDia);
-        var totalMinutosAcumulado = acumuladoValorDia * 60;
+
+        // Convertir el valor acumulado a minutos
+        var acumuladoHoras = Math.floor(acumuladoValorDia);
+        var acumuladoMinutos = (acumuladoValorDia - acumuladoHoras) * 60;
+        var totalMinutosAcumulado = acumuladoHoras * 60 + acumuladoMinutos;
+
+        // Calcular la diferencia entre el resultado y el valor acumulado
         var totalMinutosActual = sumaHoras * 60 + sumaMinutos;
+        var diferenciaMinutos = totalMinutosActual - totalMinutosAcumulado;
+
+        // Convertir la diferencia de minutos a formato HH:mm
+        var horasDiferencia = Math.floor(diferenciaMinutos / 60);
+        var minutosDiferencia = diferenciaMinutos % 60;
+        var diferenciaFormato =
+          horasDiferencia.toString().padStart(2, "0") +
+          ":" +
+          Math.abs(minutosDiferencia).toString().padStart(2, "0");
+
+        console.log(
+          "Diferencia entre resultado y acumulado: " + diferenciaFormato
+        );
+
         var porcentaje = (totalMinutosActual / totalMinutosAcumulado) * 100;
         $hrrBox.find(".porT").text(porcentaje.toFixed(2) + "%");
         $hrrBox.find(".minS").text(resultado + "h");
