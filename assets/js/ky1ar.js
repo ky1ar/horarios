@@ -328,8 +328,9 @@ $(document).ready(function () {
         var totalMinutosAcumulado = acumuladoValorDia * 60;
         var totalMinutosActual = sumaHoras * 60 + sumaMinutos;
         var porcentaje = (totalMinutosActual / totalMinutosAcumulado) * 100;
-        $hrrBox.find(".porT").text(porcentaje.toFixed(2) + "%");
-        $hrrBox.find(".minS").text(resultado + "h");
+        console.log(totalMinutosActual)
+        // $hrrBox.find(".porT").text(porcentaje.toFixed(2) + "%");
+        // $hrrBox.find(".minS").text(resultado + "h");
       });
     });
   }
