@@ -208,7 +208,7 @@ $(document).ready(function () {
       var sumaMinutos = 0;
 
       // Realiza la solicitud para obtener acumulado_valor_dia
-      getWeeklyData(userId, semana, year, month, function (acumuladoValorDia) {
+      getWeeklyData(userId, semana, year, month, function (acumuladoValorDia, idProfile) {
         $hrrBox.find(".calc").each(function () {
           var calc = $(this).text().trim();
           var fecha = new Date($(this).data("date"));
