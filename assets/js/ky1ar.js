@@ -323,12 +323,7 @@ $(document).ready(function () {
           resultado =
             resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
         }
-        console.log("Semana " + semana + ", suma calc: " + resultado);
-        console.log("Acumulado: " + acumuladoValorDia);
-        // var totalMinutosAcumulado = acumuladoValorDia * 60;
-        // var totalMinutosActual = sumaHoras * 60 + sumaMinutos;
-        // var porcentaje = (totalMinutosActual / totalMinutosAcumulado) * 100;
-
+        console.log("Semana " + semana + ", suma calc: " + resultado + "Valor acumulado" + acumuladoValorDia);
         function sumarRestarHoras(
           totalMinutosActual,
           resultado,
