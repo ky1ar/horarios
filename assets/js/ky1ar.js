@@ -371,7 +371,7 @@ $(document).ready(function () {
           console.log(`Resultado de la resta: ${nuevaHoraResta}`);
           const porcentaje = calcularPorcentaje(acumuladoValorDia, nuevaHoraResta);
           $hrrBox.find(".minS").text(nuevaHoraResta + "h");
-          $hrrBox.find(".porT").text(porcentaje.toFixed(2) + "%");
+          $hrrBox.find(".porT").text(porcentaje.toFixed(0) + "%");
         } else {
           const nuevaHoraSuma = sumarRestarHoras(
             acumuladoValorDia.toString(),
@@ -379,7 +379,7 @@ $(document).ready(function () {
           );
           const porcentaje = calcularPorcentaje(acumuladoValorDia, nuevaHoraSuma);
           $hrrBox.find(".minS").text(nuevaHoraSuma + "h");
-          $hrrBox.find(".porT").text(porcentaje.toFixed(2) + "%");
+          $hrrBox.find(".porT").text(porcentaje.toFixed(0) + "%");
         }
         // $hrrBox.find(".porT").text(porcentaje.toFixed(2) + "%");
       });
