@@ -306,7 +306,7 @@ $(document).ready(function () {
             true
           );
           const porcentaje = calcularPorcentaje(acumuladoValorDia, nuevaHoraResta);
-          $hrrBox.find(".minS").text(acumuladoValorDia + " / " + nuevaHoraResta + "h");
+          $hrrBox.find(".minS").text(nuevaHoraResta + "h" + " / " + acumuladoValorDia + "h");
           $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
         } else {
           const nuevaHoraSuma = sumarRestarHoras(
@@ -314,7 +314,7 @@ $(document).ready(function () {
             resultado
           );
           const porcentaje = calcularPorcentaje(acumuladoValorDia, nuevaHoraSuma);
-          $hrrBox.find(".minS").text(acumuladoValorDia + " / " + nuevaHoraSuma + "h");
+          $hrrBox.find(".minS").text(nuevaHoraSuma + "h" + " / " + acumuladoValorDia + "h");
           $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
         }
       });
