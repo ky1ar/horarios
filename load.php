@@ -220,7 +220,7 @@ require_once 'db.php';
                                         $next = strtotime($split[$id + 1]);
                                         $offset_minutes = ($next - $current) / 60;
 
-                                        if ($offset_minutes <= 7) {
+                                        if ($offset_minutes <= 6) {
                                             unset($split[$id + 1]);
                                         }
                                     }
