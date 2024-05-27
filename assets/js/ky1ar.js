@@ -197,28 +197,7 @@ $(document).ready(function () {
       },
     });
   });
-  function getWeeklyData(userId, week, year, month, callback) {
-    console.log(
-      `Fetching schedule for userId: ${userId}, week: ${week}, year: ${year}, month: ${month}`
-    );
-    $.ajax({
-      url: "../routes/del/get_week.php",
-      method: "POST",
-      data: { userId: userId, week: week, year: year, month: month },
-      dataType: "json",
-      success: function (response) {
-        if (response.success) {
-          callback(response.acumulado_valor_dia);
-        } else {
-          console.error(response.message);
-        }
-      },
-      error: function (xhr, status, error) {
-        console.error("Error en la solicitud AJAX:", error);
-      },
-    });
-  }
-
+  
   function calcularSumaCalcPorSemana(userId, year, month) {
     var currentMonth = new Date().getMonth() + 1;
 
