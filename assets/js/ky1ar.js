@@ -325,37 +325,49 @@ $(document).ready(function () {
         }
         console.log("Semana " + semana + ", suma calc: " + resultado);
         console.log("Acumulado: " + acumuladoValorDia);
-        var totalMinutosAcumulado = acumuladoValorDia * 60;
-        var totalMinutosActual = sumaHoras * 60 + sumaMinutos;
-        var porcentaje = (totalMinutosActual / totalMinutosAcumulado) * 100;
-
-        function sumarRestarHoras(totalMinutosActual, resultado, restar = false) {
-          const [horas, minutos] = totalMinutosActual.split(':').map(Number);
-          const [horas2, minutos2] = resultado.split(':').map(Number);
+        // var totalMinutosAcumulado = acumuladoValorDia * 60;
+        // var totalMinutosActual = sumaHoras * 60 + sumaMinutos;
+        // var porcentaje = (totalMinutosActual / totalMinutosAcumulado) * 100;
+        function sumarRestarHoras(
+          totalMinutosActual,
+          resultado,
+          restar = false
+        ) {
+          const [horas, minutos] = totalMinutosActual.split(":").map(Number);
+          const [horas2, minutos2] = resultado.split(":").map(Number);
           const totalMinutos = horas * 60 + minutos;
           const totalminutos2 = horas2 * 60 + minutos2;
           const signo = restar ? -1 : 1;
           const nuevoTotalMinutos = totalMinutos + signo * totalminutos2;
-      
-          const nuevaHora = `${Math.floor(nuevoTotalMinutos / 60)}:${(nuevoTotalMinutos % 60).toString().padStart(2, '0')}`;
+
+          const nuevaHora = `${Math.floor(nuevoTotalMinutos / 60)}:${(
+            nuevoTotalMinutos % 60
+          )
+            .toString()
+            .padStart(2, "0")}`;
           return nuevaHora;
-      }
-      if (resultado.includes('-')) {
-        const nuevaHoraResta = sumarRestarHoras(acumuladoValorDia.toString(), resultado, true);
-        console.log(`Resultado de la resta: ${nuevaHoraResta}`);
-        console.log(resultado);
-        console.log(acumuladoValorDia);
-    } else {
-      const nuevaHoraSuma = sumarRestarHoras(acumuladoValorDia.toString(), resultado);
-      console.log(`Resultado de la suma: ${nuevaHoraSuma}`);
-    }
-        // console.log(totalMinutosActual)
+        }
+        if (resultado.includes("-")) {
+          const nuevaHoraResta = sumarRestarHoras(
+            acumuladoValorDia.toString(),
+            resultado,
+            true
+          );
+          console.log(`Resultado de la resta: ${nuevaHoraResta}`);
+          console.log(resultado);
+          console.log(acumuladoValorDia);
+        } else {
+          const nuevaHoraSuma = sumarRestarHoras(
+            acumuladoValorDia.toString(),
+            resultado
+          );
+          console.log(`Resultado de la suma: ${nuevaHoraSuma}`);
+        }
         // $hrrBox.find(".porT").text(porcentaje.toFixed(2) + "%");
-        // $hrrBox.find(".minS").text(resultado + "h");
+        $hrrBox.find(".minS").text(resultado + "h");
       });
     });
   }
-  
 
   function getWeeklyData(userId, week, year, month, callback) {
     // console.log(
