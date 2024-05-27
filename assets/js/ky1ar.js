@@ -314,8 +314,8 @@ $(document).ready(function () {
             resultado
           );
           const porcentaje = calcularPorcentaje(acumuladoValorDia, nuevaHoraSuma);
-          $hrrBox.find(".minS").text(nuevaHoraSuma + "h");
-          $hrrBox.find(".porT").text(acumuladoValorDia + " / " + porcentaje.toFixed(1) + "%");
+          $hrrBox.find(".minS").text(acumuladoValorDia + " / " + nuevaHoraSuma + "h");
+          $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
         }
       });
     });
