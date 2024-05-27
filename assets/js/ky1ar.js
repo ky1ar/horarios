@@ -328,6 +328,7 @@ $(document).ready(function () {
         var totalMinutosAcumulado = acumuladoValorDia * 60;
         var totalMinutosActual = sumaHoras * 60 + sumaMinutos;
         var porcentaje = (totalMinutosActual / totalMinutosAcumulado) * 100;
+
         function sumarRestarHoras(totalMinutosActual, resultado, restar = false) {
           const [horas, minutos] = totalMinutosActual.split(':').map(Number);
           const [horas2, minutos2] = resultado.split(':').map(Number);
@@ -340,12 +341,12 @@ $(document).ready(function () {
           return nuevaHora;
       }
       if (resultado.includes('-')) {
-        const nuevaHoraResta = sumarRestarHoras(totalMinutosActual.toString(), resultado, true);
+        const nuevaHoraResta = sumarRestarHoras(acumuladoValorDia.toString(), resultado, true);
         console.log(`Resultado de la resta: ${nuevaHoraResta}`);
         console.log(resultado);
-        console.log(totalMinutosActual);
+        console.log(acumuladoValorDia);
     } else {
-      const nuevaHoraSuma = sumarRestarHoras(totalMinutosActual.toString(), resultado);
+      const nuevaHoraSuma = sumarRestarHoras(acumuladoValorDia.toString(), resultado);
       console.log(`Resultado de la suma: ${nuevaHoraSuma}`);
     }
         // console.log(totalMinutosActual)
