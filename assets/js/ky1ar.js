@@ -340,10 +340,10 @@ $(document).ready(function () {
           return nuevaHora;
       }
       if (resultado.includes('-')) {
-        const nuevaHoraResta = sumarRestarHoras(totalMinutosActual, resultado, true); 
+        const nuevaHoraResta = sumarRestarHoras(totalMinutosActual.toString(), resultado, true);
         console.log(`Resultado de la resta: ${nuevaHoraResta}`);
     } else {
-      const nuevaHoraSuma = sumarRestarHoras(totalMinutosActual, resultado);
+      const nuevaHoraSuma = sumarRestarHoras(totalMinutosActual.toString(), resultado);
       console.log(`Resultado de la suma: ${nuevaHoraSuma}`);
     }
         // console.log(totalMinutosActual)
