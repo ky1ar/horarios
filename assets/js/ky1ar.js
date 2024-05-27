@@ -415,20 +415,21 @@ $(document).ready(function () {
     });
   }
 
-  function getWeeklyData(userId, week, year, month, callback) {
-    // console.log(
-    //   `Datos Semana, Id: ${userId}, Semana: ${week}, year: ${year}, month: ${month}`
-    // );
+  function getWeeklyData(userId, semana, year, month, callback) {
+    console.log(
+      `Datos Semana, Id: ${userId}, Semana: ${semana}, year: ${year}, month: ${month}`
+    );
     $.ajax({
       url: "../routes/del/get_week.php",
       method: "POST",
-      data: { userId: userId, week: week, year: year, month: month },
+      data: { userId: userId, week: semana, year: year, month: month },
       dataType: "json",
       success: function (response) {
         if (response.success) {
           if (response.data.length > 0) {
-            var acumuladoValorDia = response.data[0].acumulado_valor_dia;
+            var acumuladoValorDia = response.data[0].acumulado_valor_dia * 60; // Convertir a minutos
             callback(acumuladoValorDia);
+            console.log(acumuladoValorDia);
           } else {
             console.error("No se encontraron datos en la respuesta");
           }
