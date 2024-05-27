@@ -197,7 +197,7 @@ $(document).ready(function () {
       },
     });
   });
-  
+
   function calcularSumaCalcPorSemana(userId, year, month) {
     var currentMonth = new Date().getMonth() + 1;
 
@@ -283,16 +283,26 @@ $(document).ready(function () {
             resultado,
             true
           );
-          const porcentaje = calcularPorcentaje(acumuladoValorDia, nuevaHoraResta);
-          $hrrBox.find(".minS").text(nuevaHoraResta + "h" + " / " + acumuladoValorDia + "h");
+          const porcentaje = calcularPorcentaje(
+            acumuladoValorDia,
+            nuevaHoraResta
+          );
+          $hrrBox
+            .find(".minS")
+            .text(nuevaHoraResta + "h" + " / " + acumuladoValorDia + "h");
           $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
         } else {
           const nuevaHoraSuma = sumarRestarHoras(
             acumuladoValorDia.toString(),
             resultado
           );
-          const porcentaje = calcularPorcentaje(acumuladoValorDia, nuevaHoraSuma);
-          $hrrBox.find(".minS").text(nuevaHoraSuma + "h" + " / " + acumuladoValorDia + "h");
+          const porcentaje = calcularPorcentaje(
+            acumuladoValorDia,
+            nuevaHoraSuma
+          );
+          $hrrBox
+            .find(".minS")
+            .text(nuevaHoraSuma + "h" + " / " + acumuladoValorDia + "h");
           $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
         }
       });
@@ -309,7 +319,9 @@ $(document).ready(function () {
         if (response.success) {
           if (response.data.length > 0) {
             var acumuladoValorDia = response.data[0].acumulado_valor_dia;
+            var idProfile = response.data[0].id_profile; // Asumiendo que el campo se llama id_profile
             callback(acumuladoValorDia);
+            console.log("ID Profile:", idProfile);
           } else {
             console.error("No se encontraron datos en la respuesta");
           }
@@ -446,7 +458,6 @@ $(document).ready(function () {
         $("#totalHours").text(data.total_hours_required + " h");
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
-        console.log("id_profile: "+ data.id_profile);
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
