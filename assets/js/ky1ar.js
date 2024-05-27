@@ -328,6 +328,7 @@ $(document).ready(function () {
         // var totalMinutosAcumulado = acumuladoValorDia * 60;
         // var totalMinutosActual = sumaHoras * 60 + sumaMinutos;
         // var porcentaje = (totalMinutosActual / totalMinutosAcumulado) * 100;
+
         function sumarRestarHoras(
           totalMinutosActual,
           resultado,
@@ -347,6 +348,20 @@ $(document).ready(function () {
             .padStart(2, "0")}`;
           return nuevaHora;
         }
+        function horaAMinutos(hora) {
+          const [horas, minutos] = hora.split(":").map(Number);
+          return horas * 60 + minutos;
+        }
+
+        function calcularPorcentaje(tiempoInicial, resultado) {
+          const minutosInicial = horaAMinutos(tiempoInicial);
+          const minutosResultado = horaAMinutos(resultado);
+          console.log(minutosInicial);
+          console.log(minutosResultado);
+          var porcentaje = (minutosResultado / minutosInicial) * 100;
+
+          return porcentaje;
+        }
         if (resultado.includes("-")) {
           const nuevaHoraResta = sumarRestarHoras(
             acumuladoValorDia.toString(),
@@ -354,19 +369,19 @@ $(document).ready(function () {
             true
           );
           console.log(`Resultado de la resta: ${nuevaHoraResta}`);
-          console.log(resultado);
-          console.log(acumuladoValorDia);
+          const porcentaje = calcularPorcentaje(acumuladoValorDia, nuevaHoraResta);
           $hrrBox.find(".minS").text(nuevaHoraResta + "h");
+          $hrrBox.find(".porT").text(porcentaje);
         } else {
           const nuevaHoraSuma = sumarRestarHoras(
             acumuladoValorDia.toString(),
             resultado
           );
-          console.log(`Resultado de la suma: ${nuevaHoraSuma}`);
+          const porcentaje = calcularPorcentaje(acumuladoValorDia, nuevaHoraSuma);
           $hrrBox.find(".minS").text(nuevaHoraSuma + "h");
+          $hrrBox.find(".porT").text(porcentaje);
         }
         // $hrrBox.find(".porT").text(porcentaje.toFixed(2) + "%");
-        
       });
     });
   }
