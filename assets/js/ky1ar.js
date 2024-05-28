@@ -311,7 +311,7 @@ $(document).ready(function () {
 
   function obtenerDiaDeLaSemana(fechaString) {
     const fecha = new Date(fechaString);
-    const diasDeLaSemana = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+    const diasDeLaSemana = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
     const diaDeLaSemana = fecha.getDay();
     return diasDeLaSemana[diaDeLaSemana];
 }
