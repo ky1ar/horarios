@@ -268,16 +268,21 @@ $(document).ready(function () {
           "Id_Profile " +
           idProfile +
           ", Semana " +
-            semana +
-            ", suma calc: " +
-            resultado +
-            ", Valor acumulado " +
-            acumuladoValorDia +
-            ", DF count: " +
-            dfCount +
-            ", DF dates: " +
-            dfDates.map((date) => date.toLocaleDateString()).join(", ")
-        );
+          semana +
+          ", suma calc: " +
+          resultado +
+          ", Valor acumulado " +
+          acumuladoValorDia +
+          ", DF count: " +
+          dfCount +
+          ", DF dates: " +
+          dfDates.map((date) => {
+              const dayOfWeek = new Intl.DateTimeFormat("en-US", {
+                  weekday: "long"
+              }).format(date);
+              return `${date.toLocaleDateString()} (${dayOfWeek})`;
+          }).join(", ")
+      );
         function sumarRestarHoras(
           totalMinutosActual,
           resultado,
