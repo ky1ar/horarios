@@ -226,7 +226,7 @@ $(document).ready(function () {
           var fechaString = $calcElement.data("date"); 
           var fecha = new Date(fechaString); 
           fecha.setUTCDate(fecha.getUTCDate());
-          fecha.setHours(fecha.getHours() - 5); 
+          fecha.setHours(fecha.getHours() - 15); 
           var mesCalc = fecha.getMonth() + 1; 
 
           if (mesCalc === currentMonth) {
