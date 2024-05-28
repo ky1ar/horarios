@@ -1,6 +1,6 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $targetDir = __DIR__ . '/';
+    $targetDir = __DIR__ . '/../../';
     $targetFile = $targetDir . 'final.csv';
     $uploadOk = 1;
 
@@ -17,7 +17,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $uploadOk = 0;
     }
 
-    // Mover el archivo cargado a la ubicación de destino y reemplazar si ya existe
+    // Eliminar el archivo existente (si existe)
+    if (file_exists($targetFile)) {
+        unlink($targetFile);
+    }
+
+    // Mover el archivo cargado a la ubicación de destino
     if ($uploadOk) {
         // Establecer los permisos de escritura adecuados
         chmod($targetDir, 0777);
