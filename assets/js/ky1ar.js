@@ -310,14 +310,14 @@ $(document).ready(function () {
   // }
   function calcularSumaCalcPorSemana(userId, year, month) {
     var currentMonth = new Date().getMonth() + 1;
-    var dfCountsByWeek = []; // Arreglo para almacenar los conteos de DF por semana
+    var dfCountsByWeek = []; // Arreglo para almacenar los conteos de DF y detalles por semana
   
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
       var semana = index + 1;
       var sumaHoras = 0;
       var sumaMinutos = 0;
-      var dfCount = 0; // Contador de "DF"
+      var dfDetails = []; // Arreglo para almacenar detalles de DF por semana
   
       // Realiza la solicitud para obtener acumulado_valor_dia
       getWeeklyData(userId, semana, year, month, function (acumuladoValorDia) {
@@ -327,7 +327,10 @@ $(document).ready(function () {
           var mesCalc = fecha.getMonth() + 1;
           if (mesCalc === currentMonth) {
             if (calc === "DF") {
-              dfCount++; // Incrementar contador de "DF"
+              dfDetails.push({
+                date: fecha.toISOString().split('T')[0], // Fecha en formato YYYY-MM-DD
+                dayOfWeek: fecha.toLocaleString('es-ES', { weekday: 'long' }) // Día de la semana en español
+              });
             } else {
               var sign = calc.startsWith("-") ? -1 : 1;
               var tiempo = calc.replace(/[^\d:]/g, "").split(":");
@@ -393,8 +396,8 @@ $(document).ready(function () {
           $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
         }
   
-        // Guardar el número de DF para la semana actual en el arreglo
-        dfCountsByWeek.push({ semana: semana, dfCount: dfCount });
+        // Guardar los detalles de DF para la semana actual en el arreglo
+        dfCountsByWeek.push({ semana: semana, dfDetails: dfDetails });
   
         // Verificar si todas las semanas han sido procesadas
         if (dfCountsByWeek.length === $(".hrr-box").length) {
@@ -403,12 +406,16 @@ $(document).ready(function () {
   
           // Imprimir los resultados ordenados
           dfCountsByWeek.forEach(weekData => {
-            console.log(`Semana ${weekData.semana}: ${weekData.dfCount} (DF) encontrados.`);
+            console.log(`Semana ${weekData.semana}: ${weekData.dfDetails.length} días festivos (DF) encontrados.`);
+            weekData.dfDetails.forEach(dfDetail => {
+              console.log(` - ${dfDetail.dayOfWeek}, ${dfDetail.date}`);
+            });
           });
         }
       });
     });
   }
+  
   
   
 
