@@ -223,7 +223,7 @@ $(document).ready(function () {
             $hrrBox.find(".calc").each(function () {
                 var $calcElement = $(this);
                 var calc = $calcElement.text().trim();
-                var fecha = new Date($calcElement.data("date"));
+                var fecha = new Date($(this).data("date")).toLocaleString("en-US", {timeZone: "America/Lima"});
                 var mesCalc = fecha.getMonth() + 1;
                 if (mesCalc === currentMonth) {
                     if (calc !== "DF") {
