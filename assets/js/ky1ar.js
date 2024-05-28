@@ -308,20 +308,20 @@ $(document).ready(function () {
   //     });
   //   });
   // }
-  function obtenerDiaDeLaSemana(fechaString) {
-    // Crear una instancia de Date a partir de la cadena de fecha
-    const fecha = new Date(fechaString);
-    
-    // Array con los nombres de los días de la semana en español
-    const diasDeLaSemana = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
-    
-    // Obtener el día de la semana (0 para domingo, 1 para lunes, etc.)
-    const diaDeLaSemana = fecha.getDay();
-    
-    // Devolver el nombre del día de la semana correspondiente
-    return diasDeLaSemana[diaDeLaSemana];
+// Función externa para obtener el día de la semana
+function obtenerDiaDeLaSemana(fechaString) {
+  // Crear una instancia de Date a partir de la cadena de fecha
+  const fecha = new Date(fechaString);
+  
+  // Array con los nombres de los días de la semana en español
+  const diasDeLaSemana = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+  
+  // Obtener el día de la semana (0 para domingo, 1 para lunes, etc.)
+  const diaDeLaSemana = fecha.getDay();
+  
+  // Devolver el nombre del día de la semana correspondiente
+  return diasDeLaSemana[diaDeLaSemana];
 }
-
 
 function calcularSumaCalcPorSemana(userId, year, month) {
   var dfCountsByWeek = []; // Arreglo para almacenar los conteos de DF y detalles por semana
@@ -434,6 +434,7 @@ function calcularSumaCalcPorSemana(userId, year, month) {
       });
   });
 }
+
 
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({
