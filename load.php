@@ -244,7 +244,7 @@ require_once 'db.php';
                         }
                         $insert_query = rtrim($insert_query, ", ");
                         if ($conn->query($insert_query) === TRUE) {
-                            //echo "Se insertaron los registros correctamente.";
+                            echo "Se insertaron los registros correctamente.";
                         } else {
                             echo "Error al insertar los registros: " . $conn->error;
                         }
