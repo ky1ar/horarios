@@ -403,7 +403,7 @@ $(document).ready(function () {
   
           // Imprimir los resultados ordenados
           dfCountsByWeek.forEach(weekData => {
-            console.log(`Semana ${weekData.semana}: ${weekData.dfCount} días festivos (DF) encontrados.`);
+            console.log(`Semana ${weekData.semana}: ${weekData.dfCount} (DF) encontrados.`);
           });
         }
       });
