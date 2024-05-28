@@ -208,8 +208,6 @@ $(document).ready(function () {
   });
 
   function calcularSumaCalcPorSemana(userId, year, month) {
-    var currentMonth = new Date().getMonth() + 1;
-
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
       var semana = index + 1;
@@ -224,13 +222,9 @@ $(document).ready(function () {
           var $calcElement = $(this);
           var calc = $calcElement.text().trim();
           var fechaString = $calcElement.data("date");
-          var fecha = new Date(fechaString);
-          fecha.setUTCDate(fecha.getUTCDate());
-          fecha.setHours(fecha.getHours() - 5);
-          var mesCalc = fecha.getMonth() + 1;
 
           if (calc !== "DF") {
-            // Código para manejar los cálculos que no son DF
+            // Manejar los cálculos que no son DF
             var sign = calc.startsWith("-") ? -1 : 1;
             var tiempo = calc.replace(/[^\d:]/g, "").split(":");
             var horas = parseInt(tiempo[0], 10) * sign;
@@ -238,11 +232,12 @@ $(document).ready(function () {
             sumaHoras += horas;
             sumaMinutos += minutos;
           } else {
-            // Código para manejar los días de falta (DF)
+            // Manejar los días de falta (DF)
             dfCount++; // Incrementar el contador de DF
-            dfDates.push(fecha);
+            dfDates.push(new Date(fechaString));
           }
         });
+
         if (sumaMinutos >= 60) {
           sumaHoras += Math.floor(sumaMinutos / 60);
           sumaMinutos = sumaMinutos % 60;
@@ -250,11 +245,13 @@ $(document).ready(function () {
           sumaHoras += Math.ceil(sumaMinutos / 60);
           sumaMinutos = sumaMinutos % 60;
         }
+
         var resultadoHoras = sumaHoras;
         var resultadoMinutos = Math.abs(sumaMinutos)
           .toString()
           .padStart(2, "0");
         var resultado;
+
         if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
           resultado =
             "-" +
