@@ -315,8 +315,11 @@ $(document).ready(function () {
     const diaDeLaSemana = fecha.getDay(); // 0: Domingo, 1: Lunes, ..., 6: Sábado
     return diasDeLaSemana[diaDeLaSemana];
 }
-const date= "2024-05-04";
-console.log(obtenerDiaDeLaSemana(date));
+
+const date = "2024-05-04";
+console.log(`Fecha: ${new Date(date).toString()}`); // Verifica la fecha completa
+console.log(`Día de la semana: ${obtenerDiaDeLaSemana(date)}`); // Esto debería dar "sábado"
+
 function calcularSumaCalcPorSemana(userId, year, month) {
     var dfCountsByWeek = []; // Arreglo para almacenar los conteos de DF y detalles por semana
 
