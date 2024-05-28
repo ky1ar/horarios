@@ -464,15 +464,15 @@ $(document).ready(function () {
             const totalMinutos = horas * 60 + minutos;
             const totalMinutos2 = horas2 * 60 + minutos2;
             const operador = restar ? -1 : 1; // Determina si se suma o se resta
-
-            const nuevoTotalMinutos = totalMinutos + totalMinutos2 * operador;
-
+          
+            const nuevoTotalMinutos = totalMinutos + (totalMinutos2 * operador);
+          
             const nuevaHora = `${Math.floor(nuevoTotalMinutos / 60)}:${Math.abs(
               nuevoTotalMinutos % 60
             )
               .toString()
               .padStart(2, "0")}`;
-
+          
             return nuevaHora;
           }
 
@@ -490,12 +490,13 @@ $(document).ready(function () {
 
             return porcentaje;
           }
-          
+
+          // Aplicar el resultado al elemento HTML correspondiente
           if (resultado.includes("-")) {
             const nuevaHoraResta = sumarRestarHoras(
               acumuladoValorDia.toString(),
               resultado,
-              true // Debería ser 'true' para restar
+              false // Debería ser 'false' para restar
             );
             const porcentaje = calcularPorcentaje(
               acumuladoValorDia,
