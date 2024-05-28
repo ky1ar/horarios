@@ -289,17 +289,36 @@ require_once 'db.php';
         <img src="./assets/img/check.png" alt="">
         <p>Se ha actualizado el registro correctamente</p>
     </div>
+    <?php
+    session_start();
+    if (isset($_SESSION['uploadSuccess']) && $_SESSION['uploadSuccess'] === true) {
+        echo '
+        <div id="messageVerify" class="message-verify">
+            <img src="./assets/img/check.png" alt="">
+            <p>Se ha actualizado el registro correctamente</p>
+        </div>';
+        unset($_SESSION['uploadSuccess']); // Eliminar la variable de sesión después de mostrar el mensaje
+    } elseif (isset($_SESSION['uploadMessage'])) {
+        echo '
+        <div id="messageVerify" class="message-verify">
+            <p>' . $_SESSION['uploadMessage'] . '</p>
+        </div>';
+        unset($_SESSION['uploadMessage']); // Eliminar la variable de sesión después de mostrar el mensaje
+    }
+    ?>
+
+    <!-- Script JavaScript para mostrar y ocultar suavemente el mensaje -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Script JavaScript para mostrar el mensaje después de la carga del archivo
             var messageVerify = document.querySelector("#messageVerify");
             if (messageVerify) {
-                messageVerify.style.display = "flex";
+                messageVerify.style.opacity = "1";
                 setTimeout(function() {
-                    messageVerify.style.display = "none";
-                }, 2000);
-            } else {
-                console.error("No se encontró el elemento con el ID 'messageVerify'");
+                    messageVerify.style.opacity = "0";
+                    setTimeout(function() {
+                        messageVerify.remove();
+                    }, 1000); // Tiempo de transición
+                }, 2000); // Duración del mensaje
             }
         });
     </script>
