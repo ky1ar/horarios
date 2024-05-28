@@ -19,6 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Mover el archivo cargado a la ubicación de destino y reemplazar si ya existe
     if ($uploadOk) {
+        // Establecer los permisos de escritura adecuados
+        chmod($targetDir, 0777);
+
         if (move_uploaded_file($_FILES['fileInput']['tmp_name'], $targetFile)) {
             echo "El archivo ha sido subido correctamente.";
         } else {
