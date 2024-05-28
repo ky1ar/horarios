@@ -285,23 +285,17 @@ require_once 'db.php';
         </div>
     </div>
 
-    <div id="messageVerify" class="message-verify" style="display: none;">
+    <div id="messageVerify" class="message-verify">
         <img src="./assets/img/check.png" alt="">
         <p>Se ha actualizado el registro correctamente</p>
     </div>
     <script>
     window.onload = function() {
-        // Verificar si la cookie existe
         if (document.cookie.indexOf("registro_actualizado=true") !== -1) {
-            // Mostrar el mensaje
             document.getElementById("messageVerify").style.display = "block";
-
-            // Después de 3 segundos, ocultar el mensaje
             setTimeout(function() {
                 document.getElementById("messageVerify").style.display = "none";
             }, 3000);
-
-            // Eliminar la cookie
             document.cookie = "registro_actualizado=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         }
     };
