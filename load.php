@@ -289,7 +289,20 @@ require_once 'db.php';
         <img src="./assets/img/check.png" alt="">
         <p>Se ha actualizado el registro correctamente</p>
     </div>
-
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Script JavaScript para mostrar el mensaje después de la carga del archivo
+            var messageVerify = document.querySelector("#messageVerify");
+            if (messageVerify) {
+                messageVerify.style.display = "flex";
+                setTimeout(function() {
+                    messageVerify.style.display = "none";
+                }, 2000);
+            } else {
+                console.error("No se encontró el elemento con el ID 'messageVerify'");
+            }
+        });
+    </script>
 </body>
 
 </html>
