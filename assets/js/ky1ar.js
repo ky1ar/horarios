@@ -309,7 +309,6 @@ $(document).ready(function () {
   //   });
   // }
   function calcularSumaCalcPorSemana(userId, year, month) {
-    var currentMonth = new Date().getMonth() + 1;
     var dfCountsByWeek = []; // Arreglo para almacenar los conteos de DF y detalles por semana
   
     $(".hrr-box").each(function (index) {
@@ -327,7 +326,7 @@ $(document).ready(function () {
           var mesCalc = fecha.getMonth() + 1;
           var diaDeLaSemana = fecha.getDay(); // 0: Domingo, 1: Lunes, ..., 6: Sábado
   
-          if (mesCalc === currentMonth && diaDeLaSemana >= 2 && diaDeLaSemana <= 6) { // Solo lunes a sábado
+          if (mesCalc === month && diaDeLaSemana >= 1 && diaDeLaSemana <= 6) { // Solo lunes a sábado
             if (calc === "DF") {
               dfDetails.push({
                 date: fecha.toISOString().split('T')[0], // Fecha en formato YYYY-MM-DD
@@ -419,10 +418,6 @@ $(document).ready(function () {
   }
   
   
-  
-  
-  
-
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({
       url: "../routes/del/get_week.php",
