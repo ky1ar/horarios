@@ -298,7 +298,7 @@ $(document).ready(function () {
           const nuevaHoraResta = sumarRestarHoras(
             acumuladoValorDia.toString(),
             resultado,
-            true
+            true // Aquí está el problema, debería ser 'false' para restar
           );
           const porcentaje = calcularPorcentaje(
             acumuladoValorDia,
@@ -311,7 +311,8 @@ $(document).ready(function () {
         } else {
           const nuevaHoraSuma = sumarRestarHoras(
             acumuladoValorDia.toString(),
-            resultado
+            resultado,
+            false // Aquí también debería ser 'false' para sumar
           );
           const porcentaje = calcularPorcentaje(
             acumuladoValorDia,
