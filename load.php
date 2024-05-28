@@ -25,7 +25,7 @@ require_once 'db.php';
                     <form action="./routes/del/cargarRegistro.php" method="post" enctype="multipart/form-data" class="form-insert">
                         <label for="fileInput" class="custom-file-upload insert">Selecciona</label>
                         <input type="file" id="fileInput" name="fileInput" accept=".csv" style="display: none;">
-                        <input type="submit" value="Cargar">
+                        <input type="submit" value="Cargar" id="submitButton">
                     </form>
                 </div>
             </li>
