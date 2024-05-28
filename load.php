@@ -19,6 +19,16 @@ require_once 'db.php';
         <a href="" class="ky1-lgo"><img src="assets/img/logod.webp" alt=""></a>
         <ul class="ky1-lst">
             <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Horarios</li>
+            <li>
+                <div class="cont-insert">
+                    <h1>Insertar Registro</h1>
+                    <form action="./routes/del/cargarRegistro.php" method="post" enctype="multipart/form-data" class="form-insert">
+                        <label for="fileInput" class="custom-file-upload insert">Selecciona</label>
+                        <input type="file" id="fileInput" name="fileInput" accept=".csv" style="display: none;">
+                        <input type="submit" value="Cargar">
+                    </form>
+                </div>
+            </li>
             <!-- <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Historial</li>
             <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Anuncios</li> -->
         </ul>

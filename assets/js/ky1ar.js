@@ -12,6 +12,15 @@ $(document).ready(function () {
   const userImage = $("#userImage");
   const imagePath = "assets/img/profiles/";
 
+  document.getElementById("fileInput").addEventListener("change", function () {
+    const label = document.querySelector('label[for="fileInput"]');
+    if (this.files.length > 0) {
+      label.textContent = this.files[0].name;
+    } else {
+      label.textContent = "Cargar Registro";
+    }
+  });
+
   const monthNames = [
     "Enero",
     "Febrero",
@@ -310,138 +319,180 @@ $(document).ready(function () {
   // }
 
   function obtenerDiaDeLaSemana(fechaString) {
-    const fecha = new Date(Date.UTC(
+    const fecha = new Date(
+      Date.UTC(
         parseInt(fechaString.substring(0, 4), 10),
         parseInt(fechaString.substring(5, 7), 10) - 1,
         parseInt(fechaString.substring(8, 10), 10)
-    ));
-    const diasDeLaSemana = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+      )
+    );
+    const diasDeLaSemana = [
+      "domingo",
+      "lunes",
+      "martes",
+      "miércoles",
+      "jueves",
+      "viernes",
+      "sábado",
+    ];
     const diaDeLaSemana = fecha.getUTCDay(); // 0: Domingo, 1: Lunes, ..., 6: Sábado
     return diasDeLaSemana[diaDeLaSemana];
-}
+  }
 
-const date = "2024-05-04";
-console.log(`Día de la semana: ${obtenerDiaDeLaSemana(date)}`);
+  const date = "2024-05-04";
+  console.log(`Día de la semana: ${obtenerDiaDeLaSemana(date)}`);
 
-function calcularSumaCalcPorSemana(userId, year, month) {
+  function calcularSumaCalcPorSemana(userId, year, month) {
     var dfCountsByWeek = []; // Arreglo para almacenar los conteos de DF y detalles por semana
 
     $(".hrr-box").each(function (index) {
-        var $hrrBox = $(this);
-        var semana = index + 1;
-        var sumaHoras = 0;
-        var sumaMinutos = 0;
-        var dfDetails = []; // Arreglo para almacenar detalles de DF por semana
+      var $hrrBox = $(this);
+      var semana = index + 1;
+      var sumaHoras = 0;
+      var sumaMinutos = 0;
+      var dfDetails = []; // Arreglo para almacenar detalles de DF por semana
 
-        // Realiza la solicitud para obtener acumulado_valor_dia
-        getWeeklyData(userId, semana, year, month, function (acumuladoValorDia) {
-            $hrrBox.find(".calc").each(function () {
-                var calc = $(this).text().trim();
-                var fechaString = $(this).data("date");
-                var fecha = new Date(fechaString);
-                var mesCalc = fecha.getMonth() + 1;
-                var diaDeLaSemana = fecha.getDay(); // 0: Domingo, 1: Lunes, ..., 6: Sábado
+      // Realiza la solicitud para obtener acumulado_valor_dia
+      getWeeklyData(userId, semana, year, month, function (acumuladoValorDia) {
+        $hrrBox.find(".calc").each(function () {
+          var calc = $(this).text().trim();
+          var fechaString = $(this).data("date");
+          var fecha = new Date(fechaString);
+          var mesCalc = fecha.getMonth() + 1;
+          var diaDeLaSemana = fecha.getDay(); // 0: Domingo, 1: Lunes, ..., 6: Sábado
 
-                if (
-                    mesCalc === month &&
-                    diaDeLaSemana >= 0 && // Solo lunes a sábado (excluye domingo)
-                    diaDeLaSemana <= 6 &&
-                    fecha.getFullYear() === year &&
-                    fecha.getMonth() + 1 === month // Asegurarse que sea del mes especificado
-                ) {
-                    if (calc === "DF") {
-                        dfDetails.push({
-                            date: fecha.toISOString().split("T")[0], // Fecha en formato YYYY-MM-DD
-                            dayOfWeek: obtenerDiaDeLaSemana(fecha.toISOString().split("T")[0]), // Día de la semana en español usando la función externa
-                        });
-                    } else {
-                        var sign = calc.startsWith("-") ? -1 : 1;
-                        var tiempo = calc.replace(/[^\d:]/g, "").split(":");
-                        var horas = parseInt(tiempo[0], 10) * sign;
-                        var minutos = parseInt(tiempo[1], 10) * sign;
-                        sumaHoras += horas;
-                        sumaMinutos += minutos;
-                    }
-                }
-            });
-
-            if (sumaMinutos >= 60) {
-                sumaHoras += Math.floor(sumaMinutos / 60);
-                sumaMinutos = sumaMinutos % 60;
-            } else if (sumaMinutos <= -60) {
-                sumaHoras += Math.ceil(sumaMinutos / 60);
-                sumaMinutos = sumaMinutos % 60;
-            }
-
-            var resultadoHoras = sumaHoras;
-            var resultadoMinutos = Math.abs(sumaMinutos).toString().padStart(2, "0");
-            var resultado;
-            if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
-                resultado = "-" + Math.abs(resultadoHoras).toString().padStart(2, "0") + ":" + resultadoMinutos;
+          if (
+            mesCalc === month &&
+            diaDeLaSemana >= 0 && // Solo lunes a sábado (excluye domingo)
+            diaDeLaSemana <= 6 &&
+            fecha.getFullYear() === year &&
+            fecha.getMonth() + 1 === month // Asegurarse que sea del mes especificado
+          ) {
+            if (calc === "DF") {
+              dfDetails.push({
+                date: fecha.toISOString().split("T")[0], // Fecha en formato YYYY-MM-DD
+                dayOfWeek: obtenerDiaDeLaSemana(
+                  fecha.toISOString().split("T")[0]
+                ), // Día de la semana en español usando la función externa
+              });
             } else {
-                resultado = resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
+              var sign = calc.startsWith("-") ? -1 : 1;
+              var tiempo = calc.replace(/[^\d:]/g, "").split(":");
+              var horas = parseInt(tiempo[0], 10) * sign;
+              var minutos = parseInt(tiempo[1], 10) * sign;
+              sumaHoras += horas;
+              sumaMinutos += minutos;
             }
-
-            function sumarRestarHoras(totalMinutosActual, resultado, restar = false) {
-                const [horas, minutos] = totalMinutosActual.split(":").map(Number);
-                const [horas2, minutos2] = resultado.split(":").map(Number);
-                const totalMinutos = horas * 60 + minutos;
-                const totalminutos2 = horas2 * 60 + minutos2;
-                const signo = restar ? -1 : 1;
-                const nuevoTotalMinutos = totalMinutos + signo * totalminutos2;
-
-                const nuevaHora = `${Math.floor(nuevoTotalMinutos / 60)}:${(nuevoTotalMinutos % 60)
-                    .toString()
-                    .padStart(2, "0")}`;
-                return nuevaHora;
-            }
-
-            function horaAMinutos(hora) {
-                const [horas, minutos] = hora.split(":").map(Number);
-                return horas * 60 + minutos;
-            }
-
-            function calcularPorcentaje(tiempoInicial, resultado) {
-                const minutosInicial = horaAMinutos(tiempoInicial);
-                const minutosResultado = horaAMinutos(resultado);
-                var porcentaje = (minutosResultado / minutosInicial) * 100;
-
-                return porcentaje;
-            }
-
-            if (resultado.includes("-")) {
-                const nuevaHoraResta = sumarRestarHoras(acumuladoValorDia.toString(), resultado, true);
-                const porcentaje = calcularPorcentaje(acumuladoValorDia, nuevaHoraResta);
-                $hrrBox.find(".minS").text(nuevaHoraResta + "h" + " / " + acumuladoValorDia + "h");
-                $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
-            } else {
-                const nuevaHoraSuma = sumarRestarHoras(acumuladoValorDia.toString(), resultado);
-                const porcentaje = calcularPorcentaje(acumuladoValorDia, nuevaHoraSuma);
-                $hrrBox.find(".minS").text(nuevaHoraSuma + "h" + " / " + acumuladoValorDia + "h");
-                $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
-            }
-
-            // Guardar los detalles de DF para la semana actual en el arreglo
-            dfCountsByWeek.push({ semana: semana, dfDetails: dfDetails });
-
-            // Verificar si todas las semanas han sido procesadas
-            if (dfCountsByWeek.length === $(".hrr-box").length) {
-                // Ordenar el arreglo por semana
-                dfCountsByWeek.sort((a, b) => a.semana - b.semana);
-
-                // Imprimir los resultados ordenados
-                dfCountsByWeek.forEach(weekData => {
-                    console.log(`Semana ${weekData.semana}: ${weekData.dfDetails.length} días festivos (DF) encontrados.`);
-                    weekData.dfDetails.forEach(dfDetail => {
-                        console.log(` - ${dfDetail.dayOfWeek}, ${dfDetail.date}`);
-                    });
-                });
-            }
+          }
         });
+
+        if (sumaMinutos >= 60) {
+          sumaHoras += Math.floor(sumaMinutos / 60);
+          sumaMinutos = sumaMinutos % 60;
+        } else if (sumaMinutos <= -60) {
+          sumaHoras += Math.ceil(sumaMinutos / 60);
+          sumaMinutos = sumaMinutos % 60;
+        }
+
+        var resultadoHoras = sumaHoras;
+        var resultadoMinutos = Math.abs(sumaMinutos)
+          .toString()
+          .padStart(2, "0");
+        var resultado;
+        if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
+          resultado =
+            "-" +
+            Math.abs(resultadoHoras).toString().padStart(2, "0") +
+            ":" +
+            resultadoMinutos;
+        } else {
+          resultado =
+            resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
+        }
+
+        function sumarRestarHoras(
+          totalMinutosActual,
+          resultado,
+          restar = false
+        ) {
+          const [horas, minutos] = totalMinutosActual.split(":").map(Number);
+          const [horas2, minutos2] = resultado.split(":").map(Number);
+          const totalMinutos = horas * 60 + minutos;
+          const totalminutos2 = horas2 * 60 + minutos2;
+          const signo = restar ? -1 : 1;
+          const nuevoTotalMinutos = totalMinutos + signo * totalminutos2;
+
+          const nuevaHora = `${Math.floor(nuevoTotalMinutos / 60)}:${(
+            nuevoTotalMinutos % 60
+          )
+            .toString()
+            .padStart(2, "0")}`;
+          return nuevaHora;
+        }
+
+        function horaAMinutos(hora) {
+          const [horas, minutos] = hora.split(":").map(Number);
+          return horas * 60 + minutos;
+        }
+
+        function calcularPorcentaje(tiempoInicial, resultado) {
+          const minutosInicial = horaAMinutos(tiempoInicial);
+          const minutosResultado = horaAMinutos(resultado);
+          var porcentaje = (minutosResultado / minutosInicial) * 100;
+
+          return porcentaje;
+        }
+
+        if (resultado.includes("-")) {
+          const nuevaHoraResta = sumarRestarHoras(
+            acumuladoValorDia.toString(),
+            resultado,
+            true
+          );
+          const porcentaje = calcularPorcentaje(
+            acumuladoValorDia,
+            nuevaHoraResta
+          );
+          $hrrBox
+            .find(".minS")
+            .text(nuevaHoraResta + "h" + " / " + acumuladoValorDia + "h");
+          $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
+        } else {
+          const nuevaHoraSuma = sumarRestarHoras(
+            acumuladoValorDia.toString(),
+            resultado
+          );
+          const porcentaje = calcularPorcentaje(
+            acumuladoValorDia,
+            nuevaHoraSuma
+          );
+          $hrrBox
+            .find(".minS")
+            .text(nuevaHoraSuma + "h" + " / " + acumuladoValorDia + "h");
+          $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
+        }
+
+        // Guardar los detalles de DF para la semana actual en el arreglo
+        dfCountsByWeek.push({ semana: semana, dfDetails: dfDetails });
+
+        // Verificar si todas las semanas han sido procesadas
+        if (dfCountsByWeek.length === $(".hrr-box").length) {
+          // Ordenar el arreglo por semana
+          dfCountsByWeek.sort((a, b) => a.semana - b.semana);
+
+          // Imprimir los resultados ordenados
+          dfCountsByWeek.forEach((weekData) => {
+            console.log(
+              `Semana ${weekData.semana}: ${weekData.dfDetails.length} días festivos (DF) encontrados.`
+            );
+            weekData.dfDetails.forEach((dfDetail) => {
+              console.log(` - ${dfDetail.dayOfWeek}, ${dfDetail.date}`);
+            });
+          });
+        }
+      });
     });
-}
-
-
+  }
 
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({

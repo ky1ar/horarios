@@ -89,6 +89,49 @@ body {
   font-weight: 500;
   align-items: center;
 }
+#ky1-lft .ky1-lst .cont-insert{
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  box-shadow: 0 0 0.5rem 0.2rem rgb(206, 206, 206);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  width: 15rem;
+  text-align: center;
+}
+#ky1-lft .ky1-lst .cont-insert h1{
+  font-size: 1.2rem;
+}
+#ky1-lft .ky1-lst .cont-insert .form-insert{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+#ky1-lft .ky1-lst .cont-insert .form-insert label{
+  background-color: black;
+  color: white;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+#ky1-lft .ky1-lst .cont-insert .form-insert input{
+  background-color: var(--primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  text-decoration: none;
+  display: inline-block;
+  margin: auto;
+}
+
+#ky1-lft .ky1-lst  .cont-insert .form-insert input:hover {
+  filter: opacity(0.75);
+}
+
 /***************************************************************************/
 #ky1-rgt {
   background-color: var(--gray);
