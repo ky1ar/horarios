@@ -311,8 +311,8 @@ $(document).ready(function () {
 
   function obtenerDiaDeLaSemana(fechaString) {
     const fecha = new Date(fechaString);
-    const diasDeLaSemana = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
-    const diaDeLaSemana = fecha.getDay(); // Ajustar para que 0: Lunes, 1: Martes, ..., 5: Sábado
+    const diasDeLaSemana = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"];
+    const diaDeLaSemana = fecha.getDay() - 1; // Ajustar para que 0: Lunes, 1: Martes, ..., 5: Sábado
     return diasDeLaSemana[diaDeLaSemana];
 }
 
