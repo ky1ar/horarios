@@ -313,7 +313,7 @@ $(document).ready(function () {
     const fecha = new Date(fechaString);
     
     // Array con los nombres de los días de la semana en español
-    const diasDeLaSemana = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+    const diasDeLaSemana = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
     
     // Obtener el día de la semana (0 para domingo, 1 para lunes, etc.)
     const diaDeLaSemana = fecha.getDay();
