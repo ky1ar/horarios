@@ -320,6 +320,8 @@ $(document).ready(function () {
 
         // Realiza la solicitud para obtener acumulado_valor_dia
         getWeeklyData(userId, semana, year, month, function (acumuladoValorDia) {
+            var totalHorasDF = 0;
+
             $hrrBox.find(".calc").each(function () {
                 var calc = $(this).text().trim();
                 var fecha = new Date($(this).data("date"));
@@ -340,7 +342,7 @@ $(document).ready(function () {
                         } else if (idProfile === 3 && diaSemana >= 1 && diaSemana <= 6) {
                             ajusteHoras = 8;
                         }
-                        sumaHoras -= ajusteHoras;
+                        totalHorasDF += ajusteHoras;
                     } else {
                         var sign = calc.startsWith("-") ? -1 : 1;
                         var tiempo = calc.replace(/[^\d:]/g, "").split(":");
@@ -360,6 +362,9 @@ $(document).ready(function () {
                 sumaHoras += Math.ceil(sumaMinutos / 60);
                 sumaMinutos = sumaMinutos % 60;
             }
+
+            // Resta las horas de DF a la suma total de horas
+            sumaHoras -= totalHorasDF;
 
             var resultadoHoras = sumaHoras;
             var resultadoMinutos = Math.abs(sumaMinutos).toString().padStart(2, "0");
@@ -395,6 +400,9 @@ $(document).ready(function () {
                 return porcentaje;
             }
 
+            // Recalcular el acumuladoValorDia restando las horas de DF
+            acumuladoValorDia -= totalHorasDF;
+
             if (resultado.includes("-")) {
                 const nuevaHoraResta = sumarRestarHoras(acumuladoValorDia.toString(), resultado, true);
                 const porcentaje = calcularPorcentaje(acumuladoValorDia, nuevaHoraResta);
@@ -409,6 +417,7 @@ $(document).ready(function () {
         });
     });
 }
+
 
 
   function getWeeklyData(userId, week, year, month, callback) {
