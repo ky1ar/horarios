@@ -320,11 +320,6 @@ $(document).ready(function () {
     return diasDeLaSemana[diaDeLaSemana];
 }
 const date = "2024-05-04";
-console.log(`Fecha: ${new Date(Date.UTC(
-    parseInt(date.substring(0, 4), 10),
-    parseInt(date.substring(5, 7), 10) - 1,
-    parseInt(date.substring(8, 10), 10)
-)).toUTCString()}`);
 console.log(`Día de la semana: ${obtenerDiaDeLaSemana(date)}`);
 
 function calcularSumaCalcPorSemana(userId, year, month) {
