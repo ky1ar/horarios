@@ -310,7 +310,7 @@ $(document).ready(function () {
   // }
   
   function calcularSumaCalcPorSemana(userId, year, month, idProfile) {
-    var currentMonth = new Date().getMonth() + 1;
+    var currentMonth = new Date(year, month - 1).getMonth() + 1;
 
     $(".hrr-box").each(function (index) {
         var $hrrBox = $(this);
@@ -388,6 +388,9 @@ $(document).ready(function () {
             }
 
             function horaAMinutos(hora) {
+                if (typeof hora !== 'string') {
+                    return 0;
+                }
                 const [horas, minutos] = hora.split(":").map(Number);
                 return horas * 60 + minutos;
             }
@@ -417,6 +420,7 @@ $(document).ready(function () {
         });
     });
 }
+
 
 
 
