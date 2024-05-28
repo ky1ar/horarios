@@ -28,14 +28,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         chmod($targetDir, 0777);
 
         if (move_uploaded_file($_FILES['fileInput']['tmp_name'], $targetFile)) {
-            // Aquí, después de completar la carga del archivo, se imprimirá el script JavaScript
+            // La carga del archivo se ha completado con éxito
+            // El script JavaScript se ejecutará después de que la página se cargue completamente
             echo '<script>
                 document.addEventListener("DOMContentLoaded", function () {
                     var messageVerify = document.querySelector(".message-verify");
-                    messageVerify.style.display = "flex";
-                    setTimeout(function () {
-                        messageVerify.style.display = "none";
-                    }, 2000); 
+                    if (messageVerify) {
+                        messageVerify.style.display = "flex";
+                        setTimeout(function () {
+                            messageVerify.style.display = "none";
+                        }, 2000);
+                    } else {
+                        console.error("No se encontró el elemento con la clase");
+                    }
                 });
             </script>';
         } else {
