@@ -302,22 +302,24 @@ $(document).ready(function () {
             .text(nuevaHoraResta + "h" + " / " + acumuladoValorDia + "h");
           $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
         } else {
-          const nuevaHoraSuma = sumarRestarHoras(
+          const nuevaHoraResta = sumarRestarHoras(
             acumuladoValorDia.toString(),
-            resultado
+            resultado,
+            false // Cambié 'true' por 'false' para que sume en lugar de restar
           );
           const porcentaje = calcularPorcentaje(
             acumuladoValorDia,
-            nuevaHoraSuma
+            nuevaHoraResta
           );
           $hrrBox
             .find(".minS")
-            .text(nuevaHoraSuma + "h" + " / " + acumuladoValorDia + "h");
+            .text(nuevaHoraResta + "h" + " / " + acumuladoValorDia + "h");
           $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
         }
       });
     });
   }
+
 
   // function obtenerDiaDeLaSemana(fechaString) {
   //   const fecha = new Date(
