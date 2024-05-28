@@ -223,24 +223,24 @@ $(document).ready(function () {
         $hrrBox.find(".calc").each(function () {
           var $calcElement = $(this);
           var calc = $calcElement.text().trim();
-          var fechaString = $calcElement.data("date"); 
-          var fecha = new Date(fechaString); 
+          var fechaString = $calcElement.data("date");
+          var fecha = new Date(fechaString);
           fecha.setUTCDate(fecha.getUTCDate());
-          fecha.setHours(fecha.getHours() - 5); 
-          var mesCalc = fecha.getMonth() + 1; 
+          fecha.setHours(fecha.getHours() - 5);
+          var mesCalc = fecha.getMonth() + 1;
 
-          if (mesCalc === currentMonth) {
-            if (calc !== "DF") {
-              var sign = calc.startsWith("-") ? -1 : 1;
-              var tiempo = calc.replace(/[^\d:]/g, "").split(":");
-              var horas = parseInt(tiempo[0], 10) * sign;
-              var minutos = parseInt(tiempo[1], 10) * sign;
-              sumaHoras += horas;
-              sumaMinutos += minutos;
-            } else {
-              dfCount++; // Incrementar el contador de DF
-              dfDates.push(fecha);
-            }
+          if (calc !== "DF") {
+            // Código para manejar los cálculos que no son DF
+            var sign = calc.startsWith("-") ? -1 : 1;
+            var tiempo = calc.replace(/[^\d:]/g, "").split(":");
+            var horas = parseInt(tiempo[0], 10) * sign;
+            var minutos = parseInt(tiempo[1], 10) * sign;
+            sumaHoras += horas;
+            sumaMinutos += minutos;
+          } else {
+            // Código para manejar los días de falta (DF)
+            dfCount++; // Incrementar el contador de DF
+            dfDates.push(fecha);
           }
         });
         if (sumaMinutos >= 60) {
