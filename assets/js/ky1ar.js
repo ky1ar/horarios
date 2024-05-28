@@ -391,7 +391,7 @@ $(document).ready(function () {
         }
   
         // Log the number of DF days for the current week
-        console.log(`Semana ${semana}: ${dfCount} días festivos (DF) encontrados.`);
+        console.log(`Semana ${semana}: ${dfCount} (DF) encontrados.`);
       });
     });
   }
