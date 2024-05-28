@@ -22,7 +22,7 @@ require_once 'db.php';
             <li>
                 <div class="cont-insert">
                     <h1>Insertar Registro</h1>
-                    <form action="./routes/del/cargarRegistro.php" method="post" enctype="multipart/form-data" class="form-insert">
+                    <form id="fileUploadForm" action="./routes/del/cargarRegistro.php" method="post" enctype="multipart/form-data" class="form-insert">
                         <label for="fileInput" class="custom-file-upload insert">Selecciona</label>
                         <input type="file" id="fileInput" name="fileInput" accept=".csv" style="display: none;">
                         <input type="submit" value="Cargar" id="submitButton">
@@ -290,27 +290,28 @@ require_once 'db.php';
         <p>Se ha actualizado el registro correctamente</p>
     </div>
     <script>
-document.addEventListener("DOMContentLoaded", function () {
-    var form = document.getElementById("fileUploadForm");
-    if (form) {
-        form.addEventListener("submit", function (event) {
-            event.preventDefault();
-            var messageVerify = document.querySelector("#messageVerify");
-            if (messageVerify) {
-                messageVerify.style.display = "flex";
-                setTimeout(function () {
-                    messageVerify.style.display = "none";
-                }, 2000);
+        document.addEventListener("DOMContentLoaded", function() {
+            var form = document.getElementById("fileUploadForm");
+
+            if (form) {
+                form.addEventListener("submit", function(event) {
+                    event.preventDefault();
+                    var messageVerify = document.querySelector("#messageVerify");
+                    if (messageVerify) {
+                        messageVerify.style.display = "flex";
+                        setTimeout(function() {
+                            messageVerify.style.display = "none";
+                        }, 2000);
+                    } else {
+                        console.error("No se encontró el elemento con el ID 'messageVerify'");
+                    }
+                    this.submit();
+                });
             } else {
-                console.error("No se encontró el elemento con el ID 'messageVerify'");
+                console.error("No se encontró el formulario con el ID 'fileUploadForm'");
             }
-            this.submit();
         });
-    } else {
-        console.error("No se encontró el formulario con el ID 'fileUploadForm'");
-    }
-});
-</script>
+    </script>
 
 </body>
 
