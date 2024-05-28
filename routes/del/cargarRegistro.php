@@ -28,6 +28,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Redirigir de vuelta a la página principal después de cargar
-header('Location: index.php');
+header('Location: load.php');
 exit;
 ?>
