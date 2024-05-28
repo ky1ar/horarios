@@ -1,7 +1,4 @@
 <?php
-session_start();
-
-// Manejar el envío del formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $targetDir = __DIR__ . '/../../';
     $targetFile = $targetDir . 'final.csv';
@@ -10,13 +7,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Comprobar si el archivo es un CSV
     $fileType = pathinfo($_FILES['fileInput']['name'], PATHINFO_EXTENSION);
     if ($fileType !== 'csv') {
-        $_SESSION['uploadMessage'] = "Solo se permiten archivos CSV.";
+        echo "Solo se permiten archivos CSV.";
         $uploadOk = 0;
     }
 
     // Verificar si hay errores al subir el archivo
     if ($_FILES['fileInput']['error'] !== UPLOAD_ERR_OK) {
-        $_SESSION['uploadMessage'] = "Error al subir el archivo.";
+        echo "Error al subir el archivo.";
         $uploadOk = 0;
     }
 
@@ -31,14 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         chmod($targetDir, 0777);
 
         if (move_uploaded_file($_FILES['fileInput']['tmp_name'], $targetFile)) {
-            $_SESSION['uploadSuccess'] = true; // Indicar que el archivo se ha cargado correctamente
+            echo "El archivo ha sido subido correctamente.";
         } else {
-            $_SESSION['uploadMessage'] = "Error al mover el archivo.";
+            echo "Error al mover el archivo.";
         }
     }
-
-    // Redirigir de vuelta a la página principal después de cargar
-    header('Location: ../../load.php');
-    exit;
 }
+
+// Redirigir de vuelta a la página principal después de cargar
+header('Location: ../../load.php');
+exit;
 ?>

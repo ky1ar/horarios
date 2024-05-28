@@ -25,7 +25,7 @@ require_once 'db.php';
                     <form action="./routes/del/cargarRegistro.php" method="post" enctype="multipart/form-data" class="form-insert">
                         <label for="fileInput" class="custom-file-upload insert">Selecciona</label>
                         <input type="file" id="fileInput" name="fileInput" accept=".csv" style="display: none;">
-                        <input type="submit" value="Cargar" id="submitButton">
+                        <input type="submit" value="Cargar">
                     </form>
                 </div>
             </li>
@@ -289,39 +289,6 @@ require_once 'db.php';
         <img src="./assets/img/check.png" alt="">
         <p>Se ha actualizado el registro correctamente</p>
     </div>
-    <?php
-    session_start();
-    if (isset($_SESSION['uploadSuccess']) && $_SESSION['uploadSuccess'] === true) {
-        echo '
-        <div id="messageVerify" class="message-verify">
-            <img src="./assets/img/check.png" alt="">
-            <p>Se ha actualizado el registro correctamente</p>
-        </div>';
-        unset($_SESSION['uploadSuccess']); // Eliminar la variable de sesión después de mostrar el mensaje
-    } elseif (isset($_SESSION['uploadMessage'])) {
-        echo '
-        <div id="messageVerify" class="message-verify">
-            <p>' . $_SESSION['uploadMessage'] . '</p>
-        </div>';
-        unset($_SESSION['uploadMessage']); // Eliminar la variable de sesión después de mostrar el mensaje
-    }
-    ?>
-
-    <!-- Script JavaScript para mostrar y ocultar suavemente el mensaje -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var messageVerify = document.querySelector("#messageVerify");
-            if (messageVerify) {
-                messageVerify.style.opacity = "1";
-                setTimeout(function() {
-                    messageVerify.style.opacity = "0";
-                    setTimeout(function() {
-                        messageVerify.remove();
-                    }, 1000); // Tiempo de transición
-                }, 2000); // Duración del mensaje
-            }
-        });
-    </script>
 </body>
 
 </html>
