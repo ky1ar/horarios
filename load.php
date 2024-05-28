@@ -285,7 +285,7 @@ require_once 'db.php';
         </div>
     </div>
 
-    <div class="message-verify" style="display: none;">
+    <div id="messageVerify" class="message-verify" style="display: none;">
         <img src="./assets/img/check.png" alt="">
         <p>Se ha actualizado el registro correctamente</p>
     </div>

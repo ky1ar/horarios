@@ -28,8 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         chmod($targetDir, 0777);
 
         if (move_uploaded_file($_FILES['fileInput']['tmp_name'], $targetFile)) {
-            // echo "El archivo ha sido subido correctamente.";
-            // Script JavaScript para mostrar el mensaje después de la carga
+            // Aquí, después de completar la carga del archivo, se imprimirá el script JavaScript
             echo '<script>
                 document.addEventListener("DOMContentLoaded", function () {
                     var messageVerify = document.querySelector(".message-verify");
