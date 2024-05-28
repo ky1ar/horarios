@@ -215,13 +215,15 @@ $(document).ready(function () {
         var semana = index + 1;
         var sumaHoras = 0;
         var sumaMinutos = 0;
-        var dfCount = 0;
+        var dfCount = 0; // Contador de DF
+        var dfDates = []; // Array para almacenar las fechas de DF
 
         // Realiza la solicitud para obtener acumulado_valor_dia
         getWeeklyData(userId, semana, year, month, function (acumuladoValorDia) {
             $hrrBox.find(".calc").each(function () {
-                var calc = $(this).text().trim();
-                var fecha = new Date($(this).data("date"));
+                var $calcElement = $(this);
+                var calc = $calcElement.text().trim();
+                var fecha = new Date($calcElement.data("date"));
                 var mesCalc = fecha.getMonth() + 1;
                 if (mesCalc === currentMonth) {
                     if (calc !== "DF") {
@@ -232,7 +234,8 @@ $(document).ready(function () {
                         sumaHoras += horas;
                         sumaMinutos += minutos;
                     } else {
-                        dfCount++; 
+                        dfCount++; // Incrementar el contador de DF
+                        dfDates.push(fecha.toLocaleDateString()); // Almacenar la fecha de DF
                     }
                 }
             });
@@ -266,7 +269,9 @@ $(document).ready(function () {
                 ", Valor acumulado " +
                 acumuladoValorDia +
                 ", DF count: " +
-                dfCount 
+                dfCount +
+                ", DF dates: " +
+                dfDates.join(", ") // Mostrar las fechas de DF separadas por coma
             );
             function sumarRestarHoras(
                 totalMinutosActual,
@@ -331,6 +336,7 @@ $(document).ready(function () {
         });
     });
 }
+
 
   
   function getWeeklyData(userId, week, year, month, callback) {
