@@ -218,7 +218,7 @@ $(document).ready(function () {
       var dfCount = 0;
       var dfDates = []; 
 
-      getWeeklyData(userId, semana, year, month, function (acumuladoValorDia) {
+      getWeeklyData(userId, semana, year, month, function (acumuladoValorDia, idProfile) {
         $hrrBox.find(".calc").each(function () {
           var calc = $(this).text().trim();
           var fecha = new Date($(this).data("date") + "T00:00:00");
@@ -265,7 +265,9 @@ $(document).ready(function () {
         }
 
         console.log(
-          "Semana " +
+          "Id_Profile " +
+          idProfile +
+          ", Semana " +
             semana +
             ", suma calc: " +
             resultado +
