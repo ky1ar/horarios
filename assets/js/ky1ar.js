@@ -339,7 +339,8 @@ function calcularSumaCalcPorSemana(userId, year, month) {
                     mesCalc === month &&
                     diaDeLaSemana >= 1 && // Solo lunes a sábado (excluye domingo)
                     diaDeLaSemana <= 6 &&
-                    fecha.getFullYear() === year
+                    fecha.getFullYear() === year &&
+                    fecha.getMonth() + 1 === month // Asegurarse que sea del mes especificado
                 ) {
                     if (calc === "DF") {
                         dfDetails.push({
