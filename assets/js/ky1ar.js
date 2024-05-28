@@ -311,16 +311,21 @@ $(document).ready(function () {
   function obtenerDiaDeLaSemana(fechaString) {
     // Crear una instancia de Date a partir de la cadena de fecha
     const fecha = new Date(fechaString);
-
+    
     // Array con los nombres de los días de la semana en español
     const diasDeLaSemana = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
-
+    
     // Obtener el día de la semana (0 para domingo, 1 para lunes, etc.)
     const diaDeLaSemana = fecha.getDay();
-
+    
     // Devolver el nombre del día de la semana correspondiente
     return diasDeLaSemana[diaDeLaSemana];
 }
+
+// Ejemplo de uso:
+const fecha = "2024-05-04";
+console.log(obtenerDiaDeLaSemana(fecha));  // Debería imprimir "sábado"
+
 function calcularSumaCalcPorSemana(userId, year, month) {
   var dfCountsByWeek = []; // Arreglo para almacenar los conteos de DF y detalles por semana
 
