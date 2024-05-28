@@ -374,7 +374,7 @@ $(document).ready(function () {
             } else {
                 resultado = resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
             }
-
+            console.log("Data: " + resultado);
             function sumarRestarHoras(totalMinutosActual, resultado, restar = false) {
                 const [horas, minutos] = totalMinutosActual.split(":").map(Number);
                 const [horas2, minutos2] = resultado.split(":").map(Number);
