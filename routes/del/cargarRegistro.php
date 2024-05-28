@@ -32,14 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // El script JavaScript se ejecutará después de que la página se cargue completamente
             echo '<script>
                 document.addEventListener("DOMContentLoaded", function () {
-                    var messageVerify = document.querySelector(".message-verify");
+                    var messageVerify = document.querySelector("#messageVerify");
                     if (messageVerify) {
                         messageVerify.style.display = "flex";
                         setTimeout(function () {
                             messageVerify.style.display = "none";
                         }, 2000);
                     } else {
-                        console.error("No se encontró el elemento con la clase");
+                        console.error("No se encontró el elemento con el ID ");
                     }
                 });
             </script>';
