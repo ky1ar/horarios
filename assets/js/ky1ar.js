@@ -310,6 +310,7 @@ $(document).ready(function () {
   // }
   function calcularSumaCalcPorSemana(userId, year, month) {
     var currentMonth = new Date().getMonth() + 1;
+    var dfCountsByWeek = []; // Arreglo para almacenar los conteos de DF por semana
   
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
@@ -337,6 +338,7 @@ $(document).ready(function () {
             }
           }
         });
+  
         if (sumaMinutos >= 60) {
           sumaHoras += Math.floor(sumaMinutos / 60);
           sumaMinutos = sumaMinutos % 60;
@@ -344,6 +346,7 @@ $(document).ready(function () {
           sumaHoras += Math.ceil(sumaMinutos / 60);
           sumaMinutos = sumaMinutos % 60;
         }
+  
         var resultadoHoras = sumaHoras;
         var resultadoMinutos = Math.abs(sumaMinutos).toString().padStart(2, "0");
         var resultado;
@@ -390,11 +393,23 @@ $(document).ready(function () {
           $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
         }
   
-        // Log the number of DF days for the current week
-        console.log(`Semana ${semana}: ${dfCount} (DF) encontrados.`);
+        // Guardar el número de DF para la semana actual en el arreglo
+        dfCountsByWeek.push({ semana: semana, dfCount: dfCount });
+  
+        // Verificar si todas las semanas han sido procesadas
+        if (dfCountsByWeek.length === $(".hrr-box").length) {
+          // Ordenar el arreglo por semana
+          dfCountsByWeek.sort((a, b) => a.semana - b.semana);
+  
+          // Imprimir los resultados ordenados
+          dfCountsByWeek.forEach(weekData => {
+            console.log(`Semana ${weekData.semana}: ${weekData.dfCount} días festivos (DF) encontrados.`);
+          });
+        }
       });
     });
   }
+  
   
 
   function getWeeklyData(userId, week, year, month, callback) {
