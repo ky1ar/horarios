@@ -207,6 +207,145 @@ $(document).ready(function () {
     });
   });
 
+  // function calcularSumaCalcPorSemana(userId, year, month) {
+  //   var currentMonth = new Date().getMonth() + 1;
+
+  //   $(".hrr-box").each(function (index) {
+  //     var $hrrBox = $(this);
+  //     var semana = index + 1;
+  //     var sumaHoras = 0;
+  //     var sumaMinutos = 0;
+  //     var dfCount = 0;
+  //     var dfDates = [];
+
+  //     getWeeklyData(userId, semana, year, month, function (acumuladoValorDia, idProfile) {
+  //       $hrrBox.find(".calc").each(function () {
+  //         var calc = $(this).text().trim();
+  //         var fecha = new Date($(this).data("date") + "T00:00:00");
+  //         var mesCalc = fecha.getMonth() + 1;
+
+  //         if (mesCalc === currentMonth) {
+  //           if (calc !== "DF") {
+  //             var sign = calc.startsWith("-") ? -1 : 1;
+  //             var tiempo = calc.replace(/[^\d:]/g, "").split(":");
+  //             var horas = parseInt(tiempo[0], 10) * sign;
+  //             var minutos = parseInt(tiempo[1], 10) * sign;
+  //             sumaHoras += horas;
+  //             sumaMinutos += minutos;
+  //           } else {
+  //             dfCount++;
+  //             dfDates.push(fecha);
+  //           }
+  //         }
+  //       });
+
+  //       if (sumaMinutos >= 60) {
+  //         sumaHoras += Math.floor(sumaMinutos / 60);
+  //         sumaMinutos = sumaMinutos % 60;
+  //       } else if (sumaMinutos <= -60) {
+  //         sumaHoras += Math.ceil(sumaMinutos / 60);
+  //         sumaMinutos = sumaMinutos % 60;
+  //       }
+
+  //       var resultadoHoras = sumaHoras;
+  //       var resultadoMinutos = Math.abs(sumaMinutos)
+  //         .toString()
+  //         .padStart(2, "0");
+  //       var resultado;
+
+  //       if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
+  //         resultado =
+  //           "-" +
+  //           Math.abs(resultadoHoras).toString().padStart(2, "0") +
+  //           ":" +
+  //           resultadoMinutos;
+  //       } else {
+  //         resultado =
+  //           resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
+  //       }
+
+  //       console.log(
+  //         "Id_Profile " +
+  //         idProfile +
+  //         ", Semana " +
+  //         semana +
+  //         ", suma calc: " +
+  //         resultado +
+  //         ", Valor acumulado " +
+  //         acumuladoValorDia +
+  //         ", DF count: " +
+  //         dfCount +
+  //         ", DF dates: " +
+  //         dfDates.map((date) => {
+  //             const dayOfWeek = new Intl.DateTimeFormat("es-ES", {
+  //                 weekday: "long"
+  //             }).format(date);
+  //             return `${date.toLocaleDateString()} (${dayOfWeek})`;
+  //         }).join(", ")
+  //     );
+  //       function sumarRestarHoras(
+  //         totalMinutosActual,
+  //         resultado,
+  //         restar = false
+  //       ) {
+  //         const [horas, minutos] = totalMinutosActual.split(":").map(Number);
+  //         const [horas2, minutos2] = resultado.split(":").map(Number);
+  //         const totalMinutos = horas * 60 + minutos;
+  //         const totalminutos2 = horas2 * 60 + minutos2;
+  //         const signo = restar ? -1 : 1;
+  //         const nuevoTotalMinutos = totalMinutos + signo * totalminutos2;
+
+  //         const nuevaHora = `${Math.floor(nuevoTotalMinutos / 60)}:${(
+  //           nuevoTotalMinutos % 60
+  //         )
+  //           .toString()
+  //           .padStart(2, "0")}`;
+  //         return nuevaHora;
+  //       }
+  //       function horaAMinutos(hora) {
+  //         const [horas, minutos] = hora.split(":").map(Number);
+  //         return horas * 60 + minutos;
+  //       }
+
+  //       function calcularPorcentaje(tiempoInicial, resultado) {
+  //         const minutosInicial = horaAMinutos(tiempoInicial);
+  //         const minutosResultado = horaAMinutos(resultado);
+  //         var porcentaje = (minutosResultado / minutosInicial) * 100;
+
+  //         return porcentaje;
+  //       }
+  //       if (resultado.includes("-")) {
+  //         const nuevaHoraResta = sumarRestarHoras(
+  //           acumuladoValorDia.toString(),
+  //           resultado,
+  //           false // Debería ser 'false' para restar
+  //         );
+  //         const porcentaje = calcularPorcentaje(
+  //           acumuladoValorDia,
+  //           nuevaHoraResta
+  //         );
+  //         $hrrBox
+  //           .find(".minS")
+  //           .text(nuevaHoraResta + "h" + " / " + acumuladoValorDia + "h");
+  //         $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
+  //       } else {
+  //         const nuevaHoraSuma = sumarRestarHoras(
+  //           acumuladoValorDia.toString(),
+  //           resultado,
+  //           false // Debería ser 'false' para sumar
+  //         );
+  //         const porcentaje = calcularPorcentaje(
+  //           acumuladoValorDia,
+  //           nuevaHoraSuma
+  //         );
+  //         $hrrBox
+  //           .find(".minS")
+  //           .text(nuevaHoraSuma + "h" + " / " + acumuladoValorDia + "h");
+  //         $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
+  //       }
+  //     });
+  //   });
+  // }
   function calcularSumaCalcPorSemana(userId, year, month) {
     var currentMonth = new Date().getMonth() + 1;
 
@@ -216,134 +355,114 @@ $(document).ready(function () {
       var sumaHoras = 0;
       var sumaMinutos = 0;
       var dfCount = 0;
-      var dfDates = []; 
+      var dfDates = [];
 
-      getWeeklyData(userId, semana, year, month, function (acumuladoValorDia, idProfile) {
-        $hrrBox.find(".calc").each(function () {
-          var calc = $(this).text().trim();
-          var fecha = new Date($(this).data("date") + "T00:00:00");
-          var mesCalc = fecha.getMonth() + 1;
+      getWeeklyData(
+        userId,
+        semana,
+        year,
+        month,
+        function (acumuladoValorDia, idProfile) {
+          $hrrBox.find(".calc").each(function () {
+            var calc = $(this).text().trim();
+            var fecha = new Date($(this).data("date") + "T00:00:00");
+            var mesCalc = fecha.getMonth() + 1;
 
-          if (mesCalc === currentMonth) {
-            if (calc !== "DF") {
-              var sign = calc.startsWith("-") ? -1 : 1;
-              var tiempo = calc.replace(/[^\d:]/g, "").split(":");
-              var horas = parseInt(tiempo[0], 10) * sign;
-              var minutos = parseInt(tiempo[1], 10) * sign;
-              sumaHoras += horas;
-              sumaMinutos += minutos;
-            } else {
-              dfCount++;
-              dfDates.push(fecha); 
+            if (mesCalc === currentMonth) {
+              if (calc !== "DF") {
+                var sign = calc.startsWith("-") ? -1 : 1;
+                var tiempo = calc.replace(/[^\d:]/g, "").split(":");
+                var horas = parseInt(tiempo[0], 10) * sign;
+                var minutos = parseInt(tiempo[1], 10) * sign;
+                sumaHoras += horas;
+                sumaMinutos += minutos;
+              } else {
+                dfCount++;
+                dfDates.push({
+                  fecha: fecha,
+                  diaSemana: fecha.getDay(),
+                });
+              }
             }
+          });
+
+          // Ajustar la suma de horas según el perfil de usuario y el día de la semana
+          dfDates.forEach(function (dfDate) {
+            var restaHoras = 0;
+            if (idProfile === 1) {
+              if (dfDate.diaSemana >= 1 && dfDate.diaSemana <= 5) {
+                // Restar 8 horas por día de lunes a viernes
+                restaHoras = 8;
+              }
+            } else if (idProfile === 2) {
+              if (dfDate.diaSemana >= 1 && dfDate.diaSemana <= 5) {
+                // Restar 8 horas por día de lunes a viernes
+                restaHoras = 8;
+              } else if (dfDate.diaSemana === 6) {
+                // Restar 4 horas por sábado
+                restaHoras = 4;
+              }
+            } else if (idProfile === 3) {
+              restaHoras = 8; // Restar 8 horas por día para todos los días
+            }
+            sumaHoras -= restaHoras;
+          });
+
+          // Realizar ajustes si la suma de minutos supera 60 o es menor a -60
+          if (sumaMinutos >= 60) {
+            sumaHoras += Math.floor(sumaMinutos / 60);
+            sumaMinutos = sumaMinutos % 60;
+          } else if (sumaMinutos <= -60) {
+            sumaHoras += Math.ceil(sumaMinutos / 60);
+            sumaMinutos = sumaMinutos % 60;
           }
-        });
 
-        if (sumaMinutos >= 60) {
-          sumaHoras += Math.floor(sumaMinutos / 60);
-          sumaMinutos = sumaMinutos % 60;
-        } else if (sumaMinutos <= -60) {
-          sumaHoras += Math.ceil(sumaMinutos / 60);
-          sumaMinutos = sumaMinutos % 60;
-        }
-
-        var resultadoHoras = sumaHoras;
-        var resultadoMinutos = Math.abs(sumaMinutos)
-          .toString()
-          .padStart(2, "0");
-        var resultado;
-
-        if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
-          resultado =
-            "-" +
-            Math.abs(resultadoHoras).toString().padStart(2, "0") +
-            ":" +
-            resultadoMinutos;
-        } else {
-          resultado =
-            resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
-        }
-
-        console.log(
-          "Id_Profile " +
-          idProfile +
-          ", Semana " +
-          semana +
-          ", suma calc: " +
-          resultado +
-          ", Valor acumulado " +
-          acumuladoValorDia +
-          ", DF count: " +
-          dfCount +
-          ", DF dates: " +
-          dfDates.map((date) => {
-              const dayOfWeek = new Intl.DateTimeFormat("es-ES", {
-                  weekday: "long"
-              }).format(date);
-              return `${date.toLocaleDateString()} (${dayOfWeek})`;
-          }).join(", ")
-      );
-        function sumarRestarHoras(
-          totalMinutosActual,
-          resultado,
-          restar = false
-        ) {
-          const [horas, minutos] = totalMinutosActual.split(":").map(Number);
-          const [horas2, minutos2] = resultado.split(":").map(Number);
-          const totalMinutos = horas * 60 + minutos;
-          const totalminutos2 = horas2 * 60 + minutos2;
-          const signo = restar ? -1 : 1;
-          const nuevoTotalMinutos = totalMinutos + signo * totalminutos2;
-
-          const nuevaHora = `${Math.floor(nuevoTotalMinutos / 60)}:${(
-            nuevoTotalMinutos % 60
-          )
+          // Calcular el resultado en formato de hora y porcentaje
+          var resultadoHoras = sumaHoras;
+          var resultadoMinutos = Math.abs(sumaMinutos)
             .toString()
-            .padStart(2, "0")}`;
-          return nuevaHora;
-        }
-        function horaAMinutos(hora) {
-          const [horas, minutos] = hora.split(":").map(Number);
-          return horas * 60 + minutos;
-        }
+            .padStart(2, "0");
+          var resultado;
+          if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
+            resultado =
+              "-" +
+              Math.abs(resultadoHoras).toString().padStart(2, "0") +
+              ":" +
+              resultadoMinutos;
+          } else {
+            resultado =
+              resultadoHoras.toString().padStart(2, "0") +
+              ":" +
+              resultadoMinutos;
+          }
+          var porcentaje = (
+            (horaAMinutos(resultado) / horaAMinutos(acumuladoValorDia)) *
+            100
+          ).toFixed(1);
 
-        function calcularPorcentaje(tiempoInicial, resultado) {
-          const minutosInicial = horaAMinutos(tiempoInicial);
-          const minutosResultado = horaAMinutos(resultado);
-          var porcentaje = (minutosResultado / minutosInicial) * 100;
+          // Calcular nuevaHoraSuma o nuevaHoraResta según corresponda
+          var nuevaHora;
+          if (resultado.includes("-")) {
+            nuevaHora = sumarRestarHoras(
+              acumuladoValorDia.toString(),
+              resultado,
+              true
+            ); // Restar
+          } else {
+            nuevaHora = sumarRestarHoras(
+              acumuladoValorDia.toString(),
+              resultado,
+              false
+            ); // Sumar
+          }
 
-          return porcentaje;
-        }
-        if (resultado.includes("-")) {
-          const nuevaHoraResta = sumarRestarHoras(
-            acumuladoValorDia.toString(),
-            resultado,
-            false // Debería ser 'false' para restar
-          );
-          const porcentaje = calcularPorcentaje(
-            acumuladoValorDia,
-            nuevaHoraResta
-          );
+          // Actualizar el contenido de los elementos .minS y .porT en $hrrBox
           $hrrBox
             .find(".minS")
-            .text(nuevaHoraResta + "h" + " / " + acumuladoValorDia + "h");
-          $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
-        } else {
-          const nuevaHoraSuma = sumarRestarHoras(
-            acumuladoValorDia.toString(),
-            resultado,
-            false // Debería ser 'false' para sumar
-          );
-          const porcentaje = calcularPorcentaje(
-            acumuladoValorDia,
-            nuevaHoraSuma
-          );
-          $hrrBox
-            .find(".minS")
-            .text(nuevaHoraSuma + "h" + " / " + acumuladoValorDia + "h");
-          $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
+            .text(nuevaHora + "h / " + acumuladoValorDia + "h");
+          $hrrBox.find(".porT").text(porcentaje + "%");
         }
-      });
+      );
     });
   }
 
