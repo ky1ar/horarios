@@ -319,6 +319,7 @@ $(document).ready(function () {
     const diaDeLaSemana = fecha.getUTCDay(); // 0: Domingo, 1: Lunes, ..., 6: Sábado
     return diasDeLaSemana[diaDeLaSemana];
 }
+
 const date = "2024-05-04";
 console.log(`Día de la semana: ${obtenerDiaDeLaSemana(date)}`);
 
@@ -439,6 +440,7 @@ function calcularSumaCalcPorSemana(userId, year, month) {
         });
     });
 }
+
 
 
   function getWeeklyData(userId, week, year, month, callback) {
