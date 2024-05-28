@@ -285,22 +285,22 @@ require_once 'db.php';
         </div>
     </div>
 
-    <div id="messageVerify" class="message-verify" style="display: none;">
+    <div id="messageVerify" class="message-verify">
         <img src="./assets/img/check.png" alt="">
         <p>Se ha actualizado el registro correctamente</p>
     </div>
     <script>
-    window.onload = function() {
-        if (document.cookie.indexOf("registro_actualizado=true") !== -1) {
-            document.getElementById("messageVerify").style.display = "flex";
-            setTimeout(function() {
-                document.getElementById("messageVerify").style.display = "none";
-            }, 3000);
-            document.cookie = "registro_actualizado=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        }
-    };
-</script>
-
+        window.onload = function() {
+            if (document.cookie.indexOf("registro_actualizado=true") !== -1) {
+                var messageVerify = document.getElementById("messageVerify");
+                messageVerify.classList.add("show");
+                setTimeout(function() {
+                    messageVerify.classList.remove("show");
+                }, 3000);
+                document.cookie = "registro_actualizado=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            }
+        };
+    </script>
 </body>
 
 </html>
