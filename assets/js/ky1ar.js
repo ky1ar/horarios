@@ -223,9 +223,11 @@ $(document).ready(function () {
         $hrrBox.find(".calc").each(function () {
           var $calcElement = $(this);
           var calc = $calcElement.text().trim();
-          var dateString = $calcElement.data("date"); // Obtener el valor del atributo data-date
-          var fecha = new Date(dateString); // Convertir a objeto de fecha
-          var mesCalc = fecha.getMonth() + 1;
+          var fechaString = $calcElement.data("date"); // Obtener el valor del atributo data-date
+          var fecha = new Date(fechaString).toLocaleString("en-US", {
+            timeZone: "America/Lima",
+          }); // Convertir a objeto de fecha con zona horaria de Lima
+          var mesCalc = new Date(fechaString).getMonth() + 1;
           if (mesCalc === currentMonth) {
             if (calc !== "DF") {
               var sign = calc.startsWith("-") ? -1 : 1;
