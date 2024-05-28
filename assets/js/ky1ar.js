@@ -425,7 +425,7 @@ function calcularSumaCalcPorSemana(userId, year, month) {
 
               // Imprimir los resultados ordenados
               dfCountsByWeek.forEach(weekData => {
-                  console.log(`Semana ${weekData.semana}: ${weekData.dfDetails.length} días festivos (DF) encontrados.`);
+                  console.log(`Semana ${weekData.semana}: ${weekData.dfDetails.length} (DF) encontrados.`);
                   weekData.dfDetails.forEach(dfDetail => {
                       console.log(` - ${dfDetail.dayOfWeek}, ${dfDetail.date}`);
                   });
