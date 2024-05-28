@@ -223,10 +223,12 @@ $(document).ready(function () {
         $hrrBox.find(".calc").each(function () {
           var $calcElement = $(this);
           var calc = $calcElement.text().trim();
-          var fechaString = $calcElement.data("date"); // Obtener el valor del atributo data-date
-          var fecha = new Date(fechaString); // Convertir a objeto de fecha
-          fecha.setHours(fecha.getHours() - 5); // Establecer la zona horaria a GMT-5 (Lima)
-          var mesCalc = new Date(fechaString).getMonth() + 1;
+          var fechaString = $calcElement.data("date"); 
+          var fecha = new Date(fechaString); 
+          fecha.setUTCDate(fecha.getUTCDate());
+          fecha.setHours(fecha.getHours() - 5); 
+          var mesCalc = fecha.getMonth() + 1; 
+
           if (mesCalc === currentMonth) {
             if (calc !== "DF") {
               var sign = calc.startsWith("-") ? -1 : 1;
@@ -273,7 +275,7 @@ $(document).ready(function () {
             ", DF count: " +
             dfCount +
             ", DF dates: " +
-            dfDates.map(date => date.toLocaleDateString()).join(", ") 
+            dfDates.map((date) => date.toLocaleDateString()).join(", ")
         );
         function sumarRestarHoras(
           totalMinutosActual,
