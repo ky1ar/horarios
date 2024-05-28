@@ -294,15 +294,20 @@ require_once 'db.php';
             // Script JavaScript para mostrar el mensaje después de la carga del archivo
             var messageVerify = document.querySelector("#messageVerify");
             if (messageVerify) {
-                messageVerify.style.display = "flex";
+                messageVerify.style.opacity = "1";
+                messageVerify.style.visibility = "visible";
                 setTimeout(function() {
-                    messageVerify.style.display = "none";
+                    messageVerify.style.opacity = "0";
+                }, 1800);
+                setTimeout(function() {
+                    messageVerify.style.visibility = "hidden";
                 }, 2000);
             } else {
                 console.error("No se encontró el elemento con el ID 'messageVerify'");
             }
         });
     </script>
+
 </body>
 
 </html>
