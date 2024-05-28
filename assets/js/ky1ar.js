@@ -325,7 +325,10 @@ $(document).ready(function () {
           var calc = $(this).text().trim();
           var fecha = new Date($(this).data("date"));
           var mesCalc = fecha.getMonth() + 1;
-          if (mesCalc === currentMonth) {
+          var diaDeLaSemana = fecha.getDay(); // 0: Domingo, 1: Lunes, ..., 6: Sábado
+          var esDiaValido = diaDeLaSemana >= 1 && diaDeLaSemana <= 6; // Lunes a Sábado
+  
+          if (mesCalc === currentMonth && esDiaValido) {
             if (calc === "DF") {
               dfDetails.push({
                 date: fecha.toISOString().split('T')[0], // Fecha en formato YYYY-MM-DD
@@ -415,6 +418,7 @@ $(document).ready(function () {
       });
     });
   }
+  
   
   
   
