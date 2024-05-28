@@ -316,7 +316,7 @@ $(document).ready(function () {
       var semana = index + 1;
       var sumaHoras = 0;
       var sumaMinutos = 0;
-      var DFCount = 0; // Contador de DF
+      var dfCount = 0;
   
       // Realiza la solicitud para obtener acumulado_valor_dia
       getWeeklyData(userId, semana, year, month, function (acumuladoValorDia, idProfile) {
@@ -324,42 +324,27 @@ $(document).ready(function () {
           var calc = $(this).text().trim();
           var fecha = new Date($(this).data("date"));
           var mesCalc = fecha.getMonth() + 1;
+          var dayOfWeek = fecha.getDay(); // 0 (Sunday) to 6 (Saturday)
+          
           if (mesCalc === currentMonth) {
-            if (calc !== "DF") {
+            // Update DF count based on user profile
+            if (calc === "DF") {
+              if ((idProfile === 1 && dayOfWeek >= 1 && dayOfWeek <= 5) || // Monday to Friday
+                  (idProfile === 2 && dayOfWeek >= 1 && dayOfWeek <= 6) || // Monday to Saturday
+                  (idProfile === 3 && dayOfWeek >= 1 && dayOfWeek <= 6)) { // Monday to Saturday
+                dfCount++;
+              }
+            } else {
               var sign = calc.startsWith("-") ? -1 : 1;
               var tiempo = calc.replace(/[^\d:]/g, "").split(":");
               var horas = parseInt(tiempo[0], 10) * sign;
               var minutos = parseInt(tiempo[1], 10) * sign;
               sumaHoras += horas;
               sumaMinutos += minutos;
-            } else {
-              DFCount++; // Incrementar contador de DF
             }
           }
         });
   
-        // Aplicar descuento de horas basado en el id_profile
-        let DFDiscount = 0;
-        if (idProfile === 1) {
-          DFDiscount = DFCount * 8 * 60; // 8 horas por día laborable (Lunes a Viernes)
-        } else if (idProfile === 2) {
-          DFDiscount = DFCount * 8 * 60; // 8 horas por día
-          // Aplicar descuento adicional para sábados
-          $hrrBox.find(".calc").each(function () {
-            var fecha = new Date($(this).data("date"));
-            var dayOfWeek = fecha.getDay();
-            if ($(this).text().trim() === "DF" && dayOfWeek === 6) {
-              DFDiscount += 4 * 60; // 4 horas por sábado
-            }
-          });
-        } else if (idProfile === 3) {
-          DFDiscount = DFCount * 8 * 60; // 8 horas por día (Lunes a Sábado)
-        }
-  
-        // Aplicar el descuento de minutos basado en DFCount
-        sumaMinutos -= DFDiscount;
-  
-        // Ajustar suma de horas y minutos
         if (sumaMinutos >= 60) {
           sumaHoras += Math.floor(sumaMinutos / 60);
           sumaMinutos = sumaMinutos % 60;
@@ -398,7 +383,6 @@ $(document).ready(function () {
           const minutosInicial = horaAMinutos(tiempoInicial);
           const minutosResultado = horaAMinutos(resultado);
           var porcentaje = (minutosResultado / minutosInicial) * 100;
-  
           return porcentaje;
         }
   
@@ -413,6 +397,8 @@ $(document).ready(function () {
           $hrrBox.find(".minS").text(nuevaHoraSuma + "h" + " / " + acumuladoValorDia + "h");
           $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
         }
+  
+        console.log(`User ID: ${userId}, Week: ${semana}, DF Count: ${dfCount}`);
       });
     });
   }
