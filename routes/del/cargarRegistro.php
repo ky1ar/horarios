@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-
+setcookie("registro_actualizado", "true", time() + 60, "/"); // La cookie expirará en 60 segundos
 // Redirigir de vuelta a la página principal después de cargar
 header('Location: ../../load.php');
 exit;
