@@ -21,17 +21,19 @@ $(document).ready(function () {
     }
   });
   document.addEventListener("DOMContentLoaded", function () {
-    var form = document.querySelector(".form-insert");
-    var submitButton = document.getElementById("submitButton");
-    submitButton.addEventListener("click", function () {
-      var messageVerify = document.querySelector(".message-verify");
-      messageVerify.style.display = "flex";
-      setTimeout(function () {
-        messageVerify.style.display = "none";
-      }, 2000); 
-    });
-  });
-  
+    // Verificar si se ha realizado la carga
+    var urlParams = new URLSearchParams(window.location.search);
+    var loaded = urlParams.get('loaded');
+    
+    if (loaded === 'true') {
+        var messageVerify = document.querySelector(".message-verify");
+        messageVerify.style.display = "flex";
+        setTimeout(function () {
+            messageVerify.style.display = "none";
+        }, 2000); 
+    }
+});
+
   const monthNames = [
     "Enero",
     "Febrero",
