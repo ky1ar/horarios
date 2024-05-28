@@ -311,8 +311,8 @@ $(document).ready(function () {
 
   function obtenerDiaDeLaSemana(fechaString) {
     const fecha = new Date(fechaString);
-    const diasDeLaSemana = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"];
-    const diaDeLaSemana = fecha.getDay(); // Ajustar para que 0: Lunes, 1: Martes, ..., 5: Sábado
+    const diasDeLaSemana = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+    const diaDeLaSemana = fecha.getDay(); // 0: Domingo, 1: Lunes, ..., 6: Sábado
     return diasDeLaSemana[diaDeLaSemana];
 }
 
@@ -335,7 +335,12 @@ function calcularSumaCalcPorSemana(userId, year, month) {
                 var mesCalc = fecha.getMonth() + 1;
                 var diaDeLaSemana = fecha.getDay(); // 0: Domingo, 1: Lunes, ..., 6: Sábado
 
-                if (mesCalc === month && diaDeLaSemana >= 0 && diaDeLaSemana <= 6 && fecha.getFullYear() === year) { // Solo lunes a sábado y dentro del mismo mes y año
+                if (
+                    mesCalc === month &&
+                    diaDeLaSemana >= 1 && // Solo lunes a sábado (excluye domingo)
+                    diaDeLaSemana <= 6 &&
+                    fecha.getFullYear() === year
+                ) {
                     if (calc === "DF") {
                         dfDetails.push({
                             date: fecha.toISOString().split("T")[0], // Fecha en formato YYYY-MM-DD
