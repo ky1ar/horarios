@@ -224,9 +224,8 @@ $(document).ready(function () {
           var $calcElement = $(this);
           var calc = $calcElement.text().trim();
           var fechaString = $calcElement.data("date"); // Obtener el valor del atributo data-date
-          var fecha = new Date(fechaString).toLocaleString("en-US", {
-            timeZone: "America/Lima",
-          }); // Convertir a objeto de fecha con zona horaria de Lima
+          var fecha = new Date(fechaString); // Convertir a objeto de fecha
+          fecha.setHours(fecha.getHours() - 5); // Establecer la zona horaria a GMT-5 (Lima)
           var mesCalc = new Date(fechaString).getMonth() + 1;
           if (mesCalc === currentMonth) {
             if (calc !== "DF") {
@@ -238,7 +237,7 @@ $(document).ready(function () {
               sumaMinutos += minutos;
             } else {
               dfCount++; // Incrementar el contador de DF
-              dfDates.push(fecha.toLocaleDateString()); // Almacenar la fecha de DF
+              dfDates.push(fecha);
             }
           }
         });
@@ -274,7 +273,7 @@ $(document).ready(function () {
             ", DF count: " +
             dfCount +
             ", DF dates: " +
-            dfDates.join(", ") // Mostrar las fechas de DF separadas por coma
+            dfDates.map(date => date.toLocaleDateString()).join(", ") 
         );
         function sumarRestarHoras(
           totalMinutosActual,
