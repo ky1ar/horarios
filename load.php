@@ -18,7 +18,7 @@ require_once 'db.php';
     <aside id="ky1-lft">
         <a href="" class="ky1-lgo"><img src="assets/img/logod.webp" alt=""></a>
         <ul class="ky1-lst">
-            <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Horarios</li>
+            <!-- <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Horarios</li> -->
             <li>
                 <div class="cont-insert">
                     <h1>Insertar Registro</h1>

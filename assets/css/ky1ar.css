@@ -66,7 +66,8 @@ body {
   padding: 2.5rem;
 }
 #ky1-lft .ky1-lgo {
-  display: block;
+  display: flex;
+  justify-content: center;
 }
 #ky1-lft .ky1-lgo img {
   width: 10rem;
