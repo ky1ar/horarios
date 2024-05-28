@@ -209,7 +209,7 @@ $(document).ready(function () {
 
   function calcularSumaCalcPorSemana(userId, year, month) {
     var currentMonth = new Date().getMonth() + 1;
-
+  
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
       var semana = index + 1;
@@ -217,14 +217,14 @@ $(document).ready(function () {
       var sumaMinutos = 0;
       var dfCount = 0;
       var dfDates = []; // Array para almacenar las fechas de DF
-
+  
       // Realiza la solicitud para obtener acumulado_valor_dia
       getWeeklyData(userId, semana, year, month, function (acumuladoValorDia) {
         $hrrBox.find(".calc").each(function () {
           var calc = $(this).text().trim();
           var fecha = new Date($(this).data("date") + "T00:00:00"); // Ajuste aquí
           var mesCalc = fecha.getMonth() + 1;
-
+  
           if (mesCalc === currentMonth) {
             if (calc !== "DF") {
               var sign = calc.startsWith("-") ? -1 : 1;
@@ -239,7 +239,7 @@ $(document).ready(function () {
             }
           }
         });
-
+  
         if (sumaMinutos >= 60) {
           sumaHoras += Math.floor(sumaMinutos / 60);
           sumaMinutos = sumaMinutos % 60;
@@ -247,13 +247,13 @@ $(document).ready(function () {
           sumaHoras += Math.ceil(sumaMinutos / 60);
           sumaMinutos = sumaMinutos % 60;
         }
-
+  
         var resultadoHoras = sumaHoras;
         var resultadoMinutos = Math.abs(sumaMinutos)
           .toString()
           .padStart(2, "0");
         var resultado;
-
+  
         if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
           resultado =
             "-" +
@@ -264,7 +264,7 @@ $(document).ready(function () {
           resultado =
             resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
         }
-
+  
         console.log(
           "Semana " +
             semana +
@@ -288,7 +288,7 @@ $(document).ready(function () {
           const totalminutos2 = horas2 * 60 + minutos2;
           const signo = restar ? -1 : 1;
           const nuevoTotalMinutos = totalMinutos + signo * totalminutos2;
-
+  
           const nuevaHora = `${Math.floor(nuevoTotalMinutos / 60)}:${(
             nuevoTotalMinutos % 60
           )
@@ -300,12 +300,12 @@ $(document).ready(function () {
           const [horas, minutos] = hora.split(":").map(Number);
           return horas * 60 + minutos;
         }
-
+  
         function calcularPorcentaje(tiempoInicial, resultado) {
           const minutosInicial = horaAMinutos(tiempoInicial);
           const minutosResultado = horaAMinutos(resultado);
           var porcentaje = (minutosResultado / minutosInicial) * 100;
-
+  
           return porcentaje;
         }
         if (resultado.includes("-")) {
@@ -340,6 +340,7 @@ $(document).ready(function () {
       });
     });
   }
+  
 
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({
