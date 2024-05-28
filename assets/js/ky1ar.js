@@ -255,7 +255,6 @@ $(document).ready(function () {
           resultado =
             resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
         }
-        console.log("Semana " + semana + ": " + resultado);
         function sumarRestarHoras(
           totalMinutosActual,
           resultado,
@@ -302,24 +301,22 @@ $(document).ready(function () {
             .text(nuevaHoraResta + "h" + " / " + acumuladoValorDia + "h");
           $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
         } else {
-          const nuevaHoraResta = sumarRestarHoras(
+          const nuevaHoraSuma = sumarRestarHoras(
             acumuladoValorDia.toString(),
-            resultado,
-            false // Cambié 'true' por 'false' para que sume en lugar de restar
+            resultado
           );
           const porcentaje = calcularPorcentaje(
             acumuladoValorDia,
-            nuevaHoraResta
+            nuevaHoraSuma
           );
           $hrrBox
             .find(".minS")
-            .text(nuevaHoraResta + "h" + " / " + acumuladoValorDia + "h");
+            .text(nuevaHoraSuma + "h" + " / " + acumuladoValorDia + "h");
           $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
         }
       });
     });
   }
-
 
   // function obtenerDiaDeLaSemana(fechaString) {
   //   const fecha = new Date(
