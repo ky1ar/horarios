@@ -353,7 +353,7 @@ $(document).ready(function () {
                     }
                 }
             });
-
+            console.log("DFs semana " + semana + ": " + cantidadDFSemana);
             // Ajusta minutos y horas
             if (sumaMinutos >= 60) {
                 sumaHoras += Math.floor(sumaMinutos / 60);
