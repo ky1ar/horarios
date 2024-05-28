@@ -369,17 +369,15 @@ $(document).ready(function () {
             var mesCalc = fecha.getMonth() + 1;
 
             if (mesCalc === currentMonth) {
-              if (calc !== "DF") {
-                var sign = calc.startsWith("-") ? -1 : 1;
-                var tiempo = calc.replace(/[^\d:]/g, "").split(":");
-                var horas = parseInt(tiempo[0], 10) * sign;
-                var minutos = parseInt(tiempo[1], 10) * sign;
-                sumaHoras += horas;
-                sumaMinutos += minutos;
-              } else {
-                dfCount++;
-                dfDates.push(fecha);
-              }
+              var sign = calc.startsWith("-") ? -1 : 1; // Determinar el signo del cálculo
+              var tiempo = calc.replace(/[^\d:]/g, "").split(":");
+              var horas = parseInt(tiempo[0], 10) * sign;
+              var minutos = parseInt(tiempo[1], 10) * sign;
+              sumaHoras += horas;
+              sumaMinutos += minutos;
+            } else if (calc === "DF") {
+              dfCount++;
+              dfDates.push(fecha);
             }
           });
 
@@ -494,7 +492,7 @@ $(document).ready(function () {
             const nuevaHoraResta = sumarRestarHoras(
               acumuladoValorDia.toString(),
               resultado,
-              false // Debería ser 'false' para restar
+              true // 'true' para restar
             );
             const porcentaje = calcularPorcentaje(
               acumuladoValorDia,
@@ -508,7 +506,7 @@ $(document).ready(function () {
             const nuevaHoraSuma = sumarRestarHoras(
               acumuladoValorDia.toString(),
               resultado,
-              false // Debería ser 'false' para sumar
+              false // 'false' para sumar
             );
             const porcentaje = calcularPorcentaje(
               acumuladoValorDia,
