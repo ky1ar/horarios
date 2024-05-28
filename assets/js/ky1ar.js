@@ -309,31 +309,30 @@ $(document).ready(function () {
   //   });
   // }
   function calcularSumaCalcPorSemana(userId, year, month) {
-    var currentMonth = new Date().getMonth() + 1;
+    const daysInMonth = new Date(year, month, 0).getDate();
   
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
       var semana = index + 1;
       var sumaHoras = 0;
       var sumaMinutos = 0;
-      var dfCount = 0;
+      var dfCount = 0; // Contador de DF
+      var profileId = null;
   
       // Realiza la solicitud para obtener acumulado_valor_dia
       getWeeklyData(userId, semana, year, month, function (acumuladoValorDia, idProfile) {
+        profileId = idProfile;
         $hrrBox.find(".calc").each(function () {
           var calc = $(this).text().trim();
           var fecha = new Date($(this).data("date"));
           var mesCalc = fecha.getMonth() + 1;
-          var dayOfWeek = fecha.getDay(); // 0 (Sunday) to 6 (Saturday)
-          
-          if (mesCalc === currentMonth) {
-            // Update DF count based on user profile
+          var diaSemana = fecha.getDay(); // 0 = Domingo, 1 = Lunes, ..., 6 = Sábado
+          var diaMes = fecha.getDate();
+  
+          // Verifica si la fecha está dentro del mes actual y es un día laborable para el perfil
+          if (mesCalc === month && diaMes <= daysInMonth && isLaborableDay(profileId, diaSemana)) {
             if (calc === "DF") {
-              if ((idProfile === 1 && dayOfWeek >= 1 && dayOfWeek <= 5) || // Monday to Friday
-                  (idProfile === 2 && dayOfWeek >= 1 && dayOfWeek <= 6) || // Monday to Saturday
-                  (idProfile === 3 && dayOfWeek >= 1 && dayOfWeek <= 6)) { // Monday to Saturday
-                dfCount++;
-              }
+              dfCount++;
             } else {
               var sign = calc.startsWith("-") ? -1 : 1;
               var tiempo = calc.replace(/[^\d:]/g, "").split(":");
@@ -383,6 +382,7 @@ $(document).ready(function () {
           const minutosInicial = horaAMinutos(tiempoInicial);
           const minutosResultado = horaAMinutos(resultado);
           var porcentaje = (minutosResultado / minutosInicial) * 100;
+  
           return porcentaje;
         }
   
@@ -401,7 +401,17 @@ $(document).ready(function () {
         console.log(`User ID: ${userId}, Week: ${semana}, DF Count: ${dfCount}`);
       });
     });
+  
+    function isLaborableDay(profileId, dayOfWeek) {
+      if (profileId === 1) {
+        return dayOfWeek >= 1 && dayOfWeek <= 5; // Lunes a Viernes
+      } else if (profileId === 2 || profileId === 3) {
+        return dayOfWeek >= 1 && dayOfWeek <= 6; // Lunes a Sábado
+      }
+      return false;
+    }
   }
+  
   
 
   function getWeeklyData(userId, week, year, month, callback) {
