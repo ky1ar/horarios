@@ -20,19 +20,6 @@ $(document).ready(function () {
       label.textContent = "Cargar Registro";
     }
   });
-  document.addEventListener("DOMContentLoaded", function () {
-    // Verificar si se ha realizado la carga
-    var urlParams = new URLSearchParams(window.location.search);
-    var loaded = urlParams.get('loaded');
-    
-    if (loaded === 'true') {
-        var messageVerify = document.querySelector(".message-verify");
-        messageVerify.style.display = "flex";
-        setTimeout(function () {
-            messageVerify.style.display = "none";
-        }, 2000); 
-    }
-});
 
   const monthNames = [
     "Enero",

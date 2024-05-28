@@ -29,13 +29,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (move_uploaded_file($_FILES['fileInput']['tmp_name'], $targetFile)) {
             echo "El archivo ha sido subido correctamente.";
+            // Script JavaScript para mostrar el mensaje después de la carga
+            echo '<script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    var messageVerify = document.querySelector(".message-verify");
+                    messageVerify.style.display = "flex";
+                    setTimeout(function () {
+                        messageVerify.style.display = "none";
+                    }, 2000); 
+                });
+            </script>';
         } else {
             echo "Error al mover el archivo.";
         }
     }
 }
-
-// Redirigir de vuelta a la página principal después de cargar
-header('Location: ../../load.php?loaded=true');
-exit;
 ?>
