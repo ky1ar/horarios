@@ -1,5 +1,11 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Verificar si se ha seleccionado un archivo
+    if (empty($_FILES['fileInput']['name'])) {
+        echo "Por favor, selecciona un archivo.";
+        exit; // Detener la ejecución del script si no se selecciona ningún archivo
+    }
+
     $targetDir = __DIR__ . '/../../';
     $targetFile = $targetDir . 'final.csv';
     $uploadOk = 1;

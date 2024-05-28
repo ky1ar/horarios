@@ -289,15 +289,6 @@ require_once 'db.php';
         <img src="./assets/img/check.png" alt="">
         <p>Se ha actualizado el registro correctamente</p>
     </div>
-    <script>
-    document.getElementById("uploadForm").addEventListener("submit", function(event) {
-        var fileInput = document.getElementById("fileInput");
-        if (fileInput.files.length === 0) {
-            console.log("Por favor, selecciona un archivo.");
-            event.preventDefault(); // Evita que el formulario se envíe
-        }
-    });
-</script>
 </body>
 
 </html>
