@@ -322,9 +322,6 @@ $(document).ready(function () {
     return diasDeLaSemana[diaDeLaSemana];
 }
 
-// Ejemplo de uso:
-const fecha = "2024-05-04";
-console.log(obtenerDiaDeLaSemana(fecha));  // Debería imprimir "sábado"
 
 function calcularSumaCalcPorSemana(userId, year, month) {
   var dfCountsByWeek = []; // Arreglo para almacenar los conteos de DF y detalles por semana
