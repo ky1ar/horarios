@@ -28,11 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         chmod($targetDir, 0777);
 
         if (move_uploaded_file($_FILES['fileInput']['tmp_name'], $targetFile)) {
-            // La carga del archivo se ha completado con éxito
-            // No se necesita ningún script aquí
+            echo "El archivo ha sido subido correctamente.";
         } else {
             echo "Error al mover el archivo.";
         }
     }
 }
+
+// Redirigir de vuelta a la página principal después de cargar
+header('Location: ../../load.php');
+exit;
 ?>
