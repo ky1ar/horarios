@@ -22,9 +22,9 @@ require_once 'db.php';
             <li>
                 <div class="cont-insert">
                     <h1>Insertar Registro</h1>
-                    <form action="./routes/del/cargarRegistro.php" method="post" enctype="multipart/form-data" class="form-insert">
+                    <form id="uploadForm" action="./routes/del/cargarRegistro.php" method="post" enctype="multipart/form-data" class="form-insert">
                         <label for="fileInput" class="custom-file-upload insert">Selecciona</label>
-                        <input type="file" id="fileInput" name="fileInput" accept=".csv" style="display: none;">
+                        <input type="file" id="fileInput" name="fileInput" accept=".csv" style="display: none;" required>
                         <input type="submit" value="Cargar">
                     </form>
                 </div>
