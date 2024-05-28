@@ -222,7 +222,7 @@ $(document).ready(function () {
       getWeeklyData(userId, semana, year, month, function (acumuladoValorDia) {
         $hrrBox.find(".calc").each(function () {
           var calc = $(this).text().trim();
-          var fecha = new Date($(this).data("date"));
+          var fecha = new Date($(this).data("date") + "T00:00:00"); // Ajuste aquí
           var mesCalc = fecha.getMonth() + 1;
 
           if (mesCalc === currentMonth) {
