@@ -317,10 +317,15 @@ $(document).ready(function () {
       var semana = index + 1;
       var sumaHoras = 0;
       var sumaMinutos = 0;
+      var cantidadDFSemana = 0; // Contador para DF por semana
+
+      // Declarar cantidadDF fuera de la función getWeeklyData
+      var cantidadDF = 0;
 
       // Realiza la solicitud para obtener acumulado_valor_dia
       getWeeklyData(userId, semana, year, month, function (acumuladoValorDia) {
         var totalHorasDF = 0;
+        cantidadDF = 0; // Reiniciar contador de DF en cada llamada a getWeeklyData
 
         $hrrBox.find(".calc").each(function () {
           var calc = $(this).text().trim();
@@ -355,7 +360,11 @@ $(document).ready(function () {
             }
           }
         });
+
+        // Log de cantidad de DF por semana
         console.log("DFs semana " + semana + ": " + cantidadDFSemana);
+        // Log de cantidad total de DF
+        console.log("Total DF: " + cantidadDF);
         // Ajusta minutos y horas
         if (sumaMinutos >= 60) {
           sumaHoras += Math.floor(sumaMinutos / 60);
