@@ -277,7 +277,7 @@ $(document).ready(function () {
           dfCount +
           ", DF dates: " +
           dfDates.map((date) => {
-              const dayOfWeek = new Intl.DateTimeFormat("en-US", {
+              const dayOfWeek = new Intl.DateTimeFormat("es-ES", {
                   weekday: "long"
               }).format(date);
               return `${date.toLocaleDateString()} (${dayOfWeek})`;
