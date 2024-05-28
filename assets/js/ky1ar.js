@@ -348,8 +348,8 @@ $(document).ready(function () {
                         var tiempo = calc.replace(/[^\d:]/g, "").split(":");
                         var horas = parseInt(tiempo[0], 10) * sign;
                         var minutos = parseInt(tiempo[1], 10) * sign;
-                        sumaHoras += horas;
-                        sumaMinutos += minutos;
+                        sumaHoras += isNaN(horas) ? 0 : horas;
+                        sumaMinutos += isNaN(minutos) ? 0 : minutos;
                     }
                 }
             });
@@ -378,8 +378,8 @@ $(document).ready(function () {
             function sumarRestarHoras(totalMinutosActual, resultado, restar = false) {
                 const [horas, minutos] = totalMinutosActual.split(":").map(Number);
                 const [horas2, minutos2] = resultado.split(":").map(Number);
-                const totalMinutos = horas * 60 + minutos;
-                const totalminutos2 = horas2 * 60 + minutos2;
+                const totalMinutos = (isNaN(horas) ? 0 : horas) * 60 + (isNaN(minutos) ? 0 : minutos);
+                const totalminutos2 = (isNaN(horas2) ? 0 : horas2) * 60 + (isNaN(minutos2) ? 0 : minutos2);
                 const signo = restar ? -1 : 1;
                 const nuevoTotalMinutos = totalMinutos + signo * totalminutos2;
 
@@ -392,19 +392,24 @@ $(document).ready(function () {
                     return 0;
                 }
                 const [horas, minutos] = hora.split(":").map(Number);
-                return horas * 60 + minutos;
+                return (isNaN(horas) ? 0 : horas) * 60 + (isNaN(minutos) ? 0 : minutos);
             }
 
             function calcularPorcentaje(tiempoInicial, resultado) {
                 const minutosInicial = horaAMinutos(tiempoInicial);
                 const minutosResultado = horaAMinutos(resultado);
+                if (minutosInicial === 0) {
+                    return 0;
+                }
                 var porcentaje = (minutosResultado / minutosInicial) * 100;
 
                 return porcentaje;
             }
 
             // Recalcular el acumuladoValorDia restando las horas de DF
-            acumuladoValorDia -= totalHorasDF;
+            acumuladoValorDia = horaAMinutos(acumuladoValorDia.toString());
+            acumuladoValorDia -= totalHorasDF * 60;
+            acumuladoValorDia = `${Math.floor(acumuladoValorDia / 60)}:${(acumuladoValorDia % 60).toString().padStart(2, "0")}`;
 
             if (resultado.includes("-")) {
                 const nuevaHoraResta = sumarRestarHoras(acumuladoValorDia.toString(), resultado, true);
@@ -420,6 +425,7 @@ $(document).ready(function () {
         });
     });
 }
+
 
 
 
