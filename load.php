@@ -292,7 +292,7 @@ require_once 'db.php';
     <script>
     window.onload = function() {
         if (document.cookie.indexOf("registro_actualizado=true") !== -1) {
-            document.getElementById("messageVerify").style.display = "block";
+            document.getElementById("messageVerify").style.display = "flex";
             setTimeout(function() {
                 document.getElementById("messageVerify").style.display = "none";
             }, 3000);
