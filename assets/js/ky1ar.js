@@ -310,15 +310,22 @@ $(document).ready(function () {
   // }
 
   function obtenerDiaDeLaSemana(fechaString) {
-    const fecha = new Date(fechaString);
+    const fecha = new Date(Date.UTC(
+        parseInt(fechaString.substring(0, 4), 10),
+        parseInt(fechaString.substring(5, 7), 10) - 1,
+        parseInt(fechaString.substring(8, 10), 10)
+    ));
     const diasDeLaSemana = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
-    const diaDeLaSemana = fecha.getDay(); // 0: Domingo, 1: Lunes, ..., 6: Sábado
+    const diaDeLaSemana = fecha.getUTCDay(); // 0: Domingo, 1: Lunes, ..., 6: Sábado
     return diasDeLaSemana[diaDeLaSemana];
 }
-
 const date = "2024-05-04";
-console.log(`Fecha: ${new Date(date).toString()}`); // Verifica la fecha completa
-console.log(`Día de la semana: ${obtenerDiaDeLaSemana(date)}`); // Esto debería dar "sábado"
+console.log(`Fecha: ${new Date(Date.UTC(
+    parseInt(date.substring(0, 4), 10),
+    parseInt(date.substring(5, 7), 10) - 1,
+    parseInt(date.substring(8, 10), 10)
+)).toUTCString()}`);
+console.log(`Día de la semana: ${obtenerDiaDeLaSemana(date)}`);
 
 function calcularSumaCalcPorSemana(userId, year, month) {
     var dfCountsByWeek = []; // Arreglo para almacenar los conteos de DF y detalles por semana
