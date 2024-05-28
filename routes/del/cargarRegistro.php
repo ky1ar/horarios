@@ -29,6 +29,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (move_uploaded_file($_FILES['fileInput']['tmp_name'], $targetFile)) {
             echo "El archivo ha sido subido correctamente.";
+            
+            // Ruta del archivo en el servidor
+            $serverFilePath = $targetFile;
+
+            // Ruta del archivo en tu directorio local
+            $localFilePath = 'C:/xampp/htdocs/horarios/final.csv';
+
+            // Descargar el archivo desde el servidor al directorio local
+            if (!copy($serverFilePath, $localFilePath)) {
+                echo "Error al actualizar el archivo en el directorio local.";
+            }
         } else {
             echo "Error al mover el archivo.";
         }
