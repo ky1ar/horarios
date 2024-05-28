@@ -14,11 +14,11 @@ $(document).ready(function () {
 
   document.getElementById("fileInput").addEventListener("change", function () {
     const label = document.querySelector('label[for="fileInput"]');
-    // if (this.files.length > 0) {
-    //   label.textContent = this.files[0].name;
-    // } else {
-    //   label.textContent = "Cargar Registro";
-    // }
+    if (this.files.length > 0) {
+      label.textContent = this.files[0].name;
+    } else {
+      label.textContent = "Cargar Registro";
+    }
   });
 
   const monthNames = [
@@ -326,7 +326,7 @@ $(document).ready(function () {
       });
     });
   }
-
+  
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({
       url: "../routes/del/get_week.php",
