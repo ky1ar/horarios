@@ -20,7 +20,15 @@ $(document).ready(function () {
       label.textContent = "Cargar Registro";
     }
   });
-
+  document
+    .getElementById("uploadForm")
+    .addEventListener("submit", function (event) {
+      var fileInput = document.getElementById("fileInput");
+      if (fileInput.files.length === 0) {
+        console.log("Por favor, selecciona un archivo.");
+        event.preventDefault(); // Evita que el formulario se envíe
+      }
+    });
   const monthNames = [
     "Enero",
     "Febrero",
