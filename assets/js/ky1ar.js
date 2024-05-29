@@ -463,16 +463,20 @@ $(document).ready(function () {
             const [horas2, minutos2] = resultado.split(":").map(Number);
             const totalMinutos = horas * 60 + minutos;
             const totalMinutos2 = horas2 * 60 + minutos2;
-            const operador = restar ? -1 : 1; // Determina si se suma o se resta
-          
-            const nuevoTotalMinutos = totalMinutos + (totalMinutos2 * operador);
-          
+            let nuevoTotalMinutos;
+
+            if (restar) {
+              nuevoTotalMinutos = totalMinutos - totalMinutos2;
+            } else {
+              nuevoTotalMinutos = totalMinutos + totalMinutos2;
+            }
+
             const nuevaHora = `${Math.floor(nuevoTotalMinutos / 60)}:${Math.abs(
               nuevoTotalMinutos % 60
             )
               .toString()
               .padStart(2, "0")}`;
-          
+
             return nuevaHora;
           }
 
