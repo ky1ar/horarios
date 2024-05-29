@@ -517,6 +517,7 @@ $(document).ready(function () {
     });
   }
   
+  
 
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({
