@@ -397,14 +397,16 @@ $(document).ready(function () {
       getWeeklyData(userId, semana, year, month, function (acumuladoValorDia, idProfile) {
         $hrrBox.find(".calc").each(function () {
           var calc = $(this).text().trim();
-          var sign = calc.includes("-") ? -1 : 1;
-          calc = calc.replace(/[^0-9:]/g, ""); // Elimina todo excepto números y ":" para evitar errores
-          var tiempo = calc.split(":");
-          var horas = parseInt(tiempo[0], 10) * sign;
-          var minutos = parseInt(tiempo[1], 10) * sign;
-          sumaHoras += horas;
-          sumaMinutos += minutos;
-          if (calc.includes("DF")) {
+          if (calc !== "DF") {
+            var match = calc.match(/(-?)(\d+):(\d+)/);
+            if (match) {
+              var sign = match[1] === "-" ? -1 : 1;
+              var horas = parseInt(match[2], 10) * sign;
+              var minutos = parseInt(match[3], 10) * sign;
+              sumaHoras += horas;
+              sumaMinutos += minutos;
+            }
+          } else {
             dfDates.push(new Date($(this).data("date") + "T00:00:00"));
           }
         });
