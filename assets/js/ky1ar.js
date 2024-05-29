@@ -501,7 +501,7 @@ $(document).ready(function () {
             const nuevaHoraResta = sumarRestarHoras(
               acumuladoValorDia.toString(),
               resultado,
-              true
+              false
             );
             const porcentaje = calcularPorcentaje(
               acumuladoValorDia,
