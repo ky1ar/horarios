@@ -387,8 +387,6 @@ $(document).ready(function () {
   //   });
   // }
   function calcularSumaCalcPorSemana(userId, year, month) {
-    var currentMonth = month; // Usar el mes proporcionado en la función
-  
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
       var semana = index + 1;
@@ -399,43 +397,24 @@ $(document).ready(function () {
       getWeeklyData(userId, semana, year, month, function (acumuladoValorDia, idProfile) {
         $hrrBox.find(".calc").each(function () {
           var calc = $(this).text().trim();
-          var fecha = new Date($(this).data("date") + "T00:00:00");
-          var mesCalc = fecha.getMonth() + 1;
-  
-          if (mesCalc === currentMonth) {
-            if (calc !== "DF") {
-              var sign = calc.startsWith("-") ? -1 : 1;
-              calc = calc.replace(/^[-+]/, ""); // Elimina el signo para que no afecte la operación
-              var tiempo = calc.split(":");
-              var horas = parseInt(tiempo[0], 10) * sign;
-              var minutos = parseInt(tiempo[1], 10) * sign;
-              sumaHoras += horas;
-              sumaMinutos += minutos;
-            } else {
-              dfDates.push(fecha);
-            }
+          var sign = calc.includes("-") ? -1 : 1;
+          calc = calc.replace(/[^0-9:]/g, ""); // Elimina todo excepto números y ":" para evitar errores
+          var tiempo = calc.split(":");
+          var horas = parseInt(tiempo[0], 10) * sign;
+          var minutos = parseInt(tiempo[1], 10) * sign;
+          sumaHoras += horas;
+          sumaMinutos += minutos;
+          if (calc.includes("DF")) {
+            dfDates.push(new Date($(this).data("date") + "T00:00:00"));
           }
         });
   
         // Realizar ajustes si la suma de minutos supera 60 o es menor a -60
-        if (sumaMinutos >= 60) {
-          sumaHoras += Math.floor(sumaMinutos / 60);
-          sumaMinutos = sumaMinutos % 60;
-        } else if (sumaMinutos <= -60) {
-          sumaHoras += Math.ceil(sumaMinutos / 60);
-          sumaMinutos = sumaMinutos % 60;
-        }
+        sumaHoras += Math.floor(sumaMinutos / 60);
+        sumaMinutos %= 60;
   
         // Calcular el resultado en formato de hora y minuto
-        var resultadoHoras = sumaHoras;
-        var resultadoMinutos = Math.abs(sumaMinutos).toString().padStart(2, "0");
-        var resultado;
-  
-        if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
-          resultado = "-" + Math.abs(resultadoHoras).toString().padStart(2, "0") + ":" + resultadoMinutos;
-        } else {
-          resultado = resultadoHoras.toString().padStart(2, "0") + ":" + resultadoMinutos;
-        }
+        var resultado = (sumaHoras < 0 ? "-" : "") + Math.abs(sumaHoras).toString().padStart(2, "0") + ":" + Math.abs(sumaMinutos).toString().padStart(2, "0");
   
         // Imprimir el resultado en la consola
         console.log(
