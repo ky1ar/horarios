@@ -387,48 +387,44 @@ $(document).ready(function () {
   //   });
   // }
   function calcularSumaCalcPorSemana(userId, year, month) {
+    // Obtener el último día del mes especificado
+    var ultimoDiaMes = new Date(year, month, 0).getDate();
+
     $(".hrr-box").each(function (index) {
-      var $hrrBox = $(this);
-      var semana = index + 1;
-      var sumaHoras = 0;
-      var sumaMinutos = 0;
-      var dfDates = [];
-  
-      getWeeklyData(userId, semana, year, month, function (acumuladoValorDia, idProfile) {
+        var $hrrBox = $(this);
+        var semana = index + 1;
+        var sumaHoras = 0;
+        var sumaMinutos = 0;
+
+        // Iterar sobre los elementos .calc dentro de cada .hrr-box
         $hrrBox.find(".calc").each(function () {
-          var calc = $(this).text().trim();
-          if (calc !== "DF") {
+            var calc = $(this).text().trim();
             var match = calc.match(/(-?)(\d+):(\d+)/);
             if (match) {
-              var sign = match[1] === "-" ? -1 : 1;
-              var horas = parseInt(match[2], 10) * sign;
-              var minutos = parseInt(match[3], 10) * sign;
-              sumaHoras += horas;
-              sumaMinutos += minutos;
+                var sign = match[1] === "-" ? -1 : 1;
+                var horas = parseInt(match[2], 10) * sign;
+                var minutos = parseInt(match[3], 10) * sign;
+                sumaHoras += horas;
+                sumaMinutos += minutos;
             }
-          } else {
-            dfDates.push(new Date($(this).data("date") + "T00:00:00"));
-          }
         });
-  
+
         // Realizar ajustes si la suma de minutos supera 60 o es menor a -60
         sumaHoras += Math.floor(sumaMinutos / 60);
         sumaMinutos %= 60;
-  
+
         // Calcular el resultado en formato de hora y minuto
         var resultado = (sumaHoras < 0 ? "-" : "") + Math.abs(sumaHoras).toString().padStart(2, "0") + ":" + Math.abs(sumaMinutos).toString().padStart(2, "0");
-  
+
         // Imprimir el resultado en la consola
-        console.log(
-          "Semana " + semana + ", suma calc: " + resultado + ", Valor acumulado: " + acumuladoValorDia + ", DF dates: " +
-          dfDates.map((date) => {
-            const dayOfWeek = new Intl.DateTimeFormat("es-ES", { weekday: "long" }).format(date);
-            return `${date.toLocaleDateString()} (${dayOfWeek})`;
-          }).join(", ")
-        );
-      });
+        console.log("Semana " + semana + ", suma calc: " + resultado);
+
+        // Reiniciar la suma de horas y minutos para la siguiente semana
+        sumaHoras = 0;
+        sumaMinutos = 0;
     });
-  }
+}
+
   
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({
