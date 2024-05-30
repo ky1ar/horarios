@@ -531,25 +531,34 @@ $(document).ready(function () {
     formData.append("month", month);
     formData.append("year", year);
     $.ajax({
-      url: "../routes/del/get_info_user.php",
-      method: "POST",
-      data: formData,
-      cache: false,
-      contentType: false,
-      processData: false,
-      dataType: "json",
-      success: function (response) {
-        var data = response;
-        $("#totalHours").text(data.adjusted_hours + " h");
-        $("#totalMissingPoints").text(data.total_missing_points);
-        $("#totalLatePoints").text(data.total_late_points);
-        $("#tolerancia").text(data.total_minutes_late_formatted + "h" + " / " + data.one_percent_total_hours + "h");
-      },
-      error: function (xhr, status, error) {
-        console.error("Error en la solicitud AJAX:", error);
-      },
+        url: "../routes/del/get_info_user.php",
+        method: "POST",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (response) {
+            var data = response;
+            var totalLateMinutes = parseInt(data.total_minutes_late_formatted.split(':')[0]) * 60 + parseInt(data.total_minutes_late_formatted.split(':')[1]);
+            var onePercentTotalHours = parseInt(data.one_percent_total_hours.split(':')[0]) * 60 + parseInt(data.one_percent_total_hours.split(':')[1]);
+            var adjustedHours = parseInt(data.adjusted_hours.split(':')[0]) * 60 + parseInt(data.adjusted_hours.split(':')[1]);
+
+            var differential = totalLateMinutes - onePercentTotalHours;
+            differential = differential <= 0 ? 0 : differential; // Si el resultado es negativo o cero, establecerlo como cero
+
+            var result = differential + adjustedHours;
+            var hours = Math.floor(result / 60);
+            var minutes = result % 60;
+
+            console.log("Resultado:", hours + "h " + minutes + "m");
+        },
+        error: function (xhr, status, error) {
+            console.error("Error en la solicitud AJAX:", error);
+        },
     });
-  }
+}
+
 
   updateMonthDisplay();
   if (userList.find(".active").length === 0) {
