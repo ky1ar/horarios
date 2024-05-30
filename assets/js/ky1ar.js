@@ -247,8 +247,11 @@ $(document).ready(function () {
                   const total = horas*60 + minutos;
                   console.log('total ',total);
                   const fixed = 8*60;
-                  const newc = fixed - total;
-                  console.log('newc ',newc);
+                  let newc = fixed - total;
+
+                  const nhours = Math.floor(newc / 60);
+                  const nminutos = newc % 60;
+                  console.log('newc ',nhours+':'+nminutos);
 
                 }
 
