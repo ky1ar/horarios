@@ -232,8 +232,6 @@ $(document).ready(function () {
           $hrrBox.find(".calc").each(function () {
             console.log('---------------------');
             var calc = $(this).text().trim();
-            console.log('---------------------');
-
             var fecha = new Date($(this).data("date") + "T00:00:00");
             var mesCalc = fecha.getMonth() + 1;
 
