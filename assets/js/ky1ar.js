@@ -233,8 +233,7 @@ $(document).ready(function () {
             console.log('---------------------');
             var calc = $(this).text().trim();
             const dayname = $(this).closest('ul').find('li').first().text();
-            console.log('dayname ',dayname);
-
+            
             var fecha = new Date($(this).data("date") + "T00:00:00");
 
             var mesCalc = fecha.getMonth() + 1;
@@ -258,8 +257,9 @@ $(document).ready(function () {
                   console.log('new calc ',nhours+':'+nminutos);
 
                 } else {
-                  console.log('idProfile ',idProfile);
+                  //console.log('idProfile ',idProfile);
                   let fixed;
+                  console.log('dayname ',dayname);
                   if (dayname.includes("Sáb")) {
                     if (idProfile == 1) {
                       fixed = 0;
