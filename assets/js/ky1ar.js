@@ -233,6 +233,7 @@ $(document).ready(function () {
             console.log('---------------------');
             var calc = $(this).text().trim();
             const dayname = $(this).closest('ul').find('li').first().text();
+            console.log('dayname ',dayname);
 
             var fecha = new Date($(this).data("date") + "T00:00:00");
 
