@@ -113,7 +113,7 @@ require_once 'db.php';
                     <img src="assets/img/tol.png" width="40" height="40" alt="">
                 </div>
                 <div class="box-txt">
-                    <span id="toleranciaConsumida">01:45h / 00:10h</span>
+                    <span id="tolerancia">01:45h / 00:10h</span>
                     <p>Tolerancia</p>
                 </div>
             </li>
