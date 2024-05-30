@@ -253,6 +253,10 @@ $(document).ready(function () {
             }
           });
 
+          console.log('sumaHoras ',sumaHoras);
+          console.log('sumaMinutos ',sumaMinutos);
+
+
           dfDates.forEach(function (dfDate) {
             var restaHoras = 0;
             if (idProfile === 1) {
