@@ -171,6 +171,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
+          console.log(response.just);
           showModal(response.stamp, date, userId);
         } else if (response.message === "El día es un feriado") {
           console.log("No se abrió un modal por ser feriado");
@@ -197,7 +198,6 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-          console.log(response.just);
           hideModal();
           // Opcional: Actualizar la vista si es necesario
           getUserSchedule(userId, currentMonth, currentYear);
