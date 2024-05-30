@@ -550,7 +550,7 @@ $(document).ready(function () {
             data.one_percent_total_hours +
             "h"
         );
-        console.log(total_minutes_late_formatted + " y " + one_percent_total_hours)
+        console.log(data.total_minutes_late_formatted + " y " + data.one_percent_total_hours)
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
