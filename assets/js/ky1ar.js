@@ -232,6 +232,7 @@ $(document).ready(function () {
           $hrrBox.find(".calc").each(function () {
             console.log('---------------------');
             var calc = $(this).text().trim();
+            const dayname = $(this).closest('ul').find('li').first().text();
 
             var fecha = new Date($(this).data("date") + "T00:00:00");
 
@@ -257,11 +258,22 @@ $(document).ready(function () {
 
                 } else {
                   console.log('idProfile ',idProfile);
+                  let fixed;
+                  if (dayname.includes("Sáb")) {
+                    if (idProfile == 1) {
+                      fixed = 0;
+                    } else if (idProfile == 2){
+                      fixed = 4*60;
+                    } else {
+                      fixed = 8*60;
+                    }
+                  }
+                  
                   const tiempo = calc.replace(/[^\d:]/g, "").split(":");
                   const horas = parseInt(tiempo[0], 10);
                   const minutos = parseInt(tiempo[1], 10);
                   const total = horas*60 + minutos;
-                  const fixed = 8*60;
+                  
                   let newc = fixed + total;
                   const nhours = Math.floor(newc / 60);
                   const nminutos = newc % 60;
