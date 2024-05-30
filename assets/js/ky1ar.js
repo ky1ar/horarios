@@ -540,7 +540,37 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         var data = response;
-        $("#totalHours").text(data.adjusted_hours + " h");
+        var minutesLate =
+          parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
+          parseInt(data.total_minutes_late_formatted.split(":")[1]);
+        var onePercentHours =
+          parseInt(data.one_percent_total_hours.split(":")[0]) * 60 +
+          parseInt(data.one_percent_total_hours.split(":")[1]);
+        var difference = minutesLate - onePercentHours;
+        var differenceAdjusted = Math.max(0, difference);
+        var hoursDifference = Math.floor(differenceAdjusted / 60);
+        var minutesDifference = differenceAdjusted % 60;
+        var differenceFormatted =
+          (hoursDifference < 10 ? "0" : "") +
+          hoursDifference +
+          ":" +
+          (minutesDifference < 10 ? "0" : "") +
+          minutesDifference;
+
+        var adjustedHours =
+          parseInt(data.adjusted_hours.split(":")[0]) * 60 +
+          parseInt(data.adjusted_hours.split(":")[1]);
+        var sum = adjustedHours + differenceAdjusted;
+        var sumHours = Math.floor(sum / 60);
+        var sumMinutes = sum % 60;
+        var sumFormatted =
+          (sumHours < 10 ? "0" : "") +
+          sumHours +
+          ":" +
+          (sumMinutes < 10 ? "0" : "") +
+          sumMinutes;
+
+        $("#totalHours").text(sumFormatted + " h");
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
         $("#tolerancia").text(
@@ -550,46 +580,6 @@ $(document).ready(function () {
             data.one_percent_total_hours +
             "h"
         );
-        var minutesLate =
-          parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
-          parseInt(data.total_minutes_late_formatted.split(":")[1]);
-
-        var onePercentHours =
-          parseInt(data.one_percent_total_hours.split(":")[0]) * 60 +
-          parseInt(data.one_percent_total_hours.split(":")[1]);
-
-        var difference = minutesLate - onePercentHours;
-
-        var differenceAdjusted = Math.max(0, difference);
-
-        var hoursDifference = Math.floor(differenceAdjusted / 60);
-        var minutesDifference = differenceAdjusted % 60;
-
-        var differenceFormatted =
-          (hoursDifference < 10 ? "0" : "") +
-          hoursDifference +
-          ":" +
-          (minutesDifference < 10 ? "0" : "") +
-          minutesDifference;
-
-        console.log("Diferencia: " + differenceFormatted);
-
-        var adjustedHours =
-          parseInt(data.adjusted_hours.split(":")[0]) * 60 +
-          parseInt(data.adjusted_hours.split(":")[1]);
-        var sum = adjustedHours + differenceAdjusted;
-
-        var sumHours = Math.floor(sum / 60);
-        var sumMinutes = sum % 60;
-
-        var sumFormatted =
-          (sumHours < 10 ? "0" : "") +
-          sumHours +
-          ":" +
-          (sumMinutes < 10 ? "0" : "") +
-          sumMinutes;
-
-        console.log("Suma: " + sumFormatted);
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
