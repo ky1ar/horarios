@@ -519,7 +519,7 @@ $(document).ready(function () {
 
             daysCounter++;
           });
-          // calcularSumaCalcPorSemana(userId, year, month);
+           calcularSumaCalcPorSemana(userId, year, month);
         } else {
           console.error(response.message);
         }
