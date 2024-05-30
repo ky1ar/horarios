@@ -21,6 +21,9 @@ $(document).ready(function () {
     }
   });
 
+  
+
+
   const monthNames = [
     "Enero",
     "Febrero",
@@ -194,6 +197,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
+          console.log(response.just);
           hideModal();
           // Opcional: Actualizar la vista si es necesario
           getUserSchedule(userId, currentMonth, currentYear);

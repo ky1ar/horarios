@@ -10,6 +10,7 @@ if (isset($_POST['userId']) && isset($_POST['date'])) {
                 c.id_date,
                 c.calendar_date, 
                 c.holiday,
+                s.just,
                 s.stamp
             FROM 
                 Calendar c
@@ -28,7 +29,7 @@ if (isset($_POST['userId']) && isset($_POST['date'])) {
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         if ($row['holiday'] == 1) {
-            echo json_encode(['success' => false, 'message' => 'El día es un feriado']);
+            echo json_encode(['success' => false, 'message' => 'Es un feriado']);
         } else {
             $stamp = isset($row['stamp']) ? $row['stamp'] : '';
             echo json_encode(['success' => true, 'stamp' => $stamp]);

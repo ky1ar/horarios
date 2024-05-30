@@ -279,21 +279,22 @@ require_once 'db.php';
         }
         ?>
     </section>
-    <div class="modal-stamp" style="display: none;">
+    <div class="modal-stamp">
         <div class="modal-content">
             <h1>Actualizar Registro</h1>
             <form id="stampForm">
                 <label for="dayInput">Día:</label>
-                <input type="text" id="dayInput" name="day" disabled> <!-- Añadir ID -->
+                <input type="text" id="dayInput" name="day" disabled>
                 <label for="stampInput">Registro:</label>
                 <input type="text" id="stampInput" name="stamp">
                 <input type="hidden" id="dateInput" name="date">
                 <input type="hidden" id="userIdInput" name="userId">
+                <label for="">Justificación:</label>
+                <input type="file" id="justInput" name="" accept=".jpg, .jpeg, .png, .pdf">
                 <input type="submit" value="Guardar">
             </form>
         </div>
     </div>
-
     <div id="messageVerify" class="message-verify">
         <img src="./assets/img/check.png" alt="">
         <p>Se ha actualizado el registro correctamente</p>

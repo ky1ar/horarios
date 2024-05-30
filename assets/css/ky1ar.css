@@ -511,6 +511,15 @@ body {
     outline: none;
     border: none;
 }
+.modal-stamp form input[type="file"]{
+  background-color: black;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+}
 
 .modal-stamp form input[type="submit"] {
   width: 5rem;
