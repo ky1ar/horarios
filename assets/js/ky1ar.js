@@ -363,6 +363,7 @@ $(document).ready(function () {
 
           // Aplicar el resultado al elemento HTML correspondiente
           if (resultado.includes("-")) {
+            console.log(acumuladoValorDia.toString(),resultado,false);
             const nuevaHoraResta = sumarRestarHoras(
               acumuladoValorDia.toString(),
               resultado,
@@ -377,6 +378,7 @@ $(document).ready(function () {
               .text(nuevaHoraResta + "h" + " / " + acumuladoValorDia + "h");
             $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
           } else {
+            console.log(acumuladoValorDia.toString(),resultado,false);
             const nuevaHoraSuma = sumarRestarHoras(
               acumuladoValorDia.toString(),
               resultado,
@@ -428,7 +430,7 @@ $(document).ready(function () {
       data: { userId: userId, month: month, year: year },
       dataType: "json",
       success: function (response) {
-        console.log(response.schedule);
+        //console.log(response.schedule);
         if (response.success) {
           $(".ky1-hrr").empty();
           var daysCounter = 0;
