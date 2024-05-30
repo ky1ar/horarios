@@ -540,7 +540,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         var data = response;
-        $("#totalHours").text(data.total_hours_required + " h");
+        $("#totalHours").text(data.adjusted_hours + " h");
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
       },
