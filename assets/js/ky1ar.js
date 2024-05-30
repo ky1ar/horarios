@@ -543,7 +543,7 @@ $(document).ready(function () {
         $("#totalHours").text(data.adjusted_hours + " h");
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
-        $("#tolerancia").text(data.one_percent_total_hours + "h" + " / " +data.total_minutes_late_formatted + "h");
+        $("#tolerancia").text(data.one_percent_total_hours + "h");
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
