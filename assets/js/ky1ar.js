@@ -281,12 +281,14 @@ $(document).ready(function () {
           var resultado;
 
           if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
+            console.log('a',resultadoHoras,resultadoMinutos);
             resultado =
               "-" +
               Math.abs(resultadoHoras).toString().padStart(2, "0") +
               ":" +
               resultadoMinutos;
           } else {
+            console.log('b',resultadoHoras,resultadoMinutos);
             resultado =
               resultadoHoras.toString().padStart(2, "0") +
               ":" +
