@@ -238,8 +238,22 @@ $(document).ready(function () {
             if (mesCalc === currentMonth) {
               if (calc !== "DF") {
                 console.log('calc ',calc);
+                if (calc.startsWith("-")){
+
+                  const tiempo = calc.replace(/[^\d:]/g, "").split(":");
+                  const horas = parseInt(tiempo[0], 10);
+                  const minutos = parseInt(tiempo[1], 10);
+
+                  const total = horas*60 + minutos;
+                  console.log('total ',total);
+                  const fixed = 8*60;
+                  const newc = fixed - total;
+                  console.log('newc ',newc);
+
+                }
 
                 var sign = calc.startsWith("-") ? -1 : 1;
+
                 var tiempo = calc.replace(/[^\d:]/g, "").split(":");
                 var horas = parseInt(tiempo[0], 10) * sign;
                 var minutos = parseInt(tiempo[1], 10) * sign;
