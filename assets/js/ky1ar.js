@@ -232,12 +232,14 @@ $(document).ready(function () {
           $hrrBox.find(".calc").each(function () {
             console.log('---------------------');
             var calc = $(this).text().trim();
+
             var fecha = new Date($(this).data("date") + "T00:00:00");
+
             var mesCalc = fecha.getMonth() + 1;
 
             if (mesCalc === currentMonth) {
               if (calc !== "DF") {
-                console.log('calc ',calc);
+                console.log('old calc ',calc);
                 if (calc.startsWith("-")){
 
                   const tiempo = calc.replace(/[^\d:]/g, "").split(":");
@@ -251,8 +253,18 @@ $(document).ready(function () {
 
                   const nhours = Math.floor(newc / 60);
                   const nminutos = newc % 60;
-                  console.log('newc ',nhours+':'+nminutos);
+                  console.log('new calc ',nhours+':'+nminutos);
 
+                } else {
+                  const tiempo = calc.replace(/[^\d:]/g, "").split(":");
+                  const horas = parseInt(tiempo[0], 10);
+                  const minutos = parseInt(tiempo[1], 10);
+                  const total = horas*60 + minutos;
+                  const fixed = 8*60;
+                  let newc = fixed + total;
+                  const nhours = Math.floor(newc / 60);
+                  const nminutos = newc % 60;
+                  console.log('new calc ',nhours+':'+nminutos);
                 }
 
                 var sign = calc.startsWith("-") ? -1 : 1;
@@ -260,8 +272,8 @@ $(document).ready(function () {
                 var tiempo = calc.replace(/[^\d:]/g, "").split(":");
                 var horas = parseInt(tiempo[0], 10) * sign;
                 var minutos = parseInt(tiempo[1], 10) * sign;
-                console.log('horas ',horas);
-                console.log('minutos ',minutos);
+                //console.log('horas ',horas);
+                //console.log('minutos ',minutos);
 
                 sumaHoras += horas;
                 sumaMinutos += minutos;
@@ -272,8 +284,8 @@ $(document).ready(function () {
             }
           });
 
-          console.log('sumaHoras ',sumaHoras);
-          console.log('sumaMinutos ',sumaMinutos);
+          //console.log('sumaHoras ',sumaHoras);
+          //console.log('sumaMinutos ',sumaMinutos);
 
 
           dfDates.forEach(function (dfDate) {
