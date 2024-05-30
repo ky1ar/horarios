@@ -550,7 +550,32 @@ $(document).ready(function () {
             data.one_percent_total_hours +
             "h"
         );
-        console.log(data.total_minutes_late_formatted + " y " + data.one_percent_total_hours)
+        var minutesLate =
+          parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
+          parseInt(data.total_minutes_late_formatted.split(":")[1]);
+
+        // Convertir one_percent_total_hours a minutos
+        var onePercentHours =
+          parseInt(data.one_percent_total_hours.split(":")[0]) * 60 +
+          parseInt(data.one_percent_total_hours.split(":")[1]);
+
+        // Calcular la diferencia de minutos
+        var difference = minutesLate - onePercentHours;
+
+        // Convertir la diferencia de minutos a formato hh:mm
+        var hoursDifference = Math.floor(difference / 60);
+        var minutesDifference = difference % 60;
+
+        // Formatear la diferencia como hh:mm
+        var differenceFormatted =
+          (hoursDifference < 10 ? "0" : "") +
+          hoursDifference +
+          ":" +
+          (minutesDifference < 10 ? "0" : "") +
+          minutesDifference;
+
+        // Mostrar la diferencia en el console.log()
+        console.log("Diferencia: " + differenceFormatted);
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
