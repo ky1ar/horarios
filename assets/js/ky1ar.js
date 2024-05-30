@@ -247,7 +247,7 @@ $(document).ready(function () {
                   const minutos = parseInt(tiempo[1], 10);
 
                   const total = horas*60 + minutos;
-                  console.log('total ',total);
+                  //console.log('total ',total);
                   const fixed = 8*60;
                   let newc = fixed - total;
 
@@ -256,6 +256,7 @@ $(document).ready(function () {
                   console.log('new calc ',nhours+':'+nminutos);
 
                 } else {
+                  console.log('idProfile ',idProfile);
                   const tiempo = calc.replace(/[^\d:]/g, "").split(":");
                   const horas = parseInt(tiempo[0], 10);
                   const minutos = parseInt(tiempo[1], 10);
