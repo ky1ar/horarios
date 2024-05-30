@@ -86,7 +86,7 @@ require_once 'db.php';
                     <img src="assets/img/tot.svg" width="40" height="40" alt="">
                 </div>
                 <div class="box-txt">
-                    <span id="totalHours"></span>
+                    <span id="totalHours">17:45h</span>
                     <p>Total Horas</p>
                 </div>
             </li>
@@ -106,6 +106,15 @@ require_once 'db.php';
                 <div class="box-txt">
                     <span id="totalLatePoints"></span>
                     <p>Tardanzas</p>
+                </div>
+            </li>
+            <li>
+                <div class="box-img img-4">
+                    <img src="assets/img/tol.png" width="40" height="40" alt="">
+                </div>
+                <div class="box-txt">
+                    <span id="toleranciaConsumida">01:45h / 00:10h</span>
+                    <p>Tolerancia</p>
                 </div>
             </li>
             <!-- <li>
