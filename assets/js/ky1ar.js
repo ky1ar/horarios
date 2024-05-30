@@ -251,7 +251,7 @@ $(document).ready(function () {
                   //console.log('total ',total);
                   const fixed = 8*60;
                   let newc = fixed - total;
-                  final = fixed - total;
+                  final += newc;
                   const nhours = Math.floor(newc / 60);
                   const nminutos = newc % 60;
                   const formattedMinutes = String(nminutos).padStart(2, '0');
@@ -277,7 +277,7 @@ $(document).ready(function () {
                   const total = horas*60 + minutos;
                   
                   let newc = fixed + total;
-                  final = fixed - total;
+                  final += newc;
                   const nhours = Math.floor(newc / 60);
                   const nminutos = newc % 60;
                   const formattedMinutes = String(nminutos).padStart(2, '0');
