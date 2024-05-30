@@ -539,19 +539,27 @@ $(document).ready(function () {
         processData: false,
         dataType: "json",
         success: function (response) {
-            var data = response;
-            var totalLateMinutes = parseInt(data.total_minutes_late_formatted.split(':')[0]) * 60 + parseInt(data.total_minutes_late_formatted.split(':')[1]);
-            var onePercentTotalHours = parseInt(data.one_percent_total_hours.split(':')[0]) * 60 + parseInt(data.one_percent_total_hours.split(':')[1]);
-            var adjustedHours = parseInt(data.adjusted_hours.split(':')[0]) * 60 + parseInt(data.adjusted_hours.split(':')[1]);
+            var adjustedHours = response.adjusted_hours;
+            var totalMinutesLate = response.total_minutes_late_formatted;
+            var onePercentTotalHours = response.one_percent_total_hours;
 
-            var differential = totalLateMinutes - onePercentTotalHours;
-            differential = differential <= 0 ? 0 : differential; // Si el resultado es negativo o cero, establecerlo como cero
+            var totalLateMinutes = parseInt(totalMinutesLate.split(':')[0]) * 60 + parseInt(totalMinutesLate.split(':')[1]);
+            var onePercentTotalHoursMinutes = parseInt(onePercentTotalHours.split(':')[0]) * 60 + parseInt(onePercentTotalHours.split(':')[1]);
+            var adjustedHoursMinutes = parseInt(adjustedHours.split(':')[0]) * 60 + parseInt(adjustedHours.split(':')[1]);
 
-            var result = differential + adjustedHours;
-            var hours = Math.floor(result / 60);
-            var minutes = result % 60;
+            var differential = totalLateMinutes - onePercentTotalHoursMinutes;
+            differential = differential > 0 ? differential : 0; // Solo se toma la diferencia si total_minutes_late_formatted es mayor que one_percent_total_hours
 
-            console.log("Resultado:", hours + "h " + minutes + "m");
+            adjustedHoursMinutes += Math.floor(differential / 60); // Sumar las horas adicionales
+            var minutes = (adjustedHoursMinutes % 60) + (differential % 60); // Sumar los minutos adicionales
+
+            console.log("Adjusted Hours with additional minutes:", Math.floor(adjustedHoursMinutes / 60) + ":" + (minutes < 10 ? '0' : '') + minutes);
+
+            // Actualizar elementos HTML existentes
+            $("#totalHours").text(response.adjusted_hours + " h");
+            $("#totalMissingPoints").text(response.total_missing_points);
+            $("#totalLatePoints").text(response.total_late_points);
+            $("#tolerancia").text(response.total_minutes_late_formatted + "h" + " / " + response.one_percent_total_hours + "h");
         },
         error: function (xhr, status, error) {
             console.error("Error en la solicitud AJAX:", error);
