@@ -221,7 +221,7 @@ $(document).ready(function () {
       var sumaMinutos = 0;
       var dfCount = 0;
       var dfDates = [];
-
+      let final;
       getWeeklyData(
         userId,
         semana,
@@ -251,7 +251,7 @@ $(document).ready(function () {
                   //console.log('total ',total);
                   const fixed = 8*60;
                   let newc = fixed - total;
-
+                  final = fixed - total;
                   const nhours = Math.floor(newc / 60);
                   const nminutos = newc % 60;
                   const formattedMinutes = String(nminutos).padStart(2, '0');
@@ -277,6 +277,7 @@ $(document).ready(function () {
                   const total = horas*60 + minutos;
                   
                   let newc = fixed + total;
+                  final = fixed - total;
                   const nhours = Math.floor(newc / 60);
                   const nminutos = newc % 60;
                   const formattedMinutes = String(nminutos).padStart(2, '0');
@@ -451,6 +452,17 @@ $(document).ready(function () {
               .text(nuevaHoraSuma + "h" + " / " + acumuladoValorDia + "h");
             $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
           }
+
+          
+
+          const nhours = Math.floor(final / 60);
+          const nminutos = final % 60;
+          const formattedMinutes = String(nminutos).padStart(2, '0');
+          //console.log('new calc ',nhours+':'+formattedMinutes);
+
+          $hrrBox
+              .find(".minS")
+              .text(nhours+':'+formattedMinutes + "h" + " / " + acumuladoValorDia + "h");
         }
       );
     });
