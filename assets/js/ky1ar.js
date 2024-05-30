@@ -550,6 +550,7 @@ $(document).ready(function () {
             data.one_percent_total_hours +
             "h"
         );
+        // Convertir total_minutes_late_formatted a minutos
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
           parseInt(data.total_minutes_late_formatted.split(":")[1]);
@@ -562,9 +563,12 @@ $(document).ready(function () {
         // Calcular la diferencia de minutos
         var difference = minutesLate - onePercentHours;
 
+        // Condición para establecer la diferencia en 0 si es negativa
+        var differenceAdjusted = Math.max(0, difference);
+
         // Convertir la diferencia de minutos a formato hh:mm
-        var hoursDifference = Math.floor(difference / 60);
-        var minutesDifference = difference % 60;
+        var hoursDifference = Math.floor(differenceAdjusted / 60);
+        var minutesDifference = differenceAdjusted % 60;
 
         // Formatear la diferencia como hh:mm
         var differenceFormatted =
