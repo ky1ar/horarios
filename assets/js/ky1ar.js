@@ -221,7 +221,7 @@ $(document).ready(function () {
       var sumaMinutos = 0;
       var dfCount = 0;
       var dfDates = [];
-      let final;
+      let final = 0;
       getWeeklyData(
         userId,
         semana,
