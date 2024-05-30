@@ -480,7 +480,7 @@ $(document).ready(function () {
                 for (var i = 0; i < stamp.length; i += 5) {
                   var timeSlot = stamp.slice(i, i + 5);
                   var $li = $("<li>" + timeSlot + "</li>");
-                  if (stampIndex === 0 && i === 0 && timeSlot > '09:00') {
+                  if (stampIndex === 0 && i === 0 && timeSlot > "09:00") {
                     $li.css("color", "red");
                   }
                   $li.appendTo($dayList);
@@ -531,42 +531,31 @@ $(document).ready(function () {
     formData.append("month", month);
     formData.append("year", year);
     $.ajax({
-        url: "../routes/del/get_info_user.php",
-        method: "POST",
-        data: formData,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: "json",
-        success: function (response) {
-            var adjustedHours = response.adjusted_hours;
-            var totalMinutesLate = response.total_minutes_late_formatted;
-            var onePercentTotalHours = response.one_percent_total_hours;
-
-            var totalLateMinutes = parseInt(totalMinutesLate.split(':')[0]) * 60 + parseInt(totalMinutesLate.split(':')[1]);
-            var onePercentTotalHoursMinutes = parseInt(onePercentTotalHours.split(':')[0]) * 60 + parseInt(onePercentTotalHours.split(':')[1]);
-            var adjustedHoursMinutes = parseInt(adjustedHours.split(':')[0]) * 60 + parseInt(adjustedHours.split(':')[1]);
-
-            var differential = totalLateMinutes - onePercentTotalHoursMinutes;
-            differential = differential > 0 ? differential : 0; // Solo se toma la diferencia si total_minutes_late_formatted es mayor que one_percent_total_hours
-
-            adjustedHoursMinutes += Math.floor(differential / 60); // Sumar las horas adicionales
-            var minutes = (adjustedHoursMinutes % 60) + (differential % 60); // Sumar los minutos adicionales
-
-            console.log("Adjusted Hours with additional minutes:", Math.floor(adjustedHoursMinutes / 60) + ":" + (minutes < 10 ? '0' : '') + minutes);
-
-            // Actualizar elementos HTML existentes
-            $("#totalHours").text(response.adjusted_hours + " h");
-            $("#totalMissingPoints").text(response.total_missing_points);
-            $("#totalLatePoints").text(response.total_late_points);
-            $("#tolerancia").text(response.total_minutes_late_formatted + "h" + " / " + response.one_percent_total_hours + "h");
-        },
-        error: function (xhr, status, error) {
-            console.error("Error en la solicitud AJAX:", error);
-        },
+      url: "../routes/del/get_info_user.php",
+      method: "POST",
+      data: formData,
+      cache: false,
+      contentType: false,
+      processData: false,
+      dataType: "json",
+      success: function (response) {
+        var data = response;
+        $("#totalHours").text(data.adjusted_hours + " h");
+        $("#totalMissingPoints").text(data.total_missing_points);
+        $("#totalLatePoints").text(data.total_late_points);
+        $("#tolerancia").text(
+          data.total_minutes_late_formatted +
+            "h" +
+            " / " +
+            data.one_percent_total_hours +
+            "h"
+        );
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
     });
-}
-
+  }
 
   updateMonthDisplay();
   if (userList.find(".active").length === 0) {
