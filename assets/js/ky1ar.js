@@ -229,7 +229,9 @@ $(document).ready(function () {
         month,
         function (acumuladoValorDia, idProfile) {
           $hrrBox.find(".calc").each(function () {
+            console.log('//////////////////////////');
             var calc = $(this).text().trim();
+
             var fecha = new Date($(this).data("date") + "T00:00:00");
             var mesCalc = fecha.getMonth() + 1;
 
@@ -239,6 +241,9 @@ $(document).ready(function () {
                 var tiempo = calc.replace(/[^\d:]/g, "").split(":");
                 var horas = parseInt(tiempo[0], 10) * sign;
                 var minutos = parseInt(tiempo[1], 10) * sign;
+                console.log('horas ',horas);
+                console.log('minutos ',minutos);
+
                 sumaHoras += horas;
                 sumaMinutos += minutos;
               } else {
