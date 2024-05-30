@@ -476,11 +476,14 @@ $(document).ready(function () {
               $("<li class='test'>FERIADO</li>").appendTo($dayList);
             } else if (entry.stamp) {
               var stamps = entry.stamp.split(",");
-              stamps.forEach(function (stamp) {
+              stamps.forEach(function (stamp, stampIndex) {
                 for (var i = 0; i < stamp.length; i += 5) {
-                  $("<li>" + stamp.slice(i, i + 5) + "</li>").appendTo(
-                    $dayList
-                  );
+                  var timeSlot = stamp.slice(i, i + 5);
+                  var $li = $("<li>" + timeSlot + "</li>");
+                  if (stampIndex === 0 && i === 0 && timeSlot > '09:00') {
+                    $li.css("color", "red");
+                  }
+                  $li.appendTo($dayList);
                 }
               });
             } else {
