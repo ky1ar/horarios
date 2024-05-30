@@ -228,15 +228,19 @@ $(document).ready(function () {
         year,
         month,
         function (acumuladoValorDia, idProfile) {
+          console.log('*********************************');
           $hrrBox.find(".calc").each(function () {
-            console.log('//////////////////////////');
+            console.log('---------------------');
             var calc = $(this).text().trim();
+            console.log('horas ',calc);
 
             var fecha = new Date($(this).data("date") + "T00:00:00");
             var mesCalc = fecha.getMonth() + 1;
 
             if (mesCalc === currentMonth) {
               if (calc !== "DF") {
+                console.log('horas ',horas);
+
                 var sign = calc.startsWith("-") ? -1 : 1;
                 var tiempo = calc.replace(/[^\d:]/g, "").split(":");
                 var horas = parseInt(tiempo[0], 10) * sign;
