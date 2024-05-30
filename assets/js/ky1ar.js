@@ -539,6 +539,19 @@ $(document).ready(function () {
       processData: false,
       dataType: "json",
       success: function (response) {
+        var totalMinutesLate = response.total_minutes_late_formatted;
+            var onePercentTotalHours = response.one_percent_total_hours;
+
+            var totalMinutesLateSplit = totalMinutesLate.split(':');
+            var onePercentTotalHoursSplit = onePercentTotalHours.split(':');
+
+            var totalMinutesLateMinutes = parseInt(totalMinutesLateSplit[0]) * 60 + parseInt(totalMinutesLateSplit[1]);
+            var onePercentTotalHoursMinutes = parseInt(onePercentTotalHoursSplit[0]) * 60 + parseInt(onePercentTotalHoursSplit[1]);
+
+            var differential = totalMinutesLateMinutes - onePercentTotalHoursMinutes;
+            differential = differential > 0 ? differential : 0; // Solo se toma la diferencia si total_minutes_late_formatted es mayor que one_percent_total_hours
+
+            console.log("Diferencia:", Math.floor(differential / 60) + "h " + (differential % 60) + "min");
         var data = response;
         $("#totalHours").text(data.adjusted_hours + " h");
         $("#totalMissingPoints").text(data.total_missing_points);
