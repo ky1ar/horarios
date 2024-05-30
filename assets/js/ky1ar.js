@@ -254,7 +254,8 @@ $(document).ready(function () {
 
                   const nhours = Math.floor(newc / 60);
                   const nminutos = newc % 60;
-                  console.log('new calc ',nhours+':'+nminutos);
+                  const formattedMinutes = String(nminutos).padStart(2, '0');
+                  console.log('new calc ',nhours+':'+formattedMinutes);
 
                 } else {
                   //console.log('idProfile ',idProfile);
@@ -278,7 +279,8 @@ $(document).ready(function () {
                   let newc = fixed + total;
                   const nhours = Math.floor(newc / 60);
                   const nminutos = newc % 60;
-                  console.log('new calc ',nhours+':'+nminutos);
+                  const formattedMinutes = String(nminutos).padStart(2, '0');
+                  console.log('new calc ',nhours+':'+formattedMinutes);
                 }
 
                 var sign = calc.startsWith("-") ? -1 : 1;
