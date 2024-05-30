@@ -428,6 +428,7 @@ $(document).ready(function () {
       data: { userId: userId, month: month, year: year },
       dataType: "json",
       success: function (response) {
+        console.log(response.schedule);
         if (response.success) {
           $(".ky1-hrr").empty();
           var daysCounter = 0;
