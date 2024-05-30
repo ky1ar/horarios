@@ -232,14 +232,14 @@ $(document).ready(function () {
           $hrrBox.find(".calc").each(function () {
             console.log('---------------------');
             var calc = $(this).text().trim();
-            console.log('horas ',calc);
+            console.log('---------------------');
 
             var fecha = new Date($(this).data("date") + "T00:00:00");
             var mesCalc = fecha.getMonth() + 1;
 
             if (mesCalc === currentMonth) {
               if (calc !== "DF") {
-                console.log('horas ',horas);
+                console.log('calc ',calc);
 
                 var sign = calc.startsWith("-") ? -1 : 1;
                 var tiempo = calc.replace(/[^\d:]/g, "").split(":");
