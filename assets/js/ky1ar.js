@@ -210,6 +210,9 @@ $(document).ready(function () {
   // });
 
   $(document).on("click", ".schedule-item", function () {
+    if ($(this).children().last().hasClass('justDoc')) {
+      return; // Salir de la función si es el último elemento
+  }
     var date = $(this).data("date");
     var userId = selectedUser.attr("data-id");
     $.ajax({
