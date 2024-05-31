@@ -137,6 +137,7 @@ $(document).ready(function () {
 
   function showModal(stamp, date, userId) {
     $("#stampInput").val(stamp);
+    $("#justNameInput").val(just);
     $("#dateInput").val(date);
     const formattedDate = formatDate(date);
     $("#dayInput").val(formattedDate);
@@ -157,10 +158,60 @@ $(document).ready(function () {
     }
   });
 
+  // $(document).on("click", ".schedule-item", function () {
+  //   var date = $(this).data("date");
+  //   var userId = selectedUser.attr("data-id");
+  //   // console.log(`Fetching schedule for date: ${date}, userId: ${userId}`);
+  //   $.ajax({
+  //     url: "../routes/del/get_stamp.php",
+  //     method: "POST",
+  //     data: { userId: userId, date: date },
+  //     dataType: "json",
+  //     success: function (response) {
+  //       if (response.success) {
+  //         console.log(response.just);
+  //         showModal(response.stamp, date, userId);
+  //       } else if (response.message === "El día es un feriado") {
+  //         console.log("No se abrió un modal por ser feriado");
+  //       } else {
+  //         showModal("", date, userId);
+  //       }
+  //     },
+  //     error: function (xhr, status, error) {
+  //       console.error("Error en la solicitud AJAX:", error);
+  //     },
+  //   });
+  // });
+
+  // $("#stampForm").on("submit", function (event) {
+  //   event.preventDefault();
+  //   const stamp = $("#stampInput").val();
+  //   const date = $("#dateInput").val();
+  //   const userId = $("#userIdInput").val();
+
+  //   $.ajax({
+  //     url: "../routes/del/update_stamp.php",
+  //     method: "POST",
+  //     data: { stamp: stamp, date: date, userId: userId },
+  //     dataType: "json",
+  //     success: function (response) {
+  //       if (response.success) {
+  //         hideModal();
+  //         // Opcional: Actualizar la vista si es necesario
+  //         getUserSchedule(userId, currentMonth, currentYear);
+  //       } else {
+  //         alert("Error al guardar el registro: " + response.message);
+  //       }
+  //     },
+  //     error: function (xhr, status, error) {
+  //       console.error("Error en la solicitud AJAX:", error);
+  //     },
+  //   });
+  // });
+
   $(document).on("click", ".schedule-item", function () {
     var date = $(this).data("date");
     var userId = selectedUser.attr("data-id");
-    // console.log(`Fetching schedule for date: ${date}, userId: ${userId}`);
     $.ajax({
       url: "../routes/del/get_stamp.php",
       method: "POST",
@@ -169,11 +220,11 @@ $(document).ready(function () {
       success: function (response) {
         if (response.success) {
           console.log(response.just);
-          showModal(response.stamp, date, userId);
+          showModal(response.stamp, response.just, date, userId);
         } else if (response.message === "El día es un feriado") {
           console.log("No se abrió un modal por ser feriado");
         } else {
-          showModal("", date, userId);
+          showModal("", "", date, userId);
         }
       },
       error: function (xhr, status, error) {
@@ -181,22 +232,20 @@ $(document).ready(function () {
       },
     });
   });
-
   $("#stampForm").on("submit", function (event) {
     event.preventDefault();
-    const stamp = $("#stampInput").val();
-    const date = $("#dateInput").val();
-    const userId = $("#userIdInput").val();
+    var formData = new FormData(this);
 
     $.ajax({
       url: "../routes/del/update_stamp.php",
       method: "POST",
-      data: { stamp: stamp, date: date, userId: userId },
+      data: formData,
+      processData: false,
+      contentType: false,
       dataType: "json",
       success: function (response) {
         if (response.success) {
           hideModal();
-          // Opcional: Actualizar la vista si es necesario
           getUserSchedule(userId, currentMonth, currentYear);
         } else {
           alert("Error al guardar el registro: " + response.message);
@@ -570,52 +619,52 @@ $(document).ready(function () {
       success: function (response) {
         var data = response;
         var minutesLate =
-            parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
-            parseInt(data.total_minutes_late_formatted.split(":")[1]);
+          parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
+          parseInt(data.total_minutes_late_formatted.split(":")[1]);
         var onePercentHours =
-            parseInt(data.one_percent_total_hours.split(":")[0]) * 60 +
-            parseInt(data.one_percent_total_hours.split(":")[1]);
+          parseInt(data.one_percent_total_hours.split(":")[0]) * 60 +
+          parseInt(data.one_percent_total_hours.split(":")[1]);
         var difference = minutesLate - onePercentHours;
-    
+
         // Multiplicar la diferencia por 1.2 y redondear
         var differenceAdjusted = Math.max(0, difference) * 1.2;
         differenceAdjusted = Math.round(differenceAdjusted); // Redondear
-    
+
         var hoursDifference = Math.floor(differenceAdjusted / 60);
         var minutesDifference = differenceAdjusted % 60;
         var differenceFormatted =
-            (hoursDifference < 10 ? "0" : "") +
-            hoursDifference +
-            ":" +
-            (minutesDifference < 10 ? "0" : "") +
-            minutesDifference;
-    
+          (hoursDifference < 10 ? "0" : "") +
+          hoursDifference +
+          ":" +
+          (minutesDifference < 10 ? "0" : "") +
+          minutesDifference;
+
         var adjustedHours =
-            parseInt(data.adjusted_hours.split(":")[0]) * 60 +
-            parseInt(data.adjusted_hours.split(":")[1]);
-    
+          parseInt(data.adjusted_hours.split(":")[0]) * 60 +
+          parseInt(data.adjusted_hours.split(":")[1]);
+
         // Sumar la diferencia ajustada a adjusted_hours
         var sum = adjustedHours + differenceAdjusted;
         var sumHours = Math.floor(sum / 60);
         var sumMinutes = sum % 60;
         var sumFormatted =
-            (sumHours < 10 ? "0" : "") +
-            sumHours +
-            ":" +
-            (sumMinutes < 10 ? "0" : "") +
-            sumMinutes;
-    
+          (sumHours < 10 ? "0" : "") +
+          sumHours +
+          ":" +
+          (sumMinutes < 10 ? "0" : "") +
+          sumMinutes;
+
         $("#totalHours").text(sumFormatted + " h");
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
         $("#tolerancia").text(
-            data.total_minutes_late_formatted +
+          data.total_minutes_late_formatted +
             "h" +
             " / " +
             data.one_percent_total_hours +
             "h"
         );
-    },
+      },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
       },

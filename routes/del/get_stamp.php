@@ -1,5 +1,4 @@
 <?php
-// Incluye el archivo de conexión a la base de datos
 require_once '../../includes/app/db.php';
 
 if (isset($_POST['userId']) && isset($_POST['date'])) {
@@ -32,7 +31,8 @@ if (isset($_POST['userId']) && isset($_POST['date'])) {
             echo json_encode(['success' => false, 'message' => 'Es un feriado']);
         } else {
             $stamp = isset($row['stamp']) ? $row['stamp'] : '';
-            echo json_encode(['success' => true, 'stamp' => $stamp]);
+            $just = isset($row['just']) ? $row['just'] : ''; // Añadir el nombre del archivo de justificación
+            echo json_encode(['success' => true, 'stamp' => $stamp, 'just' => $just]);
         }
     } else {
         echo json_encode(['success' => false, 'message' => 'No se encontró ningún registro']);

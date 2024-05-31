@@ -282,20 +282,22 @@ require_once 'db.php';
     <div class="modal-stamp" style="display: none;">
         <div class="modal-content">
             <h1>Actualizar Registro</h1>
-            <form id="stampForm">
+            <form id="stampForm" enctype="multipart/form-data">
                 <label for="dayInput">Día:</label>
                 <input type="text" id="dayInput" name="day" disabled>
                 <label for="stampInput">Registro:</label>
                 <input type="text" id="stampInput" name="stamp">
                 <input type="hidden" id="dateInput" name="date">
                 <input type="hidden" id="userIdInput" name="userId">
-                <label for="">Justificación:</label>
-                <input type="file" id="justInput" name="" accept=".jpg, .jpeg, .png, .pdf">
+                <input type="hidden" id="justNameInput" name="just"> <!-- Campo oculto para el nombre del archivo -->
+                <label for="justInput">Justificación:</label>
+                <input type="file" id="justInput" name="justFile" accept=".jpg, .jpeg, .png, .pdf">
                 <input type="submit" value="Guardar">
             </form>
         </div>
     </div>
-    
+
+
     <div id="messageVerify" class="message-verify">
         <img src="./assets/img/check.png" alt="">
         <p>Se ha actualizado el registro correctamente</p>
