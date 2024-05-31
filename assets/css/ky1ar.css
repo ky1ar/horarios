@@ -571,7 +571,9 @@ body {
 
 #login .modal {
   position: absolute;
-  top: 25%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   border-radius: 0.5rem;
   box-shadow: 0 8px 2rem var(--graydarkest);
