@@ -303,6 +303,11 @@ require_once 'db.php';
         <img src="./assets/img/check.png" alt="">
         <p>Se ha actualizado el registro correctamente</p>
     </div>
+    
+    <div class="viewDoc">
+        <img src="" alt="">
+    </div>
+
     <script>
         window.onload = function() {
             if (document.cookie.indexOf("registro_actualizado=true") !== -1) {
