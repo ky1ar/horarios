@@ -586,7 +586,7 @@ $(document).ready(function () {
 
               if (hPoints === "DF") {
                 $calcLi.addClass("df");
-                $calcLi.text("Faltan Datos");
+                //$calcLi.text("Faltan Datos");
               } else if (hPoints.startsWith("-")) {
                 $calcLi.addClass("minus");
               } else {
