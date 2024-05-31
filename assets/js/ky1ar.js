@@ -223,7 +223,7 @@ $(document).ready(function () {
           
           console.log(response.just);
           showModal(response.stamp, response.just, date, userId);
-          if (response.just && response.just.trim() !== "") {
+          if (response.just !== "") {
             // Agrega el elemento li.justDoc al $dayList
             $("<li class='justDoc'><img src='./assets/img/doc.png' alt=''></li>").appendTo($dayList);
         }
