@@ -338,14 +338,14 @@ $(document).ready(function () {
           var resultado;
 
           if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
-            console.log('a',resultadoHoras,resultadoMinutos);
+            // console.log('a',resultadoHoras,resultadoMinutos);
             resultado =
               "-" +
               Math.abs(resultadoHoras).toString().padStart(2, "0") +
               ":" +
               resultadoMinutos;
           } else {
-            console.log('b',resultadoHoras,resultadoMinutos);
+            // console.log('b',resultadoHoras,resultadoMinutos);
             resultado =
               resultadoHoras.toString().padStart(2, "0") +
               ":" +
@@ -353,27 +353,27 @@ $(document).ready(function () {
           }
 
           // Imprimir el resultado en la consola
-          console.log(
-            "Id_Profile " +
-              idProfile +
-              ", Semana " +
-              semana +
-              ", suma calc: " +
-              resultado +
-              ", Valor acumulado " +
-              acumuladoValorDia +
-              ", DF count: " +
-              dfCount +
-              ", DF dates: " +
-              dfDates
-                .map((date) => {
-                  const dayOfWeek = new Intl.DateTimeFormat("es-ES", {
-                    weekday: "long",
-                  }).format(date);
-                  return `${date.toLocaleDateString()} (${dayOfWeek})`;
-                })
-                .join(", ")
-          );
+          // console.log(
+          //   "Id_Profile " +
+          //     idProfile +
+          //     ", Semana " +
+          //     semana +
+          //     ", suma calc: " +
+          //     resultado +
+          //     ", Valor acumulado " +
+          //     acumuladoValorDia +
+          //     ", DF count: " +
+          //     dfCount +
+          //     ", DF dates: " +
+          //     dfDates
+          //       .map((date) => {
+          //         const dayOfWeek = new Intl.DateTimeFormat("es-ES", {
+          //           weekday: "long",
+          //         }).format(date);
+          //         return `${date.toLocaleDateString()} (${dayOfWeek})`;
+          //       })
+          //       .join(", ")
+          // );
 
           function sumarRestarHoras(
             totalMinutosActual,
@@ -422,7 +422,7 @@ $(document).ready(function () {
 
           // Aplicar el resultado al elemento HTML correspondiente
           if (resultado.includes("-")) {
-            console.log(acumuladoValorDia.toString(),resultado,false);
+            // console.log(acumuladoValorDia.toString(),resultado,false);
             const nuevaHoraResta = sumarRestarHoras(
               acumuladoValorDia.toString(),
               resultado,
@@ -437,7 +437,7 @@ $(document).ready(function () {
               .text(nuevaHoraResta + "h" + " / " + acumuladoValorDia + "h");
             $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
           } else {
-            console.log(acumuladoValorDia.toString(),resultado,false);
+            // console.log(acumuladoValorDia.toString(),resultado,false);
             const nuevaHoraSuma = sumarRestarHoras(
               acumuladoValorDia.toString(),
               resultado,
