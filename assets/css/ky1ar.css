@@ -571,6 +571,7 @@ body {
 
 #login .modal {
   position: absolute;
+  top: 25%;
   display: flex;
   border-radius: 0.5rem;
   box-shadow: 0 8px 2rem var(--graydarkest);
