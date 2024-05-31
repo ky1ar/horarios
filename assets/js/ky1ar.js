@@ -561,7 +561,7 @@ $(document).ready(function () {
                   var timeSlot = stamp.slice(i, i + 5);
                   var $li = $("<li>" + timeSlot + "</li>");
                   if (stampIndex === 0 && i === 0 && timeSlot > "09:00") {
-                    $li.css("color", "red");
+                    $li.addClass("late");
                   }
                   $li.appendTo($dayList);
                 }
