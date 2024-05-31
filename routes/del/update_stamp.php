@@ -71,7 +71,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
         $updateStmt->bind_param("ssi", $stamp, $just, $idSchedule);
 
         if ($updateStmt->execute()) {
-            echo json_encode(['success' => true]);
+            echo json_encode(['success' => true, 'reload' => true]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Failed to update stamp']);
         }
@@ -85,7 +85,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
         $insertStmt->bind_param("isss", $userId, $stamp, $just, $date);
 
         if ($insertStmt->execute()) {
-            echo json_encode(['success' => true]);
+            echo json_encode(['success' => true, 'reload' => true]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Failed to insert stamp']);
         }
