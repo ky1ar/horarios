@@ -600,13 +600,13 @@ $(document).ready(function () {
                 var imageName = entry.just;
                 var imageUrl = "/justs/" + imageName;
                 $("#justificationImage").attr("src", imageUrl);
-                $(".viewDoc").show();
+                var $viewDoc = $(".viewDoc");
 
-                $(document).on("click", function (event) {
-                  if (!$(event.target).closest(".viewDoc").length) {
-                    $(".viewDoc").hide();
-                  }
-                });
+                if ($viewDoc.is(":visible")) {
+                  $viewDoc.hide();
+                } else {
+                  $viewDoc.show();
+                }
               });
             }
 
