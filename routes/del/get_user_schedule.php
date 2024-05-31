@@ -43,6 +43,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     t.day_number,
     t.new_column,
     t.stamp,
+    t.just,
     CASE 
         WHEN t.new_column = 'DF' THEN 'DF'
         ELSE
@@ -145,6 +146,7 @@ FROM
         	DAY(c.calendar_date) AS day_number,
             s.id_schedule,
         	s.stamp,
+            s.just,
             COALESCE(
                 CASE 
                     WHEN LENGTH(s.stamp) > 10 THEN 

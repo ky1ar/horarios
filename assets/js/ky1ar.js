@@ -212,7 +212,6 @@ $(document).ready(function () {
   $(document).on("click", ".calc", function () {
     var date = $(this).data("date");
     var userId = selectedUser.attr("data-id");
-    var $dayList = $("#dayList"); 
     $.ajax({
       url: "../routes/del/get_stamp.php",
       method: "POST",
@@ -220,13 +219,8 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-          
           console.log(response.just);
           showModal(response.stamp, response.just, date, userId);
-          if (response.just !== "") {
-            // Agrega el elemento li.justDoc al $dayList
-            $("<li class='justDoc'><img src='./assets/img/doc.png' alt=''></li>").appendTo($dayList);
-        }
         } else if (response.message === "El día es un feriado") {
           console.log("No se abrió un modal por ser feriado");
         } else {
@@ -519,6 +513,8 @@ $(document).ready(function () {
             var dayName = entry.day_of_week_es;
             var dayNumber = entry.day_number;
             var hPoints = entry.time_difference;
+
+            console.log("Este es el just: " + entry.just);
             if (dayName.toLowerCase() === "domingo") {
               return;
             }
@@ -567,7 +563,7 @@ $(document).ready(function () {
                   var timeSlot = stamp.slice(i, i + 5);
                   var $li = $("<li>" + timeSlot + "</li>");
                   if (stampIndex === 0 && i === 0 && timeSlot > "09:00") {
-                    $li.addClass("late");
+                    $li.css("color", "red");
                   }
                   $li.appendTo($dayList);
                 }
@@ -597,7 +593,7 @@ $(document).ready(function () {
               }
 
               $calcLi.appendTo($dayList);
-              // $("<li class='justDoc'><img src='./assets/img/doc.png' alt=''></li>").appendTo($dayList);
+              $("<li class='justDoc'><img src='./assets/img/doc.png' alt=''></li>").appendTo($dayList);
             }
 
             daysCounter++;
