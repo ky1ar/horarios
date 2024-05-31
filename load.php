@@ -303,9 +303,9 @@ require_once 'db.php';
         <img src="./assets/img/check.png" alt="">
         <p>Se ha actualizado el registro correctamente</p>
     </div>
-    
+
     <div class="viewDoc">
-        <img src="" alt="">
+        <img src="./assets/img/test.png" alt="">
     </div>
 
     <script>
