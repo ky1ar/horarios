@@ -634,10 +634,11 @@ $(document).ready(function () {
           ":" +
           (minutesDifference < 10 ? "0" : "") +
           minutesDifference;
-          console.log(differenceFormatted);
+          
         var adjustedHours =
           parseInt(data.adjusted_hours.split(":")[0]) * 60 +
           parseInt(data.adjusted_hours.split(":")[1]);
+          
         var sum = adjustedHours + differenceAdjusted;
         var sumHours = Math.floor(sum / 60);
         var sumMinutes = sum % 60;
