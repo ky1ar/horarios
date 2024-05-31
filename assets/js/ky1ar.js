@@ -160,7 +160,7 @@ $(document).ready(function () {
   $(document).on("click", ".schedule-item", function () {
     var date = $(this).data("date");
     var userId = selectedUser.attr("data-id");
-    console.log(`Fetching schedule for date: ${date}, userId: ${userId}`);
+    // console.log(`Fetching schedule for date: ${date}, userId: ${userId}`);
     $.ajax({
       url: "../routes/del/get_stamp.php",
       method: "POST",
