@@ -227,10 +227,10 @@ $(document).ready(function () {
         semana,
         year,
         month,
-        function (acumuladoValorDia, idProfile) {
-          console.log('*********************************');
+        // function (acumuladoValorDia, idProfile) {
+        //   console.log('*********************************');
           $hrrBox.find(".calc").each(function () {
-            console.log('---------------------');
+            // console.log('---------------------');
             var calc = $(this).text().trim();
             const dayname = $(this).closest('ul').find('li').first().text();
             
@@ -240,7 +240,7 @@ $(document).ready(function () {
 
             if (mesCalc === currentMonth) {
               if (calc !== "DF") {
-                console.log('old calc ',calc);
+                // console.log('old calc ',calc);
                 if (calc.startsWith("-")){
 
                   const tiempo = calc.replace(/[^\d:]/g, "").split(":");
@@ -255,12 +255,12 @@ $(document).ready(function () {
                   const nhours = Math.floor(newc / 60);
                   const nminutos = newc % 60;
                   const formattedMinutes = String(nminutos).padStart(2, '0');
-                  console.log('new calc ',nhours+':'+formattedMinutes);
+                  // console.log('new calc ',nhours+':'+formattedMinutes);
 
                 } else {
                   //console.log('idProfile ',idProfile);
                   let fixed;
-                  console.log('dayname ',dayname);
+                  // console.log('dayname ',dayname);
                   if (dayname.includes("Sáb")) {
                     if (idProfile == 1) {
                       fixed = 0;
@@ -281,7 +281,7 @@ $(document).ready(function () {
                   const nhours = Math.floor(newc / 60);
                   const nminutos = newc % 60;
                   const formattedMinutes = String(nminutos).padStart(2, '0');
-                  console.log('new calc ',nhours+':'+formattedMinutes);
+                  // console.log('new calc ',nhours+':'+formattedMinutes);
                 }
 
                 var sign = calc.startsWith("-") ? -1 : 1;
