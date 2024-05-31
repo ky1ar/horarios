@@ -385,19 +385,15 @@ body {
   min-height: 20rem;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) {
-  background-color: red;
-}
-#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) .day-nam{
-  color: white;
-  opacity: 1;
+  background-image: url('https://soporte.krear3d.com/assets/css/whirlpool.png');
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) li.test {
-  color: white;
   transform: rotate(90deg);
   margin-top: 6.5rem;
-  letter-spacing: 0.5rem;
+  letter-spacing: 0.25rem;
   font-weight: bold;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  opacity: 0.5;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:nth-child(odd) {
   background-color: #f5f5f5;
@@ -451,18 +447,21 @@ body {
   color: white;
 }
 #ky1-rgt .ky1-hrr .hrr-box .data-sem p{
-  padding: 0.5rem;
-  font-size: 1rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.9rem;
   text-align: center;
+  margin: 0;
   font-weight: 600;
-  
 }
 #ky1-rgt .ky1-hrr .hrr-box .data-sem p:first-child{
-  background-color: #177BE5;
+  background-color: #c9dffc;
+  color: #0084ff;
   border-radius: 0.5rem 0 0 0.5rem;
 }
 #ky1-rgt .ky1-hrr .hrr-box .data-sem p:last-child{
-  background-color: #2FCE66;
+  background-color: #e1efd8;
+  color: #64b60b;
+  border-radius: 0 0.5rem 0.5rem 0;
 }
 .super {
   width: 100vw;
