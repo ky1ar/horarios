@@ -413,6 +413,13 @@ body {
   color: white;
   margin-top: auto;
 }
+#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.justDoc{
+  position: absolute;
+  bottom: 12px;
+}
+#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.justDoc img{
+  width: 2.5rem;
+}
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day .day-nam {
   opacity: 0.5;

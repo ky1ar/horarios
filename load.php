@@ -149,6 +149,7 @@ require_once 'db.php';
                         <li>14:08</li>
                         <li>18:05</li>
                         <li class="calc">+08:04</li>
+                        <li class="justDoc"><img src="./assets/img/doc.png" alt=""></li>
                     </ul>
                     <ul>
                         <li class="day-nam">mar 2</li>
@@ -289,7 +290,7 @@ require_once 'db.php';
                 <input type="text" id="stampInput" name="stamp">
                 <input type="hidden" id="dateInput" name="date">
                 <input type="hidden" id="userIdInput" name="userId">
-                <input type="hidden" id="justNameInput" name="just"> <!-- Campo oculto para el nombre del archivo -->
+                <input type="hidden" id="justNameInput" name="just"> 
                 <label for="justInput">Justificación:</label>
                 <input type="file" id="justInput" name="justFile" accept=".jpg, .jpeg, .png, .pdf">
                 <input type="submit" value="Guardar">

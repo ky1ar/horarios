@@ -591,6 +591,7 @@ $(document).ready(function () {
               }
 
               $calcLi.appendTo($dayList);
+              $("<li class='justDoc'><img src='./assets/img/doc.png' alt=''></li>").appendTo($dayList);
             }
 
             daysCounter++;
