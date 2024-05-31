@@ -135,7 +135,7 @@ $(document).ready(function () {
     return formattedDate;
   }
 
-  function showModal(stamp, date, userId) {
+  function showModal(stamp, just, date, userId) {
     $("#stampInput").val(stamp);
     $("#justNameInput").val(just);
     $("#dateInput").val(date);
