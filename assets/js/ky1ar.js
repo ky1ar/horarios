@@ -597,7 +597,7 @@ $(document).ready(function () {
                 ).appendTo($dayList);
               }
               $(document).on("click", "li.justDoc", function () {
-                var imageName = entry.just;
+                var imageName = $(this).find("img").attr("src"); // Obtener el nombre de la imagen desde el atributo src del img dentro de li
                 var imageUrl = "/justs/" + imageName;
                 $("#justificationImage").attr("src", imageUrl);
                 var $viewDoc = $(".viewDoc");
