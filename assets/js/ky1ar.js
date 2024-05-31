@@ -321,6 +321,8 @@ $(document).ready(function () {
           // Actualizar el HTML
           $hrrBox.find(".minS").text(time1 + "h" + " / " + time2 + "h");
           $hrrBox.find(".porT").text(percentage.toFixed(1) + "%");
+
+          console.log(time1);
         }
       );
     });
