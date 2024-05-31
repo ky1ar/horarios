@@ -593,7 +593,10 @@ $(document).ready(function () {
               }
 
               $calcLi.appendTo($dayList);
-              $("<li class='justDoc'><img src='./assets/img/doc.png' alt=''></li>").appendTo($dayList);
+              if (entry.just && entry.just.trim() !== '') {
+                // Insertar el elemento li solo si entry.just no está vacío
+                $("<li class='justDoc'><img src='./assets/img/doc.png' alt=''></li>").appendTo($dayList);
+              }
             }
 
             daysCounter++;

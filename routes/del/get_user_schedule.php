@@ -65,7 +65,9 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                             ), 2, '0'
                         )
                     )
-                WHEN t.id_profile = 1 AND t.day_of_week_es = 'Sábado' THEN t.new_column
+                    WHEN t.id_profile = 1 AND t.day_of_week_es = 'Sábado' THEN CONCAT('+',LPAD(HOUR(STR_TO_DATE(t.new_column, '%H:%i')),2,'0'),
+                    ':',
+                    SUBSTRING(t.new_column, 4))
                 WHEN t.id_profile = 2 AND t.day_of_week_es IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes') THEN
                     CONCAT(
                         CASE
