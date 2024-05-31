@@ -21,14 +21,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
     if (isset($_FILES['justFile']) && $_FILES['justFile']['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $_FILES['justFile']['tmp_name'];
         $fileName = $_FILES['justFile']['name'];
-        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-        $allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf'];
-
-        if (!in_array($fileExtension, $allowedExtensions)) {
-            echo json_encode(['success' => false, 'message' => 'Formato de archivo incorrecto']);
-            exit;
-        }
-
+        $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
         do {
             $newFileName = generateUniqueFileName() . '.' . $fileExtension;
             $checkSql = "SELECT COUNT(*) as count FROM Schedule WHERE just = ?";
@@ -71,7 +64,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
         $updateStmt->bind_param("ssi", $stamp, $just, $idSchedule);
 
         if ($updateStmt->execute()) {
-            echo json_encode(['success' => true, 'reload' => true]);
+            echo json_encode(['success' => true]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Failed to update stamp']);
         }
@@ -85,7 +78,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
         $insertStmt->bind_param("isss", $userId, $stamp, $just, $date);
 
         if ($insertStmt->execute()) {
-            echo json_encode(['success' => true, 'reload' => true]);
+            echo json_encode(['success' => true]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Failed to insert stamp']);
         }
@@ -97,4 +90,3 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
 }
 
 $conn->close();
-?>
