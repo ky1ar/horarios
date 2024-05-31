@@ -73,6 +73,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
 
         if ($updateStmt->execute()) {
             echo json_encode(['success' => true]);
+            exit("<script>location.reload(true);</script>"); // Actualizar y borrar caché
         } else {
             echo json_encode(['success' => false, 'message' => 'Failed to update stamp']);
         }
@@ -87,6 +88,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
 
         if ($insertStmt->execute()) {
             echo json_encode(['success' => true]);
+            exit("<script>location.reload(true);</script>"); // Actualizar y borrar caché
         } else {
             echo json_encode(['success' => false, 'message' => 'Failed to insert stamp']);
         }
