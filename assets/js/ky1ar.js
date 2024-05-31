@@ -600,15 +600,15 @@ $(document).ready(function () {
                 ).appendTo($dayList);
               }
               $(document).on("click", "li.justDoc", function () {
-                var imageName = $(this).find("img").attr("src"); // Obtener el nombre de la imagen desde el atributo src del img dentro de li
+                var imageName = $(this).find("img").attr("src");
                 var imageUrl = "/justs/" + imageName;
                 $("#justificationImage").attr("src", imageUrl);
                 var $viewDoc = $(".viewDoc");
 
-                if ($viewDoc.is(":visible")) {
-                  $viewDoc.hide();
+                if ($viewDoc.css("display") === "none") {
+                  $viewDoc.css("display", "flex");
                 } else {
-                  $viewDoc.show();
+                  $viewDoc.css("display", "none");
                 }
               });
             }
