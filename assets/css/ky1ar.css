@@ -414,8 +414,8 @@ body {
   margin-top: auto;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.justDoc{
-  margin-top: -1rem;
-  margin-bottom: 1rem;
+  position: absolute;
+  bottom: 12px;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.justDoc img{
   width: 2.5rem;
