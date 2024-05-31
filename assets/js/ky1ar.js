@@ -210,10 +210,10 @@ $(document).ready(function () {
   // });
 
   $(document).on("click", ".schedule-item", function () {
-    // Verificar si el elemento actual es el último y tiene la clase 'justDoc'
-    if ($(this).is(":last-child") && $(this).hasClass('justDoc')) {
-        return; // Salir de la función si es el último elemento con la clase 'justDoc'
-    }
+    $("#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.justDoc").on("click", function () {
+      return; // Salir de la función si es el último elemento con la clase 'justDoc'
+  });
+  
 
     var date = $(this).data("date");
     var userId = selectedUser.attr("data-id");
