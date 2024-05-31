@@ -412,6 +412,7 @@ body {
   border-radius: 0 0 4rem 4rem;
   color: white;
   margin-top: auto;
+  cursor: pointer;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.justDoc{
   margin-top: -1rem;
