@@ -212,7 +212,6 @@ $(document).ready(function () {
     var currentMonth = new Date().getMonth() + 1;
     var totalHoras = 0;
     var totalMinutos = 0;
-
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
       var semana = index + 1;
@@ -301,6 +300,8 @@ $(document).ready(function () {
           });
           const nhours = Math.floor(final / 60);
           const nminutos = final % 60;
+          totalHoras += nhours;
+          totalMinutos += nminutos;
           const formattedMinutes = String(nminutos).padStart(2, "0");
           const time1 = nhours + ":" + formattedMinutes;
           const time2 = acumuladoValorDia;
@@ -323,18 +324,13 @@ $(document).ready(function () {
           // Actualizar el HTML
           $hrrBox.find(".minS").text(time1 + "h" + " / " + time2 + "h");
           $hrrBox.find(".porT").text(percentage.toFixed(1) + "%");
-
-          console.log(time1);
-          totalHoras += Math.floor(final / 60);
-          totalMinutos += final % 60;
-        });
+        }
+      );
     });
     totalHoras += Math.floor(totalMinutos / 60);
-    // Ajustar los minutos para que estén entre 0 y 59
     totalMinutos = totalMinutos % 60;
 
-    // Imprimir el resultado en la consola en formato hh:mm
-    console.log("Total horas:", totalHoras + ":" + String(totalMinutos).padStart(2, "0"));
+    console.log("Total de horas del mes:", totalHoras + ":" + String(totalMinutos).padStart(2, "0"));
   }
 
   function getWeeklyData(userId, week, year, month, callback) {
