@@ -210,6 +210,8 @@ $(document).ready(function () {
 
   function calcularSumaCalcPorSemana(userId, year, month) {
     var currentMonth = new Date().getMonth() + 1;
+    var totalHoras = 0;
+    var totalMinutos = 0;
 
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
@@ -323,6 +325,12 @@ $(document).ready(function () {
           $hrrBox.find(".porT").text(percentage.toFixed(1) + "%");
 
           console.log(time1);
+          totalHoras = Math.floor(final / 60);
+          totalMinutos = final % 60;
+
+          // Mostrar el resultado en la consola
+          console.log("Total horas:", totalHoras);
+          console.log("Total minutos:", totalMinutos);
         }
       );
     });
