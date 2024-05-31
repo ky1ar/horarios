@@ -582,14 +582,11 @@ $(document).ready(function () {
               );
 
               if (hPoints === "DF") {
-                $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #F0DD38");
-              } else if (hPoints.startsWith("+")) {
-                $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #0baa75");
+                $calcLi.addClass("df");
               } else if (hPoints.startsWith("-")) {
-                $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #DE0B0B");
+                $calcLi.addClass("minus");
               } else {
-                // Tratar el caso sin símbolo como positivo
-                $calcLi.css("box-shadow", "inset 0 -4rem 0 0 #0baa75");
+                $calcLi.addClass("minus");
               }
 
               $calcLi.appendTo($dayList);

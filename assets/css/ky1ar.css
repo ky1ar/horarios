@@ -428,7 +428,15 @@ body {
   margin-top: auto;
   font-weight: 600;
 }
-
+#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc.df {
+  background-color: #ffdd95;
+}
+#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc.plus {
+  background-color: #d0e6a5;
+}
+#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc.minus {
+  background-color: #fc887b;
+}
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day .day-nam {
   opacity: 0.5;
 }
