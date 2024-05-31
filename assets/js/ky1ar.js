@@ -247,7 +247,8 @@ $(document).ready(function () {
         if (response.success) {
           hideModal();
           // Suponiendo que userId, currentMonth y currentYear están disponibles
-          getUserSchedule(formData.get('userId'), currentMonth, currentYear);
+          getUserSchedule(formData.get("userId"), currentMonth, currentYear);
+          location.reload(true); // Recargar la página y borrar la caché
         } else {
           alert("Error al guardar el registro: " + response.message);
         }
@@ -256,8 +257,7 @@ $(document).ready(function () {
         console.error("Error en la solicitud AJAX:", error);
       },
     });
-});
-
+  });
 
   function calcularSumaCalcPorSemana(userId, year, month) {
     var currentMonth = new Date().getMonth() + 1;
