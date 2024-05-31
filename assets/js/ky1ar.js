@@ -345,35 +345,35 @@ $(document).ready(function () {
               ":" +
               resultadoMinutos;
           }
-          function sumarRestarHoras(
-            totalMinutosActual,
-            resultado,
-            restar = false
-          ) {
-            const [horas, minutos] = totalMinutosActual.split(":").map(Number);
-            const totalMinutos = horas * 60 + minutos;
+          // function sumarRestarHoras(
+          //   totalMinutosActual,
+          //   resultado,
+          //   restar = false
+          // ) {
+          //   const [horas, minutos] = totalMinutosActual.split(":").map(Number);
+          //   const totalMinutos = horas * 60 + minutos;
 
-            let [horas2, minutos2] = resultado.split(":").map(Number);
-            const signo = resultado.startsWith("-") ? -1 : 1;
-            const totalMinutos2 =
-              signo * (Math.abs(horas2) * 60 + Math.abs(minutos2));
+          //   let [horas2, minutos2] = resultado.split(":").map(Number);
+          //   const signo = resultado.startsWith("-") ? -1 : 1;
+          //   const totalMinutos2 =
+          //     signo * (Math.abs(horas2) * 60 + Math.abs(minutos2));
 
-            let nuevoTotalMinutos;
-            if (restar) {
-              nuevoTotalMinutos = totalMinutos - totalMinutos2;
-            } else {
-              nuevoTotalMinutos = totalMinutos + totalMinutos2;
-            }
-            if (nuevoTotalMinutos < 0) {
-              nuevoTotalMinutos = 0;
-            }
-            const nuevasHoras = Math.floor(nuevoTotalMinutos / 60);
-            const nuevosMinutos = nuevoTotalMinutos % 60;
-            const resultadoFinal = `${nuevasHoras
-              .toString()
-              .padStart(2, "0")}:${nuevosMinutos.toString().padStart(2, "0")}`;
-            return resultadoFinal;
-          }
+          //   let nuevoTotalMinutos;
+          //   if (restar) {
+          //     nuevoTotalMinutos = totalMinutos - totalMinutos2;
+          //   } else {
+          //     nuevoTotalMinutos = totalMinutos + totalMinutos2;
+          //   }
+          //   if (nuevoTotalMinutos < 0) {
+          //     nuevoTotalMinutos = 0;
+          //   }
+          //   const nuevasHoras = Math.floor(nuevoTotalMinutos / 60);
+          //   const nuevosMinutos = nuevoTotalMinutos % 60;
+          //   const resultadoFinal = `${nuevasHoras
+          //     .toString()
+          //     .padStart(2, "0")}:${nuevosMinutos.toString().padStart(2, "0")}`;
+          //   return resultadoFinal;
+          // }
 
           // // Función para convertir hora a minutos
           // function horaAMinutos(hora) {
