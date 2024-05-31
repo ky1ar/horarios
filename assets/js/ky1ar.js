@@ -575,22 +575,7 @@ $(document).ready(function () {
           parseInt(data.one_percent_total_hours.split(":")[1]);
         var difference = minutesLate - onePercentHours;
 
-        // var differenceAdjusted = Math.max(0, difference);
-        // var hoursDifference = Math.floor(differenceAdjusted / 60);
-        // var minutesDifference = differenceAdjusted % 60;
-        // var differenceFormatted =
-        //   (hoursDifference < 10 ? "0" : "") +
-        //   hoursDifference +
-        //   ":" +
-        //   (minutesDifference < 10 ? "0" : "") +
-        //   minutesDifference;
-
-        // var adjustedHours =
-        //   parseInt(data.adjusted_hours.split(":")[0]) * 60 +
-        //   parseInt(data.adjusted_hours.split(":")[1]);
-        
-        // Multiplicar la diferencia por 1.2
-        var differenceAdjusted = Math.max(0, difference) * 1.2;
+        var differenceAdjusted = Math.max(0, difference);
         var hoursDifference = Math.floor(differenceAdjusted / 60);
         var minutesDifference = differenceAdjusted % 60;
         var differenceFormatted =
@@ -603,6 +588,7 @@ $(document).ready(function () {
         var adjustedHours =
           parseInt(data.adjusted_hours.split(":")[0]) * 60 +
           parseInt(data.adjusted_hours.split(":")[1]);
+
         var sum = adjustedHours + differenceAdjusted;
         var sumHours = Math.floor(sum / 60);
         var sumMinutes = sum % 60;
