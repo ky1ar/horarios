@@ -590,22 +590,23 @@ $(document).ready(function () {
               }
 
               $calcLi.appendTo($dayList);
-              if (entry.just && entry.just.trim() !== '') {
+              if (entry.just && entry.just.trim() !== "") {
                 // Insertar el elemento li solo si entry.just no está vacío
-                $("<li class='justDoc'><img src='./assets/img/doc.png' alt=''></li>").appendTo($dayList);
+                $(
+                  "<li class='justDoc'><img src='./assets/img/doc.png' alt=''></li>"
+                ).appendTo($dayList);
               }
               $(document).on("click", "li.justDoc", function () {
-                // Obtener el nombre del archivo de la justificación del servidor
                 var imageName = entry.just;
-              
-                // Construir la ruta completa de la imagen en el servidor
                 var imageUrl = "/justs/" + imageName;
-              
-                // Actualizar el atributo src del elemento img en el modal
                 $("#justificationImage").attr("src", imageUrl);
-              
-                // Mostrar el modal
                 $(".viewDoc").show();
+
+                $(document).on("click", function (event) {
+                  if (!$(event.target).closest(".viewDoc").length) {
+                    $(".viewDoc").hide();
+                  }
+                });
               });
             }
 
