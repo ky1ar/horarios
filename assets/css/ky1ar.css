@@ -356,12 +356,18 @@ body {
 #ky1-rgt .ky1-hrr .hrr-box {
   /* flex: 1; */
   background-color: var(--white);
-  padding: 1.25rem 1.5rem;
+  padding: 1.5rem;
   border-radius: 1rem;
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
   flex-direction: column;
   position: relative;
+}
+#ky1-rgt .ky1-hrr .hrr-box .box {
+  /* flex: 1; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 #ky1-rgt .ky1-hrr .hrr-box span {
   font-size: 1.25rem;
