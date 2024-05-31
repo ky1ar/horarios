@@ -158,7 +158,6 @@ $(document).ready(function () {
     }
   });
 
-
   $(document).on("click", ".calc", function () {
     var date = $(this).data("date");
     var userId = selectedUser.attr("data-id");
@@ -211,22 +210,30 @@ $(document).ready(function () {
 
   function calcularSumaCalcPorSemana(userId, year, month) {
     var currentMonth = new Date().getMonth() + 1;
-    var totalMensual = 0; // Variable para almacenar el total mensual
 
     $(".hrr-box").each(function (index) {
-        var $hrrBox = $(this);
-        var semana = index + 1;
-        var sumaHoras = 0;
-        var sumaMinutos = 0;
-        var dfCount = 0;
-        var dfDates = [];
-        let final = 0;
-        getWeeklyData(userId, semana, year, month, function (acumuladoValorDia, idProfile) {
+      var $hrrBox = $(this);
+      var semana = index + 1;
+      var sumaHoras = 0;
+      var sumaMinutos = 0;
+      var dfCount = 0;
+      var dfDates = [];
+      let final = 0;
+      getWeeklyData(
+        userId,
+        semana,
+        year,
+        month,
+        function (acumuladoValorDia, idProfile) {
+          // console.log('*********************************');
           $hrrBox.find(".calc").each(function () {
-              var calc = $(this).text().trim();
-              const dayname = $(this).closest("ul").find("li").first().text();
-              var fecha = new Date($(this).data("date") + "T00:00:00");
-              var mesCalc = fecha.getMonth() + 1;
+            // console.log('---------------------');
+            var calc = $(this).text().trim();
+            const dayname = $(this).closest("ul").find("li").first().text();
+
+            var fecha = new Date($(this).data("date") + "T00:00:00");
+
+            var mesCalc = fecha.getMonth() + 1;
 
             if (mesCalc === currentMonth) {
               if (calc !== "DF") {
@@ -290,7 +297,6 @@ $(document).ready(function () {
               }
             }
           });
-          console.log("Total mensual:", totalMensual);
           const nhours = Math.floor(final / 60);
           const nminutos = final % 60;
           const formattedMinutes = String(nminutos).padStart(2, "0");
