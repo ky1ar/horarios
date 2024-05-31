@@ -95,7 +95,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                     ) - 3) * 15 * 60
                 ), '%H:%i'
             )
-        ELSE 'SD'
+        ELSE '00:00'
     END AS adjusted_hours,
     TIME_FORMAT(
         SEC_TO_TIME(
