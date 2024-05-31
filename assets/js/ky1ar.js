@@ -301,52 +301,52 @@ $(document).ready(function () {
           //console.log('sumaHoras ',sumaHoras);
           //console.log('sumaMinutos ',sumaMinutos);
 
-          dfDates.forEach(function (dfDate) {
-            var restaHoras = 0;
-            if (idProfile === 1) {
-              if (dfDate.getDay() >= 1 && dfDate.getDay() <= 5) {
-                restaHoras = 8;
-              }
-            } else if (idProfile === 2) {
-              if (dfDate.getDay() >= 1 && dfDate.getDay() <= 5) {
-                restaHoras = 8;
-              } else if (dfDate.getDay() === 6) {
-                restaHoras = 4;
-              }
-            } else if (idProfile === 3) {
-              restaHoras = 8;
-            }
-            sumaHoras -= restaHoras;
-          });
+          // dfDates.forEach(function (dfDate) {
+          //   var restaHoras = 0;
+          //   if (idProfile === 1) {
+          //     if (dfDate.getDay() >= 1 && dfDate.getDay() <= 5) {
+          //       restaHoras = 8;
+          //     }
+          //   } else if (idProfile === 2) {
+          //     if (dfDate.getDay() >= 1 && dfDate.getDay() <= 5) {
+          //       restaHoras = 8;
+          //     } else if (dfDate.getDay() === 6) {
+          //       restaHoras = 4;
+          //     }
+          //   } else if (idProfile === 3) {
+          //     restaHoras = 8;
+          //   }
+          //   sumaHoras -= restaHoras;
+          // });
 
-          if (sumaMinutos >= 60) {
-            sumaHoras += Math.floor(sumaMinutos / 60);
-            sumaMinutos = sumaMinutos % 60;
-          } else if (sumaMinutos <= -60) {
-            sumaHoras += Math.ceil(sumaMinutos / 60);
-            sumaMinutos = sumaMinutos % 60;
-          }
+          // if (sumaMinutos >= 60) {
+          //   sumaHoras += Math.floor(sumaMinutos / 60);
+          //   sumaMinutos = sumaMinutos % 60;
+          // } else if (sumaMinutos <= -60) {
+          //   sumaHoras += Math.ceil(sumaMinutos / 60);
+          //   sumaMinutos = sumaMinutos % 60;
+          // }
 
-          var resultadoHoras = sumaHoras;
-          var resultadoMinutos = Math.abs(sumaMinutos)
-            .toString()
-            .padStart(2, "0");
-          var resultado;
+          // var resultadoHoras = sumaHoras;
+          // var resultadoMinutos = Math.abs(sumaMinutos)
+          //   .toString()
+          //   .padStart(2, "0");
+          // var resultado;
 
-          if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
-            // console.log('a',resultadoHoras,resultadoMinutos);
-            resultado =
-              "-" +
-              Math.abs(resultadoHoras).toString().padStart(2, "0") +
-              ":" +
-              resultadoMinutos;
-          } else {
-            // console.log('b',resultadoHoras,resultadoMinutos);
-            resultado =
-              resultadoHoras.toString().padStart(2, "0") +
-              ":" +
-              resultadoMinutos;
-          }
+          // if (sumaHoras < 0 || (sumaHoras === 0 && sumaMinutos < 0)) {
+          //   // console.log('a',resultadoHoras,resultadoMinutos);
+          //   resultado =
+          //     "-" +
+          //     Math.abs(resultadoHoras).toString().padStart(2, "0") +
+          //     ":" +
+          //     resultadoMinutos;
+          // } else {
+          //   // console.log('b',resultadoHoras,resultadoMinutos);
+          //   resultado =
+          //     resultadoHoras.toString().padStart(2, "0") +
+          //     ":" +
+          //     resultadoMinutos;
+          // }
           // function sumarRestarHoras(
           //   totalMinutosActual,
           //   resultado,
