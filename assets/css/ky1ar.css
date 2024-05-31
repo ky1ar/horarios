@@ -444,7 +444,6 @@ body {
   right: 0rem;
   top: 0;
   display: flex;
-  color: white;
 }
 #ky1-rgt .ky1-hrr .hrr-box .data-sem p{
   padding: 0.5rem 0.75rem;
@@ -454,14 +453,12 @@ body {
   font-weight: 600;
 }
 #ky1-rgt .ky1-hrr .hrr-box .data-sem p:first-child{
-  background-color: #c9dffc;
-  color: #0084ff;
-  border-radius: 0.5rem 0 0 0.5rem;
+  background-color: #86e3ce;
+  border-radius: 1.5rem 0 0 1.5rem;
 }
 #ky1-rgt .ky1-hrr .hrr-box .data-sem p:last-child{
-  background-color: #e1efd8;
-  color: #64b60b;
-  border-radius: 0 0.5rem 0.5rem 0;
+  background-color: #d0e6a5;
+  border-radius: 0 1.5rem 1.5rem 0;
 }
 .super {
   width: 100vw;
