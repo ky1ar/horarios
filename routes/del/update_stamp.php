@@ -29,8 +29,9 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
             exit;
         }
 
+        $currentDate = date('Ymd');
         do {
-            $newFileName = generateUniqueFileName() . '.' . $fileExtension;
+            $newFileName = $currentDate . generateUniqueFileName() . '.' . $fileExtension;
             $checkSql = "SELECT COUNT(*) as count FROM Schedule WHERE just = ?";
             $checkStmt = $conn->prepare($checkSql);
             $checkStmt->bind_param("s", $newFileName);
