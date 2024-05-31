@@ -523,8 +523,11 @@ $(document).ready(function () {
               $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
                 ".ky1-hrr"
               );
-              $("<span>Semana " + currentWeek + "</span>").appendTo(
+              $currentHrrBoxtitle = $("<div class='box'></div>").appendTo(
                 $currentHrrBox
+              );
+              $("<span>Semana " + currentWeek + "</span>").appendTo(
+                $currentHrrBoxtitle
               );
 
               // Añadir el bloque HTML data-sem
@@ -533,7 +536,7 @@ $(document).ready(function () {
                   "<p class='porT'></p>" +
                   "<p class='minS'></p>" +
                   "</div>"
-              ).appendTo($currentHrrBox);
+              ).appendTo($currentHrrBoxtitle);
 
               $("<div class='hrr-day'></div>").appendTo($currentHrrBox);
               currentWeek++;
