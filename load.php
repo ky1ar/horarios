@@ -305,7 +305,7 @@ require_once 'db.php';
     </div>
 
     <div class="viewDoc" style="display: none">
-        <img src="./assets/img/test.png" alt="">
+        <img src="" alt="">
     </div>
 
     <script>
