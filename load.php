@@ -14,7 +14,7 @@ require_once 'db.php';
     <?php require_once 'header.php'; ?>
 </head>
 
-<body>
+<body style="display: flex;">
     <aside id="ky1-lft">
         <a href="" class="ky1-lgo"><img src="assets/img/logod.webp" alt=""></a>
         <ul class="ky1-lst">
