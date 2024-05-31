@@ -208,129 +208,9 @@ $(document).ready(function () {
     });
   });
 
-  // function calcularSumaCalcPorSemana(userId, year, month) {
-  //   var currentMonth = new Date().getMonth() + 1;
-
-  //   $(".hrr-box").each(function (index) {
-  //     var $hrrBox = $(this);
-  //     var semana = index + 1;
-  //     var sumaHoras = 0;
-  //     var sumaMinutos = 0;
-  //     var dfCount = 0;
-  //     var dfDates = [];
-  //     let final = 0;
-  //     getWeeklyData(
-  //       userId,
-  //       semana,
-  //       year,
-  //       month,
-  //       function (acumuladoValorDia, idProfile) {
-  //         // console.log('*********************************');
-  //         $hrrBox.find(".calc").each(function () {
-  //           // console.log('---------------------');
-  //           var calc = $(this).text().trim();
-  //           const dayname = $(this).closest("ul").find("li").first().text();
-
-  //           var fecha = new Date($(this).data("date") + "T00:00:00");
-
-  //           var mesCalc = fecha.getMonth() + 1;
-
-  //           if (mesCalc === currentMonth) {
-  //             if (calc !== "DF") {
-  //               // console.log('old calc ',calc);
-  //               if (calc.startsWith("-")) {
-  //                 const tiempo = calc.replace(/[^\d:]/g, "").split(":");
-  //                 const horas = parseInt(tiempo[0], 10);
-  //                 const minutos = parseInt(tiempo[1], 10);
-
-  //                 const total = horas * 60 + minutos;
-  //                 // console.log('total ',total);
-  //                 const fixed = 8 * 60;
-  //                 let newc = fixed - total;
-  //                 final += newc;
-  //                 const nhours = Math.floor(newc / 60);
-  //                 const nminutos = newc % 60;
-  //                 const formattedMinutes = String(nminutos).padStart(2, "0");
-  //                 // console.log('new calc ',nhours+':'+formattedMinutes);
-  //               } else {
-  //                 //console.log('idProfile ',idProfile);
-  //                 let fixed;
-  //                 // console.log('dayname ',dayname);
-  //                 if (dayname.includes("Sáb")) {
-  //                   if (idProfile == 1) {
-  //                     fixed = 0;
-  //                   } else if (idProfile == 2) {
-  //                     fixed = 4 * 60;
-  //                   } else {
-  //                     fixed = 8 * 60;
-  //                   }
-  //                 } else {
-  //                   fixed = 8 * 60;
-  //                 }
-
-  //                 const tiempo = calc.replace(/[^\d:]/g, "").split(":");
-  //                 const horas = parseInt(tiempo[0], 10);
-  //                 const minutos = parseInt(tiempo[1], 10);
-  //                 const total = horas * 60 + minutos;
-
-  //                 let newc = fixed + total;
-  //                 final += newc;
-  //                 const nhours = Math.floor(newc / 60);
-  //                 const nminutos = newc % 60;
-  //                 const formattedMinutes = String(nminutos).padStart(2, "0");
-  //                 // console.log('new calc ',nhours+':'+formattedMinutes);
-  //               }
-
-  //               var sign = calc.startsWith("-") ? -1 : 1;
-
-  //               var tiempo = calc.replace(/[^\d:]/g, "").split(":");
-  //               var horas = parseInt(tiempo[0], 10) * sign;
-  //               var minutos = parseInt(tiempo[1], 10) * sign;
-  //               // console.log('horas ',horas);
-  //               // console.log('minutos ',minutos);
-
-  //               sumaHoras += horas;
-  //               sumaMinutos += minutos;
-  //             } else {
-  //               dfCount++;
-  //               dfDates.push(fecha);
-  //             }
-  //           }
-  //         });
-  //         const nhours = Math.floor(final / 60);
-  //         const nminutos = final % 60;
-  //         const formattedMinutes = String(nminutos).padStart(2, "0");
-  //         const time1 = nhours + ":" + formattedMinutes;
-  //         const time2 = acumuladoValorDia;
-
-  //         // Funciones de utilidad
-  //         function timeToMinutes(time) {
-  //           const [hours, minutes] = time.split(":").map(Number);
-  //           return hours * 60 + minutes;
-  //         }
-
-  //         function calculatePercentage(time1, time2) {
-  //           const minutes1 = timeToMinutes(time1);
-  //           const minutes2 = timeToMinutes(time2);
-  //           return (minutes1 / minutes2) * 100;
-  //         }
-
-  //         // Calcular el porcentaje
-  //         const percentage = calculatePercentage(time1, time2);
-
-  //         // Actualizar el HTML
-  //         $hrrBox.find(".minS").text(time1 + "h" + " / " + time2 + "h");
-  //         $hrrBox.find(".porT").text(percentage.toFixed(1) + "%");
-  //       }
-  //     );
-  //   });
-  // }
   function calcularSumaCalcPorSemana(userId, year, month) {
     var currentMonth = new Date().getMonth() + 1;
-  
-    var totalHoras = 0;
-    var totalMinutos = 0;
-  
+
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
       var semana = index + 1;
@@ -338,32 +218,44 @@ $(document).ready(function () {
       var sumaMinutos = 0;
       var dfCount = 0;
       var dfDates = [];
-      var final = 0;
-  
+      let final = 0;
       getWeeklyData(
         userId,
         semana,
         year,
         month,
         function (acumuladoValorDia, idProfile) {
+          // console.log('*********************************');
           $hrrBox.find(".calc").each(function () {
+            // console.log('---------------------');
             var calc = $(this).text().trim();
             const dayname = $(this).closest("ul").find("li").first().text();
+
             var fecha = new Date($(this).data("date") + "T00:00:00");
+
             var mesCalc = fecha.getMonth() + 1;
-  
+
             if (mesCalc === currentMonth) {
               if (calc !== "DF") {
+                // console.log('old calc ',calc);
                 if (calc.startsWith("-")) {
                   const tiempo = calc.replace(/[^\d:]/g, "").split(":");
                   const horas = parseInt(tiempo[0], 10);
                   const minutos = parseInt(tiempo[1], 10);
+
                   const total = horas * 60 + minutos;
+                  // console.log('total ',total);
                   const fixed = 8 * 60;
                   let newc = fixed - total;
                   final += newc;
+                  const nhours = Math.floor(newc / 60);
+                  const nminutos = newc % 60;
+                  const formattedMinutes = String(nminutos).padStart(2, "0");
+                  // console.log('new calc ',nhours+':'+formattedMinutes);
                 } else {
+                  //console.log('idProfile ',idProfile);
                   let fixed;
+                  // console.log('dayname ',dayname);
                   if (dayname.includes("Sáb")) {
                     if (idProfile == 1) {
                       fixed = 0;
@@ -375,17 +267,28 @@ $(document).ready(function () {
                   } else {
                     fixed = 8 * 60;
                   }
+
                   const tiempo = calc.replace(/[^\d:]/g, "").split(":");
                   const horas = parseInt(tiempo[0], 10);
                   const minutos = parseInt(tiempo[1], 10);
                   const total = horas * 60 + minutos;
+
                   let newc = fixed + total;
                   final += newc;
+                  const nhours = Math.floor(newc / 60);
+                  const nminutos = newc % 60;
+                  const formattedMinutes = String(nminutos).padStart(2, "0");
+                  // console.log('new calc ',nhours+':'+formattedMinutes);
                 }
+
                 var sign = calc.startsWith("-") ? -1 : 1;
+
                 var tiempo = calc.replace(/[^\d:]/g, "").split(":");
                 var horas = parseInt(tiempo[0], 10) * sign;
                 var minutos = parseInt(tiempo[1], 10) * sign;
+                // console.log('horas ',horas);
+                // console.log('minutos ',minutos);
+
                 sumaHoras += horas;
                 sumaMinutos += minutos;
               } else {
@@ -394,57 +297,35 @@ $(document).ready(function () {
               }
             }
           });
-  
-          totalHoras += Math.floor(final / 60);
-          totalMinutos += final % 60;
-          final = 0;
-  
-          // Función para formatear el tiempo a "hh:mm"
-          function formatTime(hours, minutes) {
-            return hours.toString().padStart(2, "0") + ":" + minutes.toString().padStart(2, "0");
-          }
-  
-          const time1 = formatTime(Math.floor(sumaHoras), sumaMinutos);
+          const nhours = Math.floor(final / 60);
+          const nminutos = final % 60;
+          const formattedMinutes = String(nminutos).padStart(2, "0");
+          const time1 = nhours + ":" + formattedMinutes;
           const time2 = acumuladoValorDia;
-  
+
           // Funciones de utilidad
           function timeToMinutes(time) {
             const [hours, minutes] = time.split(":").map(Number);
             return hours * 60 + minutes;
           }
-  
+
           function calculatePercentage(time1, time2) {
             const minutes1 = timeToMinutes(time1);
             const minutes2 = timeToMinutes(time2);
             return (minutes1 / minutes2) * 100;
           }
-  
+
           // Calcular el porcentaje
           const percentage = calculatePercentage(time1, time2);
-  
+
           // Actualizar el HTML
           $hrrBox.find(".minS").text(time1 + "h" + " / " + time2 + "h");
           $hrrBox.find(".porT").text(percentage.toFixed(1) + "%");
-  
-          // Reiniciar las variables de suma
-          sumaHoras = 0;
-          sumaMinutos = 0;
         }
       );
     });
-  
-    // Calcula los minutos adicionales si superan 60
-    totalHoras += Math.floor(totalMinutos / 60);
-    totalMinutos %= 60;
-  
-    // Formatea la suma total en "hh:mm"
-    const sumaTotal = totalHoras.toString().padStart(2, "0") + ":" + totalMinutos.toString().padStart(2, "0");
-  
-    console.log("Valor final de la suma total:", sumaTotal); // Agregar este console log para mostrar el valor final
-  
-    return sumaTotal;
   }
-  
+
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({
       url: "../routes/del/get_week.php",
