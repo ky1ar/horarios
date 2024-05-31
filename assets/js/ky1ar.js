@@ -600,19 +600,19 @@ $(document).ready(function () {
                   "<li class='justDoc'><img src='./assets/img/doc.png' alt=''></li>"
                 ).appendTo($dayList);
               }
-              $(document).on("click", "li.justDoc", function () {
-                var imageName = $(this).find("img").attr("src");
-                var imageUrl = "/justs/" + imageName;
-                $("#justificationImage").attr("src", imageUrl);
-                var $viewDoc = $(".viewDoc");
+              // $(document).on("click", "li.justDoc", function () {
+              //   var imageName = $(this).find("img").attr("src");
+              //   var imageUrl = "/justs/" + imageName;
+              //   $("#justificationImage").attr("src", imageUrl);
+              //   var $viewDoc = $(".viewDoc");
 
-                // Cambiar la visibilidad del modal
-                if ($viewDoc.css("display") === "none") {
-                  $viewDoc.css("display", "flex");
-                } else {
-                  $viewDoc.css("display", "none");
-                }
-              });
+              //   // Cambiar la visibilidad del modal
+              //   if ($viewDoc.css("display") === "none") {
+              //     $viewDoc.css("display", "flex");
+              //   } else {
+              //     $viewDoc.css("display", "none");
+              //   }
+              // });
             }
 
             daysCounter++;
