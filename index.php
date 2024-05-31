@@ -9,7 +9,6 @@ require_once 'db.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://tiendakrear3d.com/wp-content/uploads/2020/08/cropped-identificador-de-logo-87-32x32-1.png">
     <title>Krear 3D | Horarios</title>
-    <link rel="stylesheet" href="./assets/css/ky1ar.css">
     <?php require_once 'header.php'; ?>
 </head>
 
