@@ -432,6 +432,8 @@ body {
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc.df {
   background-color: #ffdd95;
+  line-height: 0.875rem;
+  font-size: 0.75rem;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc.plus {
   background-color: #d0e6a5;
