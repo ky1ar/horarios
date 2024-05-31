@@ -608,6 +608,21 @@ $(document).ready(function () {
       },
     });
   }
+  // Controlador de eventos para el clic en el elemento li con clase justDoc
+$(document).on("click", "li.justDoc", function () {
+  // Obtener el nombre del archivo de la justificación del servidor
+  var imageName = entry.just;
+
+  // Construir la ruta completa de la imagen en el servidor
+  var imageUrl = "/justs/" + imageName;
+
+  // Actualizar el atributo src del elemento img en el modal
+  $("#justificationImage").attr("src", imageUrl);
+
+  // Mostrar el modal
+  $(".viewDoc").show();
+});
+
   function getUserData(userId, month, year) {
     var formData = new FormData();
     formData.append("userId", userId);
