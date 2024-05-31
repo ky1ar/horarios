@@ -375,52 +375,10 @@ $(document).ready(function () {
             return resultadoFinal;
           }
 
-          // Función para convertir hora a minutos
-          function horaAMinutos(hora) {
-            const [horas, minutos] = hora.split(":").map(Number);
-            return horas * 60 + minutos;
-          }
-
-          // Función para calcular el porcentaje
-          function calcularPorcentaje(tiempoInicial, resultado) {
-            const minutosInicial = horaAMinutos(tiempoInicial);
-            const minutosResultado = horaAMinutos(resultado);
-            var porcentaje = (minutosResultado / minutosInicial) * 100;
-
-            return porcentaje;
-          }
-
-          // Aplicar el resultado al elemento HTML correspondiente
-          // if (resultado.includes("-")) {
-          //   // console.log(acumuladoValorDia.toString(),resultado,false);
-          //   const nuevaHoraResta = sumarRestarHoras(
-          //     acumuladoValorDia.toString(),
-          //     resultado,
-          //     false
-          //   );
-          //   const porcentaje = calcularPorcentaje(
-          //     acumuladoValorDia,
-          //     nuevaHoraResta
-          //   );
-          //   $hrrBox
-          //     .find(".minS")
-          //     .text(nuevaHoraResta + "h" + " / " + acumuladoValorDia + "h");
-          //   $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
-          // } else {
-          //   // console.log(acumuladoValorDia.toString(),resultado,false);
-          //   const nuevaHoraSuma = sumarRestarHoras(
-          //     acumuladoValorDia.toString(),
-          //     resultado,
-          //     false // Debería ser 'false' para sumar
-          //   );
-          //   const porcentaje = calcularPorcentaje(
-          //     acumuladoValorDia,
-          //     nuevaHoraSuma
-          //   );
-          //   $hrrBox
-          //     .find(".minS")
-          //     .text(nuevaHoraSuma + "h" + " / " + acumuladoValorDia + "h");
-          //   $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
+          // // Función para convertir hora a minutos
+          // function horaAMinutos(hora) {
+          //   const [horas, minutos] = hora.split(":").map(Number);
+          //   return horas * 60 + minutos;
           // }
 
           // const nhours = Math.floor(final / 60);
