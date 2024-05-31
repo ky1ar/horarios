@@ -363,7 +363,7 @@ $(document).ready(function () {
             var dayNumber = entry.day_number;
             var hPoints = entry.time_difference;
 
-            console.log("Este es el just: " + entry.just);
+            // console.log("Este es el just: " + entry.just);
             if (dayName.toLowerCase() === "domingo") {
               return;
             }
