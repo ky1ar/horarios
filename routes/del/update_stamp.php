@@ -1,5 +1,6 @@
 <?php
-// Función para generar un nombre único
+require_once '../../includes/app/db.php';
+
 function generateUniqueFileName($length = 6)
 {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
