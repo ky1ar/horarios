@@ -212,6 +212,7 @@ $(document).ready(function () {
   $(document).on("click", ".calc", function () {
     var date = $(this).data("date");
     var userId = selectedUser.attr("data-id");
+    var $dayList = $("#dayList"); 
     $.ajax({
       url: "../routes/del/get_stamp.php",
       method: "POST",
@@ -219,8 +220,13 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
+          
           console.log(response.just);
           showModal(response.stamp, response.just, date, userId);
+          if (response.just && response.just.trim() !== "") {
+            // Agrega el elemento li.justDoc al $dayList
+            $("<li class='justDoc'><img src='./assets/img/doc.png' alt=''></li>").appendTo($dayList);
+        }
         } else if (response.message === "El día es un feriado") {
           console.log("No se abrió un modal por ser feriado");
         } else {
@@ -591,7 +597,7 @@ $(document).ready(function () {
               }
 
               $calcLi.appendTo($dayList);
-              $("<li class='justDoc'><img src='./assets/img/doc.png' alt=''></li>").appendTo($dayList);
+              // $("<li class='justDoc'><img src='./assets/img/doc.png' alt=''></li>").appendTo($dayList);
             }
 
             daysCounter++;
