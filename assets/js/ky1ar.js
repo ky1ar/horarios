@@ -586,7 +586,7 @@ $(document).ready(function () {
               } else if (hPoints.startsWith("-")) {
                 $calcLi.addClass("minus");
               } else {
-                $calcLi.addClass("minus");
+                $calcLi.addClass("plus");
               }
 
               $calcLi.appendTo($dayList);
