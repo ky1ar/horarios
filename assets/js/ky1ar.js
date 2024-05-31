@@ -261,6 +261,8 @@ $(document).ready(function () {
                       fixed = 0;
                     } else if (idProfile == 2) {
                       fixed = 4 * 60;
+                    } else {
+                      fixed = 8 * 60;
                     }
                   } else {
                     fixed = 8 * 60;
