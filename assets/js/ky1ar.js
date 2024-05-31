@@ -605,6 +605,7 @@ $(document).ready(function () {
                 $("#justificationImage").attr("src", imageUrl);
                 var $viewDoc = $(".viewDoc");
 
+                // Cambiar la visibilidad del modal
                 if ($viewDoc.css("display") === "none") {
                   $viewDoc.css("display", "flex");
                 } else {
