@@ -325,15 +325,16 @@ $(document).ready(function () {
           $hrrBox.find(".porT").text(percentage.toFixed(1) + "%");
 
           console.log(time1);
-          totalHoras = Math.floor(final / 60);
-          totalMinutos = final % 60;
-
-          // Mostrar el resultado en la consola
-          console.log("Total horas:", totalHoras);
-          console.log("Total minutos:", totalMinutos);
-        }
-      );
+          totalHoras += Math.floor(final / 60);
+          totalMinutos += final % 60;
+        });
     });
+    totalHoras += Math.floor(totalMinutos / 60);
+    // Ajustar los minutos para que estén entre 0 y 59
+    totalMinutos = totalMinutos % 60;
+
+    // Imprimir el resultado en la consola en formato hh:mm
+    console.log("Total horas:", totalHoras + ":" + String(totalMinutos).padStart(2, "0"));
   }
 
   function getWeeklyData(userId, week, year, month, callback) {
