@@ -209,35 +209,29 @@ $(document).ready(function () {
   //   });
   // });
 
-  $(document).on("click", ".schedule-item", function () {
-    $("#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.justDoc").on("click", function () {
-      return; // Salir de la función si es el último elemento con la clase 'justDoc'
-  });
-  
-
+  $(document).on("click", ".calc", function () {
     var date = $(this).data("date");
     var userId = selectedUser.attr("data-id");
     $.ajax({
-        url: "../routes/del/get_stamp.php",
-        method: "POST",
-        data: { userId: userId, date: date },
-        dataType: "json",
-        success: function (response) {
-            if (response.success) {
-                console.log(response.just);
-                showModal(response.stamp, response.just, date, userId);
-            } else if (response.message === "El día es un feriado") {
-                console.log("No se abrió un modal por ser feriado");
-            } else {
-                showModal("", "", date, userId);
-            }
-        },
-        error: function (xhr, status, error) {
-            console.error("Error en la solicitud AJAX:", error);
-        },
+      url: "../routes/del/get_stamp.php",
+      method: "POST",
+      data: { userId: userId, date: date },
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          console.log(response.just);
+          showModal(response.stamp, response.just, date, userId);
+        } else if (response.message === "El día es un feriado") {
+          console.log("No se abrió un modal por ser feriado");
+        } else {
+          showModal("", "", date, userId);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
     });
-});
-
+  });
   $("#stampForm").on("submit", function (event) {
     event.preventDefault();
     var formData = new FormData(this);
