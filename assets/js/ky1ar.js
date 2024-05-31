@@ -158,56 +158,6 @@ $(document).ready(function () {
     }
   });
 
-  // $(document).on("click", ".schedule-item", function () {
-  //   var date = $(this).data("date");
-  //   var userId = selectedUser.attr("data-id");
-  //   // console.log(`Fetching schedule for date: ${date}, userId: ${userId}`);
-  //   $.ajax({
-  //     url: "../routes/del/get_stamp.php",
-  //     method: "POST",
-  //     data: { userId: userId, date: date },
-  //     dataType: "json",
-  //     success: function (response) {
-  //       if (response.success) {
-  //         console.log(response.just);
-  //         showModal(response.stamp, date, userId);
-  //       } else if (response.message === "El día es un feriado") {
-  //         console.log("No se abrió un modal por ser feriado");
-  //       } else {
-  //         showModal("", date, userId);
-  //       }
-  //     },
-  //     error: function (xhr, status, error) {
-  //       console.error("Error en la solicitud AJAX:", error);
-  //     },
-  //   });
-  // });
-
-  // $("#stampForm").on("submit", function (event) {
-  //   event.preventDefault();
-  //   const stamp = $("#stampInput").val();
-  //   const date = $("#dateInput").val();
-  //   const userId = $("#userIdInput").val();
-
-  //   $.ajax({
-  //     url: "../routes/del/update_stamp.php",
-  //     method: "POST",
-  //     data: { stamp: stamp, date: date, userId: userId },
-  //     dataType: "json",
-  //     success: function (response) {
-  //       if (response.success) {
-  //         hideModal();
-  //         // Opcional: Actualizar la vista si es necesario
-  //         getUserSchedule(userId, currentMonth, currentYear);
-  //       } else {
-  //         alert("Error al guardar el registro: " + response.message);
-  //       }
-  //     },
-  //     error: function (xhr, status, error) {
-  //       console.error("Error en la solicitud AJAX:", error);
-  //     },
-  //   });
-  // });
 
   $(document).on("click", ".calc", function () {
     var date = $(this).data("date");
@@ -261,30 +211,22 @@ $(document).ready(function () {
 
   function calcularSumaCalcPorSemana(userId, year, month) {
     var currentMonth = new Date().getMonth() + 1;
+    var totalMensual = 0; // Variable para almacenar el total mensual
 
     $(".hrr-box").each(function (index) {
-      var $hrrBox = $(this);
-      var semana = index + 1;
-      var sumaHoras = 0;
-      var sumaMinutos = 0;
-      var dfCount = 0;
-      var dfDates = [];
-      let final = 0;
-      getWeeklyData(
-        userId,
-        semana,
-        year,
-        month,
-        function (acumuladoValorDia, idProfile) {
-          // console.log('*********************************');
+        var $hrrBox = $(this);
+        var semana = index + 1;
+        var sumaHoras = 0;
+        var sumaMinutos = 0;
+        var dfCount = 0;
+        var dfDates = [];
+        let final = 0;
+        getWeeklyData(userId, semana, year, month, function (acumuladoValorDia, idProfile) {
           $hrrBox.find(".calc").each(function () {
-            // console.log('---------------------');
-            var calc = $(this).text().trim();
-            const dayname = $(this).closest("ul").find("li").first().text();
-
-            var fecha = new Date($(this).data("date") + "T00:00:00");
-
-            var mesCalc = fecha.getMonth() + 1;
+              var calc = $(this).text().trim();
+              const dayname = $(this).closest("ul").find("li").first().text();
+              var fecha = new Date($(this).data("date") + "T00:00:00");
+              var mesCalc = fecha.getMonth() + 1;
 
             if (mesCalc === currentMonth) {
               if (calc !== "DF") {
@@ -348,7 +290,7 @@ $(document).ready(function () {
               }
             }
           });
-
+          console.log("Total mensual:", totalMensual);
           const nhours = Math.floor(final / 60);
           const nminutos = final % 60;
           const formattedMinutes = String(nminutos).padStart(2, "0");
