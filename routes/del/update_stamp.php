@@ -18,13 +18,10 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
     $stamp = $_POST['stamp'];
     $just = isset($_POST['just']) ? $_POST['just'] : '';
 
-    // Manejar la subida del archivo
     if (isset($_FILES['justFile']) && $_FILES['justFile']['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $_FILES['justFile']['tmp_name'];
         $fileName = $_FILES['justFile']['name'];
         $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
-
-        // Generar un nombre único y verificar si ya existe en la base de datos
         do {
             $newFileName = generateUniqueFileName() . '.' . $fileExtension;
             $checkSql = "SELECT COUNT(*) as count FROM Schedule WHERE just = ?";
@@ -41,7 +38,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
         $dest_path = $uploadFileDir . $newFileName;
 
         if (move_uploaded_file($fileTmpPath, $dest_path)) {
-            $just = $newFileName; // Nombre del archivo guardado
+            $just = $newFileName;
         } else {
             echo json_encode(['success' => false, 'message' => 'Error al mover el archivo']);
             exit;
