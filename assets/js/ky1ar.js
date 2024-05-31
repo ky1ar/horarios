@@ -351,30 +351,6 @@ $(document).ready(function () {
               ":" +
               resultadoMinutos;
           }
-
-          // Imprimir el resultado en la consola
-          // console.log(
-          //   "Id_Profile " +
-          //     idProfile +
-          //     ", Semana " +
-          //     semana +
-          //     ", suma calc: " +
-          //     resultado +
-          //     ", Valor acumulado " +
-          //     acumuladoValorDia +
-          //     ", DF count: " +
-          //     dfCount +
-          //     ", DF dates: " +
-          //     dfDates
-          //       .map((date) => {
-          //         const dayOfWeek = new Intl.DateTimeFormat("es-ES", {
-          //           weekday: "long",
-          //         }).format(date);
-          //         return `${date.toLocaleDateString()} (${dayOfWeek})`;
-          //       })
-          //       .join(", ")
-          // );
-
           function sumarRestarHoras(
             totalMinutosActual,
             resultado,
@@ -421,37 +397,37 @@ $(document).ready(function () {
           }
 
           // Aplicar el resultado al elemento HTML correspondiente
-          if (resultado.includes("-")) {
-            // console.log(acumuladoValorDia.toString(),resultado,false);
-            const nuevaHoraResta = sumarRestarHoras(
-              acumuladoValorDia.toString(),
-              resultado,
-              false
-            );
-            const porcentaje = calcularPorcentaje(
-              acumuladoValorDia,
-              nuevaHoraResta
-            );
-            $hrrBox
-              .find(".minS")
-              .text(nuevaHoraResta + "h" + " / " + acumuladoValorDia + "h");
-            $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
-          } else {
-            // console.log(acumuladoValorDia.toString(),resultado,false);
-            const nuevaHoraSuma = sumarRestarHoras(
-              acumuladoValorDia.toString(),
-              resultado,
-              false // Debería ser 'false' para sumar
-            );
-            const porcentaje = calcularPorcentaje(
-              acumuladoValorDia,
-              nuevaHoraSuma
-            );
-            $hrrBox
-              .find(".minS")
-              .text(nuevaHoraSuma + "h" + " / " + acumuladoValorDia + "h");
-            $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
-          }
+          // if (resultado.includes("-")) {
+          //   // console.log(acumuladoValorDia.toString(),resultado,false);
+          //   const nuevaHoraResta = sumarRestarHoras(
+          //     acumuladoValorDia.toString(),
+          //     resultado,
+          //     false
+          //   );
+          //   const porcentaje = calcularPorcentaje(
+          //     acumuladoValorDia,
+          //     nuevaHoraResta
+          //   );
+          //   $hrrBox
+          //     .find(".minS")
+          //     .text(nuevaHoraResta + "h" + " / " + acumuladoValorDia + "h");
+          //   $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
+          // } else {
+          //   // console.log(acumuladoValorDia.toString(),resultado,false);
+          //   const nuevaHoraSuma = sumarRestarHoras(
+          //     acumuladoValorDia.toString(),
+          //     resultado,
+          //     false // Debería ser 'false' para sumar
+          //   );
+          //   const porcentaje = calcularPorcentaje(
+          //     acumuladoValorDia,
+          //     nuevaHoraSuma
+          //   );
+          //   $hrrBox
+          //     .find(".minS")
+          //     .text(nuevaHoraSuma + "h" + " / " + acumuladoValorDia + "h");
+          //   $hrrBox.find(".porT").text(porcentaje.toFixed(1) + "%");
+          // }
 
           
 
