@@ -300,7 +300,8 @@ $(document).ready(function () {
           const nhours = Math.floor(final / 60);
           const nminutos = final % 60;
           const formattedMinutes = String(nminutos).padStart(2, "0");
-          const time1 = nhours + ":" + formattedMinutes;
+          const formattedHours = nhours.toString().padStart(2, "0");
+          const time1 = formattedHours + ":" + formattedMinutes;
           const time2 = acumuladoValorDia;
 
           // Funciones de utilidad
