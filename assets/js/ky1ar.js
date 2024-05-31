@@ -225,9 +225,9 @@ $(document).ready(function () {
         year,
         month,
         function (acumuladoValorDia, idProfile) {
-          console.log('*********************************');
+          // console.log('*********************************');
           $hrrBox.find(".calc").each(function () {
-            console.log('---------------------');
+            // console.log('---------------------');
             var calc = $(this).text().trim();
             const dayname = $(this).closest("ul").find("li").first().text();
 
@@ -237,21 +237,21 @@ $(document).ready(function () {
 
             if (mesCalc === currentMonth) {
               if (calc !== "DF") {
-                console.log('old calc ',calc);
+                // console.log('old calc ',calc);
                 if (calc.startsWith("-")) {
                   const tiempo = calc.replace(/[^\d:]/g, "").split(":");
                   const horas = parseInt(tiempo[0], 10);
                   const minutos = parseInt(tiempo[1], 10);
 
                   const total = horas * 60 + minutos;
-                  console.log('total ',total);
+                  // console.log('total ',total);
                   const fixed = 8 * 60;
                   let newc = fixed - total;
                   final += newc;
                   const nhours = Math.floor(newc / 60);
                   const nminutos = newc % 60;
                   const formattedMinutes = String(nminutos).padStart(2, "0");
-                  console.log('new calc ',nhours+':'+formattedMinutes);
+                  // console.log('new calc ',nhours+':'+formattedMinutes);
                 } else {
                   //console.log('idProfile ',idProfile);
                   let fixed;
@@ -278,7 +278,7 @@ $(document).ready(function () {
                   const nhours = Math.floor(newc / 60);
                   const nminutos = newc % 60;
                   const formattedMinutes = String(nminutos).padStart(2, "0");
-                  console.log('new calc ',nhours+':'+formattedMinutes);
+                  // console.log('new calc ',nhours+':'+formattedMinutes);
                 }
 
                 var sign = calc.startsWith("-") ? -1 : 1;
@@ -286,8 +286,8 @@ $(document).ready(function () {
                 var tiempo = calc.replace(/[^\d:]/g, "").split(":");
                 var horas = parseInt(tiempo[0], 10) * sign;
                 var minutos = parseInt(tiempo[1], 10) * sign;
-                console.log('horas ',horas);
-                console.log('minutos ',minutos);
+                // console.log('horas ',horas);
+                // console.log('minutos ',minutos);
 
                 sumaHoras += horas;
                 sumaMinutos += minutos;
