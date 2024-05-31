@@ -227,10 +227,10 @@ $(document).ready(function () {
         semana,
         year,
         month,
-        // function (acumuladoValorDia, idProfile) {
-        //   console.log('*********************************');
+        function (acumuladoValorDia, idProfile) {
+          // console.log('*********************************');
           $hrrBox.find(".calc").each(function () {
-            // console.log('---------------------');
+            console.log('---------------------');
             var calc = $(this).text().trim();
             const dayname = $(this).closest('ul').find('li').first().text();
             
