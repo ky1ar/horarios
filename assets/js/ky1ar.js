@@ -142,6 +142,11 @@ $(document).ready(function () {
     const formattedDate = formatDate(date);
     $("#dayInput").val(formattedDate);
     $("#userIdInput").val(userId);
+    if (just) {
+      $("#justInput").attr("data-file", just);
+  } else {
+      $("#justInput").removeAttr("data-file");
+  }
     $(".modal-stamp").fadeIn();
   }
 
@@ -247,6 +252,7 @@ $(document).ready(function () {
         if (response.success) {
           hideModal();
           getUserSchedule(userId, currentMonth, currentYear);
+          location.reload();
         } else {
           alert("Error al guardar el registro: " + response.message);
         }
