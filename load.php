@@ -86,7 +86,7 @@ require_once 'db.php';
                     <img src="assets/img/tot.svg" width="40" height="40" alt="">
                 </div>
                 <div class="box-txt">
-                    <span id="totalHours"><span id="parcialHours">10:30h / </span>17:45h</span>
+                    <span id="totalHours">17:45h</span>
                     <p>Total Horas</p>
                 </div>
             </li>

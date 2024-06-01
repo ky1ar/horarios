@@ -326,6 +326,8 @@ $(document).ready(function () {
   //     );
   //   });
   // }
+
+  var totalMonthlyTime = "";
   function calcularSumaCalcPorSemana(userId, year, month) {
     var totalHoursMinutes = 0;
   
@@ -410,8 +412,8 @@ $(document).ready(function () {
       const totalMinutes = totalHoursMinutes % 60;
       const formattedTotalTime = `${totalHours.toString().padStart(2, "0")}:${totalMinutes.toString().padStart(2, "0")}`;
       console.log("Total mensual de horas y minutos:", formattedTotalTime);
+      totalMonthlyTime = formattedTotalTime; // Asigna el valor a la variable global
       $(document).off("ajaxStop");
-      $("#parcialHours").text(formattedTotalTime + " h / ");
     });
   }
   
@@ -613,7 +615,13 @@ $(document).ready(function () {
           (sumMinutes < 10 ? "0" : "") +
           sumMinutes;
 
-        $("#totalHours").text(sumFormatted + " h");
+          calcularSumaCalcPorSemana(userId, year, month);
+
+          // Usar un setTimeout para esperar a que se complete la llamada AJAX
+          setTimeout(function () {
+            // Ahora puedes usar totalMonthlyTime aquí
+            $("#totalHours").text(totalMonthlyTime + " h" + " / " + sumFormatted + " h");
+          }, 1000); // Ajusta el tiempo de espera según sea necesario
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
         $("#tolerancia").text(
