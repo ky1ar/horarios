@@ -618,10 +618,10 @@ $(document).ready(function () {
           calcularSumaCalcPorSemana(userId, year, month);
 
           // Usar un setTimeout para esperar a que se complete la llamada AJAX
-          setTimeout(function () {
+          // setTimeout(function () {
             // Ahora puedes usar totalMonthlyTime aquí
             $("#totalHours").text(totalMonthlyTime + " h" + " / " + sumFormatted + " h");
-          }, 1000); // Ajusta el tiempo de espera según sea necesario
+          // }, 1000); // Ajusta el tiempo de espera según sea necesario
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
         $("#tolerancia").text(
