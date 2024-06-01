@@ -546,7 +546,7 @@ $(document).ready(function () {
     var date = $(this).data("date");
     var userId = $(this).data("user-id");
     $.ajax({
-      url: "../routes/del/getJustification.php",
+      url: "../routes/del/getJust.php",
       method: "POST",
       data: { date: date, userId: userId },
       success: function (response) {
