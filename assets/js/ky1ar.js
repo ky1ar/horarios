@@ -328,95 +328,199 @@ $(document).ready(function () {
   // }
 
   var totalMonthlyTime = "";
+  // function calcularSumaCalcPorSemana(userId, year, month) {
+  //   var totalHoursMinutes = 0;
+
+  //   $(".hrr-box").each(function (index) {
+  //     var $hrrBox = $(this);
+  //     var semana = index + 1;
+
+  //     getWeeklyData(userId, semana, year, month, function (acumuladoValorDia, idProfile) {
+  //       var final = 0;
+
+  //       $hrrBox.find(".calc").each(function () {
+  //         var calc = $(this).text().trim();
+  //         const dayname = $(this).closest("ul").find("li").first().text();
+  //         var fecha = new Date($(this).data("date") + "T00:00:00");
+  //         var mesCalc = fecha.getMonth() + 1;
+
+  //         if (mesCalc === currentMonth) {
+  //           if (calc !== "DF") {
+  //             if (calc.startsWith("-")) {
+  //               const tiempo = calc.replace(/[^\d:]/g, "").split(":");
+  //               const horas = parseInt(tiempo[0], 10);
+  //               const minutos = parseInt(tiempo[1], 10);
+  //               const total = horas * 60 + minutos;
+  //               const fixed = 8 * 60;
+  //               let newc = fixed - total;
+  //               final += newc;
+  //             } else {
+  //               let fixed;
+  //               if (dayname.includes("Sáb")) {
+  //                 if (idProfile == 1) {
+  //                   fixed = 0;
+  //                 } else if (idProfile == 2) {
+  //                   fixed = 4 * 60;
+  //                 } else {
+  //                   fixed = 8 * 60;
+  //                 }
+  //               } else {
+  //                 fixed = 8 * 60;
+  //               }
+  //               const tiempo = calc.replace(/[^\d:]/g, "").split(":");
+  //               const horas = parseInt(tiempo[0], 10);
+  //               const minutos = parseInt(tiempo[1], 10);
+  //               const total = horas * 60 + minutos;
+  //               let newc = fixed + total;
+  //               final += newc;
+  //             }
+  //           }
+  //         }
+  //       });
+
+  //       const nhours = Math.floor(final / 60);
+  //       const nminutos = final % 60;
+  //       const formattedMinutes = String(nminutos).padStart(2, "0");
+  //       const formattedHours = nhours.toString().padStart(2, "0");
+  //       const time1 = formattedHours + ":" + formattedMinutes;
+  //       const time2 = acumuladoValorDia;
+
+  //       // Funciones de utilidad
+  //       function timeToMinutes(time) {
+  //         const [hours, minutes] = time.split(":").map(Number);
+  //         return hours * 60 + minutes;
+  //       }
+
+  //       totalHoursMinutes += timeToMinutes(time1);
+
+  //       function calculatePercentage(time1, time2) {
+  //         const minutes1 = timeToMinutes(time1);
+  //         const minutes2 = timeToMinutes(time2);
+  //         return (minutes1 / minutes2) * 100;
+  //       }
+
+  //       const percentage = calculatePercentage(time1, time2);
+
+  //       $hrrBox.find(".minS").text(time1 + "h" + " / " + time2 + "h");
+  //       $hrrBox.find(".porT").text(percentage.toFixed(1) + "%");
+  //     });
+  //   });
+
+  //   // Después de que todas las semanas hayan sido procesadas
+  //   $(document).ajaxStop(function () {
+  //     const totalHours = Math.floor(totalHoursMinutes / 60);
+  //     const totalMinutes = totalHoursMinutes % 60;
+  //     const formattedTotalTime = `${totalHours.toString().padStart(2, "0")}:${totalMinutes.toString().padStart(2, "0")}`;
+  //     console.log("Total mensual de horas y minutos:", formattedTotalTime);
+  //     totalMonthlyTime = formattedTotalTime; // Asigna el valor a la variable global
+  //     $(document).off("ajaxStop");
+  //   });
+  // }
   function calcularSumaCalcPorSemana(userId, year, month) {
-    var totalHoursMinutes = 0;
-  
-    $(".hrr-box").each(function (index) {
-      var $hrrBox = $(this);
-      var semana = index + 1;
-  
-      getWeeklyData(userId, semana, year, month, function (acumuladoValorDia, idProfile) {
-        var final = 0;
-  
-        $hrrBox.find(".calc").each(function () {
-          var calc = $(this).text().trim();
-          const dayname = $(this).closest("ul").find("li").first().text();
-          var fecha = new Date($(this).data("date") + "T00:00:00");
-          var mesCalc = fecha.getMonth() + 1;
-  
-          if (mesCalc === currentMonth) {
-            if (calc !== "DF") {
-              if (calc.startsWith("-")) {
-                const tiempo = calc.replace(/[^\d:]/g, "").split(":");
-                const horas = parseInt(tiempo[0], 10);
-                const minutos = parseInt(tiempo[1], 10);
-                const total = horas * 60 + minutos;
-                const fixed = 8 * 60;
-                let newc = fixed - total;
-                final += newc;
-              } else {
-                let fixed;
-                if (dayname.includes("Sáb")) {
-                  if (idProfile == 1) {
-                    fixed = 0;
-                  } else if (idProfile == 2) {
-                    fixed = 4 * 60;
+    return new Promise((resolve, reject) => {
+      var totalHoursMinutes = 0;
+
+      var hrrBoxElements = $(".hrr-box");
+      var totalBoxes = hrrBoxElements.length;
+      var processedBoxes = 0;
+
+      hrrBoxElements.each(function (index) {
+        var $hrrBox = $(this);
+        var semana = index + 1;
+
+        getWeeklyData(
+          userId,
+          semana,
+          year,
+          month,
+          function (acumuladoValorDia, idProfile) {
+            var final = 0;
+
+            $hrrBox.find(".calc").each(function () {
+              var calc = $(this).text().trim();
+              const dayname = $(this).closest("ul").find("li").first().text();
+              var fecha = new Date($(this).data("date") + "T00:00:00");
+              var mesCalc = fecha.getMonth() + 1;
+
+              if (mesCalc === currentMonth) {
+                if (calc !== "DF") {
+                  if (calc.startsWith("-")) {
+                    const tiempo = calc.replace(/[^\d:]/g, "").split(":");
+                    const horas = parseInt(tiempo[0], 10);
+                    const minutos = parseInt(tiempo[1], 10);
+                    const total = horas * 60 + minutos;
+                    const fixed = 8 * 60;
+                    let newc = fixed - total;
+                    final += newc;
                   } else {
-                    fixed = 8 * 60;
+                    let fixed;
+                    if (dayname.includes("Sáb")) {
+                      if (idProfile == 1) {
+                        fixed = 0;
+                      } else if (idProfile == 2) {
+                        fixed = 4 * 60;
+                      } else {
+                        fixed = 8 * 60;
+                      }
+                    } else {
+                      fixed = 8 * 60;
+                    }
+                    const tiempo = calc.replace(/[^\d:]/g, "").split(":");
+                    const horas = parseInt(tiempo[0], 10);
+                    const minutos = parseInt(tiempo[1], 10);
+                    const total = horas * 60 + minutos;
+                    let newc = fixed + total;
+                    final += newc;
                   }
-                } else {
-                  fixed = 8 * 60;
                 }
-                const tiempo = calc.replace(/[^\d:]/g, "").split(":");
-                const horas = parseInt(tiempo[0], 10);
-                const minutos = parseInt(tiempo[1], 10);
-                const total = horas * 60 + minutos;
-                let newc = fixed + total;
-                final += newc;
               }
+            });
+
+            const nhours = Math.floor(final / 60);
+            const nminutos = final % 60;
+            const formattedMinutes = String(nminutos).padStart(2, "0");
+            const formattedHours = nhours.toString().padStart(2, "0");
+            const time1 = formattedHours + ":" + formattedMinutes;
+            const time2 = acumuladoValorDia;
+
+            // Funciones de utilidad
+            function timeToMinutes(time) {
+              const [hours, minutes] = time.split(":").map(Number);
+              return hours * 60 + minutes;
+            }
+
+            totalHoursMinutes += timeToMinutes(time1);
+
+            function calculatePercentage(time1, time2) {
+              const minutes1 = timeToMinutes(time1);
+              const minutes2 = timeToMinutes(time2);
+              return (minutes1 / minutes2) * 100;
+            }
+
+            const percentage = calculatePercentage(time1, time2);
+
+            $hrrBox.find(".minS").text(time1 + "h" + " / " + time2 + "h");
+            $hrrBox.find(".porT").text(percentage.toFixed(1) + "%");
+
+            processedBoxes++;
+            if (processedBoxes === totalBoxes) {
+              const totalHours = Math.floor(totalHoursMinutes / 60);
+              const totalMinutes = totalHoursMinutes % 60;
+              const formattedTotalTime = `${totalHours
+                .toString()
+                .padStart(2, "0")}:${totalMinutes.toString().padStart(2, "0")}`;
+              console.log(
+                "Total mensual de horas y minutos:",
+                formattedTotalTime
+              );
+              resolve(formattedTotalTime);
             }
           }
-        });
-  
-        const nhours = Math.floor(final / 60);
-        const nminutos = final % 60;
-        const formattedMinutes = String(nminutos).padStart(2, "0");
-        const formattedHours = nhours.toString().padStart(2, "0");
-        const time1 = formattedHours + ":" + formattedMinutes;
-        const time2 = acumuladoValorDia;
-  
-        // Funciones de utilidad
-        function timeToMinutes(time) {
-          const [hours, minutes] = time.split(":").map(Number);
-          return hours * 60 + minutes;
-        }
-  
-        totalHoursMinutes += timeToMinutes(time1);
-  
-        function calculatePercentage(time1, time2) {
-          const minutes1 = timeToMinutes(time1);
-          const minutes2 = timeToMinutes(time2);
-          return (minutes1 / minutes2) * 100;
-        }
-  
-        const percentage = calculatePercentage(time1, time2);
-  
-        $hrrBox.find(".minS").text(time1 + "h" + " / " + time2 + "h");
-        $hrrBox.find(".porT").text(percentage.toFixed(1) + "%");
+        );
       });
     });
-  
-    // Después de que todas las semanas hayan sido procesadas
-    $(document).ajaxStop(function () {
-      const totalHours = Math.floor(totalHoursMinutes / 60);
-      const totalMinutes = totalHoursMinutes % 60;
-      const formattedTotalTime = `${totalHours.toString().padStart(2, "0")}:${totalMinutes.toString().padStart(2, "0")}`;
-      console.log("Total mensual de horas y minutos:", formattedTotalTime);
-      totalMonthlyTime = formattedTotalTime; // Asigna el valor a la variable global
-      $(document).off("ajaxStop");
-    });
   }
-  
+
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({
       url: "../routes/del/get_week.php",
@@ -615,13 +719,13 @@ $(document).ready(function () {
           (sumMinutes < 10 ? "0" : "") +
           sumMinutes;
 
-          calcularSumaCalcPorSemana(userId, year, month);
-
-          // Usar un setTimeout para esperar a que se complete la llamada AJAX
-          // setTimeout(function () {
-            // Ahora puedes usar totalMonthlyTime aquí
-            $("#totalHours").text(totalMonthlyTime + " h" + " / " + sumFormatted + " h");
-          // }, 1000); // Ajusta el tiempo de espera según sea necesario
+        calcularSumaCalcPorSemana(userId, year, month).then(
+          (totalMonthlyTime) => {
+            $("#totalHours").text(
+              totalMonthlyTime + " h" + " / " + sumFormatted + " h"
+            );
+          }
+        );
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
         $("#tolerancia").text(
@@ -638,11 +742,10 @@ $(document).ready(function () {
     });
   }
 
-
   $(document).on("click", ".justDoc", function () {
     var date = $(this).data("date");
     var userId = $(this).data("user-id");
-  
+
     $.ajax({
       url: "../routes/del/getJust.php",
       method: "POST",
@@ -654,10 +757,13 @@ $(document).ready(function () {
           var $viewDocModal = $(".viewDoc");
           $viewDocModal.find("img").attr("src", justFileUrl);
           $viewDocModal.show();
-  
+
           $(document).on("click.hideModal", function (event) {
             var $target = $(event.target);
-            if (!$target.closest(".viewDoc img").length && !$target.is(".justDoc img")) {
+            if (
+              !$target.closest(".viewDoc img").length &&
+              !$target.is(".justDoc img")
+            ) {
               $viewDocModal.hide();
               $(document).off("click.hideModal");
             }
@@ -671,7 +777,7 @@ $(document).ready(function () {
       },
     });
   });
-  
+
   updateMonthDisplay();
   if (userList.find(".active").length === 0) {
     userList.find("li").first().addClass("active");
