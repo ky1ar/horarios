@@ -21,13 +21,13 @@ require_once 'db.php';
             <input type="submit" value="Cargar">
         </form>
     </div>
-    <aside id="ky1-lft">
+    <!-- <aside id="ky1-lft">
         <a href="" class="ky1-lgo"><img src="assets/img/logod.webp" alt=""></a>
-        <!-- <ul class="ky1-lst">
+        <ul class="ky1-lst">
             <li>
             </li>
-        </ul> -->
-    </aside>
+        </ul>
+    </aside> -->
     <section id="ky1-rgt">
         <header>
             <div class="ky1-ttl">
