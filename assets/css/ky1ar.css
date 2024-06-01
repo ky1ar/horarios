@@ -103,7 +103,7 @@ body {
   width: 15rem;
   text-align: center;
   background-color: white;
-  /* z-index: 2; */
+  z-index: 2;
 }
 .cont-insert h1{
   font-size: 1.2rem;
@@ -494,7 +494,7 @@ body {
   opacity: 0.8;
   top: 0;
   left: 0;
-  z-index: 997;
+  z-index: 9998;
 }
 .modal-stamp div{
   display: flex;
@@ -502,7 +502,7 @@ body {
   background-color: white;
   flex-direction: column;
   width: 22rem;
-  z-index: 998;
+  z-index: 9999;
   position: fixed;
   top: 50%;
   left: 50%;
