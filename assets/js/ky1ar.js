@@ -456,19 +456,6 @@ $(document).ready(function () {
                   "<li class='justDoc'><img src='./assets/img/doc.png' alt=''></li>"
                 ).appendTo($dayList);
               }
-              // $(document).on("click", "li.justDoc", function () {
-              //   var imageName = $(this).find("img").attr("src");
-              //   var imageUrl = "/justs/" + imageName;
-              //   $("#justificationImage").attr("src", imageUrl);
-              //   var $viewDoc = $(".viewDoc");
-
-              //   // Cambiar la visibilidad del modal
-              //   if ($viewDoc.css("display") === "none") {
-              //     $viewDoc.css("display", "flex");
-              //   } else {
-              //     $viewDoc.css("display", "none");
-              //   }
-              // });
             }
 
             daysCounter++;
@@ -550,7 +537,29 @@ $(document).ready(function () {
       },
     });
   }
-
+  $(document).ready(function () {
+    $(".justDoc").click(function () {
+      var date = $(this).data("date"); 
+      var userId = $(this).data("user-id"); 
+      $.ajax({
+        url: "getJustification.php", 
+        method: "POST",
+        data: { date: date, userId: userId },
+        success: function (response) {
+          var data = JSON.parse(response);
+          if (data.success) {
+            var justFileUrl = data.justFileUrl;
+            console.log("URL del archivo de justificación:", justFileUrl);
+          } else {
+            console.log("Error:", data.message);
+          }
+        },
+        error: function () {
+          console.log("Error en la solicitud AJAX.");
+        },
+      });
+    });
+  });
   updateMonthDisplay();
   if (userList.find(".active").length === 0) {
     userList.find("li").first().addClass("active");
