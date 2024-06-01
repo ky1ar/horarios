@@ -103,7 +103,7 @@ body {
   width: 15rem;
   text-align: center;
   background-color: white;
-  z-index: 9;
+  z-index: 2;
 }
 .cont-insert h1{
   font-size: 1.2rem;
