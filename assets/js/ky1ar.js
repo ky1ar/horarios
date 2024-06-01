@@ -542,10 +542,37 @@ $(document).ready(function () {
     });
   }
 
+  // $(document).on("click", ".justDoc", function () {
+  //   var date = $(this).data("date");
+  //   var userId = $(this).data("user-id");
+
+  //   $.ajax({
+  //     url: "../routes/del/getJust.php",
+  //     method: "POST",
+  //     data: { date: date, userId: userId },
+  //     success: function (response) {
+  //       var data = JSON.parse(response);
+  //       if (data.success) {
+  //         var justFileUrl = data.justFileUrl;
+  //         console.log("URL del archivo de justificación:", justFileUrl);
+
+  //         // Mostrar la URL en el modal
+  //         var $viewDocModal = $(".viewDoc");
+  //         $viewDocModal.find("img").attr("src", justFileUrl);
+  //         $viewDocModal.show();
+  //       } else {
+  //         console.log("Error:", data.message);
+  //       }
+  //     },
+  //     error: function () {
+  //       console.log("Error en la solicitud AJAX.");
+  //     },
+  //   });
+  // });
   $(document).on("click", ".justDoc", function () {
     var date = $(this).data("date");
     var userId = $(this).data("user-id");
-
+  
     $.ajax({
       url: "../routes/del/getJust.php",
       method: "POST",
@@ -555,11 +582,21 @@ $(document).ready(function () {
         if (data.success) {
           var justFileUrl = data.justFileUrl;
           console.log("URL del archivo de justificación:", justFileUrl);
-
+  
           // Mostrar la URL en el modal
           var $viewDocModal = $(".viewDoc");
           $viewDocModal.find("img").attr("src", justFileUrl);
           $viewDocModal.show();
+  
+          // Ocultar el modal al hacer clic fuera de la imagen
+          $(document).on("click.hideModal", function (event) {
+            var $target = $(event.target);
+            if (!$target.closest(".viewDoc img").length && !$target.is(".justDoc img")) {
+              $viewDocModal.hide();
+              // Desvincular el evento para evitar múltiples llamadas
+              $(document).off("click.hideModal");
+            }
+          });
         } else {
           console.log("Error:", data.message);
         }
@@ -569,7 +606,7 @@ $(document).ready(function () {
       },
     });
   });
-
+  
   updateMonthDisplay();
   if (userList.find(".active").length === 0) {
     userList.find("li").first().addClass("active");
