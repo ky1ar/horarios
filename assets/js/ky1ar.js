@@ -453,7 +453,11 @@ $(document).ready(function () {
               if (entry.just && entry.just.trim() !== "") {
                 // Insertar el elemento li solo si entry.just no está vacío
                 $(
-                  "<li class='justDoc'><img src='./assets/img/doc.png' alt=''></li>"
+                  "<li class='justDoc' data-date='" +
+                    entry.calendar_date +
+                    "' data-user-id='" +
+                    userId +
+                    "'><img src='./assets/img/doc.png' alt=''></li>"
                 ).appendTo($dayList);
               }
             }
@@ -537,29 +541,29 @@ $(document).ready(function () {
       },
     });
   }
-  $(document).ready(function () {
-    $(".justDoc").click(function () {
-      var date = $(this).data("date"); 
-      var userId = $(this).data("user-id"); 
-      $.ajax({
-        url: "getJustification.php", 
-        method: "POST",
-        data: { date: date, userId: userId },
-        success: function (response) {
-          var data = JSON.parse(response);
-          if (data.success) {
-            var justFileUrl = data.justFileUrl;
-            console.log("URL del archivo de justificación:", justFileUrl);
-          } else {
-            console.log("Error:", data.message);
-          }
-        },
-        error: function () {
-          console.log("Error en la solicitud AJAX.");
-        },
-      });
+
+  $(document).on("click", ".justDoc", function () {
+    var date = $(this).data("date");
+    var userId = $(this).data("user-id");
+    $.ajax({
+      url: "getJustification.php",
+      method: "POST",
+      data: { date: date, userId: userId },
+      success: function (response) {
+        var data = JSON.parse(response);
+        if (data.success) {
+          var justFileUrl = data.justFileUrl;
+          console.log("URL del archivo de justificación:", justFileUrl);
+        } else {
+          console.log("Error:", data.message);
+        }
+      },
+      error: function () {
+        console.log("Error en la solicitud AJAX.");
+      },
     });
   });
+
   updateMonthDisplay();
   if (userList.find(".active").length === 0) {
     userList.find("li").first().addClass("active");
