@@ -545,6 +545,7 @@ $(document).ready(function () {
   $(document).on("click", ".justDoc", function () {
     var date = $(this).data("date");
     var userId = $(this).data("user-id");
+
     $.ajax({
       url: "../routes/del/getJust.php",
       method: "POST",
@@ -554,6 +555,11 @@ $(document).ready(function () {
         if (data.success) {
           var justFileUrl = data.justFileUrl;
           console.log("URL del archivo de justificación:", justFileUrl);
+
+          // Mostrar la URL en el modal
+          var $viewDocModal = $(".viewDoc");
+          $viewDocModal.find("img").attr("src", justFileUrl);
+          $viewDocModal.show();
         } else {
           console.log("Error:", data.message);
         }
