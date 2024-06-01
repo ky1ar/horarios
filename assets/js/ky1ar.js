@@ -629,7 +629,7 @@ $(document).ready(function () {
           $("#totalHours").text(
             totalMonthlyTime + " h" + " / " + sumFormatted + " h"
           );
-        }, 100);
+        }, 1000);
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
         $("#tolerancia").text(
