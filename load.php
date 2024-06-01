@@ -1,7 +1,5 @@
 <?php
-
 require_once 'db.php';
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -15,23 +13,20 @@ require_once 'db.php';
 </head>
 
 <body style="display: flex;">
+    <div class="cont-insert">
+        <h1>Insertar Registro</h1>
+        <form id="uploadForm" action="./routes/del/cargarRegistro.php" method="post" enctype="multipart/form-data" class="form-insert">
+            <label for="fileInput" class="custom-file-upload insert">Selecciona</label>
+            <input type="file" id="fileInput" name="fileInput" accept=".csv" style="display: none;" required>
+            <input type="submit" value="Cargar">
+        </form>
+    </div>
     <aside id="ky1-lft">
         <a href="" class="ky1-lgo"><img src="assets/img/logod.webp" alt=""></a>
-        <ul class="ky1-lst">
-            <!-- <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Horarios</li> -->
+        <!-- <ul class="ky1-lst">
             <li>
-                <div class="cont-insert">
-                    <h1>Insertar Registro</h1>
-                    <form id="uploadForm" action="./routes/del/cargarRegistro.php" method="post" enctype="multipart/form-data" class="form-insert">
-                        <label for="fileInput" class="custom-file-upload insert">Selecciona</label>
-                        <input type="file" id="fileInput" name="fileInput" accept=".csv" style="display: none;" required>
-                        <input type="submit" value="Cargar">
-                    </form>
-                </div>
             </li>
-            <!-- <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Historial</li>
-            <li><img src="assets/img/cal.svg" width="20" height="20" alt="">Anuncios</li> -->
-        </ul>
+        </ul> -->
     </aside>
     <section id="ky1-rgt">
         <header>
@@ -113,19 +108,10 @@ require_once 'db.php';
                     <img src="assets/img/tol.png" width="40" height="40" alt="">
                 </div>
                 <div class="box-txt">
-                    <span id="tolerancia">01:45h / 00:10h</span>
+                    <span id="tolerancia"></span>
                     <p>Tolerancia</p>
                 </div>
             </li>
-            <!-- <li>
-                <div class="box-img img-4">
-                    <img src="assets/img/flt.svg" width="40" height="40" alt="">
-                </div>
-                <div class="box-txt">
-                    <span id="totalUnjustifiedAbsences"></span>
-                    <p>Faltas Injustificadas</p>
-                </div>
-            </li> -->
         </ul>
         <ul class="ky1-hrr">
             <li class="hrr-box">
@@ -149,7 +135,6 @@ require_once 'db.php';
                         <li>14:08</li>
                         <li>18:05</li>
                         <li class="calc">+08:04</li>
-                        <!-- <li class="justDoc"><img src="./assets/img/doc.png" alt=""></li> -->
                     </ul>
                     <ul>
                         <li class="day-nam">mar 2</li>
@@ -290,7 +275,7 @@ require_once 'db.php';
                 <input type="text" id="stampInput" name="stamp">
                 <input type="hidden" id="dateInput" name="date">
                 <input type="hidden" id="userIdInput" name="userId">
-                <input type="hidden" id="justNameInput" name="just"> 
+                <input type="hidden" id="justNameInput" name="just">
                 <label for="justInput">Justificación:</label>
                 <input type="file" id="justInput" name="justFile" accept=".jpg, .jpeg, .png, .pdf">
                 <input type="submit" value="Guardar">

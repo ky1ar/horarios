@@ -90,7 +90,10 @@ body {
   font-weight: 500;
   align-items: center;
 }
-#ky1-lft .ky1-lst .cont-insert{
+.cont-insert {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem; 
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -99,16 +102,17 @@ body {
   border-radius: 0.5rem;
   width: 15rem;
   text-align: center;
+  background-color: white;
 }
-#ky1-lft .ky1-lst .cont-insert h1{
+.cont-insert h1{
   font-size: 1.2rem;
 }
-#ky1-lft .ky1-lst .cont-insert .form-insert{
+.cont-insert .form-insert{
   display: flex;
   flex-direction: column;
   text-align: center;
 }
-#ky1-lft .ky1-lst .cont-insert .form-insert label{
+.cont-insert .form-insert label{
   background-color: black;
   color: white;
   border-radius: 0.5rem;
@@ -116,7 +120,7 @@ body {
   margin-bottom: 1rem;
   cursor: pointer;
 }
-#ky1-lft .ky1-lst .cont-insert .form-insert input{
+.cont-insert .form-insert input{
   background-color: var(--primary);
   color: white;
   padding: 0.5rem 1rem;
@@ -129,7 +133,7 @@ body {
   margin: auto;
 }
 
-#ky1-lft .ky1-lst  .cont-insert .form-insert input:hover {
+.cont-insert .form-insert input:hover {
   filter: opacity(0.75);
 }
 
