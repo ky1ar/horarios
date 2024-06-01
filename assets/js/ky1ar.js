@@ -659,13 +659,19 @@ $(document).ready(function () {
         if (data.success) {
           var justFileUrl = data.justFileUrl;
           var $viewDocModal = $(".viewDoc");
-          $viewDocModal.find("img").attr("src", justFileUrl);
+          if (justFileUrl.endsWith(".pdf")) {
+            $viewDocModal.find("img").hide();
+            $viewDocModal.find("embed").attr("src", justFileUrl).show();
+          } else {
+            $viewDocModal.find("embed").hide();
+            $viewDocModal.find("img").attr("src", justFileUrl).show();
+          }
           $viewDocModal.show();
-
           $(document).on("click.hideModal", function (event) {
             var $target = $(event.target);
             if (
               !$target.closest(".viewDoc img").length &&
+              !$target.closest(".viewDoc embed").length &&
               !$target.is(".justDoc img")
             ) {
               $viewDocModal.hide();

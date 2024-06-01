@@ -611,3 +611,7 @@ body {
   border-radius: 0.5rem; 
 }
 
+.viewDoc embed{
+  width: 50%;
+  height: 80%;  
+}
