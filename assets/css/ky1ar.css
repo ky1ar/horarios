@@ -604,6 +604,7 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 999;
+  display: none;
 }
 
 .viewDoc img {

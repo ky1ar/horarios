@@ -289,7 +289,7 @@ require_once 'db.php';
         <p>Se ha actualizado el registro correctamente</p>
     </div>
 
-    <div class="viewDoc" >
+    <div class="viewDoc">
         <img src="" alt="">
         <embed src="" type="application/pdf"/>
     </div>
