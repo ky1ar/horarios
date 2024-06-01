@@ -581,8 +581,6 @@ $(document).ready(function () {
         var data = JSON.parse(response);
         if (data.success) {
           var justFileUrl = data.justFileUrl;
-          console.log("URL del archivo de justificación:", justFileUrl);
-  
           // Mostrar la URL en el modal
           var $viewDocModal = $(".viewDoc");
           $viewDocModal.find("img").attr("src", justFileUrl);
