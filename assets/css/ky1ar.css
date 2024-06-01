@@ -436,6 +436,11 @@ body {
   margin-top: auto;
   font-weight: 600;
 }
+
+#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.justDoc img{
+  width: 1rem;
+}
+
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc.df {
   background-color: #ffdd95;
   line-height: 0.875rem;
@@ -605,3 +610,4 @@ body {
   max-width: 40rem; 
   border-radius: 0.5rem; 
 }
+
