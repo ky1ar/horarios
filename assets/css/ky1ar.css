@@ -103,6 +103,7 @@ body {
   width: 15rem;
   text-align: center;
   background-color: white;
+  z-index: 9;
 }
 .cont-insert h1{
   font-size: 1.2rem;
@@ -596,7 +597,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 9999;
+  z-index: 10;
 }
 
 .viewDoc img {
