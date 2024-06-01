@@ -410,7 +410,8 @@ $(document).ready(function () {
       const totalMinutes = totalHoursMinutes % 60;
       const formattedTotalTime = `${totalHours.toString().padStart(2, "0")}:${totalMinutes.toString().padStart(2, "0")}`;
       console.log("Total mensual de horas y minutos:", formattedTotalTime);
-      $(document).off("ajaxStop"); // Desvincular para evitar múltiples llamadas
+      $(document).off("ajaxStop");
+      $("#parcialHours").text(formattedTotalTime + " h / ");
     });
   }
   
