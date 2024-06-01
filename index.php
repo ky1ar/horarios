@@ -13,7 +13,7 @@ require_once 'db.php';
 </head>
 
 <body>
-    <section id="login">
+    <!-- <section id="login">
         <div class="modal">
             <div class="left">
                 <img src="assets/img/logod.webp" alt="Perfil">
@@ -36,6 +36,25 @@ require_once 'db.php';
             </div>
             <div class="right">
                 <img src="assets/img/login.webp" alt="">
+            </div>
+        </div>
+    </section> -->
+
+    <section class="cont-login">
+        <div class="login">
+            <div>
+                <img src="./assets/img/login-1.jpg" alt="">
+            </div>
+            <div>
+                <img src="./assets/img/user-icon.png" alt="">
+                <h1>Bienvenido</h1>
+                <form action="">
+                    <label for="">DNI</label>
+                    <input type="text" placeholder="">
+                    <label for="">Contraseña</label>
+                    <input type="password" placeholder="">
+                    <input type="submit" value="ACCEDER">
+                </form>
             </div>
         </div>
     </section>

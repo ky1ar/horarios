@@ -615,3 +615,81 @@ body {
   width: 50%;
   height: 80%;  
 }
+
+/* login */
+section.cont-login{
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  background-color: #e2e2e2;
+  justify-content: center;
+  align-items: center;
+}
+
+section.cont-login .login{
+  display: flex;
+  background-color: white;
+  width: 70%;
+  height: 70%;
+  border-radius: 2rem;
+  box-shadow: 0 0 1rem 0.2rem rgb(199, 199, 199);
+}
+
+section.cont-login .login div:first-child{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+}
+section.cont-login .login div:first-child img{
+  width: 30rem;
+}
+
+section.cont-login .login div:last-child{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 50%;
+}
+section.cont-login .login div:last-child img{
+  width: 7rem;
+}
+
+section.cont-login .login div:last-child h1{
+  font-size: 2rem;
+  margin: 0;
+}
+
+section.cont-login .login div:last-child form{
+  display: flex;
+  flex-direction: column;
+  width: 20rem;
+  margin-top: 2rem;
+}
+
+section.cont-login .login div:last-child form label{
+  font-size: 1rem;
+  font-weight: 600;
+  color: #8b8b8b;
+  margin-bottom: 0.5rem;
+}
+section.cont-login .login div:last-child form input:not(:last-child){
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+section.cont-login .login div:last-child form input:not(:last-child):focus{
+  outline: none;
+}
+
+section.cont-login .login div:last-child form input[type="submit"]{
+  border-radius: 2rem;
+  background-color: rgb(104, 104, 255);
+  color: white;
+  border: 0;
+  padding: 1rem 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
