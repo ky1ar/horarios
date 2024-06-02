@@ -18,7 +18,6 @@ require_once 'db.php';
 </head>
 
 <body style="display: flex;">
-    <?php if ($_SESSION['admin'] == 1): ?>
     <div class="cont-insert">
         <h1>Insertar Registro</h1>
         <form id="uploadForm" action="./routes/del/cargarRegistro.php" method="post" enctype="multipart/form-data" class="form-insert">
@@ -27,8 +26,7 @@ require_once 'db.php';
             <input type="submit" value="Cargar">
         </form>
     </div>
-    <?php endif; ?>
-    
+
     <!-- <aside id="ky1-lft">
         <a href="" class="ky1-lgo"><img src="assets/img/logod.webp" alt=""></a>
         <ul class="ky1-lst">
