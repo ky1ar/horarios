@@ -20,7 +20,7 @@ $rango =  $_SESSION['admin'];
 
 <body style="display: flex;">
     <?php if ($rango == 1) : ?>
-        <div class="cont-insert">
+        <div class="cont-insert" style="display: none;">
             <h1>Insertar Registro</h1>
             <form id="uploadForm" action="./routes/del/cargarRegistro.php" method="post" enctype="multipart/form-data" class="form-insert">
                 <label for="fileInput" class="custom-file-upload insert">Selecciona</label>
