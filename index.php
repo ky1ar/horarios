@@ -50,7 +50,7 @@ require_once 'db.php';
             <div>
                 <img src="./assets/img/user-icon.png" alt="">
                 <h1>Bienvenido</h1>
-                <form action="./routes/del/authenticate.php" method="post">
+                <form action="./routes/del/login.php" method="post">
                     <label for="dni">DNI</label>
                     <input type="text" name="dni" placeholder="" required>
                     <label for="pass">Contraseña</label>
