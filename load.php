@@ -6,7 +6,6 @@ if (!isset($_SESSION['user_id'])) {
 }
 require_once 'db.php';
 $rango =  $_SESSION['admin'];
-echo "El valor de \$rango es: " . $rango;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -20,14 +19,16 @@ echo "El valor de \$rango es: " . $rango;
 </head>
 
 <body style="display: flex;">
-    <div class="cont-insert">
-        <h1>Insertar Registro</h1>
-        <form id="uploadForm" action="./routes/del/cargarRegistro.php" method="post" enctype="multipart/form-data" class="form-insert">
-            <label for="fileInput" class="custom-file-upload insert">Selecciona</label>
-            <input type="file" id="fileInput" name="fileInput" accept=".csv" style="display: none;" required>
-            <input type="submit" value="Cargar">
-        </form>
-    </div>
+    <?php if ($rango == 1) : ?>
+        <div class="cont-insert">
+            <h1>Insertar Registro</h1>
+            <form id="uploadForm" action="./routes/del/cargarRegistro.php" method="post" enctype="multipart/form-data" class="form-insert">
+                <label for="fileInput" class="custom-file-upload insert">Selecciona</label>
+                <input type="file" id="fileInput" name="fileInput" accept=".csv" style="display: none;" required>
+                <input type="submit" value="Cargar">
+            </form>
+        </div>
+    <?php endif; ?>
 
     <!-- <aside id="ky1-lft">
         <a href="" class="ky1-lgo"><img src="assets/img/logod.webp" alt=""></a>
