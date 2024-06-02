@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: index.php");
+    exit();
+}
 require_once 'db.php';
 ?>
 <!DOCTYPE html>
@@ -290,7 +295,7 @@ require_once 'db.php';
 
     <div class="viewDoc" style="display: none;">
         <img src="" alt="">
-        <embed src="" type="application/pdf"/>
+        <embed src="" type="application/pdf" />
     </div>
 
     <script>

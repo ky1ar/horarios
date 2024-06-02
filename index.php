@@ -1,9 +1,11 @@
 <?php
-$currentPage = "Inicio";
+session_start();
+// $currentPage = "Inicio";
 require_once 'db.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -48,11 +50,11 @@ require_once 'db.php';
             <div>
                 <img src="./assets/img/user-icon.png" alt="">
                 <h1>Bienvenido</h1>
-                <form action="">
-                    <label for="">DNI</label>
-                    <input type="text" placeholder="">
-                    <label for="">Contraseña</label>
-                    <input type="password" placeholder="">
+                <form action="./routes/del/authenticate.php" method="post">
+                    <label for="dni">DNI</label>
+                    <input type="text" name="dni" placeholder="" required>
+                    <label for="pass">Contraseña</label>
+                    <input type="password" name="pass" placeholder="" required>
                     <input type="submit" value="ACCEDER">
                 </form>
             </div>
