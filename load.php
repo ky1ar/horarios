@@ -5,7 +5,8 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 require_once 'db.php';
-// $rango =  $_SESSION['admin'] = $admin; 
+$rango =  $_SESSION['admin'];
+echo "El valor de \$rango es: " . $rango;
 ?>
 <!DOCTYPE html>
 <html lang="es">
