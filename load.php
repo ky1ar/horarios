@@ -52,29 +52,13 @@ require_once 'db.php';
                 <div class="usr-btn" id="nextUser">
                     <img src="assets/img/r.svg" width="12" height="12" alt="">
                 </div>
-                <div id="selectedUser" data-id="">
+                <div id="selectedUser" data-id="12">
                     <img id="userImage" src="" alt="">
                     <span>
                         <h3 id="userName"></h3>
                         <h4 id="userCategory"></h4>
                     </span>
-                    <div id="userList">
-                        <ul>
-                            <?php
-                            $firstIndex = true;
-                            $sql = "SELECT u.id_user, u.slug, u.name, a.name as area FROM Users u INNER JOIN Profile p ON u.id_profile = p.id_profile INNER JOIN Area a ON u.id_area = a.id_area WHERE u.id_user != 20 ORDER BY u.name";
-                            $result = $conn->query($sql);
-                            while ($row = $result->fetch_assoc()) : ?>
-                                <li <?php echo $firstIndex ? 'class="active"' : '' ?> data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
-                                    <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
-                                    <h3><?php echo $row['name'] ?></h3>
-                                </li>
-                            <?php
-                                $firstIndex = false;
-                            endwhile;
-                            ?>
-                        </ul>
-                    </div>
+                   
 
                 </div>
             </div>
