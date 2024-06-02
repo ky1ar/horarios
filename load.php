@@ -20,14 +20,14 @@ $rango =  $_SESSION['admin'];
 
 <body style="display: flex;">
 
-        <div class="cont-insert" style="display: none;">
+        <!-- <div class="cont-insert">
             <h1>Insertar Registro</h1>
             <form id="uploadForm" action="./routes/del/cargarRegistro.php" method="post" enctype="multipart/form-data" class="form-insert">
                 <label for="fileInput" class="custom-file-upload insert">Selecciona</label>
                 <input type="file" id="fileInput" name="fileInput" accept=".csv" style="display: none;" required>
                 <input type="submit" value="Cargar">
             </form>
-        </div>
+        </div> -->
    
 
     <!-- <aside id="ky1-lft">
