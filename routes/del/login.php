@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($pass == $stored_pass) {
             $_SESSION['user_id'] = $id_user;
-            $_SESSION['admin'] = $admin; // Almacenar el estado de administrador en una variable de sesión
+            $_SESSION['admin'] = $admin;
             header("Location: /load");
             exit();
         } else {

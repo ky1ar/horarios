@@ -300,7 +300,7 @@ $(document).ready(function () {
       const formattedTotalTime = `${totalHours
         .toString()
         .padStart(2, "0")}:${totalMinutes.toString().padStart(2, "0")}`;
-      console.log("Total mensual de horas y minutos:", formattedTotalTime);
+      // console.log("Total mensual de horas y minutos:", formattedTotalTime);
       totalMonthlyTime = formattedTotalTime; // Asigna el valor a la variable global
       $(document).off("ajaxStop");
     });
