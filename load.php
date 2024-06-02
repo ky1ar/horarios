@@ -19,8 +19,8 @@ $rango =  $_SESSION['admin'];
 </head>
 
 <body style="display: flex;">
-    <?php if ($rango == 1) : ?>
-        <div class="cont-insert">
+
+        <div class="cont-insert" style="display: none;">
             <h1>Insertar Registro</h1>
             <form id="uploadForm" action="./routes/del/cargarRegistro.php" method="post" enctype="multipart/form-data" class="form-insert">
                 <label for="fileInput" class="custom-file-upload insert">Selecciona</label>
@@ -28,7 +28,7 @@ $rango =  $_SESSION['admin'];
                 <input type="submit" value="Cargar">
             </form>
         </div>
-    <?php endif; ?>
+   
 
     <!-- <aside id="ky1-lft">
         <a href="" class="ky1-lgo"><img src="assets/img/logod.webp" alt=""></a>
