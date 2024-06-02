@@ -12,10 +12,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id_user, $hashed_pass);
+        $stmt->bind_result($id_user, $stored_pass);
         $stmt->fetch();
 
-        if (password_verify($pass, $hashed_pass)) {
+        // Aquí comparas la contraseña ingresada con la contraseña almacenada en texto plano
+        if ($pass == $stored_pass) { // Comprobación de contraseña en texto plano
             $_SESSION['user_id'] = $id_user;
             header("Location: /load");
             exit();
@@ -30,4 +31,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: index.php");
     exit();
 }
-?>
