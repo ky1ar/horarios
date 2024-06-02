@@ -6,18 +6,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $dni = $_POST['dni'];
     $pass = $_POST['pass'];
 
-    $stmt = $conn->prepare("SELECT id_user, pass FROM Users WHERE dni = ?");
+    $stmt = $conn->prepare("SELECT id_user, pass, admin FROM Users WHERE dni = ?");
     $stmt->bind_param("s", $dni);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id_user, $stored_pass);
+        $stmt->bind_result($id_user, $stored_pass, $admin);
         $stmt->fetch();
 
-        // Aquí comparas la contraseña ingresada con la contraseña almacenada en texto plano
-        if ($pass == $stored_pass) { // Comprobación de contraseña en texto plano
+        if ($pass == $stored_pass) {
             $_SESSION['user_id'] = $id_user;
+            $_SESSION['admin'] = $admin; // Almacenar el estado de administrador en una variable de sesión
             header("Location: /load");
             exit();
         } else {
@@ -31,3 +31,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: index.php");
     exit();
 }
+?>
