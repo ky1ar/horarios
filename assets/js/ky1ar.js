@@ -12,15 +12,24 @@ $(document).ready(function () {
   const userImage = $("#userImage");
   const imagePath = "assets/img/profiles/";
 
-  document.getElementById("fileInput").addEventListener("change", function () {
-    const label = document.querySelector('label[for="fileInput"]');
-    if (this.files.length > 0) {
-      label.textContent = this.files[0].name;
-    } else {
-      label.textContent = "Cargar Registro";
-    }
+  // document.getElementById("fileInput").addEventListener("change", function () {
+  //   const label = document.querySelector('label[for="fileInput"]');
+  //   if (this.files.length > 0) {
+  //     label.textContent = this.files[0].name;
+  //   } else {
+  //     label.textContent = "Cargar Registro";
+  //   }
+  // });
+  $(document).ready(function () {
+    $("#fileInput").on("change", function () {
+      const label = $('label[for="fileInput"]');
+      if (this.files.length > 0) {
+        label.text(this.files[0].name);
+      } else {
+        label.text("Cargar Registro");
+      }
+    });
   });
-
   const monthNames = [
     "Enero",
     "Febrero",
