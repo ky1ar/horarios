@@ -573,7 +573,7 @@ body {
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   position: fixed;
-  bottom: 1rem;
+  bottom: 12rem;
   right: 1rem;
   background-color: #ddffe9;
   padding: 1rem;
@@ -581,6 +581,7 @@ body {
   align-items: center;
   justify-content: center;
   border-radius: 1rem;
+  width: 15rem;
 }
 .message-verify.show {
   display: flex;
@@ -695,7 +696,7 @@ section.cont-login .login div:last-child form input[type="submit"] {
   cursor: pointer;
 }
 
-.out{
+.out {
   position: fixed;
   bottom: 1rem;
   left: 1rem;
@@ -703,6 +704,6 @@ section.cont-login .login div:last-child form input[type="submit"] {
   cursor: pointer;
 }
 
-.out img{
+.out img {
   width: 3rem;
 }
