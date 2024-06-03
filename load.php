@@ -336,19 +336,6 @@ $id = $_SESSION['user_id'];
         <img src="" alt="">
         <embed src="" type="application/pdf" />
     </div>
-
-    <!-- <script>
-        window.onload = function() {
-            if (document.cookie.indexOf("registro_actualizado=true") !== -1) {
-                var messageVerify = document.getElementById("messageVerify");
-                messageVerify.classList.add("show");
-                setTimeout(function() {
-                    messageVerify.classList.remove("show");
-                }, 3000);
-                document.cookie = "registro_actualizado=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            }
-        };
-    </script> -->
 </body>
 
 </html>
