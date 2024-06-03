@@ -328,6 +328,7 @@ body {
   display: flex;
   padding: 1rem;
   border-radius: 1rem;
+  min-width: 4.5rem;
 }
 #ky1-rgt .ky1-rsm .box-img.img-1 {
   background-color: #d0e6a5;

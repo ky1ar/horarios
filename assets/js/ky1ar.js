@@ -1,3 +1,5 @@
+"use strict";
+
 $(document).ready(function () {
   const nextUser = $("#nextUser");
   const previousUser = $("#previousUser");
@@ -14,7 +16,7 @@ $(document).ready(function () {
 
   window.onload = function () {
     if (document.cookie.indexOf("registro_actualizado=true") !== -1) {
-      var messageVerify = document.getElementById("messageVerify");
+      const messageVerify = document.getElementById("messageVerify");
       messageVerify.classList.add("show");
       setTimeout(function () {
         messageVerify.classList.remove("show");
@@ -75,7 +77,7 @@ $(document).ready(function () {
       if (current < 0) current = total;
     }
 
-    let newUser = userList.find("li").eq(current);
+    const newUser = userList.find("li").eq(current);
     newUser.addClass("active");
     updateUserDisplay();
     getUserSchedule(newUser.data("id"), currentMonth, currentYear);
@@ -409,12 +411,13 @@ $(document).ready(function () {
             } else if (entry.stamp) {
               var stamps = entry.stamp.split(",");
               stamps.forEach(function (stamp, stampIndex) {
-                for (var i = 0; i < stamp.length; i += 5) {
-                  var timeSlot = stamp.slice(i, i + 5);
-                  var $li = $("<li>" + timeSlot + "</li>");
+                for (let i = 0; i < stamp.length; i += 5) {
+                  const timeSlot = stamp.slice(i, i + 5);
+                  const $li = $("<li>" + timeSlot + "</li>");
                   if (stampIndex === 0 && i === 0 && timeSlot > "09:00") {
                     $li.addClass("late");
                   }
+                  $li.addClass(month);
                   $li.appendTo($dayList);
                 }
               });
