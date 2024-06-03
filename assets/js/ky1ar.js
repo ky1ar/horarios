@@ -532,7 +532,7 @@ $(document).ready(function () {
         setTimeout(function () {
           $("#totalHours").text(
             calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1) +
-              "%<br>" +
+              "%" +
               totalMonthlyTime +
               " h" +
               " / " +
