@@ -12,6 +12,18 @@ $(document).ready(function () {
   const userImage = $("#userImage");
   const imagePath = "assets/img/profiles/";
 
+  window.onload = function () {
+    if (document.cookie.indexOf("registro_actualizado=true") !== -1) {
+      var messageVerify = document.getElementById("messageVerify");
+      messageVerify.classList.add("show");
+      setTimeout(function () {
+        messageVerify.classList.remove("show");
+      }, 3000);
+      document.cookie =
+        "registro_actualizado=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
+  };
+
   document.getElementById("fileInput").addEventListener("change", function () {
     const label = document.querySelector('label[for="fileInput"]');
     if (this.files.length > 0) {
