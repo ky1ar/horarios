@@ -120,7 +120,7 @@ $id = $_SESSION['user_id'];
         <ul class="ky1-rsm">
             <li>
                 <div class="box-img img-5">
-                    <img src="assets/img/tot.svg" width="40" height="40" alt="">
+                    <img src="assets/img/porcentaje.png" width="40" height="40" alt="">
                 </div>
                 <div class="box-txt">
                     <span id="porcentHours"></span>
