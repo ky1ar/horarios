@@ -521,16 +521,17 @@ $(document).ready(function () {
           const [hours, minutes] = time.split(":").map(Number);
           return hours * 60 + minutes;
         }
-        
+
         function calculatePercentage(time1, time2) {
           const minutes1 = timeToMinutes(time1);
           const minutes2 = timeToMinutes(time2);
           return (minutes1 / minutes2) * 100;
         }
         
-        $("#totalHours").text(calculatePercentage(totalMonthlyTime,sumFormatted) +"% "+ totalMonthlyTime + "" + sumFormatted + " h");
+        $("#totalHours").text(totalMonthlyTime + "" + sumFormatted + " h");
         setTimeout(function () {
           $("#totalHours").text(
+            calculatePercentage(totalMonthlyTime,sumFormatted) +"% "+ 
             totalMonthlyTime + " h" + " / " + sumFormatted + " h"
           );
         }, 500);
