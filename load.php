@@ -119,15 +119,6 @@ $id = $_SESSION['user_id'];
 
         <ul class="ky1-rsm">
             <li>
-                <div class="box-img img-1">
-                    <img src="assets/img/tot.svg" width="40" height="40" alt="">
-                </div>
-                <div class="box-txt">
-                    <span id="totalHours"></span>
-                    <p>Total Horas</p>
-                </div>
-            </li>
-            <li>
                 <div class="box-img img-5">
                     <img src="assets/img/tot.svg" width="40" height="40" alt="">
                 </div>
@@ -136,6 +127,16 @@ $id = $_SESSION['user_id'];
                     <p>Porcentaje de Horas</p>
                 </div>
             </li>
+            <li>
+                <div class="box-img img-1">
+                    <img src="assets/img/tot.svg" width="40" height="40" alt="">
+                </div>
+                <div class="box-txt">
+                    <span id="totalHours"></span>
+                    <p>Total Horas</p>
+                </div>
+            </li>
+
             <li>
                 <div class="box-img img-2">
                     <img src="assets/img/rgs.svg" width="40" height="40" alt="">
