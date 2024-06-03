@@ -413,9 +413,10 @@ $(document).ready(function () {
                   const timeSlot = stamp.slice(i, i + 5);
                   const $li = $("<li>" + timeSlot + "</li>");
                   if (stampIndex === 0 && i === 0 && timeSlot > "09:00") {
-                    $li.addClass(month);
+                    $li.addClass("late");
                   }
-                  
+                  $li.addClass(month);
+                  console.log(month);
                   $li.appendTo($dayList);
                 }
               });
