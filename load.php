@@ -50,12 +50,14 @@ $rango =  $_SESSION['admin'];
                 <img id="nextMonth" src="assets/img/r.svg" width="12" height="12" alt="">
             </div>
             <div class="ky1-usr">
-                <div class="usr-btn" id="previousUser">
-                    <img src="assets/img/r.svg" width="12" height="12" alt="">
-                </div>
-                <div class="usr-btn" id="nextUser">
-                    <img src="assets/img/r.svg" width="12" height="12" alt="">
-                </div>
+                <?php if ($rango == 1) : ?>
+                    <div class="usr-btn" id="previousUser">
+                        <img src="assets/img/r.svg" width="12" height="12" alt="">
+                    </div>
+                    <div class="usr-btn" id="nextUser">
+                        <img src="assets/img/r.svg" width="12" height="12" alt="">
+                    </div>
+                <?php endif; ?>
                 <div id="selectedUser" data-id="">
                     <img id="userImage" src="" alt="">
                     <span>
@@ -280,11 +282,11 @@ $rango =  $_SESSION['admin'];
             <form id="stampForm" enctype="multipart/form-data">
                 <label for="dayInput">Día:</label>
                 <input type="text" id="dayInput" name="day" disabled>
-                <?php if ($rango == 1): ?>
-                <label for="stampInput">Registro:</label>
-                <input type="text" id="stampInput" name="stamp">
-                <input type="hidden" id="dateInput" name="date">
-                <input type="hidden" id="userIdInput" name="userId">
+                <?php if ($rango == 1) : ?>
+                    <label for="stampInput">Registro:</label>
+                    <input type="text" id="stampInput" name="stamp">
+                    <input type="hidden" id="dateInput" name="date">
+                    <input type="hidden" id="userIdInput" name="userId">
                 <?php endif; ?>
                 <input type="hidden" id="justNameInput" name="just">
                 <label for="justInput">Justificación:</label>
