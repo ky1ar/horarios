@@ -113,6 +113,9 @@ $id = $_SESSION['user_id'];
                     <?php endif; ?>
                 </div>
             </div>
+            <div>
+                hola
+            </div>
         </header>
 
         <ul class="ky1-rsm">
