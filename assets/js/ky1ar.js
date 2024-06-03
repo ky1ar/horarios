@@ -415,8 +415,9 @@ $(document).ready(function () {
                   if (stampIndex === 0 && i === 0 && timeSlot > "09:00") {
                     $li.addClass("late");
                   }
-                  $li.addClass(month);
                   console.log(month);
+                  console.log(entry.calendar_date);
+
                   $li.appendTo($dayList);
                 }
               });
