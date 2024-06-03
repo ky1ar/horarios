@@ -421,6 +421,7 @@ $(document).ready(function () {
                   if (stampIndex === 0 && i === 0 && timeSlot > "09:00") {
                     $li.addClass("late");
                   }
+                  console.log(entry.calendar_date,month);
                   if (getMonthWithoutLeadingZero(entry.calendar_date)!=month) {
                     $li.addClass("other");
 
