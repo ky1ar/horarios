@@ -555,6 +555,7 @@ body {
   margin-bottom: 2rem;
   text-align: center;
   font-family: "DM Sans", sans-serif;
+  font-weight: 500;
 }
 .modal-stamp form input:focus {
   outline: none;
