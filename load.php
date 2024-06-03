@@ -20,7 +20,9 @@ $id = $_SESSION['user_id'];
 </head>
 
 <body style="display: flex;">
-
+    <div class="out">
+        <img src="./assets/img/cerrar-sesion.png" alt="">
+    </div>
     <div class="cont-insert" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
         <h1>Insertar Registro</h1>
         <form id="uploadForm" action="./routes/del/cargarRegistro.php" method="post" enctype="multipart/form-data" class="form-insert">
