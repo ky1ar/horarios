@@ -529,10 +529,21 @@ $(document).ready(function () {
         }
 
         //$("#totalHours").text(totalMonthlyTime + "" + sumFormatted + " h");
+        // setTimeout(function () {
+        //   $("#totalHours").text(
+        //     calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1) +
+        //       "% " +
+        //       totalMonthlyTime +
+        //       " h" +
+        //       " / " +
+        //       sumFormatted +
+        //       " h"
+        //   );
+        // }, 500);
         setTimeout(function () {
-          $("#totalHours").text(
+          $("#totalHours").html(
             calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1) +
-              "% " +
+              "%<br>" +
               totalMonthlyTime +
               " h" +
               " / " +
