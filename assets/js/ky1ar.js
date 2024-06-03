@@ -528,7 +528,9 @@ $(document).ready(function () {
           return (minutes1 / minutes2) * 100;
         }
 
-        $("#porcentHours").text(calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1));
+        setTimeout(function () {
+          $("#porcentHours").text(calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1));
+        }, 500);
         setTimeout(function () {
           $("#totalHours").text(
               totalMonthlyTime +
