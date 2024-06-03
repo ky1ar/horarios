@@ -517,7 +517,13 @@ $(document).ready(function () {
           sumMinutes;
         calcularSumaCalcPorSemana(userId, year, month);
 
-        $("#totalHours").text(totalMonthlyTime + "" + sumFormatted + " h");
+        function calculatePercentage(time1, time2) {
+          const minutes1 = timeToMinutes(time1);
+          const minutes2 = timeToMinutes(time2);
+          return (minutes1 / minutes2) * 100;
+        }
+        
+        $("#totalHours").text(calculatePercentage(totalMonthlyTime,sumFormatted) +"% "+ totalMonthlyTime + "" + sumFormatted + " h");
         setTimeout(function () {
           $("#totalHours").text(
             totalMonthlyTime + " h" + " / " + sumFormatted + " h"
