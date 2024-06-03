@@ -343,6 +343,12 @@ $(document).ready(function () {
     });
   }
 
+  function getMonthWithoutLeadingZero(dateString) {
+    const date = new Date(dateString);
+    const month = date.getMonth() + 1;
+    return month.toString();
+}
+
   function getUserSchedule(userId, month, year) {
     $.ajax({
       url: "../routes/del/get_user_schedule.php",
@@ -415,8 +421,10 @@ $(document).ready(function () {
                   if (stampIndex === 0 && i === 0 && timeSlot > "09:00") {
                     $li.addClass("late");
                   }
-                  console.log(month);
-                  console.log(entry.calendar_date);
+                  if (getMonthWithoutLeadingZero(dateString)!=month) {
+                    $li.addClass("other");
+
+                  }
 
                   $li.appendTo($dayList);
                 }
