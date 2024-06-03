@@ -1,5 +1,3 @@
-"use strict";
-
 $(document).ready(function () {
   const nextUser = $("#nextUser");
   const previousUser = $("#previousUser");
@@ -16,7 +14,7 @@ $(document).ready(function () {
 
   window.onload = function () {
     if (document.cookie.indexOf("registro_actualizado=true") !== -1) {
-      const messageVerify = document.getElementById("messageVerify");
+      var messageVerify = document.getElementById("messageVerify");
       messageVerify.classList.add("show");
       setTimeout(function () {
         messageVerify.classList.remove("show");
@@ -77,7 +75,7 @@ $(document).ready(function () {
       if (current < 0) current = total;
     }
 
-    const newUser = userList.find("li").eq(current);
+    let newUser = userList.find("li").eq(current);
     newUser.addClass("active");
     updateUserDisplay();
     getUserSchedule(newUser.data("id"), currentMonth, currentYear);
@@ -411,7 +409,7 @@ $(document).ready(function () {
             } else if (entry.stamp) {
               var stamps = entry.stamp.split(",");
               stamps.forEach(function (stamp, stampIndex) {
-                for (let i = 0; i < stamp.length; i += 5) {
+                for (var i = 0; i < stamp.length; i += 5) {
                   const timeSlot = stamp.slice(i, i + 5);
                   const $li = $("<li>" + timeSlot + "</li>");
                   if (stampIndex === 0 && i === 0 && timeSlot > "09:00") {
