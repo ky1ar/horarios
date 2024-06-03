@@ -171,6 +171,11 @@ body {
   border-radius: 2rem;
   width: 16rem;
 }
+#previousMonth,
+#nextMonth,
+#selectedUser {
+  cursor: pointer;
+}
 #ky1-rgt header .ky1-dte img:first-child {
   transform: scaleX(-1);
   margin-right: 5px;
@@ -437,6 +442,7 @@ body {
   color: black;
   margin-top: auto;
   font-weight: 600;
+  cursor: pointer;
 }
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.justDoc img {
