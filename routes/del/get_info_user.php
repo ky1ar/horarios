@@ -39,20 +39,20 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     ) AS total_missing_points,
     SUM(
         CASE
-            WHEN LEFT(s.stamp, 5) > '09:00' THEN 1
+            WHEN LEFT(s.stamp, 5) > '09:00' AND c.calendar_date < CURDATE() THEN 1
             ELSE 0
         END
     ) AS total_late_points,
     TIME_FORMAT(
-    SEC_TO_TIME(
-        SUM(
-            CASE
-                WHEN LEFT(s.stamp, 5) > '09:00' AND c.calendar_date < CURDATE() THEN TIME_TO_SEC(LEFT(s.stamp, 5)) - TIME_TO_SEC('09:00')
-                ELSE 0
-            END
-        )
-    ), '%H:%i'
-) AS total_minutes_late_formatted,
+        SEC_TO_TIME(
+            SUM(
+                CASE
+                    WHEN LEFT(s.stamp, 5) > '09:00' THEN TIME_TO_SEC(LEFT(s.stamp, 5)) - TIME_TO_SEC('09:00')
+                    ELSE 0
+                END
+            )
+        ), '%H:%i'
+    ) AS total_minutes_late_formatted,
     CASE
         WHEN SUM(
                 ROUND(
