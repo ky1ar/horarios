@@ -517,6 +517,11 @@ $(document).ready(function () {
           sumMinutes;
         calcularSumaCalcPorSemana(userId, year, month);
 
+        function timeToMinutes(time) {
+          const [hours, minutes] = time.split(":").map(Number);
+          return hours * 60 + minutes;
+        }
+        
         function calculatePercentage(time1, time2) {
           const minutes1 = timeToMinutes(time1);
           const minutes2 = timeToMinutes(time2);
