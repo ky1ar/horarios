@@ -347,7 +347,7 @@ $(document).ready(function () {
     const date = new Date(dateString);
     const month = date.getMonth() + 1;
     return month.toString();
-}
+  }
 
   function getUserSchedule(userId, month, year) {
     $.ajax({
@@ -421,7 +421,7 @@ $(document).ready(function () {
                   if (stampIndex === 0 && i === 0 && timeSlot > "09:00") {
                     $li.addClass("late");
                   }
-                  if (getMonthWithoutLeadingZero(dateString)!=month) {
+                  if (getMonthWithoutLeadingZero(entry.calendar_date)!=month) {
                     $li.addClass("other");
 
                   }
