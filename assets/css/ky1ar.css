@@ -423,6 +423,10 @@ body {
   line-height: 1.75rem;
   position: relative;
 }
+#ky1-rgt .ky1-hrr .hrr-box .hrr-day li.justDoc {
+  position: absolute;
+  bottom: 1.25rem;
+}
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day li.late::after {
   content: " ";
   width: 1rem;

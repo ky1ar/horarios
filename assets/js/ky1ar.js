@@ -448,7 +448,7 @@ $(document).ready(function () {
                     entry.calendar_date +
                     "' data-user-id='" +
                     userId +
-                    "'><img src='./assets/img/doc.png' alt=''></li>"
+                    "'><img src='./assets/img/doc.svg' alt=''></li>"
                 ).appendTo($dayList);
               }
             }
