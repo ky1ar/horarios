@@ -6,6 +6,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 require_once 'db.php';
 $rango =  $_SESSION['admin'];
+$id = $_SESSION['user_id'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -64,23 +65,52 @@ $rango =  $_SESSION['admin'];
                         <h3 id="userName"></h3>
                         <h4 id="userCategory"></h4>
                     </span>
-                    <div id="userList">
-                        <ul>
-                            <?php
-                            $firstIndex = true;
-                            $sql = "SELECT u.id_user, u.slug, u.name, a.name as area FROM Users u INNER JOIN Profile p ON u.id_profile = p.id_profile INNER JOIN Area a ON u.id_area = a.id_area WHERE u.id_user != 20 ORDER BY u.name";
-                            $result = $conn->query($sql);
-                            while ($row = $result->fetch_assoc()) : ?>
-                                <li <?php echo $firstIndex ? 'class="active"' : '' ?> data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
-                                    <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
-                                    <h3><?php echo $row['name'] ?></h3>
-                                </li>
-                            <?php
-                                $firstIndex = false;
-                            endwhile;
-                            ?>
-                        </ul>
-                    </div>
+                    <?php if ($rango == 1) : ?>
+                        <div id="userList">
+                            <ul>
+                                <?php
+                                $firstIndex = true;
+                                $sql = "SELECT u.id_user, u.slug, u.name, a.name as area FROM Users u INNER JOIN Profile p ON u.id_profile = p.id_profile INNER JOIN Area a ON u.id_area = a.id_area WHERE u.id_user != 20 ORDER BY u.name";
+                                $result = $conn->query($sql);
+                                while ($row = $result->fetch_assoc()) : ?>
+                                    <li <?php echo $firstIndex ? 'class="active"' : '' ?> data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
+                                        <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
+                                        <h3><?php echo $row['name'] ?></h3>
+                                    </li>
+                                <?php
+                                    $firstIndex = false;
+                                endwhile;
+                                ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($rango == 0) : ?>
+                        <div id="userList">
+                            <ul>
+                                <?php
+                                $firstIndex = true;
+                                $sql = "SELECT u.id_user, u.slug, u.name, a.name as area 
+                                    FROM Users u 
+                                    INNER JOIN Profile p ON u.id_profile = p.id_profile 
+                                    INNER JOIN Area a ON u.id_area = a.id_area 
+                                    WHERE u.id_user = ?";
+                                $stmt = $conn->prepare($sql);
+                                $stmt->bind_param("i", $id);
+                                $stmt->execute();
+                                $result = $stmt->get_result();
+                                while ($row = $result->fetch_assoc()) : ?>
+                                    <li <?php echo $firstIndex ? 'class="active"' : '' ?> data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
+                                        <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
+                                        <h3><?php echo $row['name'] ?></h3>
+                                    </li>
+                                <?php
+                                    $firstIndex = false;
+                                endwhile;
+                                $stmt->close();
+                                ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
         </header>
