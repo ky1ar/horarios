@@ -401,7 +401,7 @@ body {
   border-radius: 4rem;
   width: 4.3rem;
   padding-bottom: 0;
-  min-height: 18rem;
+  min-height: 17rem;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) {
   background-image: url("https://soporte.krear3d.com/assets/css/whirlpool.png");
@@ -438,16 +438,17 @@ body {
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc {
   text-align: center;
   width: 4.3rem;
-  padding: 1rem 0 1.25rem 0;
+  padding: 0.5rem 0 0.75rem 0;
   border-radius: 0 0 2.75rem 2.75rem;
   color: black;
   margin-top: auto;
   font-weight: 600;
   cursor: pointer;
+  font-size: 0.85rem;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.justDoc {
   position: absolute;
-  bottom: 1.75rem;
+  bottom: 5.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -459,7 +460,7 @@ body {
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc.df {
   background-color: #ffdd95;
-  line-height: 0.875rem;
+  line-height: 1.75rem;
   font-size: 0.75rem;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc.plus {
