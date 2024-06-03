@@ -128,7 +128,7 @@ $id = $_SESSION['user_id'];
                 </div>
             </li>
             <li>
-                <div class="box-img img-1">
+                <div class="box-img img-5">
                     <img src="assets/img/tot.svg" width="40" height="40" alt="">
                 </div>
                 <div class="box-txt">

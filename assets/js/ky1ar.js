@@ -528,22 +528,9 @@ $(document).ready(function () {
           return (minutes1 / minutes2) * 100;
         }
 
-        //$("#totalHours").text(totalMonthlyTime + "" + sumFormatted + " h");
-        // setTimeout(function () {
-        //   $("#totalHours").text(
-        //     calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1) +
-        //       "% " +
-        //       totalMonthlyTime +
-        //       " h" +
-        //       " / " +
-        //       sumFormatted +
-        //       " h"
-        //   );
-        // }, 500);
+        $("#porcentHours").text(calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1));
         setTimeout(function () {
-          $("#totalHours").html(
-            calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1) +
-              "%<br>" +
+          $("#totalHours").text(
               totalMonthlyTime +
               " h" +
               " / " +
