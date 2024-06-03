@@ -692,6 +692,7 @@ section.cont-login .login div:last-child form input[type="submit"] {
   padding: 1rem 0;
   font-size: 0.9rem;
   font-weight: 600;
+  cursor: pointer;
 }
 
 .out{
@@ -703,4 +704,5 @@ section.cont-login .login div:last-child form input[type="submit"] {
 
 .out img{
   width: 3rem;
+  cursor: pointer;
 }
