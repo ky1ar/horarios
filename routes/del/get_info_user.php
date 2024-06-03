@@ -54,65 +54,65 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         ), '%H:%i'
     ) AS total_minutes_late_formatted,
     CASE
-        WHEN SUM(
-                ROUND(
-                    CASE
-                        WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                        WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                        WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date < CURDATE() THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                        WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                        ELSE 0
-                    END, 0)
-            ) > 3 THEN 
-            TIME_FORMAT(
-                SEC_TO_TIME(
-                    TIME_TO_SEC(
-                        SEC_TO_TIME(
-                            SUM(
-                                CASE
-                                    WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
-                                    WHEN u.id_profile = 2 THEN
-                                        CASE
-                                            WHEN DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
-                                            WHEN DAYOFWEEK(c.calendar_date) = 7 THEN 4
-                                            ELSE 0
-                                        END
-                                    WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 THEN 8
-                                    ELSE 0
-                                END
-                            ) * 60 * 60
-                        )
-                    ) + 
-                    (SUM(
-                        ROUND(
+    WHEN SUM(
+            ROUND(
+                CASE
+                    WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                    WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                    WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date < CURDATE() THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                    WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                    ELSE 0
+                END, 0)
+        ) > 6 THEN 
+        TIME_FORMAT(
+            SEC_TO_TIME(
+                TIME_TO_SEC(
+                    SEC_TO_TIME(
+                        SUM(
                             CASE
-                                WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                                WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                                WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date < CURDATE() THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                                WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                                WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
+                                WHEN u.id_profile = 2 THEN
+                                    CASE
+                                        WHEN DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
+                                        WHEN DAYOFWEEK(c.calendar_date) = 7 THEN 4
+                                        ELSE 0
+                                    END
+                                WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 THEN 8
                                 ELSE 0
-                            END, 0)
-                    ) - 3) * 15 * 60
-                ), '%H:%i'
-            )
-        ELSE
-            TIME_FORMAT(
-                SEC_TO_TIME(
-                    SUM(
+                            END
+                        ) * 60 * 60
+                    )
+                ) + 
+                (SUM(
+                    ROUND(
                         CASE
-                            WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
-                            WHEN u.id_profile = 2 THEN
-                                CASE
-                                    WHEN DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
-                                    WHEN DAYOFWEEK(c.calendar_date) = 7 THEN 4
-                                    ELSE 0
-                                END
-                            WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 THEN 8
+                            WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                            WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                            WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date < CURDATE() THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                            WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
                             ELSE 0
-                        END
-                    ) * 60 * 60
-                ), '%H:%i'
-            )
+                        END, 0)
+                ) - 6) * 15 * 60
+            ), '%H:%i'
+        )
+    ELSE
+        TIME_FORMAT(
+            SEC_TO_TIME(
+                SUM(
+                    CASE
+                        WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
+                        WHEN u.id_profile = 2 THEN
+                            CASE
+                                WHEN DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
+                                WHEN DAYOFWEEK(c.calendar_date) = 7 THEN 4
+                                ELSE 0
+                            END
+                        WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 THEN 8
+                        ELSE 0
+                    END
+                ) * 60 * 60
+            ), '%H:%i'
+        )
     END AS adjusted_hours,
     TIME_FORMAT(
         SEC_TO_TIME(
