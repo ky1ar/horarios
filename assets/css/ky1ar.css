@@ -700,9 +700,9 @@ section.cont-login .login div:last-child form input[type="submit"] {
   bottom: 1rem;
   left: 1rem;
   display: flex;
+  cursor: pointer;
 }
 
 .out img{
   width: 3rem;
-  cursor: pointer;
 }

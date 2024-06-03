@@ -21,7 +21,7 @@ $id = $_SESSION['user_id'];
 
 <body style="display: flex;">
     <div class="out">
-        <img src="./assets/img/cerrar-sesion.png" alt="">
+        <a href="./routes/del/logout.php"><img src="./assets/img/cerrar-sesion.png" alt=""></a>
     </div>
     <div class="cont-insert" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
         <h1>Insertar Registro</h1>
