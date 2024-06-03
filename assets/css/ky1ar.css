@@ -447,7 +447,10 @@ body {
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.justDoc {
   position: absolute;
-  bottom: 1.25rem;
+  bottom: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.justDoc img {
   width: 1rem;
