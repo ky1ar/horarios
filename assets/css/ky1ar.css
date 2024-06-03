@@ -423,10 +423,7 @@ body {
   line-height: 1.75rem;
   position: relative;
 }
-#ky1-rgt .ky1-hrr .hrr-box .hrr-day li.justDoc {
-  position: absolute;
-  bottom: 1.25rem;
-}
+
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day li.late::after {
   content: " ";
   width: 1rem;
@@ -448,9 +445,13 @@ body {
   font-weight: 600;
   cursor: pointer;
 }
-
+#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.justDoc {
+  position: absolute;
+  bottom: 1.25rem;
+}
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.justDoc img {
-  width: 1.8rem;
+  width: 1rem;
+  cursor: pointer;
 }
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc.df {
