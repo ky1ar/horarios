@@ -530,26 +530,14 @@ $(document).ready(function () {
         }
 
         setTimeout(function () {
-          $("#porcentHours").text(calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1) + " % / 100%");
+          $("#porcentHours").html('<b>'+calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1) + '%</b><b>100%</b>');
         }, 500);
         setTimeout(function () {
-          $("#totalHours").text(
-              totalMonthlyTime +
-              " h" +
-              " / " +
-              sumFormatted +
-              " h"
-          );
+          $("#totalHours").html('<b>'+totalMonthlyTime +'h</b><b>'+sumFormatted +'h</b>');
         }, 500);
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
-        $("#tolerancia").text(
-          data.total_minutes_late_formatted +
-            "h" +
-            " / " +
-            data.one_percent_total_hours +
-            "h"
-        );
+        $("#tolerancia").html('<b>'+data.total_minutes_late_formatted+'h</b><b>'+data.one_percent_total_hours+'h</b>');
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
