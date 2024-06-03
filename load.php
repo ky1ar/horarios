@@ -124,7 +124,7 @@ $id = $_SESSION['user_id'];
                 </div>
                 <div class="box-txt">
                     <span id="porcentHours"></span>
-                    <p>Porcentaje de Horas</p>
+                    <p>Porcentaje</p>
                 </div>
             </li>
             <li>
