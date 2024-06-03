@@ -66,23 +66,19 @@ $rango =  $_SESSION['admin'];
                     </span>
                     <div id="userList">
                         <ul>
-                        <?php
-                    $firstIndex = true;
-                    if ($rango == 1) {
-                        $sql = "SELECT u.id_user, u.slug, u.name, a.name as area FROM Users u INNER JOIN Profile p ON u.id_profile = p.id_profile INNER JOIN Area a ON u.id_area = a.id_area WHERE u.id_user != 20 ORDER BY u.name";
-                    } else {
-                        $sql = "SELECT u.id_user, u.slug, u.name, a.name as area FROM Users u INNER JOIN Profile p ON u.id_profile = p.id_profile INNER JOIN Area a ON u.id_area = a.id_area WHERE u.id_user = $userId";
-                    }
-                    $result = $conn->query($sql);
-                    while ($row = $result->fetch_assoc()) : ?>
-                        <li <?php echo $firstIndex ? 'class="active"' : '' ?> data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
-                            <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
-                            <h3><?php echo $row['name'] ?></h3>
-                        </li>
-                    <?php
-                        $firstIndex = false;
-                    endwhile;
-                    ?>
+                            <?php
+                            $firstIndex = true;
+                            $sql = "SELECT u.id_user, u.slug, u.name, a.name as area FROM Users u INNER JOIN Profile p ON u.id_profile = p.id_profile INNER JOIN Area a ON u.id_area = a.id_area WHERE u.id_user != 20 ORDER BY u.name";
+                            $result = $conn->query($sql);
+                            while ($row = $result->fetch_assoc()) : ?>
+                                <li <?php echo ($row['id_user'] == $user_id) ? 'class="active"' : '' ?> data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
+                                    <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
+                                    <h3><?php echo $row['name'] ?></h3>
+                                </li>
+                            <?php
+                                $firstIndex = false;
+                            endwhile;
+                            ?>
                         </ul>
                     </div>
                 </div>
