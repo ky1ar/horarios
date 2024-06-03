@@ -93,7 +93,7 @@ body {
 .cont-insert {
   position: fixed;
   bottom: 1rem;
-  right: 1rem; 
+  right: 1rem;
   display: flex;
   flex-direction: column;
   margin: auto;
@@ -105,15 +105,15 @@ body {
   background-color: white;
   z-index: 2;
 }
-.cont-insert h1{
+.cont-insert h1 {
   font-size: 1.2rem;
 }
-.cont-insert .form-insert{
+.cont-insert .form-insert {
   display: flex;
   flex-direction: column;
   text-align: center;
 }
-.cont-insert .form-insert label{
+.cont-insert .form-insert label {
   background-color: black;
   color: white;
   border-radius: 0.5rem;
@@ -121,7 +121,7 @@ body {
   margin-bottom: 1rem;
   cursor: pointer;
 }
-.cont-insert .form-insert input{
+.cont-insert .form-insert input {
   background-color: var(--primary);
   color: white;
   padding: 0.5rem 1rem;
@@ -268,6 +268,7 @@ body {
   visibility: visible;
   opacity: 1;
 }
+
 #selectedUser #userList ul {
   margin: 0;
   list-style: none;
@@ -397,7 +398,7 @@ body {
   min-height: 20rem;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) {
-  background-image: url('https://soporte.krear3d.com/assets/css/whirlpool.png');
+  background-image: url("https://soporte.krear3d.com/assets/css/whirlpool.png");
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) li.test {
   transform: rotate(90deg);
@@ -437,7 +438,7 @@ body {
   font-weight: 600;
 }
 
-#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.justDoc img{
+#ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.justDoc img {
   width: 1.8rem;
 }
 
@@ -462,18 +463,18 @@ body {
   display: flex;
   align-items: center;
 }
-#ky1-rgt .ky1-hrr .hrr-box .data-sem p{
+#ky1-rgt .ky1-hrr .hrr-box .data-sem p {
   padding: 0.5rem 0.75rem;
   font-size: 0.9rem;
   text-align: center;
   margin: 0;
   font-weight: 600;
 }
-#ky1-rgt .ky1-hrr .hrr-box .data-sem p:first-child{
+#ky1-rgt .ky1-hrr .hrr-box .data-sem p:first-child {
   background-color: #86e3ce;
   border-radius: 1.5rem 0 0 1.5rem;
 }
-#ky1-rgt .ky1-hrr .hrr-box .data-sem p:last-child{
+#ky1-rgt .ky1-hrr .hrr-box .data-sem p:last-child {
   background-color: #d0e6a5;
   border-radius: 0 1.5rem 1.5rem 0;
 }
@@ -502,7 +503,7 @@ body {
   left: 0;
   z-index: 9998;
 }
-.modal-stamp div{
+.modal-stamp div {
   display: flex;
   padding: 1.5rem 1rem;
   background-color: white;
@@ -516,7 +517,7 @@ body {
   box-shadow: 0 0 1rem 0.25rem rgb(195, 195, 195);
   border-radius: 1rem;
 }
-.modal-stamp div h1{
+.modal-stamp div h1 {
   text-align: center;
   margin: 0;
 }
@@ -538,13 +539,12 @@ body {
   padding: 0.5rem;
   margin-bottom: 2rem;
   text-align: center;
-  
 }
-.modal-stamp form input:focus{
-    outline: none;
-    border: none;
+.modal-stamp form input:focus {
+  outline: none;
+  border: none;
 }
-.modal-stamp form input[type="file"]{
+.modal-stamp form input[type="file"] {
   background-color: black;
   color: white;
   padding: 0.5rem 1rem;
@@ -566,7 +566,7 @@ body {
 }
 
 .modal-stamp form input[type="submit"]:hover {
-    filter: brightness(1.3);
+  filter: brightness(1.3);
 }
 .message-verify {
   display: none;
@@ -607,17 +607,17 @@ body {
 }
 
 .viewDoc img {
-  max-width: 40rem; 
-  border-radius: 0.5rem; 
+  max-width: 40rem;
+  border-radius: 0.5rem;
 }
 
-.viewDoc embed{
+.viewDoc embed {
   width: 50%;
-  height: 80%;  
+  height: 80%;
 }
 
 /* login */
-section.cont-login{
+section.cont-login {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -626,7 +626,7 @@ section.cont-login{
   align-items: center;
 }
 
-section.cont-login .login{
+section.cont-login .login {
   display: flex;
   background-color: white;
   width: 70%;
@@ -635,56 +635,56 @@ section.cont-login .login{
   box-shadow: 0 0 1rem 0.2rem rgb(199, 199, 199);
 }
 
-section.cont-login .login div:first-child{
+section.cont-login .login div:first-child {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 50%;
 }
-section.cont-login .login div:first-child img{
+section.cont-login .login div:first-child img {
   width: 30rem;
 }
 
-section.cont-login .login div:last-child{
+section.cont-login .login div:last-child {
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   width: 50%;
 }
-section.cont-login .login div:last-child img{
+section.cont-login .login div:last-child img {
   width: 7rem;
 }
 
-section.cont-login .login div:last-child h1{
+section.cont-login .login div:last-child h1 {
   font-size: 2rem;
   margin: 0;
 }
 
-section.cont-login .login div:last-child form{
+section.cont-login .login div:last-child form {
   display: flex;
   flex-direction: column;
   width: 20rem;
   margin-top: 2rem;
 }
 
-section.cont-login .login div:last-child form label{
+section.cont-login .login div:last-child form label {
   font-size: 1rem;
   font-weight: 600;
   color: #8b8b8b;
   margin-bottom: 0.5rem;
 }
-section.cont-login .login div:last-child form input:not(:last-child){
+section.cont-login .login div:last-child form input:not(:last-child) {
   border: none;
   border-bottom: 1px solid black;
   font-size: 1rem;
   margin-bottom: 2rem;
 }
-section.cont-login .login div:last-child form input:not(:last-child):focus{
+section.cont-login .login div:last-child form input:not(:last-child):focus {
   outline: none;
 }
 
-section.cont-login .login div:last-child form input[type="submit"]{
+section.cont-login .login div:last-child form input[type="submit"] {
   border-radius: 2rem;
   background-color: rgb(104, 104, 255);
   color: white;

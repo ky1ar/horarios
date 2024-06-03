@@ -85,7 +85,7 @@ $id = $_SESSION['user_id'];
                         </div>
                     <?php endif; ?>
                     <?php if ($rango == 0) : ?>
-                        <div id="userList">
+                        <div id="userList" style="visibility: hidden; opacity: 0;">
                             <ul>
                                 <?php
                                 $firstIndex = true;
