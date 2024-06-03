@@ -590,7 +590,4 @@ $(document).ready(function () {
   getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
 
-  if ($(".calc").hasClass('df')) {
-    $(".calc").text("Datos Faltantes");
-  }
 });

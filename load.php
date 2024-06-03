@@ -21,7 +21,7 @@ $id = $_SESSION['user_id'];
 
 <body style="display: flex;">
     <div class="out">
-        <a href="./routes/del/logout.php"><img src="./assets/img/cerrar-sesion.png" alt=""></a>
+        <a href="./routes/del/logout.php"><img src="./assets/img/out.svg" alt=""></a>
     </div>
     <div class="cont-insert" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
         <h1>Insertar Registro</h1>
@@ -147,7 +147,7 @@ $id = $_SESSION['user_id'];
             </li>
             <li>
                 <div class="box-img img-4">
-                    <img src="assets/img/tol.png" width="40" height="40" alt="">
+                    <img src="assets/img/tol.svg" width="40" height="40" alt="">
                 </div>
                 <div class="box-txt">
                     <span id="tolerancia"></span>
