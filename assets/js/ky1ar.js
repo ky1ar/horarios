@@ -517,7 +517,7 @@ $(document).ready(function () {
           sumMinutes;
         calcularSumaCalcPorSemana(userId, year, month);
 
-        // $("#totalHours").text(totalMonthlyTime + "" + sumFormatted + " h");
+        $("#totalHours").text(totalMonthlyTime + "" + sumFormatted + " h");
         setTimeout(function () {
           $("#totalHours").text(
             totalMonthlyTime + " h" + " / " + sumFormatted + " h"
