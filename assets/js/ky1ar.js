@@ -527,12 +527,17 @@ $(document).ready(function () {
           const minutes2 = timeToMinutes(time2);
           return (minutes1 / minutes2) * 100;
         }
-        
+
         //$("#totalHours").text(totalMonthlyTime + "" + sumFormatted + " h");
         setTimeout(function () {
           $("#totalHours").text(
-            calculatePercentage(totalMonthlyTime,sumFormatted).toFixed(1) +"% "+ 
-            totalMonthlyTime + " h" + " / " + sumFormatted + " h"
+            calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1) +
+              "%<br>" +
+              totalMonthlyTime +
+              " h" +
+              " / " +
+              sumFormatted +
+              " h"
           );
         }, 500);
         $("#totalMissingPoints").text(data.total_missing_points);
@@ -601,5 +606,4 @@ $(document).ready(function () {
 
   getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
-
 });
