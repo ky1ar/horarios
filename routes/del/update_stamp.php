@@ -73,9 +73,15 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
         // Imprimir el stamp anterior por consola
         error_log("Stamp anterior: $previousStamp");
 
-        $updateSql = "UPDATE Schedule SET stamp = ?, just = ?, modified = 1 WHERE id_schedule = ?";
+        // Calcular la diferencia de caracteres en el `stamp`
+        $previousLength = strlen($previousStamp);
+        $newLength = strlen($stamp);
+        $difference = $newLength - $previousLength;
+        $calcDiff = intdiv($difference, 5);
+
+        $updateSql = "UPDATE Schedule SET stamp = ?, just = ?, modified = 1, calc_diff = ? WHERE id_schedule = ?";
         $updateStmt = $conn->prepare($updateSql);
-        $updateStmt->bind_param("ssi", $stamp, $just, $idSchedule);
+        $updateStmt->bind_param("ssii", $stamp, $just, $calcDiff, $idSchedule);
 
         if ($updateStmt->execute()) {
             $isNewRecord = false;
@@ -87,12 +93,18 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
         }
         $updateStmt->close();
     } else {
-        $insertSql = "INSERT INTO Schedule (id_user, id_calendar, stamp, just, modified, created_from_form)
-                      SELECT ?, c.id_date, ?, ?, 1, 1
+        // Calcular la diferencia de caracteres en el `stamp`
+        $previousLength = 0; // No hay stamp anterior en un nuevo registro
+        $newLength = strlen($stamp);
+        $difference = $newLength - $previousLength;
+        $calcDiff = intdiv($difference, 5);
+
+        $insertSql = "INSERT INTO Schedule (id_user, id_calendar, stamp, just, modified, created_from_form, calc_diff)
+                      SELECT ?, c.id_date, ?, ?, 1, 1, ?
                       FROM Calendar c
                       WHERE c.calendar_date = ?";
         $insertStmt = $conn->prepare($insertSql);
-        $insertStmt->bind_param("isss", $userId, $stamp, $just, $date);
+        $insertStmt->bind_param("issis", $userId, $stamp, $just, $calcDiff, $date);
 
         if ($insertStmt->execute()) {
             $isNewRecord = true;
@@ -105,12 +117,6 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
         $insertStmt->close();
     }
     $stmt->close();
-
-    // Calcular la diferencia de caracteres en el `stamp`
-    $previousLength = strlen($previousStamp);
-    $newLength = strlen($stamp);
-    $difference = $newLength - $previousLength;
-    $calcDiff = intdiv($difference, 5);
 
     echo json_encode(['success' => true, 'isNewRecord' => $isNewRecord, 'calcDiff' => $calcDiff]);
 } else {

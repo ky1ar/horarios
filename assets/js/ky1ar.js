@@ -195,7 +195,6 @@ $(document).ready(function () {
   });
 
   let calcDiffGlobal;
-
   $("#stampForm").on("submit", function (event) {
     event.preventDefault();
     var formData = new FormData(this);
@@ -552,8 +551,7 @@ $(document).ready(function () {
         setTimeout(function () {
           $("#totalHours").html('<b>'+totalMonthlyTime +'h</b><b>'+sumFormatted +'h</b>');
         }, 500);
-        $SinRegistro = calcDiffGlobal + data.total_missing_points;
-        $("#totalMissingPoints").text($SinRegistro);
+        $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
         $("#tolerancia").html('<b>'+data.total_minutes_late_formatted+'h</b><b>'+data.one_percent_total_hours+'h</b>');
       },
