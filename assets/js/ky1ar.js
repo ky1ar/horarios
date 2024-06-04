@@ -343,6 +343,12 @@ $(document).ready(function () {
     });
   }
 
+  function getMonthWithoutLeadingZero(dateString) {
+    const date = new Date(dateString);
+    const month = date.getMonth() + 1;
+    return month.toString();
+  }
+
   function getUserSchedule(userId, month, year) {
     $.ajax({
       url: "../routes/del/get_user_schedule.php",
@@ -408,13 +414,20 @@ $(document).ready(function () {
               $("<li class='test'>FERIADO</li>").appendTo($dayList);
             } else if (entry.stamp) {
               var stamps = entry.stamp.split(",");
+              console.log(entry.calendar_date,getMonthWithoutLeadingZero(entry.calendar_date),month);
               stamps.forEach(function (stamp, stampIndex) {
                 for (var i = 0; i < stamp.length; i += 5) {
-                  var timeSlot = stamp.slice(i, i + 5);
-                  var $li = $("<li>" + timeSlot + "</li>");
+                  const timeSlot = stamp.slice(i, i + 5);
+                  const $li = $("<li>" + timeSlot + "</li>");
                   if (stampIndex === 0 && i === 0 && timeSlot > "09:00") {
                     $li.addClass("late");
                   }
+                  
+                  if (getMonthWithoutLeadingZero(entry.calendar_date)!=month) {
+                    $li.addClass("other");
+
+                  }
+
                   $li.appendTo($dayList);
                 }
               });
@@ -530,26 +543,14 @@ $(document).ready(function () {
         }
 
         setTimeout(function () {
-          $("#porcentHours").text(calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1) + " % / 100%");
+          $("#porcentHours").html('<b>'+calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1) + '%</b><b>100%</b>');
         }, 500);
         setTimeout(function () {
-          $("#totalHours").text(
-              totalMonthlyTime +
-              " h" +
-              " / " +
-              sumFormatted +
-              " h"
-          );
+          $("#totalHours").html('<b>'+totalMonthlyTime +'h</b><b>'+sumFormatted +'h</b>');
         }, 500);
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
-        $("#tolerancia").text(
-          data.total_minutes_late_formatted +
-            "h" +
-            " / " +
-            data.one_percent_total_hours +
-            "h"
-        );
+        $("#tolerancia").html('<b>'+data.total_minutes_late_formatted+'h</b><b>'+data.one_percent_total_hours+'h</b>');
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
