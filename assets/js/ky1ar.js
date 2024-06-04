@@ -193,6 +193,9 @@ $(document).ready(function () {
       },
     });
   });
+
+  let calcDiffGlobal;
+
   $("#stampForm").on("submit", function (event) {
     event.preventDefault();
     var formData = new FormData(this);
@@ -207,6 +210,7 @@ $(document).ready(function () {
       success: function (response) {
         if (response.success) {
           hideModal();
+          calcDiffGlobal = response.calcDiff;
           // Suponiendo que userId, currentMonth y currentYear están disponibles
           getUserSchedule(formData.get("userId"), currentMonth, currentYear);
           // location.reload(true);
@@ -548,7 +552,8 @@ $(document).ready(function () {
         setTimeout(function () {
           $("#totalHours").html('<b>'+totalMonthlyTime +'h</b><b>'+sumFormatted +'h</b>');
         }, 500);
-        $("#totalMissingPoints").text(data.total_missing_points);
+        $SinRegistro = calcDiffGlobal + data.total_missing_points;
+        $("#totalMissingPoints").text($SinRegistro);
         $("#totalLatePoints").text(data.total_late_points);
         $("#tolerancia").html('<b>'+data.total_minutes_late_formatted+'h</b><b>'+data.one_percent_total_hours+'h</b>');
       },
