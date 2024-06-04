@@ -1,0 +1,487 @@
+/*
+Theme Name: ky1ar
+Theme URI: https://krear3d.com
+Author: Kenny Muñoz Serafin
+Author URI: https://munoz.pe
+Description: Tema personalizado para Krear 3D
+Version: 0.01
+License: GNU General Public License v3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@200;300;400;500;600;700;800&display=swap');
+
+:root {
+	--primary: #ed5d1f;
+	--primaryopacity: #ffeee4;
+
+	--secondary: #182d36;
+	--tertiary: #ffa02a;
+
+    --white: #ffffff;
+	--gray: #f0f0f0;
+	--graydark: #e6e6e6;
+    --graydarkest : #cccccc;
+	--black: #0f2027;
+}
+*, 
+*:before, 
+*:after {
+    box-sizing: border-box;
+}
+::selection {
+    color: var(--primary) !important;
+    background-color: var(--primaryopacity) !important;
+}
+a {
+    text-decoration: none;
+}
+img, 
+svg {
+    vertical-align: middle;
+    max-width: 100%;
+    height: auto;
+}
+/***********************************************************************************/
+body {
+	background-color: var(--white);
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    color: var(--black);
+    position: relative;
+    min-width: 22rem;
+}
+.wrapper {
+	width: 100%;
+    margin: 0 auto;
+    max-width: 100rem;
+	padding: 0 1rem;
+}
+/***********************************************************************************/
+#topBar {
+	background-color: var(--primary);   
+    line-height: 1rem;
+	padding: 0.5rem 0;
+}
+#topBar .wrapper {
+	row-gap: 0.5rem;
+    column-gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+#topBar a {
+    color: var(--white);
+	display: flex;
+}
+#topBar img {
+    margin-right: 0.5rem;
+}
+/***********************************************************************************/
+#navigationBar {
+	background-color: var(--white);
+	padding: 1rem 0.5rem;
+}
+#navigationBar .wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 120rem;
+}
+#navigationBar .logo {
+	width: 8rem;
+    min-width: 8rem;
+    transition: 0.25s all ease-in-out;
+}
+#navigationBar .logo:hover {
+    opacity: 0.9;
+}
+#navigationBar ul {
+    margin: 0;
+    display: flex;
+    list-style: none;
+    gap: 1rem;
+    padding: 0;
+}
+#navigationBar ul a {
+    color: var(--black);
+    padding: 0.5rem 1rem;
+    display: block;
+    transition: 0.25s all ease-in-out;
+    border-radius: 2rem;
+    border: 1px solid var(--graydark);
+    background-color: var(--gray);
+    line-height: calc(1rem - 2px);
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+#navigationBar ul a:hover {
+    background-color: var(--graydark);
+}
+#navigationBar ul a.active {
+    color: var(--white);
+    background-color: var(--secondary);
+}
+#navigationBar ul a.active:hover {
+    opacity: 0.9;
+}
+#navigationBar .link {
+    background-color: var(--primary);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 4rem;
+    font-weight: 500;
+    padding: 0.5rem 1.25rem;
+    font-size: 0.75rem;
+    transition: all 0.2s ease-in-out;
+}
+#navigationBar .link:hover {
+    opacity: 0.8;
+}
+/***********************************************************************************/
+#patternBody {
+    padding: 2rem;
+    background-color: var(--gray);
+    background-image: url(whirlpool.png);
+    box-shadow: inset 0 0 0.25rem var(--graydark);
+}
+/***************************************************************************/
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+#header .ky1-ttl {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+#header .ky1-ttl h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+#header .ky1-dte {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    font-size: 1rem;
+    background-color: var(--white);
+    padding: 1rem 3rem;
+    border-radius: 2rem;
+}
+#header .ky1-usr {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: center;
+}
+#header .ky1-usr .usr-btn {
+    width: 2.5rem;
+    border-radius: 2rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: var(--white);
+}
+#header .ky1-usr #usr-prv img {
+    transform: rotateZ(180deg);
+}
+#header .ky1-usr #usr-nxt {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+/***************************************************************************/
+#selectedUser {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    min-width: 14rem;
+    justify-content: center;
+}
+#selectedUser img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 2rem;
+}
+#selectedUser span {
+    display: flex;
+    flex-direction: column;
+}
+#selectedUser h3 {
+    margin: 0;
+    font-weight: 500;
+}
+#selectedUser h4 {
+    margin: 0;
+    font-weight: 400;
+    opacity: 0.75;
+}
+#selectedUser #userList {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: -2rem;
+    left: -2rem;
+    padding-top: 4rem;
+    top: 0;
+    z-index: 1;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.25s ease-in-out;
+}
+#selectedUser:hover #userList, 
+#selectedUser #userList:hover {
+    visibility: visible;
+    opacity: 1;
+}
+#selectedUser #userList ul {
+    margin: 0;
+    list-style: none;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.5rem 1rem #bfbfbf;
+}
+#selectedUser #userList ul li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+}
+#selectedUser #userList ul li {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+#selectedUser #userList ul li img {
+    width: 2rem;
+    height: 2rem;
+}
+#selectedUser #userList ul li h3 {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+/***************************************************************************/
+.ky1-rsm {
+    margin: 0;
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+    padding: 1rem;
+}
+.ky1-rsm li {
+    flex: 1;
+    background-color: var(--white);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+.ky1-rsm .box-img {
+    display: flex;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+.ky1-rsm .box-img.img-1 {
+    background-color: #86e3ce;
+}
+.ky1-rsm .box-img.img-2 {
+    background-color: #d0e6a5;
+}
+.ky1-rsm .box-img.img-3 {
+    background-color: #ffdd95;
+}
+.ky1-rsm .box-img.img-4 {
+    background-color: #fc887b;
+}
+.ky1-rsm .box-txt {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+.ky1-rsm .box-txt span {
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+.ky1-rsm .box-txt p {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.75;
+}
+/***************************************************************************/
+#timeline {
+    background-color: var(--white);
+    border-radius: 0.75rem;
+    box-shadow: 0 0 0.25rem var(--graydark);
+    padding: 0.5rem;
+    display: flex;
+    gap: 0.25rem;
+}
+#timeline .schedule {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem;
+}
+#timeline .schedule .name {
+    font-weight: 600;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+#timeline .schedule .name b {
+    font-size: 0.95rem;
+}
+#timeline .schedule ul {
+    margin: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 0;
+}
+#timeline .schedule ul li {
+    position: relative;
+    color: #d9d9d9;
+    line-height: 1rem;
+}
+#timeline .schedule ul li.hightlight {
+    font-weight: 600;
+    color: #999999;
+}
+#timeline .schedule ul.lines li::after {
+    content: "";
+    height: 1px;
+    position: absolute;
+    top: 0.5rem;
+    width: 90vw;
+    background-color: #f2f2f2;
+    left: 0;
+    margin-left: 4rem;
+}
+#timeline .container {
+    margin-top: 0.5rem;
+    z-index: 1;
+    cursor: pointer;
+}
+#timeline .block {
+    background-color: #d0e6a5;
+    padding: 0.5rem;
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+#timeline .block:nth-child(even) {
+    background-color: #ffdd95;
+}
+#timeline .block span {
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+}
+#timeline .container:hover span {
+    opacity: 1;
+}
+/***********************************************************************************/
+
+/***********************************************************************************/
+/***********************************************************************************/
+/***********************************************************************************/
+/***********************************************************************************/
+/***********************************************************************************/
+/***********************************************************************************/
+/***********************************************************************************/
+/***********************************************************************************/
+/***********************************************************************************/
+/***********************************************************************************/
+/***********************************************************************************/
+footer {
+	color: var(--white);
+}
+footer .top {
+	padding: 4rem 0;
+	background-color: var(--secondary);
+}
+footer .wrapper {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+    gap: 1rem;
+	padding: 0 3rem;
+}
+footer .item b {
+    text-transform: uppercase;
+    padding-bottom: 1rem;
+    display: block;
+}
+footer .item ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    line-height: 1.125rem;
+}
+footer .item ul a {
+	opacity: 0.75;
+	transition: all 0.25s ease-in-out;
+    color: var(--white);
+}
+footer .item ul p {
+	opacity: 0.75;
+	margin: 0;
+    color: var(--white);
+}
+footer .item ul li a:hover {
+    opacity: 1;
+}
+footer .item .logo {
+    margin-bottom: 1rem;
+}
+footer .bottom {
+	padding: 2rem 0;
+	background-color: var(--black);
+}
+footer .bottom .wrapper {
+	align-items: center;
+}
+footer .bottom ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+	display: flex;
+    gap: 2rem;
+}
+footer .bottom ul li a {
+	transition: all 0.25s ease-in-out;
+    color: var(--white);
+    font-size: 0.8rem;
+}
+footer .bottom ul li a:hover {
+	opacity: 0.75;
+}
+footer .copyright {
+    text-align: right;
+    opacity: 0.75;
+    line-height: 1.125rem;
+}
