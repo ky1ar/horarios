@@ -63,11 +63,16 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
     $stmt->execute();
     $result = $stmt->get_result();
 
+    $previousStamp = '';
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $idSchedule = $row['id_schedule'];
+        $previousStamp = $row['stamp'];
 
-        $updateSql = "UPDATE Schedule SET stamp = ?, just = ? WHERE id_schedule = ?";
+        // $updateSql = "UPDATE Schedule SET stamp = ?, just = ? WHERE id_schedule = ?";
+        // $updateStmt = $conn->prepare($updateSql);
+        // $updateStmt->bind_param("ssi", $stamp, $just, $idSchedule);
+        $updateSql = "UPDATE Schedule SET stamp = ?, just = ?, modified = 1 WHERE id_schedule = ?";
         $updateStmt = $conn->prepare($updateSql);
         $updateStmt->bind_param("ssi", $stamp, $just, $idSchedule);
 
@@ -78,8 +83,12 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
         }
         $updateStmt->close();
     } else {
-        $insertSql = "INSERT INTO Schedule (id_user, id_calendar, stamp, just)
-                      SELECT ?, c.id_date, ?, ?
+        // $insertSql = "INSERT INTO Schedule (id_user, id_calendar, stamp, just)
+        //               SELECT ?, c.id_date, ?, ?
+        //               FROM Calendar c
+        //               WHERE c.calendar_date = ?";
+        $insertSql = "INSERT INTO Schedule (id_user, id_calendar, stamp, just, modified, created_from_form)
+                      SELECT ?, c.id_date, ?, ?, 1, 1
                       FROM Calendar c
                       WHERE c.calendar_date = ?";
         $insertStmt = $conn->prepare($insertSql);
@@ -93,6 +102,11 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
         $insertStmt->close();
     }
     $stmt->close();
+    $previousLength = strlen($previousStamp);
+    $newLength = strlen($stamp);
+    $difference = $newLength - $previousLength;
+    $calcDiff = intdiv($difference, 5);
+    echo json_encode(['success' => true, 'isNewRecord' => $isNewRecord, 'calcDiff' => $calcDiff]);
 } else {
     echo json_encode(['success' => false, 'message' => 'No se recibieron los parámetros necesarios.']);
 }
