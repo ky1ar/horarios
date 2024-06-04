@@ -17,6 +17,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
     $date = $_POST['date'];
     $stamp = $_POST['stamp'];
     $just = isset($_POST['just']) ? $_POST['just'] : '';
+    $isNewRecord = false;
 
     if (isset($_FILES['justFile']) && $_FILES['justFile']['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $_FILES['justFile']['tmp_name'];
@@ -53,7 +54,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
         }
     }
 
-    $sql = "SELECT s.id_schedule
+    $sql = "SELECT s.id_schedule, s.stamp
             FROM Schedule s
             JOIN Calendar c ON s.id_calendar = c.id_date
             WHERE s.id_user = ? AND c.calendar_date = ?";
@@ -69,24 +70,18 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
         $idSchedule = $row['id_schedule'];
         $previousStamp = $row['stamp'];
 
-        // $updateSql = "UPDATE Schedule SET stamp = ?, just = ? WHERE id_schedule = ?";
-        // $updateStmt = $conn->prepare($updateSql);
-        // $updateStmt->bind_param("ssi", $stamp, $just, $idSchedule);
         $updateSql = "UPDATE Schedule SET stamp = ?, just = ?, modified = 1 WHERE id_schedule = ?";
         $updateStmt = $conn->prepare($updateSql);
         $updateStmt->bind_param("ssi", $stamp, $just, $idSchedule);
 
         if ($updateStmt->execute()) {
-            echo json_encode(['success' => true]);
+            $isNewRecord = false;
         } else {
             echo json_encode(['success' => false, 'message' => 'Failed to update stamp']);
+            exit;
         }
         $updateStmt->close();
     } else {
-        // $insertSql = "INSERT INTO Schedule (id_user, id_calendar, stamp, just)
-        //               SELECT ?, c.id_date, ?, ?
-        //               FROM Calendar c
-        //               WHERE c.calendar_date = ?";
         $insertSql = "INSERT INTO Schedule (id_user, id_calendar, stamp, just, modified, created_from_form)
                       SELECT ?, c.id_date, ?, ?, 1, 1
                       FROM Calendar c
@@ -95,17 +90,21 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
         $insertStmt->bind_param("isss", $userId, $stamp, $just, $date);
 
         if ($insertStmt->execute()) {
-            echo json_encode(['success' => true]);
+            $isNewRecord = true;
         } else {
             echo json_encode(['success' => false, 'message' => 'Failed to insert stamp']);
+            exit;
         }
         $insertStmt->close();
     }
     $stmt->close();
+
+    // Calcular la diferencia de caracteres en el `stamp`
     $previousLength = strlen($previousStamp);
     $newLength = strlen($stamp);
     $difference = $newLength - $previousLength;
     $calcDiff = intdiv($difference, 5);
+
     echo json_encode(['success' => true, 'isNewRecord' => $isNewRecord, 'calcDiff' => $calcDiff]);
 } else {
     echo json_encode(['success' => false, 'message' => 'No se recibieron los parámetros necesarios.']);
