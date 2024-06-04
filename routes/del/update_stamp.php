@@ -70,12 +70,17 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
         $idSchedule = $row['id_schedule'];
         $previousStamp = $row['stamp'];
 
+        // Imprimir el stamp anterior por consola
+        error_log("Stamp anterior: $previousStamp");
+
         $updateSql = "UPDATE Schedule SET stamp = ?, just = ?, modified = 1 WHERE id_schedule = ?";
         $updateStmt = $conn->prepare($updateSql);
         $updateStmt->bind_param("ssi", $stamp, $just, $idSchedule);
 
         if ($updateStmt->execute()) {
             $isNewRecord = false;
+            // Imprimir el nuevo stamp por consola
+            error_log("Stamp actualizado: $stamp");
         } else {
             echo json_encode(['success' => false, 'message' => 'Failed to update stamp']);
             exit;
@@ -91,6 +96,8 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
 
         if ($insertStmt->execute()) {
             $isNewRecord = true;
+            // Imprimir el nuevo stamp por consola
+            error_log("Stamp insertado: $stamp");
         } else {
             echo json_encode(['success' => false, 'message' => 'Failed to insert stamp']);
             exit;
