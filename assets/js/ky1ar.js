@@ -209,7 +209,7 @@ $(document).ready(function () {
           hideModal();
           // Suponiendo que userId, currentMonth y currentYear están disponibles
           getUserSchedule(formData.get("userId"), currentMonth, currentYear);
-          location.reload(true); // Recargar la página y borrar la caché
+          // location.reload(true);
         } else {
           alert("Error al guardar el registro: " + response.message);
         }
