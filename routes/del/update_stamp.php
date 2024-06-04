@@ -77,26 +77,25 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
         $previousLength = strlen($previousStamp);
         $newLength = strlen($stamp);
         $difference = $newLength - $previousLength;
-        $calcDiff = intdiv($difference, 5);
+        $calcDiff = $row['calc_diff'];
 
-        // Solo permitir la actualización si calc_diff es NULL
-        if ($row['calc_diff'] === NULL) {
-            $updateSql = "UPDATE Schedule SET stamp = ?, just = ?, modified = 1, calc_diff = ? WHERE id_schedule = ? AND calc_diff IS NULL";
-            $updateStmt = $conn->prepare($updateSql);
-            $updateStmt->bind_param("ssii", $stamp, $just, $calcDiff, $idSchedule);
-
-            if ($updateStmt->execute()) {
-                $isNewRecord = false;
-                // Imprimir el nuevo stamp por consola
-                error_log("Stamp actualizado: $stamp");
-                echo json_encode(['success' => true, 'isNewRecord' => $isNewRecord, 'calcDiff' => $calcDiff]);
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Failed to update stamp']);
-            }
-            $updateStmt->close();
-        } else {
-            echo json_encode(['success' => false, 'message' => 'Cannot update stamp because calc_diff is not NULL']);
+        if ($calcDiff === NULL) {
+            $calcDiff = intdiv($difference, 5);
         }
+
+        $updateSql = "UPDATE Schedule SET stamp = ?, just = ?, modified = 1, calc_diff = ? WHERE id_schedule = ?";
+        $updateStmt = $conn->prepare($updateSql);
+        $updateStmt->bind_param("ssii", $stamp, $just, $calcDiff, $idSchedule);
+
+        if ($updateStmt->execute()) {
+            $isNewRecord = false;
+            // Imprimir el nuevo stamp por consola
+            error_log("Stamp actualizado: $stamp");
+            echo json_encode(['success' => true, 'isNewRecord' => $isNewRecord, 'calcDiff' => $calcDiff]);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Failed to update stamp']);
+        }
+        $updateStmt->close();
     } else {
         // Calcular la diferencia de caracteres en el `stamp`
         $previousLength = 0; // No hay stamp anterior en un nuevo registro
@@ -127,3 +126,4 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
 }
 
 $conn->close();
+
