@@ -180,7 +180,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-          console.log(response.just);
+          // console.log(response.just);
           showModal(response.stamp, response.just, date, userId);
         } else if (response.message === "El día es un feriado") {
           console.log("No se abrió un modal por ser feriado");
@@ -424,11 +424,11 @@ $(document).ready(function () {
               $("<li class='test'>FERIADO</li>").appendTo($dayList);
             } else if (entry.stamp) {
               var stamps = entry.stamp.split(",");
-              console.log(
-                entry.calendar_date,
-                getMonthWithoutLeadingZero(entry.calendar_date),
-                month
-              );
+              // console.log(
+              //   entry.calendar_date,
+              //   getMonthWithoutLeadingZero(entry.calendar_date),
+              //   month
+              // );
               stamps.forEach(function (stamp, stampIndex) {
                 for (var i = 0; i < stamp.length; i += 5) {
                   const timeSlot = stamp.slice(i, i + 5);
