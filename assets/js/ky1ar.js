@@ -180,7 +180,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-          console.log(response.just);
+          // console.log(response.just);
           showModal(response.stamp, response.just, date, userId);
         } else if (response.message === "El día es un feriado") {
           console.log("No se abrió un modal por ser feriado");
@@ -193,6 +193,8 @@ $(document).ready(function () {
       },
     });
   });
+
+  let calcDiffGlobal;
   $("#stampForm").on("submit", function (event) {
     event.preventDefault();
     var formData = new FormData(this);
@@ -207,11 +209,19 @@ $(document).ready(function () {
       success: function (response) {
         if (response.success) {
           hideModal();
+          calcDiffGlobal = response.calcDiff;
           // Suponiendo que userId, currentMonth y currentYear están disponibles
           getUserSchedule(formData.get("userId"), currentMonth, currentYear);
-          location.reload(true); // Recargar la página y borrar la caché
+          location.reload(true);
         } else {
-          alert("Error al guardar el registro: " + response.message);
+          if (
+            response.message ===
+            "Cannot update stamp because calc_diff is not NULL"
+          ) {
+            console.log("ya se ha actualizado anteriormente");
+          } else {
+            alert("Error al guardar el registro: " + response.message);
+          }
         }
       },
       error: function (xhr, status, error) {
@@ -414,7 +424,11 @@ $(document).ready(function () {
               $("<li class='test'>FERIADO</li>").appendTo($dayList);
             } else if (entry.stamp) {
               var stamps = entry.stamp.split(",");
-              console.log(entry.calendar_date,getMonthWithoutLeadingZero(entry.calendar_date),month);
+              // console.log(
+              //   entry.calendar_date,
+              //   getMonthWithoutLeadingZero(entry.calendar_date),
+              //   month
+              // );
               stamps.forEach(function (stamp, stampIndex) {
                 for (var i = 0; i < stamp.length; i += 5) {
                   const timeSlot = stamp.slice(i, i + 5);
@@ -422,10 +436,11 @@ $(document).ready(function () {
                   if (stampIndex === 0 && i === 0 && timeSlot > "09:00") {
                     $li.addClass("late");
                   }
-                  
-                  if (getMonthWithoutLeadingZero(entry.calendar_date)!=month) {
-                    $li.addClass("other");
 
+                  if (
+                    getMonthWithoutLeadingZero(entry.calendar_date) != month
+                  ) {
+                    $li.addClass("other");
                   }
 
                   $li.appendTo($dayList);
@@ -543,14 +558,26 @@ $(document).ready(function () {
         }
 
         setTimeout(function () {
-          $("#porcentHours").html('<b>'+calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1) + '%</b><b>100%</b>');
+          $("#porcentHours").html(
+            "<b>" +
+              calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1) +
+              "%</b><b>100%</b>"
+          );
         }, 500);
         setTimeout(function () {
-          $("#totalHours").html('<b>'+totalMonthlyTime +'h</b><b>'+sumFormatted +'h</b>');
+          $("#totalHours").html(
+            "<b>" + totalMonthlyTime + "h</b><b>" + sumFormatted + "h</b>"
+          );
         }, 500);
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
-        $("#tolerancia").html('<b>'+data.total_minutes_late_formatted+'h</b><b>'+data.one_percent_total_hours+'h</b>');
+        $("#tolerancia").html(
+          "<b>" +
+            data.total_minutes_late_formatted +
+            "h</b><b>" +
+            data.one_percent_total_hours +
+            "h</b>"
+        );
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
