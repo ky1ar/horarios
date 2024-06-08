@@ -31,7 +31,7 @@ if (isset($_POST['userId']) && isset($_POST['date'])) {
             echo json_encode(['success' => false, 'message' => 'Es un feriado']);
         } else {
             $stamp = isset($row['stamp']) ? $row['stamp'] : '';
-            $just = isset($row['just']) ? $row['just'] : ''; // Añadir el nombre del archivo de justificación
+            $just = isset($row['just']) ? $row['just'] : '';
             echo json_encode(['success' => true, 'stamp' => $stamp, 'just' => $just]);
         }
     } else {
