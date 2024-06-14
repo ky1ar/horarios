@@ -411,6 +411,9 @@ $(document).ready(function () {
                 entry.calendar_date +
                 "'></ul>"
             ).appendTo($hrrDay);
+            if (entry.modified === 1) {
+              $dayList.css("background-color", "#FFC614");
+            }
 
             $(
               "<li class='day-nam'>" +
