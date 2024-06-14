@@ -412,7 +412,10 @@ $(document).ready(function () {
                 "'></ul>"
             ).appendTo($hrrDay);
             if (entry.modified === 1) {
-              $dayList.css("background-color", "#FFC614");
+              $dayList.css({
+                "background-color": "black",
+                color: "white",
+              });
             }
 
             $(
