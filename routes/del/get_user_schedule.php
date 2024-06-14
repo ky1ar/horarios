@@ -44,6 +44,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     t.new_column,
     t.stamp,
     t.just,
+    t.modified,
     CASE 
         WHEN t.new_column = 'DF' THEN 'DF'
         ELSE
@@ -161,6 +162,7 @@ FROM
             s.id_schedule,
         	s.stamp,
             s.just,
+            s.modified,
             COALESCE(
                 CASE 
                     WHEN LENGTH(s.stamp) > 10 THEN 
