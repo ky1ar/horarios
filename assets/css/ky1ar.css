@@ -673,10 +673,9 @@ body {
   border-radius: 1rem;
   font-size: 0.75rem;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 1rem;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
 
 .ky1-permisos a{
@@ -686,12 +685,12 @@ body {
   background-color: #85929e;
   width: 4rem;
   height: 4rem;
-  text-align: center;
-  border: none;
   border-radius: 3rem;
   cursor: pointer;
   padding: 1rem;
 }
+
+.ky1-permisos button img,
 .ky1-permisos a img{
   width: 1.5rem;
 }
