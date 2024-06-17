@@ -12,10 +12,11 @@ function generateUniqueFileName($length = 6)
     return $randomString;
 }
 
-if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) {
+if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) && isset($_POST['coment'])) {
     $userId = $_POST['userId'];
     $date = $_POST['date'];
     $stamp = $_POST['stamp'];
+    $coment = $_POST['coment'];
     $just = isset($_POST['just']) ? $_POST['just'] : '';
     $isNewRecord = false;
 
@@ -54,7 +55,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
         }
     }
 
-    $sql = "SELECT s.id_schedule, s.stamp, s.calc_diff
+    $sql = "SELECT s.id_schedule, s.stamp, s.coment, s.calc_diff
             FROM Schedule s
             JOIN Calendar c ON s.id_calendar = c.id_date
             WHERE s.id_user = ? AND c.calendar_date = ?";
@@ -83,9 +84,9 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
             $calcDiff = intdiv($difference, 5);
         }
 
-        $updateSql = "UPDATE Schedule SET stamp = ?, just = ?, modified = 1, calc_diff = ? WHERE id_schedule = ?";
+        $updateSql = "UPDATE Schedule SET stamp = ?, just = ?, coment = ?, modified = 1, calc_diff = ? WHERE id_schedule = ?";
         $updateStmt = $conn->prepare($updateSql);
-        $updateStmt->bind_param("ssii", $stamp, $just, $calcDiff, $idSchedule);
+        $updateStmt->bind_param("sssii", $stamp, $just, $coment, $calcDiff, $idSchedule);
 
         if ($updateStmt->execute()) {
             $isNewRecord = false;
@@ -103,12 +104,12 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
         $difference = $newLength - $previousLength;
         $calcDiff = intdiv($difference, 5);
 
-        $insertSql = "INSERT INTO Schedule (id_user, id_calendar, stamp, just, modified, created_from_form, calc_diff)
-                      SELECT ?, c.id_date, ?, ?, 1, 1, ?
+        $insertSql = "INSERT INTO Schedule (id_user, id_calendar, stamp, just, coment, modified, created_from_form, calc_diff)
+                      SELECT ?, c.id_date, ?, ?, ?, 1, 1, ?
                       FROM Calendar c
                       WHERE c.calendar_date = ?";
         $insertStmt = $conn->prepare($insertSql);
-        $insertStmt->bind_param("issis", $userId, $stamp, $just, $calcDiff, $date);
+        $insertStmt->bind_param("isssis", $userId, $stamp, $just, $coment, $calcDiff, $date);
 
         if ($insertStmt->execute()) {
             $isNewRecord = true;
@@ -126,4 +127,3 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp'])) 
 }
 
 $conn->close();
-
