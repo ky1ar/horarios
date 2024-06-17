@@ -662,7 +662,7 @@ body {
   bottom: 6rem;
   left: 1rem;
 }
-.ky1-permisos .fond{
+/* .ky1-permisos .fond{
   position: fixed;
   top: 0;
   left: 0;
@@ -673,7 +673,7 @@ body {
   align-items: center;
   display: none;
   z-index: 999;
-}
+} */
 .ky1-permisos button{
   display: flex;
   width: 4rem;
