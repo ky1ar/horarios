@@ -668,9 +668,8 @@ body {
   width: 4rem;
   height: 4rem;
   background-color: var(--primary);
-  color: white;
   border: none;
-  border-radius: 1rem;
+  border-radius: 3rem;
   font-size: 0.75rem;
   cursor: pointer;
   padding: 1rem;
