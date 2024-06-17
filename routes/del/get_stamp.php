@@ -10,6 +10,7 @@ if (isset($_POST['userId']) && isset($_POST['date'])) {
                 c.calendar_date, 
                 c.holiday,
                 s.just,
+                s.coment,
                 s.stamp
             FROM 
                 Calendar c

@@ -147,8 +147,9 @@ $(document).ready(function () {
     return formattedDate;
   }
 
-  function showModal(stamp, just, date, userId) {
+  function showModal(stamp, just, coment, date, userId) {
     $("#stampInput").val(stamp);
+    $("#comentInput").val(coment);
     $("#justNameInput").val(just);
     $("#dateInput").val(date);
     const formattedDate = formatDate(date);
@@ -181,7 +182,7 @@ $(document).ready(function () {
       success: function (response) {
         if (response.success) {
           // console.log(response.just);
-          showModal(response.stamp, response.just, date, userId);
+          showModal(response.stamp, response.just, response.coment, date, userId);
         } else if (response.message === "El día es un feriado") {
           console.log("No se abrió un modal por ser feriado");
         } else {
