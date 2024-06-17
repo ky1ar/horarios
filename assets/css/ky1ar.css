@@ -665,7 +665,8 @@ body {
 
 .ky1-permisos button{
   display: flex;
-  width: 10rem;
+  width: 4rem;
+  height: 4rem;
   background-color: var(--primary);
   color: white;
   border: none;
@@ -683,8 +684,8 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #85929e;
-  /* width: 4rem;
-  height: 4rem; */
+  width: 4rem;
+  height: 4rem;
   text-align: center;
   border: none;
   border-radius: 3rem;
