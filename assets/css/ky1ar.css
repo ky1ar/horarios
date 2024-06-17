@@ -688,8 +688,7 @@ body {
   text-decoration: none;
   text-align: center;
   border: none;
-  border-radius: 50%;
-  font-size: 0.75rem;
+  border-radius: 3rem;
   cursor: pointer;
   padding: 1rem;
 }
