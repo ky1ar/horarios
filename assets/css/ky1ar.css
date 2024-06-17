@@ -668,7 +668,7 @@ body {
   display: flex;
   width: 4rem;
   height: 4rem;
-  background-color: var(--primary);
+  background-color: #aee1fd;
   border: none;
   border-radius: 3rem;
   font-size: 0.75rem;
@@ -704,7 +704,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #85929e;
+  background-color: #b5bdc5;
   width: 4rem;
   height: 4rem;
   border-radius: 3rem;
