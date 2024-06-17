@@ -553,7 +553,7 @@ body {
 }
 .modal-stamp form label {
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 0.2rem;
 }
 
 .modal-stamp form input {
@@ -561,12 +561,24 @@ body {
   border-radius: 0.5rem;
   background-color: #f5f5f5;
   padding: 0.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   text-align: center;
   font-family: "DM Sans", sans-serif;
   font-weight: 500;
 }
-.modal-stamp form input:focus {
+.modal-stamp form textarea{
+  resize: none;
+  height: 4rem;
+  width: auto;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #f5f5f5;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.modal-stamp form input:focus,
+.modal-stamp form textarea:focus{
   outline: none;
   border: none;
 }
@@ -579,13 +591,13 @@ body {
 }
 
 .modal-stamp form input[type="submit"] {
-  width: 5rem;
-  background-color: #f4a27e;
-  border: 0;
-  border-radius: 2rem;
-  padding: 0.5rem 1rem;
-  margin: auto;
-  cursor: pointer;
+    width: 5rem;
+    background-color: #f4a27e;
+    border: 0;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    margin: auto;
+    cursor: pointer;
 }
 
 .modal-stamp form input[type="submit"]:hover {
