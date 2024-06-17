@@ -656,9 +656,10 @@ body {
 
 .ky1-permisos{
   display: flex;
+  flex-direction: column;
   position: fixed;
   gap: 1rem;
-  bottom: 3rem;
+  bottom: 6rem;
   left: 1rem;
 }
 
