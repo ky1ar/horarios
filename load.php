@@ -46,6 +46,13 @@ $id = $_SESSION['user_id'];
                 <h1>Horarios</h1>
                 <span>Registro biométrico del mes</span>
             </div>
+            <div class="ky1-permisos">
+                <div class="fond"></div>
+                <img class="desc" src="assets/img/descanso-medico.webp" alt="">
+                <button><img src="assets/img/descanso-medico.png" alt=""></button>
+                <a href="assets/img/solicitud-permiso.pdf" download><img src="assets/img/formato-permiso.png" alt=""></a>
+            </div>
+
             <div class="ky1-dte">
                 <img id="previousMonth" src="assets/img/r.svg" width="12" height="12" alt="">
                 <img src="assets/img/cal.svg" width="20" height="20" alt="">
@@ -323,14 +330,15 @@ $id = $_SESSION['user_id'];
             <form id="stampForm" enctype="multipart/form-data">
                 <label for="dayInput">Día:</label>
                 <input type="text" id="dayInput" name="day" disabled>
-               
-                    <label for="stampInput" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">Registro:</label>
-                    <input type="text" id="stampInput" name="stamp" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
-                    <input type="hidden" id="dateInput" name="date">
-                    <input type="hidden" id="userIdInput" name="userId">
+                <label for="stampInput" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">Registro:</label>
+                <input type="text" id="stampInput" name="stamp" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
+                <input type="hidden" id="dateInput" name="date">
+                <input type="hidden" id="userIdInput" name="userId">
                 <input type="hidden" id="justNameInput" name="just">
                 <label for="justInput">Justificación:</label>
                 <input type="file" id="justInput" name="justFile" accept=".jpg, .jpeg, .png, .pdf">
+                <label for="comentInput" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">Comentarios:</label>
+                <textarea name="coment" id="comentInput" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>"></textarea>
                 <input type="submit" value="Guardar">
             </form>
         </div>

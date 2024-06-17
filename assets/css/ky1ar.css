@@ -553,7 +553,7 @@ body {
 }
 .modal-stamp form label {
   font-weight: 600;
-  margin-bottom: 1rem;
+  margin-bottom: 0.2rem;
 }
 
 .modal-stamp form input {
@@ -561,12 +561,25 @@ body {
   border-radius: 0.5rem;
   background-color: #f5f5f5;
   padding: 0.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   text-align: center;
   font-family: "DM Sans", sans-serif;
   font-weight: 500;
 }
-.modal-stamp form input:focus {
+.modal-stamp form textarea{
+  resize: none;
+  height: 4rem;
+  width: auto;
+  border: none;
+  border-radius: 0.5rem;
+  background-color: #f5f5f5;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  font-family: "DM Sans", sans-serif;
+}
+
+.modal-stamp form input:focus,
+.modal-stamp form textarea:focus{
   outline: none;
   border: none;
 }
@@ -579,13 +592,13 @@ body {
 }
 
 .modal-stamp form input[type="submit"] {
-  width: 5rem;
-  background-color: #f4a27e;
-  border: 0;
-  border-radius: 2rem;
-  padding: 0.5rem 1rem;
-  margin: auto;
-  cursor: pointer;
+    width: 5rem;
+    background-color: #f4a27e;
+    border: 0;
+    border-radius: 2rem;
+    padding: 0.5rem 1rem;
+    margin: auto;
+    cursor: pointer;
 }
 
 .modal-stamp form input[type="submit"]:hover {
@@ -640,6 +653,69 @@ body {
   height: 80%;
 }
 
+
+.ky1-permisos {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  gap: 1rem;
+  bottom: 6rem;
+  left: 1rem;
+  z-index: 2;
+}
+
+.ky1-permisos button {
+  display: flex;
+  width: 4rem;
+  height: 4rem;
+  background-color: var(--primary);
+  border: none;
+  border-radius: 3rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+.ky1-permisos .fond{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8); 
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+.ky1-permisos .desc {
+  width: 55rem;
+  border-radius: 0.5rem;
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+}
+
+.ky1-permisos a{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #85929e;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 3rem;
+  cursor: pointer;
+  padding: 1rem;
+}
+
+.ky1-permisos button img,
+.ky1-permisos a img{
+  width: 2rem;
+}
 /* login */
 section.cont-login {
   width: 100vw;
