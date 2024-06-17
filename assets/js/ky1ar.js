@@ -24,6 +24,17 @@ $(document).ready(function () {
     }
   };
 
+  $(".ky1-permisos button").click(function () {
+    $(".ky1-permisos .desc").fadeIn(); 
+    $(".ky1-permisos .fond").fadeIn(); 
+  });
+  $(".ky1-permisos .fond").click(function (event) {
+    if ($(event.target).hasClass("fond")) {
+      $(".ky1-permisos .desc").fadeOut(); 
+      $(this).fadeOut(); 
+    }
+  });
+
   document.getElementById("fileInput").addEventListener("change", function () {
     const label = document.querySelector('label[for="fileInput"]');
     if (this.files.length > 0) {
@@ -181,7 +192,13 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-          showModal(response.stamp, response.just, response.coment, date, userId);
+          showModal(
+            response.stamp,
+            response.just,
+            response.coment,
+            date,
+            userId
+          );
         } else if (response.message === "El día es un feriado") {
           console.log("No se abrió un modal por ser feriado");
         } else {

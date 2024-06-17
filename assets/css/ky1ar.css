@@ -662,7 +662,18 @@ body {
   bottom: 6rem;
   left: 1rem;
 }
-
+.ky1-permisos .fond{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
 .ky1-permisos button{
   display: flex;
   width: 4rem;
@@ -675,6 +686,13 @@ body {
   padding: 1rem;
   justify-content: center;
   align-items: center;
+}
+
+.ky1-permisos .desc {
+  width: 40rem;
+  border-radius: 0.5rem;
+  display: none;
+  z-index: 1000;
 }
 
 .ky1-permisos a{
