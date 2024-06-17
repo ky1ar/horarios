@@ -181,6 +181,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
+          console.log(response);
           // console.log(response.just);
           showModal(response.stamp, response.just, response.coment, date, userId);
           console.log(response.coment);
