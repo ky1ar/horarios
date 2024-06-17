@@ -656,7 +656,10 @@ body {
 
 .ky1-permisos{
   display: flex;
+  position: fixed;
   gap: 1rem;
+  bottom: 3rem;
+  left: 1rem;
 }
 
 .ky1-permisos button{
