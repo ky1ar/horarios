@@ -46,6 +46,10 @@ $id = $_SESSION['user_id'];
                 <h1>Horarios</h1>
                 <span>Registro biométrico del mes</span>
             </div>
+            <div>
+                <button></button>
+                <a href="assets/img/solicitud-permiso.pdf" download></a>
+            </div>
             <div class="ky1-dte">
                 <img id="previousMonth" src="assets/img/r.svg" width="12" height="12" alt="">
                 <img src="assets/img/cal.svg" width="20" height="20" alt="">
@@ -330,8 +334,8 @@ $id = $_SESSION['user_id'];
                 <input type="hidden" id="justNameInput" name="just">
                 <label for="justInput">Justificación:</label>
                 <input type="file" id="justInput" name="justFile" accept=".jpg, .jpeg, .png, .pdf">
-                <label for="comentInput">Comentarios:</label>
-                <textarea name="coment" id="comentInput"></textarea>
+                <label for="comentInput" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">Comentarios:</label>
+                <textarea name="coment" id="comentInput" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>"></textarea>
                 <input type="submit" value="Guardar">
             </form>
         </div>
