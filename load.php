@@ -323,14 +323,15 @@ $id = $_SESSION['user_id'];
             <form id="stampForm" enctype="multipart/form-data">
                 <label for="dayInput">Día:</label>
                 <input type="text" id="dayInput" name="day" disabled>
-               
-                    <label for="stampInput" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">Registro:</label>
-                    <input type="text" id="stampInput" name="stamp" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
-                    <input type="hidden" id="dateInput" name="date">
-                    <input type="hidden" id="userIdInput" name="userId">
+                <label for="stampInput" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">Registro:</label>
+                <input type="text" id="stampInput" name="stamp" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
+                <input type="hidden" id="dateInput" name="date">
+                <input type="hidden" id="userIdInput" name="userId">
                 <input type="hidden" id="justNameInput" name="just">
                 <label for="justInput">Justificación:</label>
                 <input type="file" id="justInput" name="justFile" accept=".jpg, .jpeg, .png, .pdf">
+                <label for="comentInput">Justificación:</label>
+                <input type="text" id="comentInput" name="coment">
                 <input type="submit" value="Guardar">
             </form>
         </div>
