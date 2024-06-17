@@ -662,7 +662,7 @@ body {
   bottom: 6rem;
   left: 1rem;
 }
-/* .ky1-permisos .fond{
+.ky1-permisos .fond{
   position: fixed;
   top: 0;
   left: 0;
@@ -673,7 +673,7 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 999;
-} */
+}
 .ky1-permisos button{
   display: flex;
   width: 4rem;
@@ -694,7 +694,7 @@ body {
   display: none;
   z-index: 1000;
 }
-.ky1-permisos .desc::before {
+/* .ky1-permisos .desc::before {
   content: "";
   position: absolute;
   width: 100%;
@@ -704,7 +704,7 @@ body {
   top: 0;
   left: 0;
   z-index: 9999;
-}
+} */
 .ky1-permisos a{
   display: flex;
   justify-content: center;
