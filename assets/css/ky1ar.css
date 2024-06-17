@@ -664,7 +664,9 @@ body {
   width: 10rem;
   background-color: var(--primary);
   color: white;
-  
+  border: none;
+  border-radius: 1rem;
+  font-size: 0.9rem;
 }
 /* login */
 section.cont-login {
