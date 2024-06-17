@@ -183,6 +183,7 @@ $(document).ready(function () {
         if (response.success) {
           // console.log(response.just);
           showModal(response.stamp, response.just, response.coment, date, userId);
+          console.log(response.coment);
         } else if (response.message === "El día es un feriado") {
           console.log("No se abrió un modal por ser feriado");
         } else {
