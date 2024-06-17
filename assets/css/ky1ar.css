@@ -661,6 +661,7 @@ body {
   gap: 1rem;
   bottom: 6rem;
   left: 1rem;
+  z-index: 2;
 }
 
 .ky1-permisos button {
