@@ -691,7 +691,7 @@ body {
 .ky1-permisos .desc {
   width: 40rem;
   border-radius: 0.5rem;
-  display: none;
+  position: absolute;
   z-index: 1000;
 }
 /* .ky1-permisos .desc::before {
