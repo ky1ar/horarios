@@ -672,6 +672,7 @@ body {
 }
 
 .ky1-permisos a{
+  display: flex;
   background-color: #d4d4d4;
   width: 10rem;
   color: black;
