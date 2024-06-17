@@ -680,19 +680,21 @@ body {
 
 .ky1-permisos a{
   display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #85929e;
-  width: 4rem;
-  height: 4rem;
+  /* width: 4rem;
+  height: 4rem; */
   text-decoration: none;
   text-align: center;
   border: none;
   border-radius: 50%;
   font-size: 0.75rem;
   cursor: pointer;
-  padding: 0.5rem;
+  padding: 1rem;
 }
 .ky1-permisos a img{
-  width: 90%;
+  width: 1.5rem;
 }
 /* login */
 section.cont-login {
