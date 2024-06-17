@@ -654,7 +654,7 @@ body {
 }
 
 
-.ky1-permisos{
+.ky1-permisos {
   display: flex;
   flex-direction: column;
   position: fixed;
@@ -662,19 +662,8 @@ body {
   bottom: 6rem;
   left: 1rem;
 }
-/* .ky1-permisos .fond{
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
-  justify-content: center;
-  align-items: center;
-  display: none;
-  z-index: 999;
-} */
-.ky1-permisos button{
+
+.ky1-permisos button {
   display: flex;
   width: 4rem;
   height: 4rem;
@@ -693,6 +682,9 @@ body {
   border-radius: 0.5rem;
   display: none;
   position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 /* .ky1-permisos .desc::before {
   content: "";

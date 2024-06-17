@@ -49,6 +49,7 @@ $id = $_SESSION['user_id'];
             <div class="ky1-permisos">
                 <!-- <div class="fond"></div> -->
                 <img class="desc" src="assets/img/descanso-medico.webp" alt="">
+                
                 <button><img src="assets/img/descanso-medico.png" alt=""></button>
                 <a href="assets/img/solicitud-permiso.pdf" download><img src="assets/img/formato-permiso.png" alt=""></a>
             </div>
