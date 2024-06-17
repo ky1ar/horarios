@@ -671,6 +671,7 @@ body {
   background-color: rgba(0, 0, 0, 0.8);
   justify-content: center;
   align-items: center;
+  display: none;
   z-index: 999;
 }
 .ky1-permisos button{
