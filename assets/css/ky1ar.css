@@ -667,6 +667,8 @@ body {
   border: none;
   border-radius: 1rem;
   font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.5rem;
 }
 /* login */
 section.cont-login {
