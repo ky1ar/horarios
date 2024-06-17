@@ -330,7 +330,7 @@ $id = $_SESSION['user_id'];
                 <input type="hidden" id="justNameInput" name="just">
                 <label for="justInput">Justificación:</label>
                 <input type="file" id="justInput" name="justFile" accept=".jpg, .jpeg, .png, .pdf">
-                <label for="comentInput">Justificación:</label>
+                <label for="comentInput">Comentarios:</label>
                 <input type="text" id="comentInput" name="coment">
                 <input type="submit" value="Guardar">
             </form>
