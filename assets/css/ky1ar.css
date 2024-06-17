@@ -678,7 +678,6 @@ body {
   display: flex;
   background-color: #85929e;
   width: 10rem;
-  color: white;
   text-decoration: none;
   text-align: center;
   border: none;
@@ -686,6 +685,10 @@ body {
   font-size: 0.75rem;
   cursor: pointer;
   padding: 0.5rem;
+}
+.ky1-permisos a img{
+  width: 1rem;
+  height: 1rem;
 }
 /* login */
 section.cont-login {
