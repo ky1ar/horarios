@@ -48,7 +48,7 @@ $id = $_SESSION['user_id'];
             </div>
             <div>
                 <button></button>
-                <a href="assets/img/solicitud-permiso.pdf" download></a>
+                <a href="assets/img/solicitud-permiso.pdf" download>Descargar Formato de Solicitud de Permiso</a>
             </div>
             <div class="ky1-dte">
                 <img id="previousMonth" src="assets/img/r.svg" width="12" height="12" alt="">
