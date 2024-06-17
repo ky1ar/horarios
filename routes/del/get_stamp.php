@@ -33,7 +33,8 @@ if (isset($_POST['userId']) && isset($_POST['date'])) {
         } else {
             $stamp = isset($row['stamp']) ? $row['stamp'] : '';
             $just = isset($row['just']) ? $row['just'] : '';
-            echo json_encode(['success' => true, 'stamp' => $stamp, 'just' => $just]);
+            $coment = isset($row['coment']) ? $row['coment'] : '';
+            echo json_encode(['success' => true, 'stamp' => $stamp, 'just' => $just, 'coment' => $coment]);
         }
     } else {
         echo json_encode(['success' => false, 'message' => 'No se encontró ningún registro']);
@@ -45,4 +46,3 @@ if (isset($_POST['userId']) && isset($_POST['date'])) {
 }
 
 $conn->close();
-?>
