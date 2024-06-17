@@ -681,18 +681,18 @@ body {
 .ky1-permisos a{
   display: flex;
   background-color: #85929e;
-  width: 10rem;
+  width: 4rem;
+  height: 4rem;
   text-decoration: none;
   text-align: center;
   border: none;
-  border-radius: 1rem;
+  border-radius: 50%;
   font-size: 0.75rem;
   cursor: pointer;
   padding: 0.5rem;
 }
 .ky1-permisos a img{
-  width: 1rem;
-  height: 1rem;
+  width: 90%;
 }
 /* login */
 section.cont-login {
