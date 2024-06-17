@@ -653,6 +653,19 @@ body {
   height: 80%;
 }
 
+
+.ky1-permisos{
+  display: flex;
+  gap: 1rem;
+}
+
+.ky1-permisos button{
+  display: flex;
+  width: 10rem;
+  background-color: var(--primary);
+  color: white;
+  
+}
 /* login */
 section.cont-login {
   width: 100vw;
