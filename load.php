@@ -47,7 +47,7 @@ $id = $_SESSION['user_id'];
                 <span>Registro biométrico del mes</span>
             </div>
             <div>
-                <button></button>
+                <button>Estructura de Certificado para Descanso Médico<button>
                 <a href="assets/img/solicitud-permiso.pdf" download>Descargar Formato de Solicitud de Permiso</a>
             </div>
             <div class="ky1-dte">
