@@ -12,39 +12,6 @@ function generateUniqueFileName($length = 6)
     return $randomString;
 }
 
-function handleFileUpload($file, $conn) {
-    $fileTmpPath = $file['tmp_name'];
-    $fileName = $file['name'];
-    $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-    $allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf'];
-
-    if (!in_array($fileExtension, $allowedExtensions)) {
-        return ['success' => false, 'message' => 'Formato de archivo incorrecto'];
-    }
-
-    $currentDate = date('Ymd');
-    do {
-        $newFileName = $currentDate . generateUniqueFileName() . '.' . $fileExtension;
-        $checkSql = "SELECT COUNT(*) as count FROM Schedule WHERE just = ?";
-        $checkStmt = $conn->prepare($checkSql);
-        $checkStmt->bind_param("s", $newFileName);
-        $checkStmt->execute();
-        $checkResult = $checkStmt->get_result();
-        $checkRow = $checkResult->fetch_assoc();
-        $isUnique = ($checkRow['count'] == 0);
-        $checkStmt->close();
-    } while (!$isUnique);
-
-    $uploadFileDir = '../../justs/';
-    $dest_path = $uploadFileDir . $newFileName;
-
-    if (move_uploaded_file($fileTmpPath, $dest_path)) {
-        return ['success' => true, 'fileName' => $newFileName];
-    } else {
-        return ['success' => false, 'message' => 'Error al mover el archivo'];
-    }
-}
-
 if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) && isset($_POST['coment'])) {
     $userId = $_POST['userId'];
     $date = $_POST['date'];
@@ -54,11 +21,36 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
     $isNewRecord = false;
 
     if (isset($_FILES['justFile']) && $_FILES['justFile']['error'] === UPLOAD_ERR_OK) {
-        $uploadResult = handleFileUpload($_FILES['justFile'], $conn);
-        if ($uploadResult['success']) {
-            $just = $uploadResult['fileName'];
+        $fileTmpPath = $_FILES['justFile']['tmp_name'];
+        $fileName = $_FILES['justFile']['name'];
+        $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'pdf'];
+
+        if (!in_array($fileExtension, $allowedExtensions)) {
+            echo json_encode(['success' => false, 'message' => 'Formato de archivo incorrecto']);
+            exit;
+        }
+
+        $currentDate = date('Ymd');
+        do {
+            $newFileName = $currentDate . generateUniqueFileName() . '.' . $fileExtension;
+            $checkSql = "SELECT COUNT(*) as count FROM Schedule WHERE just = ?";
+            $checkStmt = $conn->prepare($checkSql);
+            $checkStmt->bind_param("s", $newFileName);
+            $checkStmt->execute();
+            $checkResult = $checkStmt->get_result();
+            $checkRow = $checkResult->fetch_assoc();
+            $isUnique = ($checkRow['count'] == 0);
+            $checkStmt->close();
+        } while (!$isUnique);
+
+        $uploadFileDir = '../../justs/';
+        $dest_path = $uploadFileDir . $newFileName;
+
+        if (move_uploaded_file($fileTmpPath, $dest_path)) {
+            $just = $newFileName;
         } else {
-            echo json_encode($uploadResult);
+            echo json_encode(['success' => false, 'message' => 'Error al mover el archivo']);
             exit;
         }
     }
@@ -92,11 +84,9 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
             $calcDiff = intdiv($difference, 5);
         }
 
-        $updateModified = ($row['just'] !== $just || $row['coment'] !== $coment) ? 1 : 0;
-
-        $updateSql = "UPDATE Schedule SET stamp = ?, just = ?, coment = ?, calc_diff = ?, modified = ? WHERE id_schedule = ?";
+        $updateSql = "UPDATE Schedule SET stamp = ?, just = ?, coment = ?, modified = 1, calc_diff = ? WHERE id_schedule = ?";
         $updateStmt = $conn->prepare($updateSql);
-        $updateStmt->bind_param("sssiii", $stamp, $just, $coment, $calcDiff, $updateModified, $idSchedule);
+        $updateStmt->bind_param("sssii", $stamp, $just, $coment, $calcDiff, $idSchedule);
 
         if ($updateStmt->execute()) {
             $isNewRecord = false;
@@ -137,4 +127,3 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
 }
 
 $conn->close();
-?>
