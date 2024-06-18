@@ -84,9 +84,12 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
             $calcDiff = intdiv($difference, 5);
         }
 
-        $updateSql = "UPDATE Schedule SET stamp = ?, just = ?, coment = ?, modified = 1, calc_diff = ? WHERE id_schedule = ?";
+        
+        $updateModified = ($row['just'] !== $just || $row['coment'] !== $coment) ? 1 : 0;
+
+        $updateSql = "UPDATE Schedule SET stamp = ?, just = ?, coment = ?, calc_diff = ?, modified = ? WHERE id_schedule = ?";
         $updateStmt = $conn->prepare($updateSql);
-        $updateStmt->bind_param("sssii", $stamp, $just, $coment, $calcDiff, $idSchedule);
+        $updateStmt->bind_param("sssiii", $stamp, $just, $coment, $calcDiff, $updateModified, $idSchedule);
 
         if ($updateStmt->execute()) {
             $isNewRecord = false;
