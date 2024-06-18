@@ -80,7 +80,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
         $difference = $newLength - $previousLength;
         $calcDiff = $row['calc_diff'];
 
-        if ($calcDiff === NULL) {
+        if ($calcDiff === NULL || $calcDiff === 0) {
             $calcDiff = intdiv($difference, 5);
         }
 
