@@ -268,12 +268,12 @@ FROM
         LEFT JOIN Schedule s ON c.id_date = s.id_calendar AND s.id_user = ?
         LEFT JOIN Users u ON s.id_user = u.id_user
         WHERE
-            c.calendar_date BETWEEN ? AND ?
+            c.calendar_date BETWEEN '2024-05-31' AND '2024-06-28'
         ORDER BY c.calendar_date
     ) AS t;";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iss", $userId, $startDate, $endDate);
+    $stmt->bind_param("iss", $userId);
     $stmt->execute();
     $result = $stmt->get_result();
 
