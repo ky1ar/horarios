@@ -296,7 +296,7 @@ $(document).ready(function () {
                   const horas = parseInt(tiempo[0], 10);
                   const minutos = parseInt(tiempo[1], 10);
                   const total = horas * 60 + minutos;
-                  let newc = fixed + total;
+                  let newc = total;
                   final += newc;
                 }
               }
