@@ -17,13 +17,13 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         $startDate = date('Y-m-d', strtotime("$firstDayOfMonth + 1 day"));
     } else {
         // De lo contrario, calcula la fecha de inicio para que sea el lunes de la misma semana
-        $startDate = date('Y-m-d', strtotime("$firstDayOfMonth - " . ($dayOfWeekFirst - 1) . " days"));
+        $startDate = date('Y-m-d', strtotime("$firstDayOfMonth - " . ($dayOfWeekFirst - 3) . " days"));
     }
 
     // Calcular fecha de fin ajustada
     $dayOfWeekLast = date('N', strtotime($lastDayOfMonth));
     if ($dayOfWeekLast >= 6) {
-        $endDate = $lastDayOfMonth;
+        $endDate = $lastDayOfMonth;ñ
     } else {
         $daysToAdd = 6 - $dayOfWeekLast;
         $endDate = date('Y-m-d', strtotime("$lastDayOfMonth + $daysToAdd days"));
