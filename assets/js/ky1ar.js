@@ -583,7 +583,7 @@ $(document).ready(function () {
         setTimeout(function () {
           $("#porcentHours").html(
             "<b>" +
-              calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1) +
+              calculatePercentage(totalMonthlyTime, adjustedSumFormatted).toFixed(1) +
               "%</b><b>100%</b>"
           );
         }, 500);
