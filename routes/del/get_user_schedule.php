@@ -14,7 +14,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $dayOfWeekFirst = date('N', strtotime($firstDayOfMonth));
     if ($dayOfWeekFirst == 7) {
         // Si el primer día del mes es domingo, ajusta la fecha de inicio al siguiente lunes
-        $startDate = date('Y-m-d', strtotime("$firstDayOfMonth + 1 day"));
+        $startDate = date('Y-m-d', strtotime("$firstDayOfMonth - 2 day"));
     } else {
         // De lo contrario, calcula la fecha de inicio para que sea el lunes de la misma semana
         $startDate = date('Y-m-d', strtotime("$firstDayOfMonth - " . ($dayOfWeekFirst - 1) . " days"));
