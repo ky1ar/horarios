@@ -271,36 +271,35 @@ $(document).ready(function () {
 
             if (mesCalc === currentMonth) {
               if (calc !== "DF") {
-                if (calc.startsWith("-")) {
-                  const tiempo = calc.replace(/[^\d:]/g, "").split(":");
-                  const horas = parseInt(tiempo[0], 10);
-                  const minutos = parseInt(tiempo[1], 10);
-                  const total = horas * 60 + minutos;
-                  const fixed = 8 * 60;
-                  let newc = fixed - total;
-                  final += newc;
-                } else {
                   let fixed;
                   if (dayname.includes("Sáb")) {
-                    if (idProfile == 1) {
-                      fixed = 0;
-                    } else if (idProfile == 2) {
-                      fixed = 4 * 60;
-                    } else {
-                      fixed = 8 * 60;
-                    }
+                      if (idProfile == 1) {
+                          fixed = 0;
+                      } else if (idProfile == 2) {
+                          fixed = 4 * 60;
+                      } else {
+                          fixed = 8 * 60;
+                      }
                   } else {
-                    fixed = 8 * 60;
+                      fixed = 8 * 60;
                   }
+          
                   const tiempo = calc.replace(/[^\d:]/g, "").split(":");
                   const horas = parseInt(tiempo[0], 10);
                   const minutos = parseInt(tiempo[1], 10);
                   const total = horas * 60 + minutos;
-                  let newc = total;
+                  let newc;
+          
+                  if (calc.startsWith("-")) {
+                      newc = fixed - total;
+                  } else {
+                      newc = total - fixed;
+                  }
+          
                   final += newc;
-                }
               }
-            }
+          }
+          
           });
 
           const nhours = Math.floor(final / 60);
