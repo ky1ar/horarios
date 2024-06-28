@@ -581,17 +581,49 @@ $(document).ready(function () {
         }
 
         setTimeout(function () {
+          // Convierte sumFormatted a minutos y ajusta restando 8 horas
+          const sumFormattedParts = sumFormatted.split(':');
+          const sumHours = parseInt(sumFormattedParts[0], 10);
+          const sumMinutes = parseInt(sumFormattedParts[1], 10);
+          let totalSumMinutes = (sumHours * 60) + sumMinutes;
+      
+          // Resta 8 horas (480 minutos)
+          const minutesToSubtract = 8 * 60;
+          totalSumMinutes -= minutesToSubtract;
+      
+          // Convierte de vuelta a horas y minutos formateados
+          const adjustedSumHours = Math.floor(totalSumMinutes / 60);
+          const adjustedSumMinutes = totalSumMinutes % 60;
+          const adjustedSumFormatted = `${adjustedSumHours.toString().padStart(2, '0')}:${adjustedSumMinutes.toString().padStart(2, '0')}`;
+      
+          // Calcula el porcentaje usando adjustedSumFormatted en lugar de sumFormatted
           $("#porcentHours").html(
-            "<b>" +
-              calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1) +
+              "<b>" +
+              calculatePercentage(totalMonthlyTime, adjustedSumFormatted).toFixed(1) +
               "%</b><b>100%</b>"
           );
-        }, 500);
+      }, 500);
         setTimeout(function () {
+          // Convierte sumFormatted a minutos
+          const sumFormattedParts = sumFormatted.split(':');
+          const sumHours = parseInt(sumFormattedParts[0], 10);
+          const sumMinutes = parseInt(sumFormattedParts[1], 10);
+          let totalSumMinutes = (sumHours * 60) + sumMinutes;
+      
+          // Resta 8 horas (480 minutos)
+          const minutesToSubtract = 8 * 60;
+          totalSumMinutes -= minutesToSubtract;
+      
+          // Convierte de vuelta a horas y minutos formateados
+          const adjustedSumHours = Math.floor(totalSumMinutes / 60);
+          const adjustedSumMinutes = totalSumMinutes % 60;
+          const adjustedSumFormatted = `${adjustedSumHours.toString().padStart(2, '0')}:${adjustedSumMinutes.toString().padStart(2, '0')}`;
+      
+          // Actualiza el HTML
           $("#totalHours").html(
-            "<b>" + totalMonthlyTime + "h</b><b>" + sumFormatted + "h</b>"
+              "<b>" + totalMonthlyTime + "h</b><b>" + adjustedSumFormatted + "h</b>"
           );
-        }, 500);
+      }, 500);
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
         $("#tolerancia").html(
