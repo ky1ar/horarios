@@ -47,7 +47,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         SEC_TO_TIME(
             SUM(
                 CASE
-                    WHEN LEFT(s.stamp, 5) > '09:00' THEN TIME_TO_SEC(LEFT(s.stamp, 5)) - TIME_TO_SEC('09:00')
+                    WHEN LEFT(s.stamp, 5) > '10:00' THEN TIME_TO_SEC(LEFT(s.stamp, 5)) - TIME_TO_SEC('10:00')
                     ELSE 0
                 END
             )
