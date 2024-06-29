@@ -47,12 +47,13 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         SEC_TO_TIME(
             SUM(
                 CASE
-                    WHEN LEFT(s.stamp, 5) > '10:00' THEN TIME_TO_SEC(LEFT(s.stamp, 5)) - TIME_TO_SEC('10:00')
+                    WHEN LEFT(s.stamp, 5) > (CASE WHEN u.id_user = 13 THEN '10:00' ELSE '09:00' END) THEN 
+                        TIME_TO_SEC(LEFT(s.stamp, 5)) - TIME_TO_SEC(CASE WHEN u.id_user = 13 THEN '10:00' ELSE '09:00' END)
                     ELSE 0
                 END
             )
         ), '%H:%i'
-    ) AS total_minutes_late_formatted,
+    ) AS total_minutes_late_formatted
     CASE
     WHEN SUM(
             ROUND(
