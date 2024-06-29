@@ -454,7 +454,12 @@ $(document).ready(function () {
                 for (var i = 0; i < stamp.length; i += 5) {
                   const timeSlot = stamp.slice(i, i + 5);
                   const $li = $("<li>" + timeSlot + "</li>");
-                  if (stampIndex === 0 && i === 0 && timeSlot > "09:00") {
+                  if (
+                    stampIndex === 0 &&
+                    i === 0 &&
+                    ((userId === 13 && timeSlot > "10:00") ||
+                      (userId !== 13 && timeSlot > "09:00"))
+                  ) {
                     $li.addClass("late");
                   }
 
