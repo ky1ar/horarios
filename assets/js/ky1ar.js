@@ -544,7 +544,7 @@ $(document).ready(function () {
         var difference = minutesLate - onePercentHours;
 
         var differenceAdjusted = Math.max(0, difference) * 0.2;
-        differenceAdjusted = Math.round(differenceAdjusted); 
+        differenceAdjusted = Math.round(differenceAdjusted);
 
         var hoursDifference = Math.floor(differenceAdjusted / 60);
         var minutesDifference = differenceAdjusted % 60;
@@ -583,64 +583,26 @@ $(document).ready(function () {
         }
 
         setTimeout(function () {
-          // Convierte sumFormatted a minutos y ajusta restando 8 horas
-          const sumFormattedParts = sumFormatted.split(":");
-          const sumHours = parseInt(sumFormattedParts[0], 10);
-          const sumMinutes = parseInt(sumFormattedParts[1], 10);
-          let totalSumMinutes = sumHours * 60 + sumMinutes;
-
-          // Resta 8 horas (480 minutos)
-          const minutesToSubtract = 8 * 60;
-          totalSumMinutes -= minutesToSubtract;
-
-          // Convierte de vuelta a horas y minutos formateados
-          const adjustedSumHours = Math.floor(totalSumMinutes / 60);
-          const adjustedSumMinutes = totalSumMinutes % 60;
-          const adjustedSumFormatted = `${adjustedSumHours
-            .toString()
-            .padStart(2, "0")}:${adjustedSumMinutes
-            .toString()
-            .padStart(2, "0")}`;
-
-          // Calcula el porcentaje usando adjustedSumFormatted en lugar de sumFormatted
           $("#porcentHours").html(
             "<b>" +
-              calculatePercentage(
-                totalMonthlyTime,
-                adjustedSumFormatted
-              ).toFixed(1) +
+              calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1) +
               "%</b><b>100%</b>"
           );
         }, 500);
+
         setTimeout(function () {
-          // Convierte sumFormatted a minutos
           const sumFormattedParts = sumFormatted.split(":");
           const sumHours = parseInt(sumFormattedParts[0], 10);
           const sumMinutes = parseInt(sumFormattedParts[1], 10);
-          let totalSumMinutes = sumHours * 60 + sumMinutes;
-
-          // Resta 8 horas (480 minutos)
-          const minutesToSubtract = 8 * 60;
-          totalSumMinutes -= minutesToSubtract;
-
-          // Convierte de vuelta a horas y minutos formateados
-          const adjustedSumHours = Math.floor(totalSumMinutes / 60);
-          const adjustedSumMinutes = totalSumMinutes % 60;
-          const adjustedSumFormatted = `${adjustedSumHours
+          const totalSumFormatted = `${sumHours
             .toString()
-            .padStart(2, "0")}:${adjustedSumMinutes
-            .toString()
-            .padStart(2, "0")}`;
+            .padStart(2, "0")}:${sumMinutes.toString().padStart(2, "0")}`;
 
-          // Actualiza el HTML
           $("#totalHours").html(
-            "<b>" +
-              totalMonthlyTime +
-              "h</b><b>" +
-              adjustedSumFormatted +
-              "h</b>"
+            "<b>" + totalMonthlyTime + "h</b><b>" + totalSumFormatted + "h</b>"
           );
         }, 500);
+
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
         $("#tolerancia").html(
