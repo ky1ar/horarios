@@ -33,7 +33,7 @@ if (isset($_POST['userId']) && isset($_POST['week']) && isset($_POST['year']) &&
         JOIN 
             Users u2 ON u2.id_user = ?
         WHERE 
-            WEEKDAY(c2.calendar_date) BETWEEN 1 AND 6
+            WEEKDAY(c2.calendar_date) BETWEEN 0 AND 5
             AND WEEK(c2.calendar_date, 1) = WEEK(DATE_ADD(CONCAT(?, '-', LPAD(?, 2, '0'), '-01'), INTERVAL (? - 1) WEEK), 1)
             AND YEAR(c2.calendar_date) = ?
             AND MONTH(c2.calendar_date) = ?
