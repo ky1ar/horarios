@@ -581,7 +581,7 @@ $(document).ready(function () {
           const minutes2 = timeToMinutes(time2);
           return (minutes1 / minutes2) * 100;
         }
-
+        
         setTimeout(function () {
           $("#porcentHours").html(
             "<b>" +
@@ -602,6 +602,7 @@ $(document).ready(function () {
             "<b>" + totalMonthlyTime + "h</b><b>" + totalSumFormatted + "h</b>"
           );
         }, 500);
+        
 
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
