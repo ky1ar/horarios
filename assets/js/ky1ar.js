@@ -543,9 +543,8 @@ $(document).ready(function () {
           parseInt(data.one_percent_total_hours.split(":")[1]);
         var difference = minutesLate - onePercentHours;
 
-        // Multiplicar la diferencia por 0.2 y redondear
         var differenceAdjusted = Math.max(0, difference) * 0.2;
-        differenceAdjusted = Math.round(differenceAdjusted); // Redondear
+        differenceAdjusted = Math.round(differenceAdjusted); 
 
         var hoursDifference = Math.floor(differenceAdjusted / 60);
         var minutesDifference = differenceAdjusted % 60;
