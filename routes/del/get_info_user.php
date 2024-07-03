@@ -27,15 +27,30 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
             ELSE 0
         END
     ) AS total_hours_required,
-    SUM(
-    ROUND(
-        CASE
-            WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-            WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-            WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date < CURDATE() THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-            WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-            ELSE 0
-        END, 0)) + COALESCE(SUM(CASE WHEN c.calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND CURDATE() THEN s.calc_diff ELSE 0 END), 0
+    -- SUM(
+    -- ROUND(
+    --     CASE
+    --         WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+    --         WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+    --         WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date < CURDATE() THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+    --         WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+    --         ELSE 0
+    --     END, 0)) + COALESCE(SUM(CASE WHEN c.calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND CURDATE() THEN s.calc_diff ELSE 0 END), 0
+    -- ) AS total_missing_points,
+      SUM(
+        ROUND(
+            CASE
+                WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < (SELECT MAX(stamp_date) FROM Archivos) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < (SELECT MAX(stamp_date) FROM Archivos) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date < (SELECT MAX(stamp_date) FROM Archivos) THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date < (SELECT MAX(stamp_date) FROM Archivos) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                ELSE 0
+            END, 0)
+        ) + COALESCE(
+            SUM(
+                CASE
+                    WHEN c.calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND (SELECT MAX(stamp_date) FROM Archivos)
+                    THEN s.calc_diff ELSE 0 END), 0
     ) AS total_missing_points,
     SUM(
         CASE
