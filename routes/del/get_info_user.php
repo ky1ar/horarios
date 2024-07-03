@@ -37,21 +37,21 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     --         ELSE 0
     --     END, 0)) + COALESCE(SUM(CASE WHEN c.calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND CURDATE() THEN s.calc_diff ELSE 0 END), 0
     -- ) AS total_missing_points,
-      SUM(
+       SUM(
         ROUND(
             CASE
-                WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < (SELECT MAX(stamp_date) FROM Archivos) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < (SELECT MAX(stamp_date) FROM Archivos) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date < (SELECT MAX(stamp_date) FROM Archivos) THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date < (SELECT MAX(stamp_date) FROM Archivos) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date < DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY) THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date < DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
                 ELSE 0
             END, 0)
         ) + COALESCE(
             SUM(
                 CASE
-                    WHEN c.calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND (SELECT MAX(stamp_date) FROM Archivos)
+                    WHEN c.calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY)
                     THEN s.calc_diff ELSE 0 END), 0
-    ) AS total_missing_points,
+        ) AS total_missing_points,
     SUM(
         CASE
             WHEN LEFT(s.stamp, 5) > (CASE WHEN u.id_user = 13 THEN '10:00' ELSE '09:00' END) AND c.calendar_date < CURDATE() THEN 1
