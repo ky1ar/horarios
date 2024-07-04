@@ -88,5 +88,5 @@ GROUP BY
     $conn->close();
 } else {
     // Si no se recibieron los parámetros necesarios, envía un mensaje de error
-    echo json_encode(array("success" => false, "message" => "No se recibieron los parámetros necesarios en la solicitud POST"));
+    echo "Parámetros incompletos";
 }
