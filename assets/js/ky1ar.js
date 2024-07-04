@@ -123,31 +123,30 @@ $(document).ready(function () {
     getUserSchedule($(this).data("id"), currentMonth, currentYear);
     getUserData($(this).data("id"), currentMonth, currentYear);
   });
-  const lastUpdatedUserId = getCookie('lastUpdatedUserId');
+
+  const lastUpdatedUserId = getCookie("lastUpdatedUserId");
   if (lastUpdatedUserId) {
-      // Cargar datos y actualizar interfaz para el último usuario actualizado
-      selectUserById(lastUpdatedUserId);
+    selectUserById(lastUpdatedUserId, currentMonth, currentYear);
   }
-  
-  // Función para obtener el valor de una cookie por nombre
+
   function getCookie(name) {
-      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-      if (match) {
-          return match[2];
-      }
+    const match = document.cookie.match(
+      new RegExp("(^| )" + name + "=([^;]+)")
+    );
+    if (match) {
+      return match[2];
+    }
   }
-  
-  // Función para seleccionar al usuario por su ID
-  function selectUserById(userId) {
-      // Implementa lógica para seleccionar y mostrar al usuario por su ID
-      // Por ejemplo, encontrar y activar visualmente al usuario en la lista
-      userList.find('li').removeClass('active');
-      const userToSelect = userList.find(`li[data-id="${userId}"]`);
-      userToSelect.addClass('active');
-      updateUserDisplay();
-      getUserSchedule(userId, currentMonth, currentYear);
-      getUserData(userId, currentMonth, currentYear);
+
+  function selectUserById(userId, currentMonth, currentYear) {
+    userList.find("li").removeClass("active");
+    const userToSelect = userList.find(`li[data-id="${userId}"]`);
+    userToSelect.addClass("active");
+    updateUserDisplay();
+    getUserSchedule(userId, currentMonth, currentYear);
+    getUserData(userId, currentMonth, currentYear);
   }
+
   function formatDate(dateString) {
     const daysOfWeek = [
       "Lunes",
@@ -379,7 +378,6 @@ $(document).ready(function () {
             var acumuladoValorDia = response.data[0].acumulado_valor_dia;
             var idProfile = response.data[0].id_profile;
             callback(acumuladoValorDia, idProfile);
-           
           } else {
             console.error("No se encontraron datos en la respuesta");
           }
@@ -606,7 +604,7 @@ $(document).ready(function () {
           const minutes2 = timeToMinutes(time2);
           return (minutes1 / minutes2) * 100;
         }
-        
+
         setTimeout(function () {
           $("#porcentHours").html(
             "<b>" +
@@ -627,7 +625,6 @@ $(document).ready(function () {
             "<b>" + totalMonthlyTime + "h</b><b>" + totalSumFormatted + "h</b>"
           );
         }, 500);
-        
 
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
