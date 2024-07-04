@@ -166,7 +166,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
 
     $stmt = $conn->prepare($query);
     $stmt->bind_param(
-        "ssssssssssssssssssssssssssssssssss",
+        "sssssssssssssssssssssssssssss",
         $lastDayPrevMonth,
         $lastDayPrevMonth,
         $lastDayPrevMonth,
