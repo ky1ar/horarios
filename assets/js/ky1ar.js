@@ -351,10 +351,12 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
+     
           if (response.data.length > 0) {
             var acumuladoValorDia = response.data[0].acumulado_valor_dia;
             var idProfile = response.data[0].id_profile;
             callback(acumuladoValorDia, idProfile);
+            console.log("Valor de 'week':", week);
           } else {
             console.error("No se encontraron datos en la respuesta");
           }
