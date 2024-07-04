@@ -272,85 +272,94 @@ $(document).ready(function () {
   var totalMonthlyTime = "";
   function calcularSumaCalcPorSemana(userId, year, month) {
     var totalHoursMinutes = 0;
+    var totalWeeks = $(".hrr-box").length;
+    var completedWeeks = 0;
 
     $(".hrr-box").each(function (index) {
-      var $hrrBox = $(this);
-      var semana = index + 1;
+        var $hrrBox = $(this);
+        var semana = index + 1;
 
-      getWeeklyData(
-        userId,
-        semana,
-        year,
-        month,
-        function (acumuladoValorDia, idProfile) {
-          var final = 0;
+        getWeeklyData(userId, semana, year, month, function (acumuladoValorDia, idProfile) {
+            var final = 0;
 
-          $hrrBox.find(".calc").each(function () {
-            var calc = $(this).text().trim();
-            const dayname = $(this).closest("ul").find("li").first().text();
-            var fecha = new Date($(this).data("date") + "T00:00:00");
-            var mesCalc = fecha.getMonth() + 1;
+            $hrrBox.find(".calc").each(function () {
+                var calc = $(this).text().trim();
+                const dayname = $(this).closest("ul").find("li").first().text();
+                var fecha = new Date($(this).data("date") + "T00:00:00");
+                var mesCalc = fecha.getMonth() + 1;
 
-            if (mesCalc === currentMonth) {
-              if (calc !== "DF") {
-                let fixed;
-                if (dayname.includes("Sáb")) {
-                  if (idProfile == 1) {
-                    fixed = 0;
-                  } else if (idProfile == 2) {
-                    fixed = 4 * 60;
-                  } else {
-                    fixed = 8 * 60;
-                  }
-                } else {
-                  fixed = 8 * 60;
+                if (mesCalc === currentMonth) {
+                    if (calc !== "DF") {
+                        let fixed;
+                        if (dayname.includes("Sáb")) {
+                            if (idProfile == 1) {
+                                fixed = 0;
+                            } else if (idProfile == 2) {
+                                fixed = 4 * 60;
+                            } else {
+                                fixed = 8 * 60;
+                            }
+                        } else {
+                            fixed = 8 * 60;
+                        }
+
+                        const tiempo = calc.replace(/[^\d:]/g, "").split(":");
+                        const horas = parseInt(tiempo[0], 10);
+                        const minutos = parseInt(tiempo[1], 10);
+                        const total = horas * 60 + minutos;
+                        let newc;
+
+                        if (calc.startsWith("-")) {
+                            newc = fixed - total;
+                        } else {
+                            newc = total + fixed;
+                        }
+
+                        final += newc;
+                    }
                 }
+            });
 
-                const tiempo = calc.replace(/[^\d:]/g, "").split(":");
-                const horas = parseInt(tiempo[0], 10);
-                const minutos = parseInt(tiempo[1], 10);
-                const total = horas * 60 + minutos;
-                let newc;
+            const nhours = Math.floor(final / 60);
+            const nminutos = final % 60;
+            const formattedMinutes = String(nminutos).padStart(2, "0");
+            const formattedHours = nhours.toString().padStart(2, "0");
+            const time1 = formattedHours + ":" + formattedMinutes;
+            const time2 = acumuladoValorDia;
 
-                if (calc.startsWith("-")) {
-                  newc = fixed - total;
-                } else {
-                  newc = total + fixed;
-                }
-
-                final += newc;
-              }
+            // Función de utilidad para convertir tiempo a minutos
+            function timeToMinutes(time) {
+                const [hours, minutes] = time.split(":").map(Number);
+                return hours * 60 + minutes;
             }
-          });
 
-          const nhours = Math.floor(final / 60);
-          const nminutos = final % 60;
-          const formattedMinutes = String(nminutos).padStart(2, "0");
-          const formattedHours = nhours.toString().padStart(2, "0");
-          const time1 = formattedHours + ":" + formattedMinutes;
-          const time2 = acumuladoValorDia;
+            totalHoursMinutes += timeToMinutes(time1);
 
-          // Funciones de utilidad
-          function timeToMinutes(time) {
-            const [hours, minutes] = time.split(":").map(Number);
-            return hours * 60 + minutes;
-          }
+            function calculatePercentage(time1, time2) {
+                const minutes1 = timeToMinutes(time1);
+                const minutes2 = timeToMinutes(time2);
+                return (minutes1 / minutes2) * 100;
+            }
 
-          totalHoursMinutes += timeToMinutes(time1);
+            const percentage = calculatePercentage(time1, time2);
 
-          function calculatePercentage(time1, time2) {
-            const minutes1 = timeToMinutes(time1);
-            const minutes2 = timeToMinutes(time2);
-            return (minutes1 / minutes2) * 100;
-          }
+            $hrrBox.find(".minS").text(time1 + "h" + " / " + time2 + "h");
+            $hrrBox.find(".porT").text(percentage.toFixed(1) + "%");
 
-          const percentage = calculatePercentage(time1, time2);
+            // Incrementa el contador de semanas completadas
+            completedWeeks++;
 
-          $hrrBox.find(".minS").text(time1 + "h" + " / " + time2 + "h");
-          $hrrBox.find(".porT").text(percentage.toFixed(1) + "%");
-        }
-      );
+            // Si todas las semanas han sido procesadas, calcula el total mensual
+            if (completedWeeks === totalWeeks) {
+                const totalHours = Math.floor(totalHoursMinutes / 60);
+                const totalMinutes = totalHoursMinutes % 60;
+                const formattedTotalTime = `${totalHours.toString().padStart(2, "0")}:${totalMinutes.toString().padStart(2, "0")}`;
+                totalMonthlyTime = formattedTotalTime; // Asigna el valor a la variable global
+            }
+        });
     });
+}
+
 
   function getWeeklyData(userId, week, year, month, callback) {
     console.log("Datos enviados en la solicitud AJAX:", { userId, week, year, month }); // Agregamos el console.log aquí
