@@ -34,9 +34,20 @@ if (isset($_POST['userId']) && isset($_POST['week']) && isset($_POST['year']) &&
                 Users u2 ON u2.id_user = ?
             WHERE 
                 WEEKDAY(c2.calendar_date) BETWEEN 0 AND 6  -- Considera también el domingo (0 a 6)
-                AND WEEK(c2.calendar_date, 1) = WEEK(DATE_ADD(CONCAT(?, '-', LPAD(?, 2, '0'), '-01'), INTERVAL (? - 1) WEEK), 1)
-                AND YEAR(c2.calendar_date) = ?
-                AND MONTH(c2.calendar_date) = ?
+                AND (
+                    (
+                        WEEK(c2.calendar_date, 1) = WEEK(DATE_ADD(CONCAT(?, '-', LPAD(?, 2, '0'), '-01'), INTERVAL (? - 1) WEEK), 1)
+                        AND YEAR(c2.calendar_date) = ?
+                        AND MONTH(c2.calendar_date) = ?
+                    )
+                    OR
+                    (
+                        WEEK(c2.calendar_date, 1) = WEEK(DATE_ADD(CONCAT(?, '-', LPAD(?, 2, '0'), '-01'), INTERVAL (? - 1) WEEK), 1) + 1
+                        AND YEAR(c2.calendar_date) = ?
+                        AND MONTH(c2.calendar_date) = ?
+                        AND DAY(c2.calendar_date) >= 2  -- Considera desde el segundo día si empieza el mes en domingo
+                    )
+                )
                 AND c2.holiday = 0
         ) AS acumulado_valor_dia
     FROM 
@@ -56,7 +67,7 @@ if (isset($_POST['userId']) && isset($_POST['week']) && isset($_POST['year']) &&
                 WEEK(c.calendar_date, 1) = WEEK(DATE_ADD(CONCAT(?, '-', LPAD(?, 2, '0'), '-01'), INTERVAL (? - 1) WEEK), 1) + 1
                 AND YEAR(c.calendar_date) = ?
                 AND MONTH(c.calendar_date) = ?
-                AND DAY(c.calendar_date) >= 2
+                AND DAY(c.calendar_date) >= 2  -- Considera desde el segundo día si empieza el mes en domingo
             )
         )
         AND c.holiday = 0
@@ -68,7 +79,7 @@ if (isset($_POST['userId']) && isset($_POST['week']) && isset($_POST['year']) &&
 
     // Prepara y ejecuta la consulta
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("isssssissssssssss", $userId, $year, $month, $week, $year, $month, $userId, $year, $month, $week, $year, $month, $year, $month, $week, $year, $month);
+    $stmt->bind_param("isssssisssssss", $userId, $year, $month, $week, $year, $month, $userId, $year, $month, $week, $year, $month, $userId, $year, $month, $week, $year, $month);
     $stmt->execute();
     $result = $stmt->get_result();
 
