@@ -165,11 +165,11 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         u.id_profile;";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssssssssssssssssssssssssssssss", 
+    $stmt->bind_param("ssssssssssssssssssssssssssssssssss", 
         $lastDayPrevMonth, $penultDayCurrMonth, $lastDayPrevMonth, $penultDayCurrMonth, $lastDayPrevMonth, $penultDayCurrMonth, $lastDayPrevMonth, $penultDayCurrMonth, 
         $lastDayPrevMonth, $penultDayCurrMonth, $lastDayPrevMonth, $penultDayCurrMonth, $lastDayPrevMonth, $penultDayCurrMonth, $lastDayPrevMonth, $penultDayCurrMonth, 
         $lastDayPrevMonth, $penultDayCurrMonth, $lastDayPrevMonth, $penultDayCurrMonth, $lastDayPrevMonth, $penultDayCurrMonth, $lastDayPrevMonth, $penultDayCurrMonth, 
-        $lastDayPrevMonth, $penultDayCurrMonth, $userId, $userId, $lastDayPrevMonth, $penultDayCurrMonth);
+        $lastDayPrevMonth, $penultDayCurrMonth, $lastDayPrevMonth, $penultDayCurrMonth,$lastDayPrevMonth, $penultDayCurrMonth, $userId, $userId, $lastDayPrevMonth, $penultDayCurrMonth);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
