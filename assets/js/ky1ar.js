@@ -124,61 +124,26 @@ $(document).ready(function () {
     getUserData($(this).data("id"), currentMonth, currentYear);
   });
   
-  // const lastUpdatedUserId = getCookie('lastUpdatedUserId');
-  // if (lastUpdatedUserId) {
-  //     selectUserById(lastUpdatedUserId);
-  // }
+  const lastUpdatedUserId = getCookie('lastUpdatedUserId');
+  if (lastUpdatedUserId) {
+      selectUserById(lastUpdatedUserId);
+  }
 
-  // function getCookie(name) {
-  //     const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-  //     if (match) {
-  //         return match[2];
-  //     }
-  // }
-  // function selectUserById(userId) {
-  //     userList.find('li').removeClass('active');
-  //     const userToSelect = userList.find(`li[data-id="${userId}"]`);
-  //     userToSelect.addClass('active');
-  //     updateUserDisplay();
-  //     getUserSchedule(userId, currentMonth, currentYear);
-  //     getUserData(userId, currentMonth, currentYear);
-  // }
-  
+  function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      if (match) {
+          return match[2];
+      }
+  }
+  function selectUserById(userId) {
+      userList.find('li').removeClass('active');
+      const userToSelect = userList.find(`li[data-id="${userId}"]`);
+      userToSelect.addClass('active');
+      updateUserDisplay();
+      getUserSchedule(userId, currentMonth, currentYear);
+      getUserData(userId, currentMonth, currentYear);
+  }
 
-// Función para inicializar y seleccionar un usuario por ID
-function initializeUserSelection() {
-    currentMonth = ''; // Variable global para almacenar el mes actual
-    const lastUpdatedUserId = getCookie('lastUpdatedUserId');
-    if (lastUpdatedUserId) {
-        const storedMonth = getCookie('storedMonth'); // Obtener el mes almacenado en la cookie
-        if (storedMonth) {
-            currentMonth = storedMonth; // Actualizar el mes actual
-        }
-        selectUserById(lastUpdatedUserId, currentMonth); // Llamar a la función de selección con el usuario y el mes
-    }
-}
-
-// Función para seleccionar un usuario por ID y actualizar el mes
-function selectUserById(userId, month) {
-    userList.find('li').removeClass('active'); // Remueve la clase 'active' de todos los usuarios
-    const userToSelect = userList.find(`li[data-id="${userId}"]`); // Busca el usuario con el ID especificado
-    userToSelect.addClass('active'); // Agrega la clase 'active' al usuario seleccionado
-    updateUserDisplay(); // Actualiza la interfaz de usuario para mostrar detalles del usuario seleccionado
-    getUserSchedule(userId, month); // Obtiene y muestra el horario del usuario seleccionado para el mes dado
-    getUserData(userId, month); // Obtiene y muestra los datos del usuario seleccionado para el mes dado
-}
-
-// Función para obtener y establecer cookies
-function getCookie(name) {
-    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    if (match) {
-        return match[2];
-    }
-    return undefined;
-}
-
-// Llamada inicial para seleccionar el usuario al cargar la página
-initializeUserSelection();
   function formatDate(dateString) {
     const daysOfWeek = [
       "Lunes",
