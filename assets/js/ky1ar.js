@@ -12,21 +12,6 @@ $(document).ready(function () {
   const userImage = $("#userImage");
   const imagePath = "assets/img/profiles/";
 
-  let activeUserId = localStorage.getItem("activeUserId");
-  if (activeUserId) {
-    let activeUser = userList.find(`li[data-id="${activeUserId}"]`);
-    activeUser.addClass("active");
-    updateUserDisplay();
-    getUserSchedule(activeUserId, currentMonth, currentYear);
-    getUserData(activeUserId, currentMonth, currentYear);
-  } else {
-    // Si no hay ID almacenado, selecciona el primer usuario por defecto
-    userList.find("li").first().addClass("active");
-    updateUserDisplay();
-    getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
-    getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
-  }
-  
   window.onload = function () {
     if (document.cookie.indexOf("registro_actualizado=true") !== -1) {
       var messageVerify = document.getElementById("messageVerify");
@@ -106,8 +91,6 @@ $(document).ready(function () {
     updateUserDisplay();
     getUserSchedule(newUser.data("id"), currentMonth, currentYear);
     getUserData(newUser.data("id"), currentMonth, currentYear);
-
-    localStorage.setItem("activeUserId", newUser.data("id"));
   }
 
   nextUser.on("click", function () {
@@ -246,7 +229,7 @@ $(document).ready(function () {
           calcDiffGlobal = response.calcDiff;
           // Suponiendo que userId, currentMonth y currentYear están disponibles
           getUserSchedule(formData.get("userId"), currentMonth, currentYear);
-          location.reload(true);
+          location.reload();
         } else {
           if (
             response.message ===
@@ -368,11 +351,11 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-          console.log("Valor de 'week':", week);
           if (response.data.length > 0) {
             var acumuladoValorDia = response.data[0].acumulado_valor_dia;
             var idProfile = response.data[0].id_profile;
             callback(acumuladoValorDia, idProfile);
+           
           } else {
             console.error("No se encontraron datos en la respuesta");
           }
@@ -599,7 +582,7 @@ $(document).ready(function () {
           const minutes2 = timeToMinutes(time2);
           return (minutes1 / minutes2) * 100;
         }
-
+        
         setTimeout(function () {
           $("#porcentHours").html(
             "<b>" +
@@ -620,6 +603,7 @@ $(document).ready(function () {
             "<b>" + totalMonthlyTime + "h</b><b>" + totalSumFormatted + "h</b>"
           );
         }, 500);
+        
 
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(data.total_late_points);
