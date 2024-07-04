@@ -44,6 +44,12 @@ if (isset($_POST['userId']) && isset($_POST['week']) && isset($_POST['year']) &&
                 WEEKDAY(c.calendar_date) = 6  -- Sábado
                 AND u2.id_profile = 2
             )
+            OR
+            (
+                WEEKDAY(c.calendar_date) = 0  -- Domingo
+                AND u2.id_profile IN (1, 2)
+                AND DAY(c.calendar_date) > 1  -- Excluir el primer día si es domingo
+            )
         )
         AND c.holiday = 0
     GROUP BY
