@@ -9,7 +9,22 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $userId = $_POST['userId'];
     $month = $_POST['month'];
     $year = $_POST['year'];
-    $currentDate = date('Y-m-d');
+
+    // Calcula el último día laborable del mes anterior
+    $lastDayPreviousMonth = date('Y-m-t', strtotime("$year-$month-01 -1 month"));
+    while (in_array(date('N', strtotime($lastDayPreviousMonth)), [6, 7])) {
+        $lastDayPreviousMonth = date('Y-m-d', strtotime("$lastDayPreviousMonth -1 day"));
+    }
+
+    // Calcula el penúltimo día laborable del mes actual
+    $penultimateDayCurrentMonth = date('Y-m-t', strtotime("$year-$month-01"));
+    while (in_array(date('N', strtotime($penultimateDayCurrentMonth)), [6, 7])) {
+        $penultimateDayCurrentMonth = date('Y-m-d', strtotime("$penultimateDayCurrentMonth -1 day"));
+    }
+    $penultimateDayCurrentMonth = date('Y-m-d', strtotime("$penultimateDayCurrentMonth -1 day"));
+    while (in_array(date('N', strtotime($penultimateDayCurrentMonth)), [6, 7])) {
+        $penultimateDayCurrentMonth = date('Y-m-d', strtotime("$penultimateDayCurrentMonth -1 day"));
+    }
 
     $query = "SELECT
     u.id_user AS id_user,
@@ -27,34 +42,23 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
             ELSE 0
         END
     ) AS total_hours_required,
-    -- SUM(
-    -- ROUND(
-    --     CASE
-    --         WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-    --         WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-    --         WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date < CURDATE() THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-    --         WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-    --         ELSE 0
-    --     END, 0)) + COALESCE(SUM(CASE WHEN c.calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND CURDATE() THEN s.calc_diff ELSE 0 END), 0
-    -- ) AS total_missing_points,
-       SUM(
+    SUM(
         ROUND(
             CASE
-                WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date < DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY) THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date < DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date BETWEEN ? AND ? THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date BETWEEN ? AND ? THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date BETWEEN ? AND ? THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date BETWEEN ? AND ? THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
                 ELSE 0
             END, 0)
         ) + COALESCE(
             SUM(
                 CASE
-                    WHEN c.calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY)
-                    THEN s.calc_diff ELSE 0 END), 0
+                    WHEN c.calendar_date BETWEEN ? AND ? THEN s.calc_diff ELSE 0 END), 0
         ) AS total_missing_points,
     SUM(
         CASE
-            WHEN LEFT(s.stamp, 5) > (CASE WHEN u.id_user = 13 THEN '10:00' ELSE '09:00' END) AND c.calendar_date < CURDATE() THEN 1
+            WHEN LEFT(s.stamp, 5) > (CASE WHEN u.id_user = 13 THEN '10:00' ELSE '09:00' END) AND c.calendar_date BETWEEN ? AND ? THEN 1
             ELSE 0
         END
     ) AS total_late_points,
@@ -62,7 +66,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         SEC_TO_TIME(
             SUM(
                 CASE
-                    WHEN LEFT(s.stamp, 5) > (CASE WHEN u.id_user = 13 THEN '10:00' ELSE '09:00' END) THEN 
+                    WHEN LEFT(s.stamp, 5) > (CASE WHEN u.id_user = 13 THEN '10:00' ELSE '09:00' END) AND c.calendar_date BETWEEN ? AND ? THEN 
                         TIME_TO_SEC(LEFT(s.stamp, 5)) - TIME_TO_SEC(CASE WHEN u.id_user = 13 THEN '10:00' ELSE '09:00' END)
                     ELSE 0
                 END
@@ -73,10 +77,10 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     WHEN SUM(
             ROUND(
                 CASE
-                    WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                    WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                    WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date < CURDATE() THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                    WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                    WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date BETWEEN ? AND ? THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                    WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date BETWEEN ? AND ? THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                    WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date BETWEEN ? AND ? THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                    WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date BETWEEN ? AND ? THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
                     ELSE 0
                 END, 0)
         ) > 6 THEN 
@@ -102,10 +106,10 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                 (SUM(
                     ROUND(
                         CASE
-                            WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                            WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                            WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date < CURDATE() THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                            WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date < CURDATE() THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                            WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date BETWEEN ? AND ? THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                            WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date BETWEEN ? AND ? THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                            WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date BETWEEN ? AND ? THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                            WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date BETWEEN ? AND ? THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
                             ELSE 0
                         END, 0)
                 ) - 6) * 15 * 60
@@ -154,14 +158,17 @@ JOIN
 LEFT JOIN
     Schedule s ON c.id_date = s.id_calendar AND s.id_user = ?
 WHERE
-    c.calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND LAST_DAY(DATE(CONCAT(?, '-', ?, '-01')))
+    c.calendar_date BETWEEN ? AND ?
     AND c.holiday = 0
 GROUP BY
     u.id_user,
     u.id_profile;";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssiissss", $year, $month, $userId, $userId, $year, $month, $year, $month);
+    $stmt->bind_param("ssssssssssssssssssssssssssssssss", 
+        $lastDayPreviousMonth, $penultimateDayCurrentMonth, $lastDayPreviousMonth, $penultimateDayCurrentMonth, $lastDayPreviousMonth, $penultimateDayCurrentMonth, $lastDayPreviousMonth, $penultimateDayCurrentMonth, 
+        $lastDayPreviousMonth, $penultimateDayCurrentMonth, $lastDayPreviousMonth, $penultimateDayCurrentMonth, $lastDayPreviousMonth, $penultimateDayCurrentMonth, 
+        $lastDayPreviousMonth, $penultimateDayCurrentMonth, $userId, $userId, $lastDayPreviousMonth, $penultimateDayCurrentMonth);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
@@ -170,3 +177,4 @@ GROUP BY
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid parameters.']);
 }
+?>
