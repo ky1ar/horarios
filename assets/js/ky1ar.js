@@ -569,7 +569,14 @@ $(document).ready(function () {
 
         var hoursDifference = Math.floor(differenceAdjusted / 60);
         var minutesDifference = differenceAdjusted % 60;
-        var differenceFormatted =
+        // var differenceFormatted =
+        //   (hoursDifference < 10 ? "0" : "") +
+        //   hoursDifference +
+        //   ":" +
+        //   (minutesDifference < 10 ? "0" : "") +
+        //   minutesDifference;
+
+        var differenceAdjustedFormatted =
           (hoursDifference < 10 ? "0" : "") +
           hoursDifference +
           ":" +
@@ -626,7 +633,7 @@ $(document).ready(function () {
         
 
         $("#totalMissingPoints").text(data.total_missing_points);
-        $("#totalLatePoints").text(data.total_late_points);
+        $("#totalLatePoints").text(differenceAdjustedFormatted);
         $("#tolerancia").html(
           "<b>" +
             data.total_minutes_late_formatted +
