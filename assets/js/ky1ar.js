@@ -229,7 +229,7 @@ $(document).ready(function () {
           calcDiffGlobal = response.calcDiff;
           // Suponiendo que userId, currentMonth y currentYear están disponibles
           getUserSchedule(formData.get("userId"), currentMonth, currentYear);
-          location.reload();
+          location.reload(true);
         } else {
           if (
             response.message ===
