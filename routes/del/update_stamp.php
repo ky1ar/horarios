@@ -92,7 +92,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
             $isNewRecord = false;
             // Imprimir el nuevo stamp por consola
             error_log("Stamp actualizado: $stamp");
-            setcookie('lastUpdatedUserId', $userId, time() + 3600, '/');
+            setcookie('lastUpdatedUserId', $userId, time() + 600, '/');
             echo json_encode(['success' => true, 'isNewRecord' => $isNewRecord, 'calcDiff' => $calcDiff]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Failed to update stamp']);
@@ -116,7 +116,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
             $isNewRecord = true;
             // Imprimir el nuevo stamp por consola
             error_log("Stamp insertado: $stamp");
-            setcookie('lastUpdatedUserId', $userId, time() + 3600, '/');
+            setcookie('lastUpdatedUserId', $userId, time() + 600, '/');
             echo json_encode(['success' => true, 'isNewRecord' => $isNewRecord, 'calcDiff' => $calcDiff]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Failed to insert stamp']);
