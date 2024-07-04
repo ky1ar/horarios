@@ -34,6 +34,17 @@ if (isset($_POST['userId']) && isset($_POST['week']) && isset($_POST['year']) &&
         WEEK(c.calendar_date, 1) = WEEK(DATE_ADD(CONCAT(?, '-', LPAD(?, 2, '0'), '-01'), INTERVAL (? - 1) WEEK), 1)
         AND YEAR(c.calendar_date) = ?
         AND MONTH(c.calendar_date) = ?
+        AND (
+            (
+                WEEKDAY(c.calendar_date) BETWEEN 0 AND 5  -- Lunes a viernes
+                AND u2.id_profile IN (1, 2)
+            )
+            OR
+            (
+                WEEKDAY(c.calendar_date) = 6  -- Sábado
+                AND u2.id_profile = 2
+            )
+        )
         AND c.holiday = 0
     GROUP BY
         WEEK(c.calendar_date, 1),
@@ -42,7 +53,7 @@ if (isset($_POST['userId']) && isset($_POST['week']) && isset($_POST['year']) &&
 
     // Prepara y ejecuta la consulta
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("isssss", $userId, $year, $month, $week, $year, $month);
+    $stmt->bind_param("issss", $userId, $year, $month, $week, $year);
     $stmt->execute();
     $result = $stmt->get_result();
 
