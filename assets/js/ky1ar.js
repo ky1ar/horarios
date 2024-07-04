@@ -555,7 +555,6 @@ $(document).ready(function () {
       processData: false,
       dataType: "json",
       success: function (response) {
-      
         var data = response;
         // console.log(data.adjusted_hours);
         var minutesLate =
