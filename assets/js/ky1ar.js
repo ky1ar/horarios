@@ -352,19 +352,6 @@ $(document).ready(function () {
       );
     });
 
-    // Después de que todas las semanas hayan sido procesadas
-    $(document).ajaxStop(function () {
-      const totalHours = Math.floor(totalHoursMinutes / 60);
-      const totalMinutes = totalHoursMinutes % 60;
-      const formattedTotalTime = `${totalHours
-        .toString()
-        .padStart(2, "0")}:${totalMinutes.toString().padStart(2, "0")}`;
-      // console.log("Total mensual de horas y minutos:", formattedTotalTime);
-      totalMonthlyTime = formattedTotalTime; // Asigna el valor a la variable global
-      $(document).off("ajaxStop");
-    });
-  }
-
   function getWeeklyData(userId, week, year, month, callback) {
     console.log("Datos enviados en la solicitud AJAX:", { userId, week, year, month }); // Agregamos el console.log aquí
     $.ajax({
