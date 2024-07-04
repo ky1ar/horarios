@@ -25,9 +25,11 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     while (in_array(date('N', strtotime($penultDayCurrMonth)), [6, 7])) {
         $penultDayCurrMonth = date('Y-m-d', strtotime("$penultDayCurrMonth -1 day"));
     }
-    // Imprime las fechas calculadas
-    echo "ultimo dia laborable del mes anterior: $lastDayPrevMonth<br>";
-    echo "penultimo día laborable del mes actual: $penultDayCurrMonth<br>";
+    
+    echo "<script>";
+    echo "console.log('ultimo dia laborable del mes anterior: $lastDayPrevMonth');";
+    echo "console.log('penultimo día laborable del mes actual: $penultDayCurrMonth');";
+    echo "</script>";
 
     $query = "SELECT
         u.id_user AS id_user,
