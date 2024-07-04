@@ -50,7 +50,7 @@ if (isset($_POST['userId']) && isset($_POST['week']) && isset($_POST['year']) &&
             )
             OR
             (
-                WEEKDAY(c.calendar_date) = 6  -- Sábado
+                WEEKDAY(c.calendar_date) = 5  -- Sábado
                 AND u2.id_profile = 2
             )
         )
