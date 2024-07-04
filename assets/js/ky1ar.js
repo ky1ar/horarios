@@ -366,7 +366,6 @@ $(document).ready(function () {
   }
 
   function getWeeklyData(userId, week, year, month, callback) {
-    console.log("Datos enviados en la solicitud AJAX:", { userId, week, year, month }); // Agregamos el console.log aquí
     $.ajax({
       url: "../routes/del/get_week.php",
       method: "POST",
