@@ -53,7 +53,7 @@ if (isset($_POST['userId']) && isset($_POST['week']) && isset($_POST['year']) &&
 
     // Prepara y ejecuta la consulta
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("issss", $userId, $year, $month, $week, $year);
+    $stmt->bind_param("isssss", $userId, $year, $month, $week, $year, $month);
     $stmt->execute();
     $result = $stmt->get_result();
 
