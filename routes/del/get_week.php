@@ -49,7 +49,6 @@ if (isset($_POST['userId']) && isset($_POST['week']) && isset($_POST['year']) &&
                     )
                 )
                 AND c2.holiday = 0
-                AND c2.calendar_date <= c.calendar_date  -- Asegura que la fecha de la subconsulta sea menor o igual a la fecha de la consulta principal
         ) AS acumulado_valor_dia
     FROM 
         Calendar c
@@ -112,4 +111,3 @@ if (isset($_POST['userId']) && isset($_POST['week']) && isset($_POST['year']) &&
     // Si no se recibieron los parámetros necesarios, envía un mensaje de error
     echo json_encode(array("success" => false, "message" => "No se recibieron los parámetros necesarios en la solicitud POST"));
 }
-?>
