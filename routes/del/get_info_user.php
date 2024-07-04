@@ -175,7 +175,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         u.id_profile;";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssiissssss", $year, $month, $lastWorkingDay, $userId, $userId, $lastWorkingDay, $penultimateDayOfMonth);
+    $stmt->bind_param("sssiiss", $year, $month, $lastWorkingDay, $userId, $userId, $lastWorkingDay, $penultimateDayOfMonth);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
