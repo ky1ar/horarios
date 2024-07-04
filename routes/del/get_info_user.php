@@ -25,11 +25,6 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     while (in_array(date('N', strtotime($penultDayCurrMonth)), [6, 7])) {
         $penultDayCurrMonth = date('Y-m-d', strtotime("$penultDayCurrMonth -1 day"));
     }
-    
-    echo "<script>";
-    echo "console.log('ultimo dia laborable del mes anterior: $lastDayPrevMonth');";
-    echo "console.log('penultimo día laborable del mes actual: $penultDayCurrMonth');";
-    echo "</script>";
 
     $query = "SELECT
         u.id_user AS id_user,
@@ -206,7 +201,23 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
 
-    echo json_encode($row);
+    // Preparar respuesta JSON
+    if ($row) {
+        $response = [
+            'success' => true,
+            'message' => 'Datos obtenidos correctamente.',
+            'lastDayPrevMonth' => $lastDayPrevMonth,
+            'penultDayCurrMonth' => $penultDayCurrMonth,
+            'data' => $row  // Aquí se agrega la data de la consulta
+        ];
+    } else {
+        $response = [
+            'success' => false,
+            'message' => 'No se encontraron datos para los parámetros proporcionados.'
+        ];
+    }
+
+    echo json_encode($response);
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid parameters.']);
 }
