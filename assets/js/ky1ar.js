@@ -555,6 +555,8 @@ $(document).ready(function () {
       processData: false,
       dataType: "json",
       success: function (response) {
+        console.log('Último día laborable del mes anterior:', response.lastDayPrevMonth);
+        console.log('Penúltimo día laborable del mes actual:', response.penultDayCurrMonth);
         var data = response;
         // console.log(data.adjusted_hours);
         var minutesLate =
