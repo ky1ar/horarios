@@ -633,7 +633,7 @@ $(document).ready(function () {
         }, 500);
 
         $("#totalMissingPoints").text(data.total_missing_points);
-        console.log(data.total_minutes_late_formatted);
+        console.log(data.total_late_points);
         $("#totalLatePoints").text(differenceAdjustedFormatted);
         $("#tolerancia").html(
           "<b>" +
