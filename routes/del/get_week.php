@@ -45,9 +45,20 @@ if (isset($_POST['userId']) && isset($_POST['week']) && isset($_POST['year']) &&
         Users u2 ON u2.id_user = ?
     WHERE 
         WEEKDAY(c.calendar_date) BETWEEN 0 AND 6  -- Considera también el domingo (0 a 6)
-        AND WEEK(c.calendar_date, 1) = WEEK(DATE_ADD(CONCAT(?, '-', LPAD(?, 2, '0'), '-01'), INTERVAL (? - 1) WEEK), 1)
-        AND YEAR(c.calendar_date) = ?
-        AND MONTH(c.calendar_date) = ?
+        AND (
+            (
+                WEEK(c.calendar_date, 1) = WEEK(DATE_ADD(CONCAT(?, '-', LPAD(?, 2, '0'), '-01'), INTERVAL (? - 1) WEEK), 1)
+                AND YEAR(c.calendar_date) = ?
+                AND MONTH(c.calendar_date) = ?
+            )
+            OR
+            (
+                WEEK(c.calendar_date, 1) = WEEK(DATE_ADD(CONCAT(?, '-', LPAD(?, 2, '0'), '-01'), INTERVAL (? - 1) WEEK), 1) + 1
+                AND YEAR(c.calendar_date) = ?
+                AND MONTH(c.calendar_date) = ?
+                AND DAY(c.calendar_date) >= 2
+            )
+        )
         AND c.holiday = 0
     GROUP BY
         WEEK(c.calendar_date, 1),
@@ -57,7 +68,7 @@ if (isset($_POST['userId']) && isset($_POST['week']) && isset($_POST['year']) &&
 
     // Prepara y ejecuta la consulta
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("isssssisssss", $userId, $year, $month, $week, $year, $month, $userId, $year, $month, $week, $year, $month);
+    $stmt->bind_param("isssssisssssssss", $userId, $year, $month, $week, $year, $month, $userId, $year, $month, $week, $year, $month, $year, $month, $week, $year, $month);
     $stmt->execute();
     $result = $stmt->get_result();
 
