@@ -15,71 +15,34 @@ if (isset($_POST['userId']) && isset($_POST['week']) && isset($_POST['year']) &&
         WEEK(c.calendar_date, 1) AS semana,
         u2.id_user,
         u2.id_profile,
-        (
-            SELECT 
-                SUM(
-                    CASE 
-                        WHEN u2.id_profile = 1 THEN 
-                            IF(DAYNAME(c2.calendar_date) IN ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'), 8, 0)
-                        WHEN u2.id_profile = 2 THEN 
-                            IF(DAYNAME(c2.calendar_date) IN ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'), 8, IF(DAYNAME(c2.calendar_date) = 'Saturday', 4, 0))
-                        WHEN u2.id_profile = 3 THEN 
-                            IF(DAYNAME(c2.calendar_date) IN ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'), 8, 0)
-                        ELSE 0
-                    END
-                ) AS total_valor_dia
-            FROM 
-                Calendar c2
-            JOIN 
-                Users u2 ON u2.id_user = ?
-            WHERE 
-                WEEKDAY(c2.calendar_date) BETWEEN 0 AND 6  -- Considera también el domingo (0 a 6)
-                AND (
-                    (
-                        WEEK(c2.calendar_date, 1) = WEEK(DATE_ADD(CONCAT(?, '-', LPAD(?, 2, '0'), '-01'), INTERVAL (? - 1) WEEK), 1)
-                        AND YEAR(c2.calendar_date) = ?
-                        AND MONTH(c2.calendar_date) = ?
-                    )
-                    OR
-                    (
-                        WEEK(c2.calendar_date, 1) = WEEK(DATE_ADD(CONCAT(?, '-', LPAD(?, 2, '0'), '-01'), INTERVAL (? - 1) WEEK), 1) + 1
-                        AND YEAR(c2.calendar_date) = ?
-                        AND MONTH(c2.calendar_date) = ?
-                        AND DAY(c2.calendar_date) >= 2  -- Considera desde el segundo día si empieza el mes en domingo
-                    )
-                )
-                AND c2.holiday = 0
+        SUM(
+            CASE 
+                WHEN u2.id_profile = 1 THEN 
+                    IF(DAYNAME(c.calendar_date) IN ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'), 8, 0)
+                WHEN u2.id_profile = 2 THEN 
+                    IF(DAYNAME(c.calendar_date) IN ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'), 8, IF(DAYNAME(c.calendar_date) = 'Saturday', 4, 0))
+                WHEN u2.id_profile = 3 THEN 
+                    IF(DAYNAME(c.calendar_date) IN ('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'), 8, 0)
+                ELSE 0
+            END
         ) AS acumulado_valor_dia
     FROM 
         Calendar c
     JOIN 
         Users u2 ON u2.id_user = ?
     WHERE 
-        WEEKDAY(c.calendar_date) BETWEEN 0 AND 6  -- Considera también el domingo (0 a 6)
-        AND (
-            (
-                WEEK(c.calendar_date, 1) = WEEK(DATE_ADD(CONCAT(?, '-', LPAD(?, 2, '0'), '-01'), INTERVAL (? - 1) WEEK), 1)
-                AND YEAR(c.calendar_date) = ?
-                AND MONTH(c.calendar_date) = ?
-            )
-            OR
-            (
-                WEEK(c.calendar_date, 1) = WEEK(DATE_ADD(CONCAT(?, '-', LPAD(?, 2, '0'), '-01'), INTERVAL (? - 1) WEEK), 1) + 1
-                AND YEAR(c.calendar_date) = ?
-                AND MONTH(c.calendar_date) = ?
-                AND DAY(c.calendar_date) >= 2  -- Considera desde el segundo día si empieza el mes en domingo
-            )
-        )
+        WEEK(c.calendar_date, 1) = WEEK(DATE_ADD(CONCAT(?, '-', LPAD(?, 2, '0'), '-01'), INTERVAL (? - 1) WEEK), 1)
+        AND YEAR(c.calendar_date) = ?
+        AND MONTH(c.calendar_date) = ?
         AND c.holiday = 0
     GROUP BY
         WEEK(c.calendar_date, 1),
         u2.id_user,
-        u2.id_profile;
-    ";
+        u2.id_profile;";
 
     // Prepara y ejecuta la consulta
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("issssssssssissssssssss", $userId, $year, $month, $week, $year, $month, $year, $month, $week, $year, $month, $userId, $year, $month, $week, $year, $month, $year, $month, $week, $year, $month);
+    $stmt->bind_param("issss", $userId, $year, $month, $week, $year);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -111,3 +74,4 @@ if (isset($_POST['userId']) && isset($_POST['week']) && isset($_POST['year']) &&
     // Si no se recibieron los parámetros necesarios, envía un mensaje de error
     echo json_encode(array("success" => false, "message" => "No se recibieron los parámetros necesarios en la solicitud POST"));
 }
+?>
