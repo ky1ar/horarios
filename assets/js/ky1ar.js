@@ -11,7 +11,31 @@ $(document).ready(function () {
 
   const userImage = $("#userImage");
   const imagePath = "assets/img/profiles/";
-
+  const lastUpdatedUserId = getCookie('lastUpdatedUserId');
+  if (lastUpdatedUserId) {
+      // Cargar datos y actualizar interfaz para el último usuario actualizado
+      selectUserById(lastUpdatedUserId);
+  }
+  
+  // Función para obtener el valor de una cookie por nombre
+  function getCookie(name) {
+      const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+      if (match) {
+          return match[2];
+      }
+  }
+  
+  // Función para seleccionar al usuario por su ID
+  function selectUserById(userId) {
+      // Implementa lógica para seleccionar y mostrar al usuario por su ID
+      // Por ejemplo, encontrar y activar visualmente al usuario en la lista
+      userList.find('li').removeClass('active');
+      const userToSelect = userList.find(`li[data-id="${userId}"]`);
+      userToSelect.addClass('active');
+      updateUserDisplay();
+      getUserSchedule(userId, currentMonth, currentYear);
+      getUserData(userId, currentMonth, currentYear);
+  }
   window.onload = function () {
     if (document.cookie.indexOf("registro_actualizado=true") !== -1) {
       var messageVerify = document.getElementById("messageVerify");
