@@ -143,10 +143,11 @@ $(document).ready(function () {
   //     getUserSchedule(userId, currentMonth, currentYear);
   //     getUserData(userId, currentMonth, currentYear);
   // }
-  currentMonth = ''; // Variable global para almacenar el mes actual
+  
 
 // Función para inicializar y seleccionar un usuario por ID
 function initializeUserSelection() {
+    currentMonth = ''; // Variable global para almacenar el mes actual
     const lastUpdatedUserId = getCookie('lastUpdatedUserId');
     if (lastUpdatedUserId) {
         const storedMonth = getCookie('storedMonth'); // Obtener el mes almacenado en la cookie
