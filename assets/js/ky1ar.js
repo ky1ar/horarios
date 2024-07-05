@@ -376,7 +376,6 @@ $(document).ready(function () {
   }
 
   function getStampSpecial(userId, month, year) {
-    console.log("si corre la funcion");
     $.ajax({
         url: "../routes/del/dayBeforeMonth.php",
         method: "POST",
