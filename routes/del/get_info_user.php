@@ -13,16 +13,13 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
 
     // Obtener el penúltimo día laborable del mes anterior
         $penultimateQueryMonthPast = "
-        SELECT calendar_date AS penultimate_workday_month
-        FROM (
-            SELECT calendar_date
-            FROM Calendar
-            WHERE holiday = 0
-            AND calendar_date BETWEEN DATE_SUB(DATE(CONCAT(?, '-', ?, '-01')), INTERVAL 1 MONTH) AND LAST_DAY(DATE_SUB(DATE(CONCAT(?, '-', ?, '-01')), INTERVAL 1 MONTH))
-            AND DAYOFWEEK(calendar_date) != 1 -- Excluir domingos (DAYOFWEEK = 1)
-            ORDER BY calendar_date DESC
-            LIMIT 1 OFFSET 1
-        ) AS subquery;
+        SELECT calendar_date AS last_working_day_previous_month
+        FROM Calendar
+        WHERE holiday = 0
+        AND DAYOFWEEK(calendar_date) <> 1 -- Excluir domingos (DAYOFWEEK = 1)
+        AND calendar_date BETWEEN DATE_SUB(DATE(CONCAT('2024', '-', '07', '-01')), INTERVAL 1 MONTH) AND LAST_DAY(DATE_SUB(DATE(CONCAT('2024', '-', '07', '-01')), INTERVAL 1 MONTH))
+        ORDER BY calendar_date DESC
+        LIMIT 1;
     ";
 
     $stmt = $conn->prepare($penultimateQueryMonthPast);
@@ -30,8 +27,8 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $stmt->execute();
     $result = $stmt->get_result();
     $penultimateWorkdayMP = $result->fetch_assoc();
-    $penultimateMP = $penultimateWorkdayMP['penultimate_workday_month'];
-    echo "Fecha inicial para el penúltimo día laborable del mes anterior: " . $year . "-" . $month . "-01" . "<br>";
+    $penultimateMP = $penultimateWorkdayMP['last_working_day_previous_month'];
+    echo "Fecha inicial para el penúltimo día laborable del mes anterior:" . $penultimateMP."<br>";
 
 
     // Obtener el penúltimo día laborable del mes
@@ -54,7 +51,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $result = $stmt->get_result();
     $penultimateWorkdayRow = $result->fetch_assoc();
     $penultimateWorkday = $penultimateWorkdayRow['penultimate_workday'];
-    echo "Fecha inicial para el penúltimo día laborable del mes actual: " . $year . "-" . $month . "-01" . "<br>";
+    echo "Fecha inicial para el penúltimo día laborable del mes anterior:" . $penultimateWorkday."<br>";
 
     // Consulta principal
     $query = "SELECT
