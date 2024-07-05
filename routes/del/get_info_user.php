@@ -43,8 +43,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
             LIMIT 1 OFFSET 1
         ) AS subquery;
     ";
-    echo "Penúltimo día laborable del mes anterior: " . $penultimateMP . "<br>";
-    echo "Penúltimo día laborable del mes actual: " . $penultimateWorkday . "<br>";
+    
 
     $stmt = $conn->prepare($penultimateQuery);
     $stmt->bind_param("ssss", $year, $month, $year, $month);
@@ -52,7 +51,8 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $result = $stmt->get_result();
     $penultimateWorkdayRow = $result->fetch_assoc();
     $penultimateWorkday = $penultimateWorkdayRow['penultimate_workday'];
-
+    echo "Penúltimo día laborable del mes anterior: " . $penultimateMP . "<br>";
+    echo "Penúltimo día laborable del mes actual: " . $penultimateWorkday . "<br>";
     // Consulta principal
     $query = "SELECT
     u.id_user AS id_user,
