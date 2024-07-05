@@ -32,7 +32,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $penultimateWorkday = $penultimateWorkdayRow['penultimate_workday'];
 
     // Imprimir el penúltimo día laborable
-    echo "Penúltimo día laborable: " . $penultimateWorkday . "<br>";
+    // echo "Penúltimo día laborable: " . $penultimateWorkday . "<br>";
 
     // Consulta principal
     $query = "SELECT
