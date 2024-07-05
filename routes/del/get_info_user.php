@@ -12,23 +12,25 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $currentDate = date('Y-m-d');
 
     // Obtener el penúltimo día laborable del mes anterior
-    $penultimateQueryMonthPas = "
-        SELECT calendar_date AS last_working_day_previous_month
-        FROM Calendar
-        WHERE holiday = 0
-        AND DAYOFWEEK(calendar_date) <> 1
-        AND calendar_date BETWEEN DATE_SUB(DATE(CONCAT('?', '-', '?', '-01')), INTERVAL 1 MONTH) 
-        AND LAST_DAY(DATE_SUB(DATE(CONCAT('?', '-', '?', '-01')), INTERVAL 1 MONTH))
-        ORDER BY calendar_date DESC
-        LIMIT 1;
+        $penultimateQueryMonthPast = "
+        SELECT calendar_date AS penultimate_workday
+        FROM (
+            SELECT calendar_date
+            FROM Calendar
+            WHERE holiday = 0
+            AND calendar_date BETWEEN DATE_SUB(DATE(CONCAT(?, '-', ?, '-01')), INTERVAL 1 MONTH) AND LAST_DAY(DATE_SUB(DATE(CONCAT(?, '-', ?, '-01')), INTERVAL 1 MONTH))
+            AND DAYOFWEEK(calendar_date) != 1 -- Excluir domingos (DAYOFWEEK = 1)
+            ORDER BY calendar_date DESC
+            LIMIT 1 OFFSET 1
+        ) AS subquery;
     ";
 
-    $stmt = $conn->prepare($penultimateQueryMonthPas);
+    $stmt = $conn->prepare($penultimateQueryMonthPast);
     $stmt->bind_param("ssss", $year, $month, $year, $month);
     $stmt->execute();
     $result = $stmt->get_result();
     $penultimateWorkdayMP = $result->fetch_assoc();
-    $penultimateMP = $penultimateWorkdayMP['last_working_day_previous_month'];
+    $penultimateMP = $penultimateWorkdayMP['penultimate_workday'];
 
     // Obtener el penúltimo día laborable del mes
     $penultimateQuery = "
