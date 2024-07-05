@@ -290,13 +290,8 @@ $(document).ready(function () {
         if (response.hasOwnProperty("error")) {
           console.error("Error en la respuesta del servidor:", response.error);
         } else {
-          var stamp = response.stamp;
           var calculatedTime = response.calculated_time;
-          console.log("Stamp recibido:", stamp);
-          console.log("Tiempo calculado:", calculatedTime);
-
-          // Asignar calculatedTime a totalMonthlyTime
-          totalMonthlyTime = calculatedTime; // Suponiendo que calculatedTime ya está en formato HH:mm
+          totalMonthlyTime = calculatedTime;
         }
       },
       error: function (xhr, status, error) {
