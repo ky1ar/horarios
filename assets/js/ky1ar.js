@@ -91,6 +91,8 @@ $(document).ready(function () {
     updateUserDisplay();
     getUserSchedule(newUser.data("id"), currentMonth, currentYear);
     getUserData(newUser.data("id"), currentMonth, currentYear);
+    
+    getStampSpecial(newUser.data("id"), currentMonth, currentYear);
   }
 
   nextUser.on("click", function () {
