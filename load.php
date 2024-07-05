@@ -159,7 +159,7 @@ $id = $_SESSION['user_id'];
                 </div>
                 <div class="box-txt">
                     <span id="totalLatePoints"></span>
-                    <p>Tardanzas</p>
+                    <p>Penalización Acumulada</p>
                 </div>
             </li>
             <li>

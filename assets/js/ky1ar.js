@@ -91,6 +91,8 @@ $(document).ready(function () {
     updateUserDisplay();
     getUserSchedule(newUser.data("id"), currentMonth, currentYear);
     getUserData(newUser.data("id"), currentMonth, currentYear);
+
+    getStampSpecial(newUser.data("id"), currentMonth, currentYear);
   }
 
   nextUser.on("click", function () {
@@ -106,6 +108,8 @@ $(document).ready(function () {
     updateMonthDisplay();
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
+
+    getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
   });
 
   previousMonth.on("click", function () {
@@ -114,6 +118,8 @@ $(document).ready(function () {
     updateMonthDisplay();
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
+
+    getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
   });
 
   userList.find("li").on("click", function () {
@@ -122,7 +128,33 @@ $(document).ready(function () {
     updateUserDisplay();
     getUserSchedule($(this).data("id"), currentMonth, currentYear);
     getUserData($(this).data("id"), currentMonth, currentYear);
+
+    getStampSpecial($(this).data("id"), currentMonth, currentYear);
   });
+
+  const lastUpdatedUserId = getCookie("lastUpdatedUserId");
+  if (lastUpdatedUserId) {
+    selectUserById(lastUpdatedUserId);
+  }
+
+  function getCookie(name) {
+    const match = document.cookie.match(
+      new RegExp("(^| )" + name + "=([^;]+)")
+    );
+    if (match) {
+      return match[2];
+    }
+  }
+  function selectUserById(userId) {
+    userList.find("li").removeClass("active");
+    const userToSelect = userList.find(`li[data-id="${userId}"]`);
+    userToSelect.addClass("active");
+    updateUserDisplay();
+    getUserSchedule(userId, currentMonth, currentYear);
+    getUserData(userId, currentMonth, currentYear);
+
+    getStampSpecial(userId, currentMonth, currentYear);
+  }
 
   function formatDate(dateString) {
     const daysOfWeek = [
@@ -246,8 +278,29 @@ $(document).ready(function () {
       },
     });
   });
-
   var totalMonthlyTime = "";
+
+  function getStampSpecial(userId, month, year) {
+    $.ajax({
+      url: "../routes/del/dayBeforeMonth.php",
+      method: "POST",
+      data: { userId: userId, month: month, year: year },
+      dataType: "json",
+      success: function (response) {
+        if (response.hasOwnProperty("error")) {
+          console.error("Error en la respuesta del servidor:", response.error);
+        } else {
+          var calculatedTime = response.calculated_time;
+          totalMonthlyTime = calculatedTime;
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
+    });
+  }
+
+  let globalTotalMonthlyTimeNuev = "";
   function calcularSumaCalcPorSemana(userId, year, month) {
     var totalHoursMinutes = 0;
 
@@ -330,15 +383,35 @@ $(document).ready(function () {
       );
     });
 
-    // Después de que todas las semanas hayan sido procesadas
     $(document).ajaxStop(function () {
       const totalHours = Math.floor(totalHoursMinutes / 60);
       const totalMinutes = totalHoursMinutes % 60;
       const formattedTotalTime = `${totalHours
         .toString()
         .padStart(2, "0")}:${totalMinutes.toString().padStart(2, "0")}`;
-      // console.log("Total mensual de horas y minutos:", formattedTotalTime);
-      totalMonthlyTime = formattedTotalTime; // Asigna el valor a la variable global
+
+      let totalMonthlyMinutes = 0;
+      if (
+        totalMonthlyTime &&
+        totalMonthlyTime !== "DF" &&
+        totalMonthlyTime !== "" &&
+        totalMonthlyTime !== null
+      ) {
+        const [monthlyHoursStr, monthlyMinutesStr] =
+          totalMonthlyTime.split(":");
+        const monthlyHours = parseInt(monthlyHoursStr, 10);
+        const monthlyMinutes = parseInt(monthlyMinutesStr, 10);
+        totalMonthlyMinutes = monthlyHours * 60 + monthlyMinutes;
+      }
+      const newTotalMinutes =
+        totalMonthlyMinutes + totalHours * 60 + totalMinutes;
+      const newHours = Math.floor(newTotalMinutes / 60);
+      const newMinutes = newTotalMinutes % 60;
+      const newFormattedTotalTime = `${newHours
+        .toString()
+        .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
+      globalTotalMonthlyTimeNuev = newFormattedTotalTime;
+
       $(document).off("ajaxStop");
     });
   }
@@ -543,13 +616,19 @@ $(document).ready(function () {
           parseInt(data.one_percent_total_hours.split(":")[1]);
         var difference = minutesLate - onePercentHours;
 
-        // Multiplicar la diferencia por 1.2 y redondear
-        var differenceAdjusted = Math.max(0, difference) * 1.2;
-        differenceAdjusted = Math.round(differenceAdjusted); // Redondear
+        var differenceAdjusted = Math.max(0, difference) * 0.2;
+        differenceAdjusted = Math.round(differenceAdjusted);
 
         var hoursDifference = Math.floor(differenceAdjusted / 60);
         var minutesDifference = differenceAdjusted % 60;
-        var differenceFormatted =
+        // var differenceFormatted =
+        //   (hoursDifference < 10 ? "0" : "") +
+        //   hoursDifference +
+        //   ":" +
+        //   (minutesDifference < 10 ? "0" : "") +
+        //   minutesDifference;
+
+        var differenceAdjustedFormatted =
           (hoursDifference < 10 ? "0" : "") +
           hoursDifference +
           ":" +
@@ -584,66 +663,35 @@ $(document).ready(function () {
         }
 
         setTimeout(function () {
-          // Convierte sumFormatted a minutos y ajusta restando 8 horas
-          const sumFormattedParts = sumFormatted.split(":");
-          const sumHours = parseInt(sumFormattedParts[0], 10);
-          const sumMinutes = parseInt(sumFormattedParts[1], 10);
-          let totalSumMinutes = sumHours * 60 + sumMinutes;
-
-          // Resta 8 horas (480 minutos)
-          const minutesToSubtract = 8 * 60;
-          totalSumMinutes -= minutesToSubtract;
-
-          // Convierte de vuelta a horas y minutos formateados
-          const adjustedSumHours = Math.floor(totalSumMinutes / 60);
-          const adjustedSumMinutes = totalSumMinutes % 60;
-          const adjustedSumFormatted = `${adjustedSumHours
-            .toString()
-            .padStart(2, "0")}:${adjustedSumMinutes
-            .toString()
-            .padStart(2, "0")}`;
-
-          // Calcula el porcentaje usando adjustedSumFormatted en lugar de sumFormatted
           $("#porcentHours").html(
             "<b>" +
               calculatePercentage(
-                totalMonthlyTime,
-                adjustedSumFormatted
+                globalTotalMonthlyTimeNuev,
+                sumFormatted
               ).toFixed(1) +
-              "%</b><b>100%</b>"
+              "%"
           );
         }, 500);
+
         setTimeout(function () {
-          // Convierte sumFormatted a minutos
           const sumFormattedParts = sumFormatted.split(":");
           const sumHours = parseInt(sumFormattedParts[0], 10);
           const sumMinutes = parseInt(sumFormattedParts[1], 10);
-          let totalSumMinutes = sumHours * 60 + sumMinutes;
-
-          // Resta 8 horas (480 minutos)
-          const minutesToSubtract = 8 * 60;
-          totalSumMinutes -= minutesToSubtract;
-
-          // Convierte de vuelta a horas y minutos formateados
-          const adjustedSumHours = Math.floor(totalSumMinutes / 60);
-          const adjustedSumMinutes = totalSumMinutes % 60;
-          const adjustedSumFormatted = `${adjustedSumHours
+          const totalSumFormatted = `${sumHours
             .toString()
-            .padStart(2, "0")}:${adjustedSumMinutes
-            .toString()
-            .padStart(2, "0")}`;
+            .padStart(2, "0")}:${sumMinutes.toString().padStart(2, "0")}`;
 
-          // Actualiza el HTML
           $("#totalHours").html(
             "<b>" +
-              totalMonthlyTime +
+              globalTotalMonthlyTimeNuev +
               "h</b><b>" +
-              adjustedSumFormatted +
+              totalSumFormatted +
               "h</b>"
           );
         }, 500);
+
         $("#totalMissingPoints").text(data.total_missing_points);
-        $("#totalLatePoints").text(data.total_late_points);
+        $("#totalLatePoints").text(differenceAdjustedFormatted);
         $("#tolerancia").html(
           "<b>" +
             data.total_minutes_late_formatted +
@@ -708,4 +756,5 @@ $(document).ready(function () {
 
   getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
+  getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
 });
