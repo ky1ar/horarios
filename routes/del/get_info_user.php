@@ -24,12 +24,9 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $lastWorkingDay = $resultLastDay->fetch_assoc()['last_working_day'];
     $stmtLastDay->close();
 
-    // Ajustar el último día laborable del mes anterior
-    if ($lastWorkingDay) {
-        $lastWorkingDay = date('Y-m-d', strtotime($lastWorkingDay));
-    } else {
-        // Si no hay un último día laborable, asumir el primer día del mes actual
-        $lastWorkingDay = date('Y-m-d', strtotime("$year-$month-01"));
+    if (!$lastWorkingDay) {
+        echo json_encode(['success' => false, 'message' => 'No se pudo obtener el último día laborable del mes anterior.']);
+        exit();
     }
 
     // Obtener el penúltimo día laborable del mes actual
@@ -46,6 +43,10 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $penultimateDayOfMonth = $resultPenultimateDay->fetch_assoc()['penultimate_working_day'];
     $stmtPenultimateDay->close();
 
+    if (!$penultimateDayOfMonth) {
+        echo json_encode(['success' => false, 'message' => 'No se pudo obtener el penúltimo día laborable del mes actual.']);
+        exit();
+    }
     // Consulta para calcular las horas ajustadas y el porcentaje de horas totales
     $query = "SELECT
         u.id_user AS id_user,
