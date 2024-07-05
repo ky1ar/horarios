@@ -12,15 +12,15 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $currentDate = date('Y-m-d');
 
     // Obtener el penúltimo día laborable del mes actual
-    $query = "SELECT DATE_FORMAT(LAST_DAY(DATE_SUB(DATE(CONCAT(?, '-', ?, '-01')), INTERVAL 1 MONTH)), '%Y-%m-%d') AS penultimate_workday";
+    $queryPenultimate = "SELECT DATE_FORMAT(LAST_DAY(DATE_SUB(DATE(CONCAT(?, '-', ?, '-01')), INTERVAL 1 MONTH)), '%Y-%m-%d') AS penultimate_workday";
 
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("ss", $year, $month);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
+    $stmtPenultimate = $conn->prepare($queryPenultimate);
+    $stmtPenultimate->bind_param("ss", $year, $month);
+    $stmtPenultimate->execute();
+    $resultPenultimate = $stmtPenultimate->get_result();
+    $rowPenultimate = $resultPenultimate->fetch_assoc();
 
-    $penultimateWorkday = $row['penultimate_workday'];
+    $penultimateWorkday = $rowPenultimate['penultimate_workday'];
     echo "Penúltimo día laborable: " . $penultimateWorkday . "<br>";
 
     // Consulta para calcular las horas ajustadas y el porcentaje de horas totales
@@ -160,7 +160,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         AND c.holiday = 0
     GROUP BY
         u.id_user,
-        u.id_profile;";
+        u.id_profile";
 
     $stmt = $conn->prepare($query);
     $stmt->bind_param("sssiisss", $year, $month, $penultimateWorkday, $userId, $userId, $year, $month, $penultimateWorkday); // Asegúrate de que $penultimateWorkday se pase correctamente aquí
@@ -177,3 +177,4 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid parameters.']);
 }
+?>
