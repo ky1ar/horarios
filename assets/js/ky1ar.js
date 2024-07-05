@@ -102,6 +102,7 @@ $(document).ready(function () {
     updateUser(-1);
   });
 
+  //aqui revisar
   nextMonth.on("click", function () {
     currentMonth = (currentMonth % 12) + 1;
     if (currentMonth === 1) currentYear++;
