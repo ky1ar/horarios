@@ -13,7 +13,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
 
     // Obtener el penúltimo día laborable del mes actual
     $query = "SELECT DATE_FORMAT(LAST_DAY(DATE_SUB(DATE(CONCAT(?, '-', ?, '-01')), INTERVAL 1 MONTH)), '%Y-%m-%d') AS penultimate_workday";
-    
+
     $stmt = $conn->prepare($query);
     $stmt->bind_param("ss", $year, $month);
     $stmt->execute();
@@ -163,13 +163,17 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         u.id_profile;";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("sssiisss", $year, $month, $penultimate_workday, $userId, $userId, $year, $month, $penultimate_workday);
+    $stmt->bind_param("sssiisss", $year, $month, $penultimateWorkday, $userId, $userId, $year, $month, $penultimateWorkday); // Asegúrate de que $penultimateWorkday se pase correctamente aquí
     $stmt->execute();
     $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
 
-    echo json_encode($row);
+    if (!$result) {
+        echo "Error en la consulta SQL: " . $conn->error;
+    } else {
+        $row = $result->fetch_assoc();
+        var_dump($row); // Asegúrate de que $row tenga datos válidos aquí
+        echo json_encode($row);
+    }
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid parameters.']);
 }
-?>
