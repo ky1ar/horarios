@@ -31,11 +31,17 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
 
     // Obtener el penúltimo día laborable del mes actual
     $penultimateDayOfMonthQuery = "SELECT MAX(calendar_date) AS penultimate_working_day
-        FROM Calendar
-        WHERE calendar_date <= LAST_DAY(DATE(CONCAT(?, '-', ?, '-01')))
-            AND DAYOFWEEK(calendar_date) BETWEEN 2 AND 6
-            AND holiday = 0
-        LIMIT 1 OFFSET 1;";
+        FROM (
+            SELECT calendar_date
+            FROM Calendar
+            WHERE calendar_date <= LAST_DAY(DATE(CONCAT(?, '-', ?, '-01')))
+                AND DAYOFWEEK(calendar_date) BETWEEN 2 AND 6
+                AND holiday = 0
+            ORDER BY calendar_date DESC
+            LIMIT 2
+        ) AS last_two_days
+        ORDER BY calendar_date ASC
+        LIMIT 1;";
     $stmtPenultimateDay = $conn->prepare($penultimateDayOfMonthQuery);
     $stmtPenultimateDay->bind_param("si", $year, $month);
     $stmtPenultimateDay->execute();
