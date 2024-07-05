@@ -16,7 +16,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         SELECT calendar_date AS last_working_day_previous_month
         FROM Calendar
         WHERE holiday = 0
-        AND DAYOFWEEK(calendar_date) != 1
+        AND DAYOFWEEK(calendar_date) <> 1
         AND calendar_date BETWEEN DATE_SUB(DATE(CONCAT('?', '-', '?', '-01')), INTERVAL 1 MONTH) 
         AND LAST_DAY(DATE_SUB(DATE(CONCAT('?', '-', '?', '-01')), INTERVAL 1 MONTH))
         ORDER BY calendar_date DESC
@@ -38,7 +38,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
             FROM Calendar
             WHERE holiday = 0
             AND calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND LAST_DAY(DATE(CONCAT(?, '-', ?, '-01')))
-            AND DAYOFWEEK(calendar_date) <> 1 -- Excluir domingos (DAYOFWEEK = 1)
+            AND DAYOFWEEK(calendar_date) <> 1
             ORDER BY calendar_date DESC
             LIMIT 1 OFFSET 1
         ) AS subquery;
