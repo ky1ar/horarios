@@ -152,6 +152,8 @@ $(document).ready(function () {
     updateUserDisplay();
     getUserSchedule(userId, currentMonth, currentYear);
     getUserData(userId, currentMonth, currentYear);
+    
+    getStampSpecial(userId, currentMonth, currentYear);
   }
 
   function formatDate(dateString) {
