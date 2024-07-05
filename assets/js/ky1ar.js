@@ -415,8 +415,6 @@ $(document).ready(function () {
       const newFormattedTotalTime = `${newHours
         .toString()
         .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
-
-      console.log("Nuevo formattedTotalTime:", newFormattedTotalTime);
       globalTotalMonthlyTimeNuev = newFormattedTotalTime;
 
       $(document).off("ajaxStop");
