@@ -91,7 +91,7 @@ $(document).ready(function () {
     updateUserDisplay();
     getUserSchedule(newUser.data("id"), currentMonth, currentYear);
     getUserData(newUser.data("id"), currentMonth, currentYear);
-    
+
     getStampSpecial(newUser.data("id"), currentMonth, currentYear);
   }
 
@@ -108,6 +108,8 @@ $(document).ready(function () {
     updateMonthDisplay();
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
+
+    getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
   });
 
   previousMonth.on("click", function () {
@@ -116,6 +118,8 @@ $(document).ready(function () {
     updateMonthDisplay();
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
+
+    getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
   });
 
   userList.find("li").on("click", function () {
@@ -124,6 +128,8 @@ $(document).ready(function () {
     updateUserDisplay();
     getUserSchedule($(this).data("id"), currentMonth, currentYear);
     getUserData($(this).data("id"), currentMonth, currentYear);
+
+    getStampSpecial($(this).data("id"), currentMonth, currentYear);
   });
 
   const lastUpdatedUserId = getCookie("lastUpdatedUserId");
