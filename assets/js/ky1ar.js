@@ -278,8 +278,34 @@ $(document).ready(function () {
       },
     });
   });
-
   var totalMonthlyTime = "";
+  
+  function getStampSpecial(userId, month, year) {
+    $.ajax({
+      url: "../routes/del/dayBeforeMonth.php",
+      method: "POST",
+      data: { userId: userId, month: month, year: year },
+      dataType: "json",
+      success: function (response) {
+        if (response.hasOwnProperty("error")) {
+          console.error("Error en la respuesta del servidor:", response.error);
+        } else {
+          var stamp = response.stamp;
+          var calculatedTime = response.calculated_time;
+          console.log("Stamp recibido:", stamp);
+          console.log("Tiempo calculado:", calculatedTime);
+  
+          // Asignar calculatedTime a totalMonthlyTime
+          totalMonthlyTime = calculatedTime; // Suponiendo que calculatedTime ya está en formato HH:mm
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
+    });
+  }
+
+  let globalTotalMonthlyTimeNuev = "";
   function calcularSumaCalcPorSemana(userId, year, month) {
     var totalHoursMinutes = 0;
 
@@ -362,40 +388,33 @@ $(document).ready(function () {
       );
     });
 
-    // Después de que todas las semanas hayan sido procesadas
+
     $(document).ajaxStop(function () {
       const totalHours = Math.floor(totalHoursMinutes / 60);
       const totalMinutes = totalHoursMinutes % 60;
-      const formattedTotalTime = `${totalHours
-        .toString()
-        .padStart(2, "0")}:${totalMinutes.toString().padStart(2, "0")}`;
-      // console.log("Total mensual de horas y minutos:", formattedTotalTime);
-      totalMonthlyTime = formattedTotalTime; // Asigna el valor a la variable global
+      const formattedTotalTime = `${totalHours.toString().padStart(2, "0")}:${totalMinutes.toString().padStart(2, "0")}`;
+    
+      // Convertir totalMonthlyTime a minutos
+      const [monthlyHoursStr, monthlyMinutesStr] = totalMonthlyTime.split(":");
+      const monthlyHours = parseInt(monthlyHoursStr, 10);
+      const monthlyMinutes = parseInt(monthlyMinutesStr, 10);
+      const totalMonthlyMinutes = monthlyHours * 60 + monthlyMinutes;
+    
+      // Sumar los minutos totales
+      const newTotalMinutes = totalMonthlyMinutes + totalHours * 60 + totalMinutes;
+      const newHours = Math.floor(newTotalMinutes / 60);
+      const newMinutes = newTotalMinutes % 60;
+      const newFormattedTotalTime = `${newHours.toString().padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
+    
+      console.log("Nuevo formattedTotalTime:", newFormattedTotalTime);
+    
+      // Asignar el valor a totalMonthlyTimeNuev
+      globalTotalMonthlyTimeNuev = newFormattedTotalTime;
+    
       $(document).off("ajaxStop");
     });
   }
 
-  function getStampSpecial(userId, month, year) {
-    $.ajax({
-      url: "../routes/del/dayBeforeMonth.php",
-      method: "POST",
-      data: { userId: userId, month: month, year: year },
-      dataType: "json",
-      success: function (response) {
-        if (response.hasOwnProperty("error")) {
-          console.error("Error en la respuesta del servidor:", response.error);
-        } else {
-          var stamp = response.stamp;
-          var calculatedTime = response.calculated_time;
-          console.log("Stamp recibido:", stamp);
-          console.log("Tiempo calculado:", calculatedTime);
-        }
-      },
-      error: function (xhr, status, error) {
-        console.error("Error en la solicitud AJAX:", error);
-      },
-    });
-  }
 
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({
@@ -646,7 +665,7 @@ $(document).ready(function () {
         setTimeout(function () {
           $("#porcentHours").html(
             "<b>" +
-              calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1) +
+              calculatePercentage(globalTotalMonthlyTimeNuev, sumFormatted).toFixed(1) +
               "%"
           );
         }, 500);
@@ -660,7 +679,7 @@ $(document).ready(function () {
             .padStart(2, "0")}:${sumMinutes.toString().padStart(2, "0")}`;
 
           $("#totalHours").html(
-            "<b>" + totalMonthlyTime + "h</b><b>" + totalSumFormatted + "h</b>"
+            "<b>" + globalTotalMonthlyTimeNuev + "h</b><b>" + totalSumFormatted + "h</b>"
           );
         }, 500);
 
