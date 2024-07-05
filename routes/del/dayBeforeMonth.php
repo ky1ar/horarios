@@ -38,7 +38,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         $stamp = $row['stamp'];
         $length = strlen($stamp);
 
-        if ($length == 5 || $length > 30) {
+        if ($stamp == '0' || $stamp == null || $stamp == '' || $stamp == 'DF' || $length == 5 || $length > 30) {
             $calculated_time = 'DF';
         } elseif ($length == 10) {
             $start_time = substr($stamp, 0, 5);
