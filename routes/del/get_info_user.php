@@ -12,29 +12,16 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $currentDate = date('Y-m-d');
 
     // Obtener el penúltimo día laborable del mes actual
-    $penultimateDayOfMonthQuery = "SELECT MAX(calendar_date) AS penultimate_working_day
-        FROM (
-            SELECT calendar_date
-            FROM Calendar
-            WHERE calendar_date <= LAST_DAY(DATE(CONCAT(?, '-', ?, '-01')))
-                AND DAYOFWEEK(calendar_date) BETWEEN 2 AND 6
-                AND holiday = 0
-            ORDER BY calendar_date DESC
-            LIMIT 2
-        ) AS last_two_days
-        ORDER BY calendar_date ASC
-        LIMIT 1;";
-    $stmtPenultimateDay = $conn->prepare($penultimateDayOfMonthQuery);
-    $stmtPenultimateDay->bind_param("si", $year, $month);
-    $stmtPenultimateDay->execute();
-    $resultPenultimateDay = $stmtPenultimateDay->get_result();
-    $penultimateDayOfMonth = $resultPenultimateDay->fetch_assoc()['penultimate_working_day'];
-    $stmtPenultimateDay->close();
+    $query = "SELECT DATE_FORMAT(LAST_DAY(DATE_SUB(DATE(CONCAT(?, '-', ?, '-01')), INTERVAL 1 MONTH)), '%Y-%m-%d') AS penultimate_workday";
+    
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ss", $year, $month);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
 
-    if (!$penultimateDayOfMonth) {
-        echo json_encode(['success' => false, 'message' => 'No se pudo obtener el penúltimo día laborable del mes actual.']);
-        exit();
-    }
+    $penultimateWorkday = $row['penultimate_workday'];
+    echo "Penúltimo día laborable: " . $penultimateWorkday . "<br>";
 
     // Consulta para calcular las horas ajustadas y el porcentaje de horas totales
     $query = "SELECT
@@ -176,7 +163,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         u.id_profile;";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("sssiisss", $year, $month, $penultimateDayOfMonth, $userId, $userId, $year, $month, $penultimateDayOfMonth);
+    $stmt->bind_param("sssiisss", $year, $month, $penultimate_workday, $userId, $userId, $year, $month, $penultimate_workday);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
