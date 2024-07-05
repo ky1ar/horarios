@@ -13,7 +13,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
 
     // Obtener el penúltimo día laborable del mes anterior
         $penultimateQueryMonthPast = "
-        SELECT calendar_date AS penultimate_workday
+        SELECT calendar_date AS penultimate_workday_month
         FROM (
             SELECT calendar_date
             FROM Calendar
@@ -30,7 +30,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $stmt->execute();
     $result = $stmt->get_result();
     $penultimateWorkdayMP = $result->fetch_assoc();
-    $penultimateMP = $penultimateWorkdayMP['penultimate_workday'];
+    $penultimateMP = $penultimateWorkdayMP['penultimate_workday_month'];
 
     // Obtener el penúltimo día laborable del mes
     $penultimateQuery = "
@@ -195,7 +195,7 @@ GROUP BY
     u.id_profile;";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssiissss", $year, $month, $userId, $userId, $year, $month, $penultimateMP, $penultimateWorkday);
+    $stmt->bind_param("ssiiss", $year, $month, $userId, $userId,$penultimateMP, $penultimateWorkday);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
