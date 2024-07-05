@@ -1,5 +1,9 @@
 <?php
+// Establecer encabezado para indicar que la respuesta es JSON
+header('Content-Type: application/json');
+
 require_once '../../includes/app/db.php';
+
 if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) {
     $userId = $_POST['userId'];
     $month = $_POST['month'];
@@ -23,12 +27,11 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     ";
     $stmt = $conn->prepare($query);
     if ($stmt === false) {
-        die('Error de preparación de la consulta: ' . $conn->error);
+        die(json_encode(['error' => 'Error de preparación de la consulta: ' . $conn->error]));
     }
     $stmt->bind_param("issss", $userId, $year, $month, $year, $month);
     $stmt->execute();
     $result = $stmt->get_result();
-
 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -60,14 +63,20 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
             $calculated_time = 'DF';
         }
 
-        echo "Stamp: $stamp<br>";
-        echo "Calculated Time: $calculated_time<br>";
+        // Construir el array de respuesta
+        $response = [
+            'stamp' => $stamp,
+            'calculated_time' => $calculated_time
+        ];
+
+        echo json_encode($response);
     } else {
-        echo "No se encontraron resultados.";
+        echo json_encode(['error' => 'No se encontraron resultados.']);
     }
+
     $stmt->close();
     $conn->close();
 } else {
-    echo "Faltan parámetros requeridos.";
+    echo json_encode(['error' => 'Faltan parámetros requeridos.']);
 }
 ?>
