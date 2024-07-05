@@ -28,7 +28,6 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $result = $stmt->get_result();
     $penultimateWorkdayMP = $result->fetch_assoc();
     $penultimateMP = $penultimateWorkdayMP['last_working_day_previous_month'];
-    echo "Fecha inicial para el penúltimo día laborable del mes anterior:" . $penultimateMP."<br>";
 
 
     // Obtener el penúltimo día laborable del mes
@@ -51,7 +50,6 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $result = $stmt->get_result();
     $penultimateWorkdayRow = $result->fetch_assoc();
     $penultimateWorkday = $penultimateWorkdayRow['penultimate_workday'];
-    echo "Fecha inicial para el penúltimo día laborable del mes anterior:" . $penultimateWorkday."<br>";
 
     // Consulta principal
     $query = "SELECT
