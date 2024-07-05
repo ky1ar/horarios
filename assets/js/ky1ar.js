@@ -376,14 +376,9 @@ $(document).ready(function () {
                 console.error("Error en la respuesta del servidor:", response.error);
             } else {
                 var stamp = response.stamp;
-                var calculatedTime = response.calculated_time; // Ajustado al nombre del campo devuelto por PHP
-
+                var calculatedTime = response.calculated_time;
                 console.log("Stamp recibido:", stamp);
                 console.log("Tiempo calculado:", calculatedTime);
-
-                // Actualizar la interfaz de usuario según sea necesario
-                $('#stampDisplay').text(stamp);
-                $('#calculatedTimeDisplay').text(calculatedTime);
             }
         },
         error: function(xhr, status, error) {
