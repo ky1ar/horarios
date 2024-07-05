@@ -376,29 +376,27 @@ $(document).ready(function () {
   }
 
   function getStampSpecial(userId, month, year) {
-    console.log("si corre la funcion");
+    console.log("Se está ejecutando la función getStampSpecial");
     $.ajax({
-        url: "../routes/del/dayBeforeMonth.php",
-        method: "POST",
-        data: { userId: userId, month: month, year: year },
-        dataType: "json",
-        success: function(response) {
-            if (response.hasOwnProperty('error')) {
-                console.error("Error en la respuesta del servidor:", response.error);
-            } else {
-                var stamp = response.stamp;
-                var calculatedTime = response.calculated_time;
-                console.log("Stamp recibido:", stamp);
-                console.log("Tiempo calculado:", calculatedTime);
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error("Error en la solicitud AJAX:", error);
+      url: "../routes/del/dayBeforeMonth.php",
+      method: "POST",
+      data: { userId: userId, month: month, year: year },
+      dataType: "json",
+      success: function (response) {
+        if (response.hasOwnProperty("error")) {
+          console.error("Error en la respuesta del servidor:", response.error);
+        } else {
+          var stamp = response.stamp;
+          var calculatedTime = response.calculated_time;
+          console.log("Stamp recibido:", stamp);
+          console.log("Tiempo calculado:", calculatedTime);
         }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
     });
-}
-
-  
+  }
 
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({
@@ -424,7 +422,7 @@ $(document).ready(function () {
       },
     });
   }
-  
+
   function getMonthWithoutLeadingZero(dateString) {
     const date = new Date(dateString);
     const month = date.getMonth() + 1;

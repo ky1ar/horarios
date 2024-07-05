@@ -47,23 +47,45 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
             $calculated_time = gmdate('H:i', $diff); 
         } elseif ($length == 20) {
             $start_time = substr($stamp, 0, 5);
+            $lunch_start = substr($stamp, 5, 5);
+            $lunch_end = substr($stamp, 10, 5);
             $end_time = substr($stamp, 15, 5);
-            $diff = strtotime($end_time) - strtotime($start_time);
-            $calculated_time = gmdate('H:i', $diff);
+
+            $start_unix = strtotime($start_time);
+            $lunch_start_unix = strtotime($lunch_start);
+            $lunch_end_unix = strtotime($lunch_end);
+            $end_unix = strtotime($end_time);
+
+            $total_diff = $end_unix - $start_unix;
+            $lunch_diff = $lunch_end_unix - $lunch_start_unix;
+            $adjusted_diff = $total_diff - $lunch_diff;
+
+            $calculated_time = gmdate('H:i', $adjusted_diff);
         } elseif ($length == 30) {
             $start_time = substr($stamp, 0, 5);
-            $mid_time_start = substr($stamp, 10, 5);
-            $mid_time_end = substr($stamp, 20, 5);
-            $end_time = substr($stamp, -5);
-            $total_diff = strtotime($end_time) - strtotime($start_time);
-            $mid_diff = strtotime($mid_time_end) - strtotime($mid_time_start);
-            $diff = $total_diff - $mid_diff;
-            $calculated_time = gmdate('H:i', $diff);
+            $lunch_start_1 = substr($stamp, 5, 5);
+            $lunch_end_1 = substr($stamp, 10, 5);
+            $lunch_start_2 = substr($stamp, 15, 5);
+            $lunch_end_2 = substr($stamp, 20, 5);
+            $end_time = substr($stamp, 25, 5);
+
+            $start_unix = strtotime($start_time);
+            $lunch_start_1_unix = strtotime($lunch_start_1);
+            $lunch_end_1_unix = strtotime($lunch_end_1);
+            $lunch_start_2_unix = strtotime($lunch_start_2);
+            $lunch_end_2_unix = strtotime($lunch_end_2);
+            $end_unix = strtotime($end_time);
+
+            $total_diff = $end_unix - $start_unix;
+            $lunch_diff_1 = $lunch_end_1_unix - $lunch_start_1_unix;
+            $lunch_diff_2 = $lunch_end_2_unix - $lunch_start_2_unix;
+            $adjusted_diff = $total_diff - $lunch_diff_1 - $lunch_diff_2;
+
+            $calculated_time = gmdate('H:i', $adjusted_diff);
         } else {
             $calculated_time = 'DF';
         }
 
-        // Construir el array de respuesta
         $response = [
             'stamp' => $stamp,
             'calculated_time' => $calculated_time
