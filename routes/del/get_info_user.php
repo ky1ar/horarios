@@ -11,6 +11,30 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $year = $_POST['year'];
     $currentDate = date('Y-m-d');
 
+    // Obtener el penúltimo día laborable del mes
+    $penultimateQuery = "
+        SELECT calendar_date AS penultimate_workday
+        FROM (
+            SELECT calendar_date
+            FROM Calendar
+            WHERE holiday = 0
+            AND calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND LAST_DAY(DATE(CONCAT(?, '-', ?, '-01')))
+            ORDER BY calendar_date DESC
+            LIMIT 1 OFFSET 1
+        ) AS subquery;
+    ";
+
+    $stmt = $conn->prepare($penultimateQuery);
+    $stmt->bind_param("ssss", $year, $month, $year, $month);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $penultimateWorkdayRow = $result->fetch_assoc();
+    $penultimateWorkday = $penultimateWorkdayRow['penultimate_workday'];
+
+    // Imprimir el penúltimo día laborable
+    echo "Penúltimo día laborable: " . $penultimateWorkday . "<br>";
+
+    // Consulta principal
     $query = "SELECT
     u.id_user AS id_user,
     u.id_profile,
@@ -27,7 +51,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
             ELSE 0
         END
     ) AS total_hours_required,
-       SUM(
+    SUM(
         ROUND(
             CASE
                 WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
@@ -144,14 +168,14 @@ JOIN
 LEFT JOIN
     Schedule s ON c.id_date = s.id_calendar AND s.id_user = ?
 WHERE
-    c.calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND LAST_DAY(DATE(CONCAT(?, '-', ?, '-01')))
+    c.calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND ?
     AND c.holiday = 0
 GROUP BY
     u.id_user,
     u.id_profile;";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssiissss", $year, $month, $userId, $userId, $year, $month, $year, $month);
+    $stmt->bind_param("ssiissss", $year, $month, $userId, $userId, $year, $month, $penultimateWorkday);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
@@ -160,3 +184,4 @@ GROUP BY
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid parameters.']);
 }
+?>
