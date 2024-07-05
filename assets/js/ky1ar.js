@@ -365,6 +365,35 @@ $(document).ready(function () {
     });
   }
 
+  function getStampSpecial(userId, month, year) {
+    $.ajax({
+        url: "../routes/del/dayBeforeMonth.php",
+        method: "POST",
+        data: { userId: userId, month: month, year: year },
+        dataType: "json",
+        success: function(response) {
+            if (response.hasOwnProperty('error')) {
+                console.error("Error en la respuesta del servidor:", response.error);
+            } else {
+                var stamp = response.stamp;
+                var calculatedTime = response.calculated_time; // Ajustado al nombre del campo devuelto por PHP
+
+                console.log("Stamp recibido:", stamp);
+                console.log("Tiempo calculado:", calculatedTime);
+
+                // Actualizar la interfaz de usuario según sea necesario
+                $('#stampDisplay').text(stamp);
+                $('#calculatedTimeDisplay').text(calculatedTime);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error("Error en la solicitud AJAX:", error);
+        }
+    });
+}
+
+  
+
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({
       url: "../routes/del/get_week.php",
@@ -389,7 +418,7 @@ $(document).ready(function () {
       },
     });
   }
-
+  
   function getMonthWithoutLeadingZero(dateString) {
     const date = new Date(dateString);
     const month = date.getMonth() + 1;
@@ -699,4 +728,5 @@ $(document).ready(function () {
 
   getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
+  getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
 });
