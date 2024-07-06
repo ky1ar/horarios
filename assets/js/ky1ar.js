@@ -4,11 +4,9 @@ $(document).ready(function () {
   const userList = $("#userList");
   const nextMonth = $("#nextMonth");
   const previousMonth = $("#previousMonth");
-
   const selectedUser = $("#selectedUser");
   const userName = $("#userName");
   const userCategory = $("#userCategory");
-
   const userImage = $("#userImage");
   const imagePath = "assets/img/profiles/";
 
