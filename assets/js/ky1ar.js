@@ -467,36 +467,22 @@ $(document).ready(function () {
               var hours = parseInt(timeParts[0], 10);
               var minutes = parseInt(timeParts[1], 10);
 
-              if (isNegative) {
-                // Convert to positive for calculation
-                hours = -hours;
-                minutes = -minutes;
-              }
+              // Convert hPoints to total minutes
+              var totalMinutes = (isNegative ? -1 : 1) * (hours * 60 + minutes);
 
-              // Add one hour
-              hours += 1;
+              // Add 60 minutes
+              totalMinutes += 60;
 
-              // Adjust minutes if necessary
-              if (minutes < 0) {
-                minutes += 60;
-                hours -= 1;
-              } else if (minutes >= 60) {
-                minutes -= 60;
-                hours += 1;
-              }
-
-              // Convert back to negative if necessary
-              if (hours < 0) {
-                hours = -hours;
-                minutes = -minutes;
-              }
+              // Format the result back to hours and minutes
+              hours = Math.floor(Math.abs(totalMinutes) / 60);
+              minutes = Math.abs(totalMinutes) % 60;
 
               // Format hPoints
               hPoints =
-                (hours < 0 ? '-' : '+') +
+                (totalMinutes < 0 ? '-' : '+') +
                 String(hours).padStart(2, '0') +
                 ':' +
-                String(Math.abs(minutes)).padStart(2, '0');
+                String(minutes).padStart(2, '0');
             }
           }
             // console.log("Este es el just: " + entry.just);
