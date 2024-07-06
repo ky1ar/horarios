@@ -458,20 +458,40 @@ $(document).ready(function () {
             var dayNumber = entry.day_number;
             var hPoints = entry.time_difference;
             console.log(hPoints);
-            // Adjust hPoints if the date is 2024-07-06
-            // if (entry.calendar_date === "2024-07-06") {
-            //   var timeParts = hPoints.split(":");
-            //   if (timeParts.length === 2) {
-            //     var hours = parseInt(timeParts[0], 10);
-            //     var minutes = parseInt(timeParts[1], 10);
-            //     hours += 1;
-            //     hPoints =
-            //       (hours < 0 ? "-" : "+") +
-            //       String(Math.abs(hours)).padStart(2, "0") +
-            //       ":" +
-            //       String(minutes).padStart(2, "0");
-            //   }
-            // }
+            if (entry.calendar_date === "2024-07-06") {
+              var sign = hPoints.startsWith('-') ? '-' : '+';
+              var timeParts = hPoints.replace(/^[+-]/, '').split(':');
+              if (timeParts.length === 2) {
+                var hours = parseInt(timeParts[0], 10);
+                var minutes = parseInt(timeParts[1], 10);
+  
+                if (sign === '-') {
+                  hours -= 1;
+                } else {
+                  hours += 1;
+                }
+  
+                // Adjust if minutes go negative or over 60
+                if (minutes < 0) {
+                  minutes += 60;
+                  hours -= 1;
+                } else if (minutes >= 60) {
+                  minutes -= 60;
+                  hours += 1;
+                }
+  
+                hPoints =
+                  (hours < 0 ? '-' : '+') +
+                  String(Math.abs(hours)).padStart(2, '0') +
+                  ':' +
+                  String(minutes).padStart(2, '0');
+  
+                // Adjust visual sign if necessary
+                if (sign === '-' && hours > 0) {
+                  hPoints = '-' + hPoints.replace(/^\+/, '');
+                }
+              }
+            }
             // console.log("Este es el just: " + entry.just);
             if (dayName.toLowerCase() === "domingo") {
               return;
