@@ -277,8 +277,8 @@ $(document).ready(function () {
       },
     });
   });
+  
   let totalMonthlyTime = "";
-
   function getStampSpecial(userId, month, year) {
     $.ajax({
       url: "../routes/del/dayBeforeMonth.php",

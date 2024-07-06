@@ -11,24 +11,28 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $year = $_POST['year'];
     $currentDate = date('Y-m-d');
 
-    // Obtener el penúltimo día laborable del mes anterior
-    $penultimateQueryMonthPast = "
-        SELECT calendar_date AS last_working_day_previous_month
-        FROM Calendar
-        WHERE holiday = 0
-        AND DAYOFWEEK(calendar_date) <> 1
-        AND calendar_date BETWEEN DATE_SUB(DATE(CONCAT(?, '-', ?, '-01')), INTERVAL 1 MONTH) AND LAST_DAY(DATE_SUB(DATE(CONCAT(?, '-', ?, '-01')), INTERVAL 1 MONTH))
-        ORDER BY calendar_date DESC
-        LIMIT 1;
-    ";
+    if ($month == 6 && $year == 2024) {
+        // Para junio de 2024, el día inicial será el 1 de junio
+        $penultimateMP = "2024-06-01";
+    } else {
+        // Obtener el penúltimo día laborable del mes anterior
+        $penultimateQueryMonthPast = "
+            SELECT calendar_date AS last_working_day_previous_month
+            FROM Calendar
+            WHERE holiday = 0
+            AND DAYOFWEEK(calendar_date) <> 1
+            AND calendar_date BETWEEN DATE_SUB(DATE(CONCAT(?, '-', ?, '-01')), INTERVAL 1 MONTH) AND LAST_DAY(DATE_SUB(DATE(CONCAT(?, '-', ?, '-01')), INTERVAL 1 MONTH))
+            ORDER BY calendar_date DESC
+            LIMIT 1;
+        ";
 
-    $stmt = $conn->prepare($penultimateQueryMonthPast);
-    $stmt->bind_param("ssss", $year, $month, $year, $month);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $penultimateWorkdayMP = $result->fetch_assoc();
-    $penultimateMP = $penultimateWorkdayMP['last_working_day_previous_month'];
-
+        $stmt = $conn->prepare($penultimateQueryMonthPast);
+        $stmt->bind_param("ssss", $year, $month, $year, $month);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $penultimateWorkdayMP = $result->fetch_assoc();
+        $penultimateMP = $penultimateWorkdayMP['last_working_day_previous_month'];
+    }
 
     // Obtener el penúltimo día laborable del mes
     $penultimateQuery = "
