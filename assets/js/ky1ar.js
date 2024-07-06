@@ -459,7 +459,7 @@ $(document).ready(function () {
             var hPoints = entry.time_difference;
             console.log(hPoints);
 
-            
+          // Adjust hPoints if the date is 2024-07-06
           if (entry.calendar_date === "2024-07-06") {
             var isNegative = hPoints.startsWith('-');
             var timeParts = hPoints.replace(/^[+-]/, '').split(':');
