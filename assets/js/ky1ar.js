@@ -457,7 +457,6 @@ $(document).ready(function () {
             var dayName = entry.day_of_week_es;
             var dayNumber = entry.day_number;
             var hPoints = entry.time_difference;
-            console.log(hPoints);
              // Adjust hPoints if the date is 2024-07-06
           if (entry.calendar_date === "2024-07-06") {
             var sign = hPoints.startsWith('-') ? '-' : '+';
