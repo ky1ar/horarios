@@ -484,19 +484,16 @@ $(document).ready(function () {
                 hours += 1;
               }
 
-              // Check the final sign
-              if (hours < 0 || (hours === 0 && minutes < 0)) {
-                isNegative = true;
-                hours = Math.abs(hours);
-                minutes = Math.abs(minutes);
-              } else {
-                isNegative = false;
+              // Convert back to negative if necessary
+              if (hours < 0) {
+                hours = -hours;
+                minutes = -minutes;
               }
 
               // Format hPoints
               hPoints =
-                (isNegative ? '-' : '+') +
-                String(Math.abs(hours)).padStart(2, '0') +
+                (hours < 0 ? '-' : '+') +
+                String(hours).padStart(2, '0') +
                 ':' +
                 String(Math.abs(minutes)).padStart(2, '0');
             }
