@@ -458,20 +458,22 @@ $(document).ready(function () {
             var dayNumber = entry.day_number;
             var hPoints = entry.time_difference;
             console.log(hPoints);
-             // Adjust hPoints if the date is 2024-07-06
+
+            
           if (entry.calendar_date === "2024-07-06") {
-            var sign = hPoints.startsWith('-') ? '-' : '+';
+            var isNegative = hPoints.startsWith('-');
             var timeParts = hPoints.replace(/^[+-]/, '').split(':');
             if (timeParts.length === 2) {
               var hours = parseInt(timeParts[0], 10);
               var minutes = parseInt(timeParts[1], 10);
 
-              if (sign === '-') {
-                // For negative values, convert to positive for calculation
+              if (isNegative) {
+                // Convert to positive for calculation
                 hours = -hours;
                 minutes = -minutes;
               }
 
+              // Add one hour
               hours += 1;
 
               if (minutes < 0) {
@@ -484,15 +486,16 @@ $(document).ready(function () {
 
               // Check the final sign
               if (hours < 0 || (hours === 0 && minutes < 0)) {
-                sign = '-';
+                isNegative = true;
                 hours = Math.abs(hours);
                 minutes = Math.abs(minutes);
               } else {
-                sign = '+';
+                isNegative = false;
               }
 
+              // Format hPoints
               hPoints =
-                sign +
+                (isNegative ? '-' : '+') +
                 String(Math.abs(hours)).padStart(2, '0') +
                 ':' +
                 String(Math.abs(minutes)).padStart(2, '0');
