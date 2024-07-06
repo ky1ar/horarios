@@ -103,25 +103,25 @@ $(document).ready(function () {
   });
 
   //aqui revisar
-  // nextMonth.on("click", function () {
-  //   currentMonth = (currentMonth % 12) + 1;
-  //   if (currentMonth === 1) currentYear++;
-  //   updateMonthDisplay();
-  //   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
-  //   getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
+  nextMonth.on("click", function () {
+    currentMonth = (currentMonth % 12) + 1;
+    if (currentMonth === 1) currentYear++;
+    updateMonthDisplay();
+    getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
 
-  //   getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
-  // });
+    getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
+  });
 
-  // previousMonth.on("click", function () {
-  //   currentMonth = currentMonth === 1 ? 12 : currentMonth - 1;
-  //   if (currentMonth === 12) currentYear--;
-  //   updateMonthDisplay();
-  //   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
-  //   getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
+  previousMonth.on("click", function () {
+    currentMonth = currentMonth === 1 ? 12 : currentMonth - 1;
+    if (currentMonth === 12) currentYear--;
+    updateMonthDisplay();
+    getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
 
-  //   getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
-  // });
+    getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
+  });
 
   userList.find("li").on("click", function () {
     userList.find("li").removeClass("active");
@@ -279,7 +279,7 @@ $(document).ready(function () {
       },
     });
   });
-  var totalMonthlyTime = "";
+  let totalMonthlyTime = "";
 
   function getStampSpecial(userId, month, year) {
     $.ajax({
@@ -300,6 +300,7 @@ $(document).ready(function () {
       },
     });
   }
+  console.log(totalMonthlyTime);
 
   let globalTotalMonthlyTimeNuev = "";
   function calcularSumaCalcPorSemana(userId, year, month) {
@@ -412,7 +413,7 @@ $(document).ready(function () {
         .toString()
         .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
       globalTotalMonthlyTimeNuev = newFormattedTotalTime;
-
+        console.log(globalTotalMonthlyTimeNuev);
       $(document).off("ajaxStop");
     });
   }
@@ -706,26 +707,7 @@ $(document).ready(function () {
       },
     });
   }
-  nextMonth.on("click", function () {
-    currentMonth = (currentMonth % 12) + 1;
-    if (currentMonth === 1) currentYear++;
-    updateMonthDisplay();
-    getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
-    getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
 
-    getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
-  });
-
-  previousMonth.on("click", function () {
-    currentMonth = currentMonth === 1 ? 12 : currentMonth - 1;
-    if (currentMonth === 12) currentYear--;
-    updateMonthDisplay();
-    getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
-    getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
-
-    getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
-  });
-  
   $(document).on("click", ".justDoc", function () {
     var date = $(this).data("date");
     var userId = $(this).data("user-id");
