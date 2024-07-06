@@ -277,7 +277,7 @@ $(document).ready(function () {
       },
     });
   });
-  
+
   let totalMonthlyTime = "";
   function getStampSpecial(userId, month, year) {
     $.ajax({
@@ -457,7 +457,46 @@ $(document).ready(function () {
             var dayName = entry.day_of_week_es;
             var dayNumber = entry.day_number;
             var hPoints = entry.time_difference;
+             // Adjust hPoints if the date is 2024-07-06
+          if (entry.calendar_date === "2024-07-06") {
+            var sign = hPoints.startsWith('-') ? '-' : '+';
+            var timeParts = hPoints.replace(/^[+-]/, '').split(':');
+            if (timeParts.length === 2) {
+              var hours = parseInt(timeParts[0], 10);
+              var minutes = parseInt(timeParts[1], 10);
 
+              if (sign === '-') {
+                // For negative values, convert to positive for calculation
+                hours = -hours;
+                minutes = -minutes;
+              }
+
+              hours += 1;
+
+              if (minutes < 0) {
+                minutes += 60;
+                hours -= 1;
+              } else if (minutes >= 60) {
+                minutes -= 60;
+                hours += 1;
+              }
+
+              // Check the final sign
+              if (hours < 0 || (hours === 0 && minutes < 0)) {
+                sign = '-';
+                hours = Math.abs(hours);
+                minutes = Math.abs(minutes);
+              } else {
+                sign = '+';
+              }
+
+              hPoints =
+                sign +
+                String(Math.abs(hours)).padStart(2, '0') +
+                ':' +
+                String(Math.abs(minutes)).padStart(2, '0');
+            }
+          }
             // console.log("Este es el just: " + entry.just);
             if (dayName.toLowerCase() === "domingo") {
               return;
