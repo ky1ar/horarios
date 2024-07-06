@@ -288,19 +288,14 @@ $(document).ready(function () {
       data: { userId: userId, month: month, year: year },
       dataType: "json",
       success: function (response) {
-        if (response.hasOwnProperty("error")) {
-          console.error("Error en la respuesta del servidor:", response.error);
-        } else {
-          var calculatedTime = response.calculated_time;
-          totalMonthlyTime = calculatedTime;
-        }
+        var calculatedTime = response.calculated_time;
+        totalMonthlyTime = calculatedTime;
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
       },
     });
   }
-  console.log(totalMonthlyTime);
 
   let globalTotalMonthlyTimeNuev = "";
   function calcularSumaCalcPorSemana(userId, year, month) {
@@ -391,7 +386,6 @@ $(document).ready(function () {
       const formattedTotalTime = `${totalHours
         .toString()
         .padStart(2, "0")}:${totalMinutes.toString().padStart(2, "0")}`;
-        console.log(" antes de la suma:", formattedTotalTime);
       let totalMonthlyMinutes = 0;
       if (
         totalMonthlyTime &&
@@ -405,7 +399,6 @@ $(document).ready(function () {
         const monthlyMinutes = parseInt(monthlyMinutesStr, 10);
         totalMonthlyMinutes = monthlyHours * 60 + monthlyMinutes;
       }
-      console.log("totalMonthlyMinutes antes de la suma:", totalMonthlyMinutes);
       const newTotalMinutes =
         totalMonthlyMinutes + totalHours * 60 + totalMinutes;
       const newHours = Math.floor(newTotalMinutes / 60);
@@ -414,7 +407,6 @@ $(document).ready(function () {
         .toString()
         .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
       globalTotalMonthlyTimeNuev = newFormattedTotalTime;
-        console.log(globalTotalMonthlyTimeNuev);
       $(document).off("ajaxStop");
     });
   }
