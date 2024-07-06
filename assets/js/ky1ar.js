@@ -405,6 +405,7 @@ $(document).ready(function () {
         const monthlyMinutes = parseInt(monthlyMinutesStr, 10);
         totalMonthlyMinutes = monthlyHours * 60 + monthlyMinutes;
       }
+      console.log("totalMonthlyMinutes antes de la suma:", totalMonthlyMinutes);
       const newTotalMinutes =
         totalMonthlyMinutes + totalHours * 60 + totalMinutes;
       const newHours = Math.floor(newTotalMinutes / 60);
