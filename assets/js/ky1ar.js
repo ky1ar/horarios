@@ -391,7 +391,7 @@ $(document).ready(function () {
       const formattedTotalTime = `${totalHours
         .toString()
         .padStart(2, "0")}:${totalMinutes.toString().padStart(2, "0")}`;
-
+        console.log(" antes de la suma:", formattedTotalTime);
       let totalMonthlyMinutes = 0;
       if (
         totalMonthlyTime &&
