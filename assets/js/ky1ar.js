@@ -476,6 +476,7 @@ $(document).ready(function () {
               // Add one hour
               hours += 1;
 
+              // Adjust minutes if necessary
               if (minutes < 0) {
                 minutes += 60;
                 hours -= 1;
