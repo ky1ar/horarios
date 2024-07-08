@@ -460,7 +460,7 @@ $(document).ready(function () {
             console.log(hPoints);
 
           // Adjust hPoints if the date is 2024-07-06
-          if (entry.calendar_date === "2024-07-06") {
+          if (entry.calendar_date === "2024-07-06" && userId !== 13) {
             var isNegative = hPoints.startsWith('-');
             var timeParts = hPoints.replace(/^[+-]/, '').split(':');
             if (timeParts.length === 2) {
