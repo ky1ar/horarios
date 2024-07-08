@@ -171,6 +171,15 @@ $id = $_SESSION['user_id'];
                     <p>Tolerancia</p>
                 </div>
             </li>
+            <li>
+                <div class="box-img img-5">
+                    <img src="assets/img/tarde.png" width="40" height="40" alt="">
+                </div>
+                <div class="box-txt">
+                    <span id="tarde"></span>
+                    <p>Tardanzas</p>
+                </div>
+            </li>
         </ul>
         <ul class="ky1-hrr">
             <li class="hrr-box">
