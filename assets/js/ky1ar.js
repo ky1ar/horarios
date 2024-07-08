@@ -550,8 +550,10 @@ $(document).ready(function () {
                   if (
                     stampIndex === 0 &&
                     i === 0 &&
-                    ((userId === 13 && timeSlot > "10:00") ||
-                      (userId !== 13 && timeSlot > "09:00"))
+                    (entry.calendar_date === "2024-07-06"
+                      ? timeSlot > "10:00"
+                      : (userId === 13 && timeSlot > "10:00") ||
+                        (userId !== 13 && timeSlot > "09:00"))
                   ) {
                     $li.addClass("late");
                   }
