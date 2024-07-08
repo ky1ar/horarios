@@ -172,7 +172,7 @@ $id = $_SESSION['user_id'];
                 </div>
             </li>
             <li>
-                <div class="box-img img-5">
+                <div class="box-img img-6">
                     <img src="assets/img/tarde.png" width="40" height="40" alt="">
                 </div>
                 <div class="box-txt">

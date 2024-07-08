@@ -330,6 +330,9 @@ body {
   border-radius: 1rem;
   min-width: 4.5rem;
 }
+#ky1-rgt .ky1-rsm .box-img.img-5 {
+  background-color: #86e3ce;
+}
 #ky1-rgt .ky1-rsm .box-img.img-1 {
   background-color: #d0e6a5;
 }
@@ -342,8 +345,8 @@ body {
 #ky1-rgt .ky1-rsm .box-img.img-4 {
   background-color: #ce78ff;
 }
-#ky1-rgt .ky1-rsm .box-img.img-5 {
-  background-color: #cc1b1b;
+#ky1-rgt .ky1-rsm .box-img.img-6 {
+  background-color: #d3231d;
 }
 #ky1-rgt .ky1-rsm .box-txt {
   display: flex;
