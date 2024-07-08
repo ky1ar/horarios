@@ -714,6 +714,8 @@ $(document).ready(function () {
 
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(differenceAdjustedFormatted);
+        $("#tarde").text(data.total_late_points);
+        // total_late_points
         $("#tolerancia").html(
           "<b>" +
             data.total_minutes_late_formatted +
