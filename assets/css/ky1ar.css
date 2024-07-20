@@ -790,7 +790,7 @@ section.cont-login .login div:last-child form input:not(:last-child) {
 section.cont-login .login div:last-child form input:not(:last-child):-internal-autofill-selected {
   appearance: menulist-button;
   background-image: none !important;
-  background-color: light-dark(rgb(232, 240, 254), rgba(70, 90, 126, 0.4)) !important;
+  background-color: red !important;
   color: fieldtext !important;
 }
 section.cont-login .login div:last-child form input:not(:last-child):focus {
