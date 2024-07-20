@@ -793,7 +793,7 @@ section.cont-login .login div:last-child form input:not(:last-child):focus {
 
 section.cont-login .login div:last-child form input[type="submit"] {
   border-radius: 2rem;
-  background-color: rgb(104, 104, 255);
+  background-color: #ed5d1f;
   color: white;
   border: 0;
   padding: 1rem 0;
