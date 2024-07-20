@@ -46,7 +46,7 @@ require_once 'db.php';
         <div class="login">
             <div>
                 <img class="logo" src="./assets/img/nlog5.svg" alt="">
-                <img class="refer" src="./assets/img/login-1.jpg" alt="">
+                <img class="refer" src="./assets/img/horarios-refer.webp" alt="">
             </div>
             <div>
                 <img src="./assets/img/user-icon.png" alt="">
