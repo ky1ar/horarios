@@ -733,7 +733,7 @@ section.cont-login .login {
   display: flex;
   background-color: white;
   width: 70%;
-  height: 70%;
+  height: 40rem;
   border-radius: 2rem;
   box-shadow: 0 0 0.8rem 0.1rem rgb(145 145 145);
 }
@@ -791,8 +791,8 @@ section.cont-login .login div:last-child form input:not(:last-child):focus {
   outline: none;
 }
 section.cont-login .login div:last-child form input:not(:last-child):-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important; /* Cambia el color de fondo aquí */
-  -webkit-text-fill-color: #000000 !important; /* Cambia el color del texto aquí */
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important; 
+  -webkit-text-fill-color: #000000 !important; 
 }
 
 section.cont-login .login div:last-child form input[type="submit"] {
@@ -830,7 +830,20 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
 }
 
 @media only screen and (max-width: 1600px) {}
-@media only screen and (max-width: 1200px) {}
+@media only screen and (max-width: 1200px) {
+  section.cont-login .login {
+    flex-direction: column;
+    align-items: center;
+    width: 35rem;
+  }
+  section.cont-login .login div:first-child .logo{
+    margin: 3.5rem 0;
+  }
+  section.cont-login .login div:first-child .refer {
+    display: none;
+  }
+  
+}
 @media only screen and (max-width: 992px) {}
 @media only screen and (max-width: 768px) {}
 @media only screen and (max-width: 576px) {}
