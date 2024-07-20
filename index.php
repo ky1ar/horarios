@@ -45,8 +45,8 @@ require_once 'db.php';
     <section class="cont-login">
         <div class="login">
             <div>
-                <img src="./assets/img/nlog5.svg" alt="">
-                <img src="./assets/img/login-1.jpg" alt="">
+                <img class="logo" src="./assets/img/nlog5.svg" alt="">
+                <img class="refer" src="./assets/img/login-1.jpg" alt="">
             </div>
             <div>
                 <img src="./assets/img/user-icon.png" alt="">

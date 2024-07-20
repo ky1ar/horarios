@@ -742,12 +742,15 @@ section.cont-login .login div:first-child {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   width: 50%;
 }
-section.cont-login .login div:first-child img {
-  width: 30rem;
+section.cont-login .login div:first-child .logo {
+  width: 13rem;
 }
-
+section.cont-login .login div:first-child .refer {
+  width: 27rem;
+}
 section.cont-login .login div:last-child {
   display: flex;
   align-items: center;
