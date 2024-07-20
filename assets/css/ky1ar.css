@@ -783,7 +783,7 @@ section.cont-login .login div:last-child form label {
 }
 section.cont-login .login div:last-child form input:not(:last-child) {
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: 0.2rem solid #ed5d1f;
   font-size: 1rem;
   margin-bottom: 2rem;
 }
