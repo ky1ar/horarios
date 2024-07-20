@@ -789,7 +789,6 @@ section.cont-login .login div:last-child form input:not(:last-child) {
 }
 section.cont-login .login div:last-child form input:not(:last-child):focus {
   outline: none;
-  background-color: red;
 }
 
 section.cont-login .login div:last-child form input[type="submit"] {
