@@ -778,12 +778,12 @@ section.cont-login .login div:last-child form {
 section.cont-login .login div:last-child form label {
   font-size: 1rem;
   font-weight: 600;
-  color: #8b8b8b;
+  color: #595959;
   margin-bottom: 0.5rem;
 }
 section.cont-login .login div:last-child form input:not(:last-child) {
   border: none;
-  border-bottom: 0.2rem solid #ed5d1f;
+  border-bottom: 0.15rem solid #ed5d1f;
   font-size: 1rem;
   margin-bottom: 2rem;
 }
