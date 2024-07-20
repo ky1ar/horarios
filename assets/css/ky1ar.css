@@ -856,4 +856,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
     width: 12rem;
     margin: 1rem auto;
   }
+  section.cont-login .login div:first-child .logo{
+    width: 10rem;
+  }
 }
