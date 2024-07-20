@@ -829,7 +829,6 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   width: 1.5rem;
 }
 
-@media only screen and (max-width: 1600px) {}
 @media only screen and (max-width: 1200px) {
   section.cont-login .login {
     flex-direction: column;
@@ -844,8 +843,6 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   }
   
 }
-@media only screen and (max-width: 992px) {}
-@media only screen and (max-width: 768px) {}
 @media only screen and (max-width: 576px) {
   section.cont-login .login{
     width: 90%;
@@ -860,4 +857,3 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
     margin: auto;
   }
 }
-@media only screen and (max-width: 416px) {}
