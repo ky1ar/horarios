@@ -787,14 +787,9 @@ section.cont-login .login div:last-child form input:not(:last-child) {
   font-size: 1rem;
   margin-bottom: 2rem;
 }
-section.cont-login .login div:last-child form input:not(:last-child):-webkit-autofill {
-  appearance: menulist-button;
-  background-image: none !important;
-  background-color: rgb(255, 239, 21) !important; /* Fondo oscuro */
-  color: fieldtext !important;
-}
 section.cont-login .login div:last-child form input:not(:last-child):focus {
   outline: none;
+  background-color: red;
 }
 
 section.cont-login .login div:last-child form input[type="submit"] {
