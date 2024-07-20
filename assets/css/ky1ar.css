@@ -744,12 +744,13 @@ section.cont-login .login div:first-child {
   justify-content: center;
   flex-direction: column;
   width: 50%;
+  gap: 2rem;
 }
 section.cont-login .login div:first-child .logo {
-  width: 13rem;
+  width: 14rem;
 }
 section.cont-login .login div:first-child .refer {
-  width: 27rem;
+  width: 23rem;
 }
 section.cont-login .login div:last-child {
   display: flex;
