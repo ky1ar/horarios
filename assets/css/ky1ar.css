@@ -724,30 +724,34 @@ section.cont-login {
   width: 100vw;
   height: 100vh;
   display: flex;
-  background-color: #e2e2e2;
   justify-content: center;
   align-items: center;
+  background-image: url('https://tiendakrear3d.com/wp-content/uploads/2024/06/whirlpool.webp');
 }
 
 section.cont-login .login {
   display: flex;
   background-color: white;
   width: 70%;
-  height: 70%;
+  height: 40rem;
   border-radius: 2rem;
-  box-shadow: 0 0 1rem 0.2rem rgb(199, 199, 199);
+  box-shadow: 0 0 0.8rem 0.1rem rgb(145 145 145);
 }
 
 section.cont-login .login div:first-child {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
   width: 50%;
+  gap: 2rem;
 }
-section.cont-login .login div:first-child img {
-  width: 30rem;
+section.cont-login .login div:first-child .logo {
+  width: 14rem;
 }
-
+section.cont-login .login div:first-child .refer {
+  width: 23rem;
+}
 section.cont-login .login div:last-child {
   display: flex;
   align-items: center;
@@ -760,8 +764,8 @@ section.cont-login .login div:last-child img {
 }
 
 section.cont-login .login div:last-child h1 {
-  font-size: 2rem;
-  margin: 0;
+  font-size: 1.5rem;
+  margin: 1rem 0;
 }
 
 section.cont-login .login div:last-child form {
@@ -774,22 +778,26 @@ section.cont-login .login div:last-child form {
 section.cont-login .login div:last-child form label {
   font-size: 1rem;
   font-weight: 600;
-  color: #8b8b8b;
+  color: #595959;
   margin-bottom: 0.5rem;
 }
 section.cont-login .login div:last-child form input:not(:last-child) {
   border: none;
-  border-bottom: 1px solid black;
+  border-bottom: 0.15rem solid #ed5d1f;
   font-size: 1rem;
   margin-bottom: 2rem;
 }
 section.cont-login .login div:last-child form input:not(:last-child):focus {
   outline: none;
 }
+section.cont-login .login div:last-child form input:not(:last-child):-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important; 
+  -webkit-text-fill-color: #000000 !important; 
+}
 
 section.cont-login .login div:last-child form input[type="submit"] {
   border-radius: 2rem;
-  background-color: rgb(104, 104, 255);
+  background-color: #ed5d1f;
   color: white;
   border: 0;
   padding: 1rem 0;
@@ -797,7 +805,9 @@ section.cont-login .login div:last-child form input[type="submit"] {
   font-weight: 600;
   cursor: pointer;
 }
-
+section.cont-login .login div:last-child form input[type="submit"]:hover{
+  opacity: 0.9;
+}
 .out {
   position: fixed;
   bottom: 1rem;
@@ -817,4 +827,36 @@ section.cont-login .login div:last-child form input[type="submit"] {
 }
 .out a img {
   width: 1.5rem;
+}
+
+@media only screen and (max-width: 1200px) {
+  section.cont-login .login {
+    flex-direction: column;
+    align-items: center;
+    width: 30rem;
+  }
+  section.cont-login .login div:first-child .logo{
+    margin: 3.5rem 0;
+  }
+  section.cont-login .login div:first-child .refer {
+    display: none;
+  }
+  
+}
+@media only screen and (max-width: 576px) {
+  section.cont-login .login{
+    width: 90%;
+  }
+  section.cont-login .login div:last-child form{
+    padding: 0 2rem;
+  }
+  section.cont-login .login div:last-child form input[type="submit"]{
+    padding: 0.8rem 0;
+    font-size: 0.8rem;
+    width: 12rem;
+    margin: 1rem auto;
+  }
+  section.cont-login .login div:first-child .logo{
+    width: 10rem;
+  }
 }

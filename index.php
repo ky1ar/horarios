@@ -15,40 +15,14 @@ require_once 'db.php';
 </head>
 
 <body>
-    <!-- <section id="login">
-        <div class="modal">
-            <div class="left">
-                <img src="assets/img/logod.webp" alt="Perfil">
-                <div>
-                    <h1>Bienvenido</h1>
-                    <p>Ingresa tus datos para iniciar sesión.</p>
-                </div>
-                <form id="loginForm">
-                    <div>
-                        <label for="document">DNI</label>
-                        <input name="document" type="text" placeholder="Ingresa tu DNI">
-                    </div>
-                    <div>
-                        <label for="pass">Contraseña</label>
-                        <input name="pass" type="password" placeholder="Ingresa tu contraseña">
-                    </div>
-                    <div id="errorDiv"></div>
-                    <button type="submit">Iniciar sesión</button>
-                </form>
-            </div>
-            <div class="right">
-                <img src="assets/img/login.webp" alt="">
-            </div>
-        </div>
-    </section> -->
-
     <section class="cont-login">
         <div class="login">
             <div>
-                <img src="./assets/img/login-1.jpg" alt="">
+                <img class="logo" src="./assets/img/nlog5.svg" alt="">
+                <img class="refer" src="./assets/img/horarios-refer.webp" alt="">
             </div>
             <div>
-                <img src="./assets/img/user-icon.png" alt="">
+                <img src="./assets/img/login-user.webp" alt="">
                 <h1>Bienvenido</h1>
                 <form action="./routes/del/login.php" method="post">
                     <label for="dni">DNI</label>

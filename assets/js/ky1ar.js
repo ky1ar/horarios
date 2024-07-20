@@ -458,34 +458,6 @@ $(document).ready(function () {
             var dayNumber = entry.day_number;
             var hPoints = entry.time_difference;
             console.log(hPoints);
-
-          // // Adjust hPoints if the date is 2024-07-06
-          // if (entry.calendar_date === "2024-07-06" && userId !== 13) {
-          //   var isNegative = hPoints.startsWith('-');
-          //   var timeParts = hPoints.replace(/^[+-]/, '').split(':');
-          //   if (timeParts.length === 2) {
-          //     var hours = parseInt(timeParts[0], 10);
-          //     var minutes = parseInt(timeParts[1], 10);
-
-          //     // Convert hPoints to total minutes
-          //     var totalMinutes = (isNegative ? -1 : 1) * (hours * 60 + minutes);
-
-          //     // Add 60 minutes
-          //     totalMinutes += 60;
-
-          //     // Format the result back to hours and minutes
-          //     hours = Math.floor(Math.abs(totalMinutes) / 60);
-          //     minutes = Math.abs(totalMinutes) % 60;
-
-          //     // Format hPoints
-          //     hPoints =
-          //       (totalMinutes < 0 ? '-' : '+') +
-          //       String(hours).padStart(2, '0') +
-          //       ':' +
-          //       String(minutes).padStart(2, '0');
-          //   }
-          // }
-            // console.log("Este es el just: " + entry.just);
             if (dayName.toLowerCase() === "domingo") {
               return;
             }
@@ -637,18 +609,10 @@ $(document).ready(function () {
           parseInt(data.one_percent_total_hours.split(":")[0]) * 60 +
           parseInt(data.one_percent_total_hours.split(":")[1]);
         var difference = minutesLate - onePercentHours;
-
         var differenceAdjusted = Math.max(0, difference) * 0.5;
         differenceAdjusted = Math.round(differenceAdjusted);
-
         var hoursDifference = Math.floor(differenceAdjusted / 60);
         var minutesDifference = differenceAdjusted % 60;
-        // var differenceFormatted =
-        //   (hoursDifference < 10 ? "0" : "") +
-        //   hoursDifference +
-        //   ":" +
-        //   (minutesDifference < 10 ? "0" : "") +
-        //   minutesDifference;
 
         var differenceAdjustedFormatted =
           (hoursDifference < 10 ? "0" : "") +
