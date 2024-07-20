@@ -735,7 +735,7 @@ section.cont-login .login {
   width: 70%;
   height: 70%;
   border-radius: 2rem;
-  box-shadow: 0 0 1rem 0.2rem rgb(199, 199, 199);
+  box-shadow: 0 0 0.8rem 0.1rem rgb(145 145 145);
 }
 
 section.cont-login .login div:first-child {
