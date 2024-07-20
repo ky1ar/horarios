@@ -801,7 +801,9 @@ section.cont-login .login div:last-child form input[type="submit"] {
   font-weight: 600;
   cursor: pointer;
 }
-
+section.cont-login .login div:last-child form input[type="submit"]:hover{
+  opacity: 0.9;
+}
 .out {
   position: fixed;
   bottom: 1rem;
