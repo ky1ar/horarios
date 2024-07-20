@@ -724,9 +724,9 @@ section.cont-login {
   width: 100vw;
   height: 100vh;
   display: flex;
-  background-color: #e2e2e2;
   justify-content: center;
   align-items: center;
+  background-image: url('https://tiendakrear3d.com/wp-content/uploads/2024/06/whirlpool.webp');
 }
 
 section.cont-login .login {
@@ -818,3 +818,10 @@ section.cont-login .login div:last-child form input[type="submit"] {
 .out a img {
   width: 1.5rem;
 }
+
+@media only screen and (max-width: 1600px) {}
+@media only screen and (max-width: 1200px) {}
+@media only screen and (max-width: 992px) {}
+@media only screen and (max-width: 768px) {}
+@media only screen and (max-width: 576px) {}
+@media only screen and (max-width: 416px) {}
