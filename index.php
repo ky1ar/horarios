@@ -49,7 +49,7 @@ require_once 'db.php';
                 <img class="refer" src="./assets/img/horarios-refer.webp" alt="">
             </div>
             <div>
-                <img src="./assets/img/user-icon.png" alt="">
+                <img src="./assets/img/login-user.webp" alt="">
                 <h1>Bienvenido</h1>
                 <form action="./routes/del/login.php" method="post">
                     <label for="dni">DNI</label>
