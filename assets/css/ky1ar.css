@@ -790,6 +790,10 @@ section.cont-login .login div:last-child form input:not(:last-child) {
 section.cont-login .login div:last-child form input:not(:last-child):focus {
   outline: none;
 }
+section.cont-login .login div:last-child form input:not(:last-child):-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 30px #f0f0f0 inset !important; /* Cambia el color de fondo aquí */
+  -webkit-text-fill-color: #000000 !important; /* Cambia el color del texto aquí */
+}
 
 section.cont-login .login div:last-child form input[type="submit"] {
   border-radius: 2rem;
