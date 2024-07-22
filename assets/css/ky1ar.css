@@ -881,6 +881,12 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   section.cont-login .login div:first-child .logo{
     width: 10rem;
   }
+  #ky1-rgt header .ky1-dte{
+    width: 12rem;
+  }
+  #selectedUser{
+    min-width: 11rem;
+  }
 }
 @media only screen and (max-width: 416px) {
 
