@@ -834,6 +834,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
     justify-content: center;
   }
   #ky1-rgt .ky1-rsm li{
+    flex: none;
     width: 30%;
   }
 }
