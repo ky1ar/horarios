@@ -948,5 +948,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
 
 }
 @media only screen and (max-width: 416px) {
-
+  #ky1-rgt .ky1-rsm li{
+    width: 47%;
+  }
 }
