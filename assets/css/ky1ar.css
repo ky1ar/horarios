@@ -352,6 +352,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  width: 50%;
 }
 #ky1-rgt .ky1-rsm .box-txt span {
   font-size: 1.75rem;
@@ -669,14 +670,14 @@ body {
 
 .ky1-permisos button {
   display: flex;
-  width: 4rem;
-  height: 4rem;
+  width: 3.5rem;
+  height: 3.5rem;
   background-color: #aee1fd;
   border: none;
   border-radius: 3rem;
   font-size: 0.75rem;
   cursor: pointer;
-  padding: 1rem;
+  padding: 0.5rem;
   justify-content: center;
   align-items: center;
 }
@@ -708,11 +709,11 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #b5bdc5;
-  width: 4rem;
-  height: 4rem;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 3rem;
   cursor: pointer;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 .ky1-permisos button img,
@@ -828,7 +829,16 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
 .out a img {
   width: 1.5rem;
 }
-
+@media only screen and (max-width: 1600px) {
+  #ky1-rgt .ky1-rsm{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  #ky1-rgt .ky1-rsm li{
+    flex: none;
+    width: 30%;
+  }
+}
 @media only screen and (max-width: 1200px) {
   section.cont-login .login {
     flex-direction: column;
@@ -841,7 +851,30 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   section.cont-login .login div:first-child .refer {
     display: none;
   }
+}
+
+@media only screen and (max-width: 992px) {
+  #ky1-rgt header .ky1-ttl{
+    display: none;
+  }
+  #ky1-rgt .ky1-rsm li{
+    width: 45%;
+  }
   
+}
+@media only screen and (max-width: 768px) {
+  #ky1-rgt header .ky1-dte{
+    width: 12rem;
+  }
+  #selectedUser{
+    min-width: 11rem;
+  }
+  #ky1-rgt .ky1-rsm{
+    padding: 0;
+  }
+  #ky1-rgt .ky1-hrr{
+    padding: 2rem 0 0 0;
+  }
 }
 @media only screen and (max-width: 576px) {
   section.cont-login .login{
@@ -858,5 +891,73 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   }
   section.cont-login .login div:first-child .logo{
     width: 10rem;
+  }
+  #ky1-rgt header{
+    flex-wrap: wrap;
+    padding: 1rem 0;
+  }
+  #ky1-rgt header .ky1-dte{
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  #ky1-rgt header .ky1-usr{
+    margin-left: auto;
+  }
+  #selectedUser h3,
+  #selectedUser h4{
+    font-size: 0.8rem;
+  }
+  #ky1-rgt .ky1-hrr .hrr-box{
+    padding: 0.75rem;
+  }
+  #ky1-rgt .ky1-hrr .hrr-box span{
+    font-size: 1rem;
+  }
+  #ky1-rgt .ky1-hrr .hrr-box .data-sem p{
+    font-size: 0.7rem;
+  }
+  #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul{
+    padding: 1.5rem 0 0 0;
+    width: 3rem;
+  }
+  #ky1-rgt .ky1-hrr .hrr-box .hrr-day li{
+    font-size: 0.7rem;
+  }
+  #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc{
+    width: 3rem;
+    font-size: 0.7rem;
+  }
+  #ky1-rgt .ky1-rsm{
+    gap: 1rem;
+  }
+  #ky1-rgt .ky1-rsm .box-img{
+    min-width: 1rem;
+  }
+  #ky1-rgt .ky1-rsm .box-img img{
+    display: none;
+  }
+  #ky1-rgt .ky1-rsm .box-txt span{
+    font-size: 1rem;
+  }
+  #ky1-rgt .ky1-rsm .box-txt p{
+    font-size: 0.7rem;
+  }
+  #ky1-rgt .ky1-rsm li{
+    padding: 1rem;
+  }
+  .cont-insert{
+    width: 10rem;
+  }
+  .cont-insert h1,
+  .cont-insert .form-insert label,
+  .cont-insert .form-insert input{
+    font-size: 0.8rem;
+  }
+
+
+}
+@media only screen and (max-width: 416px) {
+  #ky1-rgt .ky1-rsm li{
+    width: 47%;
   }
 }
