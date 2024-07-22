@@ -872,6 +872,9 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   #ky1-rgt .ky1-rsm{
     padding: 0;
   }
+  #ky1-rgt .ky1-hrr{
+    padding: 2rem 0 0 0;
+  }
 }
 @media only screen and (max-width: 576px) {
   section.cont-login .login{
@@ -889,9 +892,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   section.cont-login .login div:first-child .logo{
     width: 10rem;
   }
-  #ky1-rgt .ky1-hrr{
-    padding: 2rem 0 0 0;
-  }
+
 
 }
 @media only screen and (max-width: 416px) {
