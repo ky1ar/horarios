@@ -850,6 +850,9 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   section.cont-login .login div:first-child .refer {
     display: none;
   }
+  #ky1-rgt .ky1-rsm li{
+    flex: 1;
+  }
 }
 
 @media only screen and (max-width: 992px) {
