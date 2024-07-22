@@ -670,14 +670,14 @@ body {
 
 .ky1-permisos button {
   display: flex;
-  width: 4rem;
-  height: 4rem;
+  width: 3.5rem;
+  height: 3.5rem;
   background-color: #aee1fd;
   border: none;
   border-radius: 3rem;
   font-size: 0.75rem;
   cursor: pointer;
-  padding: 1rem;
+  padding: 0.5rem;
   justify-content: center;
   align-items: center;
 }
@@ -709,11 +709,11 @@ body {
   justify-content: center;
   align-items: center;
   background-color: #b5bdc5;
-  width: 4rem;
-  height: 4rem;
+  width: 3.5rem;
+  height: 3.5rem;
   border-radius: 3rem;
   cursor: pointer;
-  padding: 1rem;
+  padding: 0.5rem;
 }
 
 .ky1-permisos button img,
