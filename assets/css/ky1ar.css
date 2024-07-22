@@ -909,7 +909,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
     font-size: 0.7rem;
   }
   #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul{
-    padding: 1.5rem 0rem;
+    padding: 1.5rem 0 0 0;
     width: 3rem;
   }
   #ky1-rgt .ky1-hrr .hrr-box .hrr-day li{
