@@ -313,16 +313,16 @@ body {
   display: flex;
   gap: 2rem;
   padding: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 #ky1-rgt .ky1-rsm li {
-  flex: 1;
   background-color: var(--white);
   padding: 1.5rem;
   border-radius: 1rem;
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  justify-content: space-evenly;
 }
 #ky1-rgt .ky1-rsm .box-img {
   display: flex;
@@ -828,7 +828,11 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
 .out a img {
   width: 1.5rem;
 }
-
+@media only screen and (max-width: 1600px) {
+  #ky1-rgt .ky1-rsm li{
+    width: 30%;
+  }
+}
 @media only screen and (max-width: 1200px) {
   section.cont-login .login {
     flex-direction: column;
@@ -841,7 +845,13 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   section.cont-login .login div:first-child .refer {
     display: none;
   }
-  
+}
+
+@media only screen and (max-width: 992px) {
+
+}
+@media only screen and (max-width: 768px) {
+
 }
 @media only screen and (max-width: 576px) {
   section.cont-login .login{
@@ -859,4 +869,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   section.cont-login .login div:first-child .logo{
     width: 10rem;
   }
+}
+@media only screen and (max-width: 416px) {
+
 }
