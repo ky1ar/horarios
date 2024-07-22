@@ -902,7 +902,10 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   #ky1-rgt header .ky1-usr{
     margin-left: auto;
   }
-  
+  #selectedUser h3,
+  #selectedUser h4{
+    font-size: 0.8rem;
+  }
   #ky1-rgt .ky1-hrr .hrr-box{
     padding: 0.75rem;
   }
