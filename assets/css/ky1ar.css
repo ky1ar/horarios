@@ -944,6 +944,14 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   #ky1-rgt .ky1-rsm li{
     padding: 1rem;
   }
+  .cont-insert{
+    width: 10rem;
+  }
+  .cont-insert h1,
+  .cont-insert .form-insert label,
+  .cont-insert .form-insert input{
+    font-size: 0.8rem;
+  }
 
 
 }
