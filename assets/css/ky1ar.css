@@ -894,6 +894,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   }
   #ky1-rgt header{
     flex-wrap: wrap;
+    padding: 1rem 0;
   }
   #ky1-rgt header .ky1-dte{
     width: 100%;
