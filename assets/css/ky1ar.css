@@ -892,6 +892,13 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   section.cont-login .login div:first-child .logo{
     width: 10rem;
   }
+  #ky1-rgt header{
+    flex-wrap: wrap;
+  }
+  #ky1-rgt header .ky1-dte{
+    width: 100%;
+    margin-bottom: 1rem;
+  }
   #ky1-rgt .ky1-hrr .hrr-box{
     padding: 0.75rem;
   }
