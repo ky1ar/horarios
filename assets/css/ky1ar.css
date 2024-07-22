@@ -926,6 +926,9 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
     width: 3rem;
     font-size: 0.7rem;
   }
+  #ky1-rgt .ky1-rsm{
+    gap: 1rem;
+  }
   #ky1-rgt .ky1-rsm .box-img{
     min-width: 1rem;
   }
@@ -937,6 +940,9 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   }
   #ky1-rgt .ky1-rsm .box-txt p{
     font-size: 0.7rem;
+  }
+  #ky1-rgt .ky1-rsm li{
+    padding: 1rem;
   }
 
 
