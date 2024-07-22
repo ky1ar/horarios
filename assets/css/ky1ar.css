@@ -918,6 +918,18 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc{
     width: 3rem;
   }
+  #ky1-rgt .ky1-rsm .box-img{
+    min-width: 1rem;
+  }
+  #ky1-rgt .ky1-rsm .box-img img{
+    display: none;
+  }
+  #ky1-rgt .ky1-rsm .box-txt span{
+    font-size: 1rem;
+  }
+  #ky1-rgt .ky1-rsm .box-txt p{
+    font-size: 0.7rem;
+  }
 
 
 }
