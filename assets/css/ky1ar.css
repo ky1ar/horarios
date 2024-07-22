@@ -892,6 +892,25 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   section.cont-login .login div:first-child .logo{
     width: 10rem;
   }
+  #ky1-rgt .ky1-hrr .hrr-box{
+    padding: 0.75rem;
+  }
+  #ky1-rgt .ky1-hrr .hrr-box span{
+    font-size: 1rem;
+  }
+  #ky1-rgt .ky1-hrr .hrr-box .data-sem p{
+    font-size: 0.7rem;
+  }
+  #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul{
+    padding: 1.5rem 0rem;
+    width: 3rem;
+  }
+  #ky1-rgt .ky1-hrr .hrr-box .hrr-day li{
+    font-size: 0.7rem;
+  }
+  #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc{
+    width: 3rem;
+  }
 
 
 }
