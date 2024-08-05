@@ -457,7 +457,6 @@ $(document).ready(function () {
             var dayName = entry.day_of_week_es;
             var dayNumber = entry.day_number;
             var hPoints = entry.time_difference;
-            console.log(hPoints);
             if (dayName.toLowerCase() === "domingo") {
               return;
             }
