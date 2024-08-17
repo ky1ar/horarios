@@ -634,7 +634,7 @@ $(document).ready(function () {
           ":" +
           (sumMinutes < 10 ? "0" : "") +
           sumMinutes;
-        //calcularSumaCalcPorSemana(userId, year, month);
+        calcularSumaCalcPorSemana(userId, year, month);
 
         function timeToMinutes(time) {
           const [hours, minutes] = time.split(":").map(Number);
