@@ -124,7 +124,6 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
             SEC_TO_TIME(
                 TIME_TO_SEC(
                     SEC_TO_TIME(
-                        -- Tiempo total calculado en horas
                         SUM(
                             CASE
                                 -- Perfil 1 y días de semana (2-6)
@@ -143,7 +142,6 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                         ) * 60 * 60
                     )
                 ) + 
-                -- Penalización por puntos faltantes
                 (SUM(
                     ROUND(
                         CASE
