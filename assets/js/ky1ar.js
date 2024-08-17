@@ -602,7 +602,8 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         var data = response;
-        console.log(data.total_hours_required);
+        console.log("sin penal: " + data.total_hours_required);
+        console.log("con penal: " + data.adjusted_hours);
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
           parseInt(data.total_minutes_late_formatted.split(":")[1]);
