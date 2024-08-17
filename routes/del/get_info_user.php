@@ -104,7 +104,6 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
             )
         ), '%H:%i'
     ) AS total_minutes_late_formatted,
-    CASE
    CASE
     WHEN SUM(
             ROUND(
