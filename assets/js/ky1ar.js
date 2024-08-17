@@ -602,7 +602,6 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         var data = response;
-        console.log(data.adjusted_hours);
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
           parseInt(data.total_minutes_late_formatted.split(":")[1]);
@@ -635,7 +634,7 @@ $(document).ready(function () {
           ":" +
           (sumMinutes < 10 ? "0" : "") +
           sumMinutes;
-        calcularSumaCalcPorSemana(userId, year, month);
+        //calcularSumaCalcPorSemana(userId, year, month);
 
         function timeToMinutes(time) {
           const [hours, minutes] = time.split(":").map(Number);
