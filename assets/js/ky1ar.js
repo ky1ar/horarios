@@ -625,7 +625,7 @@ $(document).ready(function () {
         var adjustedHours =
           parseInt(data.adjusted_hours.split(":")[0]) * 60 +
           parseInt(data.adjusted_hours.split(":")[1]);
-
+        console.log("data: " + adjustedHours);
         // Sumar la diferencia ajustada a adjusted_hours
         var sum = adjustedHours + differenceAdjusted;
         var sumHours = Math.floor(sum / 60);
@@ -636,7 +636,6 @@ $(document).ready(function () {
           ":" +
           (sumMinutes < 10 ? "0" : "") +
           sumMinutes;
-        console.log("valor: " + sumFormatted);
         calcularSumaCalcPorSemana(userId, year, month);
 
         function timeToMinutes(time) {
@@ -668,8 +667,6 @@ $(document).ready(function () {
           const totalSumFormatted = `${sumHours
             .toString()
             .padStart(2, "0")}:${sumMinutes.toString().padStart(2, "0")}`;
-          
-          console.log("total impreso: " + totalSumFormatted);  
           $("#totalHours").html(
             "<b>" +
               globalTotalMonthlyTimeNuev +
