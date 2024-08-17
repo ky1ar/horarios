@@ -408,7 +408,6 @@ $(document).ready(function () {
         .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
       globalTotalMonthlyTimeNuev = newFormattedTotalTime;
       $(document).off("ajaxStop");
-      console.log("Segundo valor: " + globalTotalMonthlyTimeNuev);
     });
   }
 
@@ -668,7 +667,8 @@ $(document).ready(function () {
           const totalSumFormatted = `${sumHours
             .toString()
             .padStart(2, "0")}:${sumMinutes.toString().padStart(2, "0")}`;
-
+          
+          console.log("total impreso: " + totalSumFormatted);  
           $("#totalHours").html(
             "<b>" +
               globalTotalMonthlyTimeNuev +
