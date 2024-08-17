@@ -636,6 +636,7 @@ $(document).ready(function () {
           ":" +
           (sumMinutes < 10 ? "0" : "") +
           sumMinutes;
+        console.log("valor: " + sumFormatted);
         calcularSumaCalcPorSemana(userId, year, month);
 
         function timeToMinutes(time) {
