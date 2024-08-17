@@ -610,7 +610,7 @@ $(document).ready(function () {
           parseInt(data.one_percent_total_hours.split(":")[0]) * 60 +
           parseInt(data.one_percent_total_hours.split(":")[1]);
         var difference = minutesLate - onePercentHours;
-        var differenceAdjusted = Math.max(0, difference) * 0.5;
+        var differenceAdjusted = Math.max(0, difference) * 0.2;
         differenceAdjusted = Math.round(differenceAdjusted);
         var hoursDifference = Math.floor(differenceAdjusted / 60);
         var minutesDifference = differenceAdjusted % 60;
