@@ -288,6 +288,7 @@ $(document).ready(function () {
       success: function (response) {
         var calculatedTime = response.calculated_time;
         totalMonthlyTime = calculatedTime;
+        console.log("Before: " + calculatedTime);
 
       },
       error: function (xhr, status, error) {
@@ -295,7 +296,7 @@ $(document).ready(function () {
       },
     });
   }
-  console.log("Before: " + totalMonthlyTime);
+  
   let globalTotalMonthlyTimeNuev = "";
   function calcularSumaCalcPorSemana(userId, year, month) {
     var totalHoursMinutes = 0;
