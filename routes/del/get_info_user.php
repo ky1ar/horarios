@@ -143,7 +143,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                             WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date < (SELECT MAX(stamp_date) FROM Archivos) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
                             ELSE 0
                         END, 0)
-                ) - 6) * 15 * 60
+                ) - 6) * 15
             ), '%H:%i'
         )
     ELSE
