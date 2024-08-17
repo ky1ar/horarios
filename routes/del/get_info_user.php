@@ -105,12 +105,17 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         ), '%H:%i'
     ) AS total_minutes_late_formatted,
     CASE
+    -- Verifica si la suma de puntos faltantes es mayor a 6
     WHEN SUM(
             ROUND(
                 CASE
+                    -- Perfil 1 y días de semana (2-6)
                     WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < (SELECT MAX(stamp_date) FROM Archivos) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                    -- Perfil 2 y días de semana (2-6)
                     WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < (SELECT MAX(stamp_date) FROM Archivos) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                    -- Perfil 2 y domingo (7)
                     WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date < (SELECT MAX(stamp_date) FROM Archivos) THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                    -- Perfil 3 y días de semana (2-7)
                     WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date < (SELECT MAX(stamp_date) FROM Archivos) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
                     ELSE 0
                 END, 0)
@@ -119,31 +124,40 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
             SEC_TO_TIME(
                 TIME_TO_SEC(
                     SEC_TO_TIME(
+                        -- Tiempo total calculado en horas
                         SUM(
                             CASE
+                                -- Perfil 1 y días de semana (2-6)
                                 WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
+                                -- Perfil 2 y días de semana (2-6) y domingo (7)
                                 WHEN u.id_profile = 2 THEN
                                     CASE
                                         WHEN DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
                                         WHEN DAYOFWEEK(c.calendar_date) = 7 THEN 4
                                         ELSE 0
                                     END
+                                -- Perfil 3 y días de semana (2-7)
                                 WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 THEN 8
                                 ELSE 0
                             END
                         ) * 60 * 60
                     )
                 ) + 
+                -- Penalización por puntos faltantes
                 (SUM(
                     ROUND(
                         CASE
+                            -- Perfil 1 y días de semana (2-6)
                             WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < (SELECT MAX(stamp_date) FROM Archivos) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                            -- Perfil 2 y días de semana (2-6)
                             WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < (SELECT MAX(stamp_date) FROM Archivos) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                            -- Perfil 2 y domingo (7)
                             WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date < (SELECT MAX(stamp_date) FROM Archivos) THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                            -- Perfil 3 y días de semana (2-7)
                             WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date < (SELECT MAX(stamp_date) FROM Archivos) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
                             ELSE 0
                         END, 0)
-                ) - 6) * 15 * 60
+                ) - 6) * 15 * 60 -- Penalización adicional
             ), '%H:%i'
         )
     ELSE
@@ -151,13 +165,16 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
             SEC_TO_TIME(
                 SUM(
                     CASE
+                        -- Perfil 1 y días de semana (2-6)
                         WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
+                        -- Perfil 2 y días de semana (2-6) y domingo (7)
                         WHEN u.id_profile = 2 THEN
                             CASE
                                 WHEN DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
                                 WHEN DAYOFWEEK(c.calendar_date) = 7 THEN 4
                                 ELSE 0
                             END
+                        -- Perfil 3 y días de semana (2-7)
                         WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 THEN 8
                         ELSE 0
                     END
