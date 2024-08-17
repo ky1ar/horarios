@@ -47,7 +47,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
             LIMIT 1 OFFSET 1
         ) AS subquery;
     ";
-    
+
 
     $stmt = $conn->prepare($penultimateQuery);
     $stmt->bind_param("ssss", $year, $month, $year, $month);
@@ -104,7 +104,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
             )
         ), '%H:%i'
     ) AS total_minutes_late_formatted,
-   CASE
+    CASE
     WHEN SUM(
             ROUND(
                 CASE
@@ -134,7 +134,6 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                         ) * 60 * 60
                     )
                 ) + 
-                -- Calcula minutos adicionales según puntos faltantes mayores a 6
                 (SUM(
                     ROUND(
                         CASE
@@ -165,7 +164,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                 ) * 60 * 60
             ), '%H:%i'
         )
-END AS adjusted_hours,
+    END AS adjusted_hours,
     TIME_FORMAT(
         SEC_TO_TIME(
             SUM(
