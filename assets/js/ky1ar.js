@@ -288,13 +288,14 @@ $(document).ready(function () {
       success: function (response) {
         var calculatedTime = response.calculated_time;
         totalMonthlyTime = calculatedTime;
+
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
       },
     });
   }
-
+  console.log("Before: " + totalMonthlyTime);
   let globalTotalMonthlyTimeNuev = "";
   function calcularSumaCalcPorSemana(userId, year, month) {
     var totalHoursMinutes = 0;
