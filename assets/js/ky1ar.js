@@ -625,8 +625,8 @@ $(document).ready(function () {
           minutesDifference;
 
         var adjustedHours =
-          parseInt(data.adjusted_hours.split(":")[0]) * 60 +
-          parseInt(data.adjusted_hours.split(":")[1]);
+          parseInt(data.total_hours_required.split(":")[0]) * 60 +
+          parseInt(data.total_hours_required.split(":")[1]);
         // Sumar la diferencia ajustada a adjusted_hours
         var sum = adjustedHours + differenceAdjusted;
         var sumHours = Math.floor(sum / 60);
