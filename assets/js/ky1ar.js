@@ -288,13 +288,15 @@ $(document).ready(function () {
       success: function (response) {
         var calculatedTime = response.calculated_time;
         totalMonthlyTime = calculatedTime;
+        console.log("Before: " + calculatedTime);
+
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
       },
     });
   }
-
+  
   let globalTotalMonthlyTimeNuev = "";
   function calcularSumaCalcPorSemana(userId, year, month) {
     var totalHoursMinutes = 0;
@@ -600,7 +602,9 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         var data = response;
-        // console.log(data.adjusted_hours);
+        console.log(data);
+        console.log("sin penal: " + data.total_hours_required);
+        console.log("con penal: " + data.adjusted_hours);
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
           parseInt(data.total_minutes_late_formatted.split(":")[1]);
@@ -623,7 +627,6 @@ $(document).ready(function () {
         var adjustedHours =
           parseInt(data.adjusted_hours.split(":")[0]) * 60 +
           parseInt(data.adjusted_hours.split(":")[1]);
-
         // Sumar la diferencia ajustada a adjusted_hours
         var sum = adjustedHours + differenceAdjusted;
         var sumHours = Math.floor(sum / 60);
@@ -665,7 +668,6 @@ $(document).ready(function () {
           const totalSumFormatted = `${sumHours
             .toString()
             .padStart(2, "0")}:${sumMinutes.toString().padStart(2, "0")}`;
-
           $("#totalHours").html(
             "<b>" +
               globalTotalMonthlyTimeNuev +
