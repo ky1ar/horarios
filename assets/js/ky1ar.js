@@ -610,7 +610,7 @@ $(document).ready(function () {
           parseInt(data.one_percent_total_hours.split(":")[0]) * 60 +
           parseInt(data.one_percent_total_hours.split(":")[1]);
         var difference = minutesLate - onePercentHours;
-        var differenceAdjusted = Math.max(0, difference) * 0.2;
+        var differenceAdjusted = Math.max(0, difference) * 0.5;
         differenceAdjusted = Math.round(differenceAdjusted);
         var hoursDifference = Math.floor(differenceAdjusted / 60);
         var minutesDifference = differenceAdjusted % 60;
@@ -625,11 +625,10 @@ $(document).ready(function () {
         var adjustedHours =
           parseInt(data.adjusted_hours.split(":")[0]) * 60 +
           parseInt(data.adjusted_hours.split(":")[1]);
-        console.log("data: " + adjustedHours);
         // Sumar la diferencia ajustada a adjusted_hours
+        console.log(differenceAdjusted);
         var sum = adjustedHours + differenceAdjusted;
         var sumHours = Math.floor(sum / 60);
-        console.log("data 2 : " + sumHours);
         var sumMinutes = sum % 60;
         var sumFormatted =
           (sumHours < 10 ? "0" : "") +
