@@ -173,7 +173,8 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                 ) * 60 * 60
             ), '%H:%i'
         )
-    END AS adjusted_hours,
+END AS adjusted_hours
+,
     TIME_FORMAT(
         SEC_TO_TIME(
             SUM(
