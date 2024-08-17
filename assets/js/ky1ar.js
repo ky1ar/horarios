@@ -602,6 +602,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         var data = response;
+        console.log(data);
         console.log("sin penal: " + data.total_hours_required);
         console.log("con penal: " + data.adjusted_hours);
         var minutesLate =
