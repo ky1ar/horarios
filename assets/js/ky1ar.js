@@ -602,7 +602,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         var data = response;
-        // console.log(data.adjusted_hours);
+        console.log(data.adjusted_hours);
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
           parseInt(data.total_minutes_late_formatted.split(":")[1]);
@@ -626,7 +626,6 @@ $(document).ready(function () {
           parseInt(data.adjusted_hours.split(":")[0]) * 60 +
           parseInt(data.adjusted_hours.split(":")[1]);
         // Sumar la diferencia ajustada a adjusted_hours
-        console.log(differenceAdjusted);
         var sum = adjustedHours + differenceAdjusted;
         var sumHours = Math.floor(sum / 60);
         var sumMinutes = sum % 60;
