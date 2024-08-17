@@ -629,6 +629,7 @@ $(document).ready(function () {
         // Sumar la diferencia ajustada a adjusted_hours
         var sum = adjustedHours + differenceAdjusted;
         var sumHours = Math.floor(sum / 60);
+        console.log("data 2 : " + sumHours);
         var sumMinutes = sum % 60;
         var sumFormatted =
           (sumHours < 10 ? "0" : "") +
