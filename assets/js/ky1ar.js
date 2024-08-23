@@ -603,9 +603,8 @@ $(document).ready(function () {
       success: function (response) {
         var data = response;
         console.log(data);
-        console.log("sin registro: " + data.total_hours_required);
+        console.log("sin registro: " + data.total_missing_points);
         console.log("sin penal: " + data.total_hours_required);
-        console.log("con penal: " + data.adjusted_hours);
         
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
@@ -631,7 +630,7 @@ $(document).ready(function () {
         var adjustedHours =
           parseInt(total_rq.split(":")[0]) * 60 +
           parseInt(total_rq.split(":")[1]);
-        // Sumar la diferencia ajustada a adjusted_hours
+
         var sum = adjustedHours + differenceAdjusted;
         var sumHours = Math.floor(sum / 60);
         var sumMinutes = sum % 60;
