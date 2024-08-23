@@ -603,7 +603,7 @@ $(document).ready(function () {
       success: function (response) {
         var data = response;
         console.log(data);
-        console.log("sin registro: " + data.total_missing_points);
+        console.log("sin registro: " + data.total_hours_required);
         console.log("sin penal: " + data.total_hours_required);
         console.log("con penal: " + data.adjusted_hours);
         
@@ -625,11 +625,12 @@ $(document).ready(function () {
           ":" +
           (minutesDifference < 10 ? "0" : "") +
           minutesDifference;
-
+        
+        var total_rq = data.total_hours_required + ":00";
         var adjustedHours =
-          parseInt(data.total_hours_required.split(":")[0]) * 60 +
-          parseInt(data.total_hours_required.split(":")[1]);
-        // Sumar la diferencia ajustada a total_hours_required
+          parseInt(total_rq.split(":")[0]) * 60 +
+          parseInt(total_rq.split(":")[1]);
+        // Sumar la diferencia ajustada a adjusted_hours
         var sum = adjustedHours + differenceAdjusted;
         var sumHours = Math.floor(sum / 60);
         var sumMinutes = sum % 60;
