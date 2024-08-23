@@ -289,13 +289,14 @@ $(document).ready(function () {
         var calculatedTime = response.calculated_time;
         totalMonthlyTime = calculatedTime;
         console.log("Before: " + calculatedTime);
+
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
       },
     });
   }
-
+  
   let globalTotalMonthlyTimeNuev = "";
   function calcularSumaCalcPorSemana(userId, year, month) {
     var totalHoursMinutes = 0;
@@ -602,28 +603,10 @@ $(document).ready(function () {
       success: function (response) {
         var data = response;
         console.log(data);
+        console.log("sin registro: " + data.total_missing_points);
         console.log("sin penal: " + data.total_hours_required);
         console.log("con penal: " + data.adjusted_hours);
-        var totalHoursRequired = parseTimeToMinutes(data.total_hours_required);
-        var totalMissingPoints = parseInt(data.total_missing_points, 10);
-        var adjustment = 0;
-        if (totalMissingPoints > 6) {
-          adjustment = (totalMissingPoints - 6) * 15; // Cada punto adicional suma 15 minutos
-        }
-        var adjustedTotalHours = totalHoursRequired + adjustment;
-        // Convertir el tiempo ajustado de minutos a formato 'HH:MM'
-        var adjustedTotalHoursFormatted = minutesToTime(adjustedTotalHours);
-        function parseTimeToMinutes(time) {
-          const [hours, minutes] = time.split(":").map(Number);
-          return hours * 60 + minutes;
-      }
-
-      function minutesToTime(minutes) {
-          const hours = Math.floor(minutes / 60);
-          const mins = minutes % 60;
-          return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
-      }
-        console.log("new cal: " + adjustedTotalHoursFormatted);
+        
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
           parseInt(data.total_minutes_late_formatted.split(":")[1]);
