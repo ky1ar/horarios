@@ -603,8 +603,9 @@ $(document).ready(function () {
       success: function (response) {
         var data = response;
         console.log(data);
-        console.log("sin penal: " + data.total_hours_required);
-        console.log("con penal: " + data.adjusted_hours);
+        console.log("sin registro: " + data.total_missing_points);
+        console.log("horas base: " + data.total_hours_required);
+        
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
           parseInt(data.total_minutes_late_formatted.split(":")[1]);
@@ -623,11 +624,32 @@ $(document).ready(function () {
           ":" +
           (minutesDifference < 10 ? "0" : "") +
           minutesDifference;
-
+        
+          if (data.total_missing_points > 6) {
+            // Calcula los minutos adicionales
+            var extraMinutes = (data.total_missing_points - 6) * 15;
+            
+            // Convierte total_hours_required a minutos
+            var total_rq_minutes = parseInt(data.total_hours_required) * 60;
+            
+            // Suma los minutos adicionales
+            total_rq_minutes += extraMinutes;
+            
+            // Convierte los minutos totales de nuevo a formato hh:mm
+            var total_rq_hours = Math.floor(total_rq_minutes / 60);
+            var total_rq_remainderMinutes = total_rq_minutes % 60;
+            
+            // Actualiza total_hours_required con el nuevo valor en formato hh:mm
+            var total_rq = total_rq_hours + ":" + (total_rq_remainderMinutes < 10 ? "0" : "") + total_rq_remainderMinutes;
+        } else {
+            // Si no hay más de 6 registros, simplemente añade ":00" a total_hours_required
+            var total_rq = data.total_hours_required + ":00";
+        }
+        console.log("nueva hora + no marcas: " + total_rq);
         var adjustedHours =
-          parseInt(data.adjusted_hours.split(":")[0]) * 60 +
-          parseInt(data.adjusted_hours.split(":")[1]);
-        // Sumar la diferencia ajustada a adjusted_hours
+          parseInt(total_rq.split(":")[0]) * 60 +
+          parseInt(total_rq.split(":")[1]);
+
         var sum = adjustedHours + differenceAdjusted;
         var sumHours = Math.floor(sum / 60);
         var sumMinutes = sum % 60;
