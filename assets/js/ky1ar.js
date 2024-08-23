@@ -604,7 +604,7 @@ $(document).ready(function () {
         var data = response;
         console.log(data);
         console.log("sin registro: " + data.total_missing_points);
-        console.log("sin penal: " + data.total_hours_required);
+        console.log("horas base: " + data.total_hours_required);
         
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
@@ -645,7 +645,7 @@ $(document).ready(function () {
             // Si no hay más de 6 registros, simplemente añade ":00" a total_hours_required
             var total_rq = data.total_hours_required + ":00";
         }
-        console.log("nueva hora: " + total_rq);
+        console.log("nueva hora + no marcas: " + total_rq);
         var adjustedHours =
           parseInt(total_rq.split(":")[0]) * 60 +
           parseInt(total_rq.split(":")[1]);
