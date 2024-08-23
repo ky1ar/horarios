@@ -627,6 +627,7 @@ $(document).ready(function () {
           minutesDifference;
         
         var total_rq = data.total_hours_required + ":00";
+        console.log("nueva hora: " + total_rq);
         var adjustedHours =
           parseInt(total_rq.split(":")[0]) * 60 +
           parseInt(total_rq.split(":")[1]);
