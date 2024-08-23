@@ -625,7 +625,26 @@ $(document).ready(function () {
           (minutesDifference < 10 ? "0" : "") +
           minutesDifference;
         
-        var total_rq = data.total_hours_required + ":00";
+          if (data.total_missing_points > 6) {
+            // Calcula los minutos adicionales
+            var extraMinutes = (data.total_missing_points - 6) * 15;
+            
+            // Convierte total_hours_required a minutos
+            var total_rq_minutes = parseInt(data.total_hours_required) * 60;
+            
+            // Suma los minutos adicionales
+            total_rq_minutes += extraMinutes;
+            
+            // Convierte los minutos totales de nuevo a formato hh:mm
+            var total_rq_hours = Math.floor(total_rq_minutes / 60);
+            var total_rq_remainderMinutes = total_rq_minutes % 60;
+            
+            // Actualiza total_hours_required con el nuevo valor en formato hh:mm
+            var total_rq = total_rq_hours + ":" + (total_rq_remainderMinutes < 10 ? "0" : "") + total_rq_remainderMinutes;
+        } else {
+            // Si no hay más de 6 registros, simplemente añade ":00" a total_hours_required
+            var total_rq = data.total_hours_required + ":00";
+        }
         console.log("nueva hora: " + total_rq);
         var adjustedHours =
           parseInt(total_rq.split(":")[0]) * 60 +
