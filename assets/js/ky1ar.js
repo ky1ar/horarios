@@ -613,6 +613,16 @@ $(document).ready(function () {
         var adjustedTotalHours = totalHoursRequired + adjustment;
         // Convertir el tiempo ajustado de minutos a formato 'HH:MM'
         var adjustedTotalHoursFormatted = minutesToTime(adjustedTotalHours);
+        function parseTimeToMinutes(time) {
+          const [hours, minutes] = time.split(":").map(Number);
+          return hours * 60 + minutes;
+      }
+
+      function minutesToTime(minutes) {
+          const hours = Math.floor(minutes / 60);
+          const mins = minutes % 60;
+          return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
+      }
         console.log("new cal: " + adjustedTotalHoursFormatted);
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
