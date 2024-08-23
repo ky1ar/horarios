@@ -134,7 +134,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                         ) * 60 * 60
                     )
                 ) + 
-                ((SUM(
+                (GREATEST(0, (SUM(
                     ROUND(
                         CASE
                             WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < (SELECT DATE_SUB(MAX(stamp_date), INTERVAL 1 DAY) FROM Archivos) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
@@ -144,7 +144,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                             ELSE 0
                         END, 0)
                     ) - 6) * 15 * 60
-                )
+                ), 0)
             ), '%H:%i'
         )
     ELSE
@@ -165,7 +165,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                 ) * 60 * 60
             ), '%H:%i'
         )
-    END AS adjusted_hours,
+END AS adjusted_hours,
     TIME_FORMAT(
         SEC_TO_TIME(
             SUM(
