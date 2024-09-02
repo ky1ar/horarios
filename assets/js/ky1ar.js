@@ -602,7 +602,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         var data = response;
-        console.log(data);
+        //console.log(data);
         console.log("sin registro: " + data.total_missing_points);
         console.log("horas base: " + data.total_hours_required);
         
