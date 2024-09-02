@@ -141,7 +141,12 @@ GROUP BY
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
 
-    echo json_encode($row);
+    echo json_encode([
+        'penultimateMP' => $penultimateMP,
+        'penultimateWorkday' => $penultimateWorkday,
+        'total_missing_points' => $row['total_missing_points'],
+        'total_hours_required' => $row['total_hours_required']
+    ]);
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid parameters.']);
 }

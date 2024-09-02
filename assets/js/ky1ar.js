@@ -291,10 +291,8 @@ $(document).ready(function () {
       data: { userId: userId, month: month, year: year },
       dataType: "json",
       success: function (response) {
-        var stamp = response.stamp;  
         var calculatedTime = response.calculated_time;
         totalMonthlyTime = calculatedTime;
-        console.log("Stamp (Fecha Recuperada): " + stamp);
         console.log("Before: " + calculatedTime);
 
       },
@@ -636,6 +634,8 @@ $(document).ready(function () {
       success: function (response) {
         var data = response;
         //console.log(data);
+        console.log("Penúltimo día laborable del mes anterior (penultimateMP): " + data.penultimateMP);
+        console.log("Penúltimo día laborable del mes en curso (penultimateWorkday): " + data.penultimateWorkday);
         console.log("sin registro: " + data.total_missing_points);
         console.log("horas base: " + data.total_hours_required);
         
