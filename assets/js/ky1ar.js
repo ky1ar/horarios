@@ -291,8 +291,10 @@ $(document).ready(function () {
       data: { userId: userId, month: month, year: year },
       dataType: "json",
       success: function (response) {
+        var stamp = response.stamp;  
         var calculatedTime = response.calculated_time;
         totalMonthlyTime = calculatedTime;
+        console.log("Stamp (Fecha Recuperada): " + stamp);
         console.log("Before: " + calculatedTime);
 
       },
