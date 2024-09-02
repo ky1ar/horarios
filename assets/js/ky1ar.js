@@ -369,7 +369,6 @@ $(document).ready(function () {
           const formattedHours = nhours.toString().padStart(2, "0");
           const time1 = formattedHours + ":" + formattedMinutes;
           const time2 = acumuladoValorDia;
-          console.log("time1: " + time1);
 
           // Funciones de utilidad
           function timeToMinutes(time) {
@@ -713,9 +712,6 @@ $(document).ready(function () {
               "h</b>"
           );
         }, 500);
-        console.log(
-          "horas hechas este mes resultado final: " + globalTotalMonthlyTimeNuev
-        );
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(differenceAdjustedFormatted);
         $("#tarde").text(data.total_late_points);
