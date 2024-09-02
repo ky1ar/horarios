@@ -350,7 +350,7 @@ $(document).ready(function () {
               }
             }
           });
-          console.log("dato de suma: " + final);
+          
           const nhours = Math.floor(final / 60);
           const nminutos = final % 60;
           const formattedMinutes = String(nminutos).padStart(2, "0");
@@ -365,7 +365,7 @@ $(document).ready(function () {
           }
 
           totalHoursMinutes += timeToMinutes(time1);
-
+          console.log("dato: " + totalHoursMinutes);
           function calculatePercentage(time1, time2) {
             const minutes1 = timeToMinutes(time1);
             const minutes2 = timeToMinutes(time2);
