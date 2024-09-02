@@ -358,13 +358,13 @@ $(document).ready(function () {
           const time1 = formattedHours + ":" + formattedMinutes;
           const time2 = acumuladoValorDia;
 
-          // // Funciones de utilidad
-          // function timeToMinutes(time) {
-          //   const [hours, minutes] = time.split(":").map(Number);
-          //   return hours * 60 + minutes;
-          // }
+          // Funciones de utilidad
+          function timeToMinutes(time) {
+            const [hours, minutes] = time.split(":").map(Number);
+            return hours * 60 + minutes;
+          }
 
-          // totalHoursMinutes += timeToMinutes(time1);
+          totalHoursMinutes += timeToMinutes(time1);
           
           // function calculatePercentage(time1, time2) {
           //   const minutes1 = timeToMinutes(time1);
