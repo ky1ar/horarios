@@ -365,7 +365,7 @@ $(document).ready(function () {
           }
 
           totalHoursMinutes += timeToMinutes(time1);
-          console.log("dato: " + totalHoursMinutes);
+          
           function calculatePercentage(time1, time2) {
             const minutes1 = timeToMinutes(time1);
             const minutes2 = timeToMinutes(time2);
@@ -374,7 +374,7 @@ $(document).ready(function () {
 
           const percentage = calculatePercentage(time1, time2);
 
-          $hrrBox.find(".minS").text(time1 + "h" + " / " + time2 + "h");
+          $hrrBox.find(".minS").text(time1 + "hola" + " / " + time2 + "h");
           $hrrBox.find(".porT").text(percentage.toFixed(1) + "%");
         }
       );
