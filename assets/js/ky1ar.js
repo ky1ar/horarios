@@ -279,8 +279,6 @@ $(document).ready(function () {
   });
 
   let totalMonthlyTime = "";
-  let penultimateMonthlyTime = "";
-
   function getStampSpecial(userId, month, year) {
     $.ajax({
       url: "../routes/del/dayBeforeMonth.php",
@@ -288,27 +286,17 @@ $(document).ready(function () {
       data: { userId: userId, month: month, year: year },
       dataType: "json",
       success: function (response) {
-        if (response.error) {
-          console.error("Error en la respuesta:", response.error);
-          return;
-        }
+        var calculatedTime = response.calculated_time;
+        totalMonthlyTime = calculatedTime;
+        console.log("Before: " + calculatedTime);
 
-        // Asigna el valor del último día laborable al primer let
-        totalMonthlyTime = response.calculated_last_day;
-
-        // Asigna el valor del penúltimo día laborable al segundo let
-        penultimateMonthlyTime = response.calculated_penultimate_day;
-
-        // Imprime los valores en la consola
-        console.log("Último día: " + totalMonthlyTime);
-        console.log("Penúltimo día: " + penultimateMonthlyTime);
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
       },
     });
   }
-
+  
   let globalTotalMonthlyTimeNuev = "";
   function calcularSumaCalcPorSemana(userId, year, month) {
     var totalHoursMinutes = 0;
@@ -362,7 +350,7 @@ $(document).ready(function () {
               }
             }
           });
-
+          
           const nhours = Math.floor(final / 60);
           const nminutos = final % 60;
           const formattedMinutes = String(nminutos).padStart(2, "0");
@@ -377,7 +365,7 @@ $(document).ready(function () {
           }
 
           totalHoursMinutes += timeToMinutes(time1);
-
+          
           function calculatePercentage(time1, time2) {
             const minutes1 = timeToMinutes(time1);
             const minutes2 = timeToMinutes(time2);
@@ -615,7 +603,7 @@ $(document).ready(function () {
         //console.log(data);
         console.log("sin registro: " + data.total_missing_points);
         console.log("horas base: " + data.total_hours_required);
-
+        
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
           parseInt(data.total_minutes_late_formatted.split(":")[1]);
@@ -634,30 +622,26 @@ $(document).ready(function () {
           ":" +
           (minutesDifference < 10 ? "0" : "") +
           minutesDifference;
-
-        if (data.total_missing_points > 6) {
-          // Calcula los minutos adicionales
-          var extraMinutes = (data.total_missing_points - 6) * 15;
-
-          // Convierte total_hours_required a minutos
-          var total_rq_minutes = parseInt(data.total_hours_required) * 60;
-
-          // Suma los minutos adicionales
-          total_rq_minutes += extraMinutes;
-
-          // Convierte los minutos totales de nuevo a formato hh:mm
-          var total_rq_hours = Math.floor(total_rq_minutes / 60);
-          var total_rq_remainderMinutes = total_rq_minutes % 60;
-
-          // Actualiza total_hours_required con el nuevo valor en formato hh:mm
-          var total_rq =
-            total_rq_hours +
-            ":" +
-            (total_rq_remainderMinutes < 10 ? "0" : "") +
-            total_rq_remainderMinutes;
+        
+          if (data.total_missing_points > 6) {
+            // Calcula los minutos adicionales
+            var extraMinutes = (data.total_missing_points - 6) * 15;
+            
+            // Convierte total_hours_required a minutos
+            var total_rq_minutes = parseInt(data.total_hours_required) * 60;
+            
+            // Suma los minutos adicionales
+            total_rq_minutes += extraMinutes;
+            
+            // Convierte los minutos totales de nuevo a formato hh:mm
+            var total_rq_hours = Math.floor(total_rq_minutes / 60);
+            var total_rq_remainderMinutes = total_rq_minutes % 60;
+            
+            // Actualiza total_hours_required con el nuevo valor en formato hh:mm
+            var total_rq = total_rq_hours + ":" + (total_rq_remainderMinutes < 10 ? "0" : "") + total_rq_remainderMinutes;
         } else {
-          // Si no hay más de 6 registros, simplemente añade ":00" a total_hours_required
-          var total_rq = data.total_hours_required + ":00";
+            // Si no hay más de 6 registros, simplemente añade ":00" a total_hours_required
+            var total_rq = data.total_hours_required + ":00";
         }
         console.log("nueva hora + no marcas: " + total_rq);
         var adjustedHours =
@@ -696,7 +680,7 @@ $(document).ready(function () {
               "%"
           );
         }, 500);
-
+        
         setTimeout(function () {
           const sumFormattedParts = sumFormatted.split(":");
           const sumHours = parseInt(sumFormattedParts[0], 10);
@@ -712,6 +696,7 @@ $(document).ready(function () {
               "h</b>"
           );
         }, 500);
+        console.log("horas hechas este mes resultado final: " + globalTotalMonthlyTimeNuev);
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(differenceAdjustedFormatted);
         $("#tarde").text(data.total_late_points);
