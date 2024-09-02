@@ -91,6 +91,7 @@ $(document).ready(function () {
     getUserData(newUser.data("id"), currentMonth, currentYear);
 
     getStampSpecial(newUser.data("id"), currentMonth, currentYear);
+    getLastDayTime(newUser.data("id"), currentMonth, currentYear);
   }
 
   nextUser.on("click", function () {
@@ -109,6 +110,7 @@ $(document).ready(function () {
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
 
     getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
   });
 
   previousMonth.on("click", function () {
@@ -119,6 +121,7 @@ $(document).ready(function () {
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
 
     getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
   });
 
   userList.find("li").on("click", function () {
@@ -129,6 +132,7 @@ $(document).ready(function () {
     getUserData($(this).data("id"), currentMonth, currentYear);
 
     getStampSpecial($(this).data("id"), currentMonth, currentYear);
+    getLastDayTime($(this).data("id"), currentMonth, currentYear);
   });
 
   const lastUpdatedUserId = getCookie("lastUpdatedUserId");
@@ -153,6 +157,7 @@ $(document).ready(function () {
     getUserData(userId, currentMonth, currentYear);
 
     getStampSpecial(userId, currentMonth, currentYear);
+    getLastDayTime(userId, currentMonth, currentYear);
   }
 
   function formatDate(dateString) {
@@ -290,6 +295,27 @@ $(document).ready(function () {
         totalMonthlyTime = calculatedTime;
         console.log("Before: " + calculatedTime);
 
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
+    });
+  }
+
+  let lastDayTime = "";
+  function getLastDayTime(userId, month, year) {
+    $.ajax({
+      url: "../routes/del/dayUltimateMonth.php",
+      method: "POST",
+      data: { userId: userId, month: month, year: year },
+      dataType: "json",
+      success: function (response) {
+        if (response.error) {
+          console.error("Error en la respuesta:", response.error);
+          return;
+        }
+        lastDayTime = response.calculated_time;
+        console.log("After: " + lastDayTime);
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
@@ -696,7 +722,6 @@ $(document).ready(function () {
               "h</b>"
           );
         }, 500);
-        console.log("horas hechas este mes resultado final: " + globalTotalMonthlyTimeNuev);
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(differenceAdjustedFormatted);
         $("#tarde").text(data.total_late_points);
@@ -766,4 +791,5 @@ $(document).ready(function () {
   getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
   getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
+  getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
 });
