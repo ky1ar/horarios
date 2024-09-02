@@ -399,6 +399,7 @@ $(document).ready(function () {
         const monthlyMinutes = parseInt(monthlyMinutesStr, 10);
         totalMonthlyMinutes = monthlyHours * 60 + monthlyMinutes;
       }
+      console.log("total sin sumar el dia anterior supuestamente: " + totalHours);
       const newTotalMinutes =
         totalMonthlyMinutes + totalHours * 60 + totalMinutes;
       const newHours = Math.floor(newTotalMinutes / 60);
