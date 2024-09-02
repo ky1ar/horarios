@@ -682,7 +682,7 @@ $(document).ready(function () {
               "%"
           );
         }, 500);
-
+        console.log("horas hechas este mes: " + globalTotalMonthlyTimeNuev);
         setTimeout(function () {
           const sumFormattedParts = sumFormatted.split(":");
           const sumHours = parseInt(sumFormattedParts[0], 10);
