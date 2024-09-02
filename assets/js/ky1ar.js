@@ -351,31 +351,31 @@ $(document).ready(function () {
             }
           });
           
-          const nhours = Math.floor(final / 60);
-          const nminutos = final % 60;
-          const formattedMinutes = String(nminutos).padStart(2, "0");
-          const formattedHours = nhours.toString().padStart(2, "0");
-          const time1 = formattedHours + ":" + formattedMinutes;
-          const time2 = acumuladoValorDia;
+          // const nhours = Math.floor(final / 60);
+          // const nminutos = final % 60;
+          // const formattedMinutes = String(nminutos).padStart(2, "0");
+          // const formattedHours = nhours.toString().padStart(2, "0");
+          // const time1 = formattedHours + ":" + formattedMinutes;
+          // const time2 = acumuladoValorDia;
 
-          // Funciones de utilidad
-          function timeToMinutes(time) {
-            const [hours, minutes] = time.split(":").map(Number);
-            return hours * 60 + minutes;
-          }
+          // // Funciones de utilidad
+          // function timeToMinutes(time) {
+          //   const [hours, minutes] = time.split(":").map(Number);
+          //   return hours * 60 + minutes;
+          // }
 
-          totalHoursMinutes += timeToMinutes(time1);
+          // totalHoursMinutes += timeToMinutes(time1);
           
-          function calculatePercentage(time1, time2) {
-            const minutes1 = timeToMinutes(time1);
-            const minutes2 = timeToMinutes(time2);
-            return (minutes1 / minutes2) * 100;
-          }
+          // function calculatePercentage(time1, time2) {
+          //   const minutes1 = timeToMinutes(time1);
+          //   const minutes2 = timeToMinutes(time2);
+          //   return (minutes1 / minutes2) * 100;
+          // }
 
-          const percentage = calculatePercentage(time1, time2);
+          // const percentage = calculatePercentage(time1, time2);
 
-          $hrrBox.find(".minS").text(time1 + "hola" + " / " + time2 + "h");
-          $hrrBox.find(".porT").text(percentage.toFixed(1) + "%");
+          // $hrrBox.find(".minS").text(time1 + "hola" + " / " + time2 + "h");
+          // $hrrBox.find(".porT").text(percentage.toFixed(1) + "%");
         }
       );
     });
