@@ -408,9 +408,8 @@ $(document).ready(function () {
     $(document).ajaxStop(function () {
       const totalHours = Math.floor(totalHoursMinutes / 60);
       const totalMinutes = totalHoursMinutes % 60;
-      const formattedTotalTime = `${totalHours
-        .toString()
-        .padStart(2, "0")}:${totalMinutes.toString().padStart(2, "0")}`;
+      //const formattedTotalTime = `${totalHours.toString().padStart(2, "0")}:${totalMinutes.toString().padStart(2, "0")}`;
+    
       let totalMonthlyMinutes = 0;
       if (
         totalMonthlyTime &&
@@ -418,22 +417,34 @@ $(document).ready(function () {
         totalMonthlyTime !== "" &&
         totalMonthlyTime !== null
       ) {
-        const [monthlyHoursStr, monthlyMinutesStr] =
-          totalMonthlyTime.split(":");
+        const [monthlyHoursStr, monthlyMinutesStr] = totalMonthlyTime.split(":");
         const monthlyHours = parseInt(monthlyHoursStr, 10);
         const monthlyMinutes = parseInt(monthlyMinutesStr, 10);
         totalMonthlyMinutes = monthlyHours * 60 + monthlyMinutes;
       }
-      const newTotalMinutes =
-        totalMonthlyMinutes + totalHours * 60 + totalMinutes;
+    
+      let lastDayMinutes = 0;
+      if (
+        lastDayTime &&
+        lastDayTime !== "DF" &&
+        lastDayTime !== "" &&
+        lastDayTime !== null
+      ) {
+        const [lastDayHoursStr, lastDayMinutesStr] = lastDayTime.split(":");
+        const lastDayHours = parseInt(lastDayHoursStr, 10);
+        const lastDayMinutesPart = parseInt(lastDayMinutesStr, 10);
+        lastDayMinutes = lastDayHours * 60 + lastDayMinutesPart;
+      }
+    
+      const newTotalMinutes = totalMonthlyMinutes + totalHours * 60 + totalMinutes - lastDayMinutes;
       const newHours = Math.floor(newTotalMinutes / 60);
       const newMinutes = newTotalMinutes % 60;
-      const newFormattedTotalTime = `${newHours
-        .toString()
-        .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
+      const newFormattedTotalTime = `${newHours.toString().padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
+    
       globalTotalMonthlyTimeNuev = newFormattedTotalTime;
       $(document).off("ajaxStop");
     });
+    
   }
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({
