@@ -410,7 +410,7 @@ $(document).ready(function () {
       $(document).off("ajaxStop");
     });
   }
-
+  console.log("horas hechas pre: " + globalTotalMonthlyTimeNuev);
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({
       url: "../routes/del/get_week.php",
@@ -698,7 +698,7 @@ $(document).ready(function () {
               "h</b>"
           );
         }, 500);
-        console.log("horas hechas este mes: " + globalTotalMonthlyTimeNuev);
+        console.log("horas hechas este mes resultado final: " + globalTotalMonthlyTimeNuev);
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(differenceAdjustedFormatted);
         $("#tarde").text(data.total_late_points);
