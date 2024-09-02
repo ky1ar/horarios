@@ -56,9 +56,9 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $penultimateWorkdayRow = $result->fetch_assoc();
     $penultimateWorkday = $penultimateWorkdayRow['penultimate_workday'];
 
-    // Imprimir valores de rango inicial y final
-    echo "Penultimate MP: " . $penultimateMP . "<br>";
-    echo "Penultimate Workday: " . $penultimateWorkday . "<br>";
+    // Agregar valores de rango al array de respuesta
+    $response['penultimateMP'] = $penultimateMP;
+    $response['penultimateWorkday'] = $penultimateWorkday;
     // Consulta principal
     $query = "SELECT
     u.id_user AS id_user,
