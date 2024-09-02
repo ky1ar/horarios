@@ -682,7 +682,7 @@ $(document).ready(function () {
               "%"
           );
         }, 500);
-        console.log("horas hechas este mes: " + globalTotalMonthlyTimeNuev);
+        
         setTimeout(function () {
           const sumFormattedParts = sumFormatted.split(":");
           const sumHours = parseInt(sumFormattedParts[0], 10);
@@ -698,7 +698,7 @@ $(document).ready(function () {
               "h</b>"
           );
         }, 500);
-
+        console.log("horas hechas este mes: " + globalTotalMonthlyTimeNuev);
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(differenceAdjustedFormatted);
         $("#tarde").text(data.total_late_points);
