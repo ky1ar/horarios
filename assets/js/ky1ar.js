@@ -350,13 +350,12 @@ $(document).ready(function () {
               }
             }
           });
-
+          console.log("dato de suma: " + final);
           const nhours = Math.floor(final / 60);
           const nminutos = final % 60;
           const formattedMinutes = String(nminutos).padStart(2, "0");
           const formattedHours = nhours.toString().padStart(2, "0");
           const time1 = formattedHours + ":" + formattedMinutes;
-          console.log("dato a revisar: " + time1);
           const time2 = acumuladoValorDia;
 
           // Funciones de utilidad
