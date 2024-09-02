@@ -634,8 +634,6 @@ $(document).ready(function () {
       success: function (response) {
         var data = response;
         //console.log(data);
-        console.log("Penúltimo día laborable del mes anterior (penultimateMP): " + data.penultimateMP);
-        console.log("Penúltimo día laborable del mes en curso (penultimateWorkday): " + data.penultimateWorkday);
         console.log("sin registro: " + data.total_missing_points);
         console.log("horas base: " + data.total_hours_required);
         
