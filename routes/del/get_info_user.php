@@ -144,6 +144,9 @@ GROUP BY
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
 
+    // Agregar los resultados de la consulta principal al array de respuesta
+    $response['data'] = $row;
+
     echo json_encode($row);
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid parameters.']);
