@@ -310,10 +310,6 @@ $(document).ready(function () {
       data: { userId: userId, month: month, year: year },
       dataType: "json",
       success: function (response) {
-        if (response.error) {
-          console.error("Error en la respuesta:", response.error);
-          return;
-        }
         lastDayTime = response.calculated_time;
         console.log("After: " + lastDayTime);
       },
