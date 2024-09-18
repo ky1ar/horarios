@@ -84,7 +84,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         ) + COALESCE(
             SUM(
                 CASE
-                    WHEN c.calendar_date BETWEEN '$penultimateMP' AND DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY)
+                    WHEN c.calendar_date BETWEEN ? AND DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY)
                     THEN s.calc_diff ELSE 0
                 END
             ), 0
@@ -137,7 +137,7 @@ GROUP BY
     u.id_profile;";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssssss", $year, $month, $userId, $userId, $penultimateMP, $penultimateWorkday);
+    $stmt->bind_param("sssiiss", $year, $month, $penultimateMP, $userId, $userId, $penultimateMP, $penultimateWorkday);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
