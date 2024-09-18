@@ -55,7 +55,6 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $result = $stmt->get_result();
     $penultimateWorkdayRow = $result->fetch_assoc();
     $penultimateWorkday = $penultimateWorkdayRow['penultimate_workday'];
-
     // Consulta principal
     $query = "SELECT
     u.id_user AS id_user,
@@ -85,8 +84,10 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         ) + COALESCE(
             SUM(
                 CASE
-                    WHEN c.calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY)
-                    THEN s.calc_diff ELSE 0 END), 0
+                    WHEN c.calendar_date BETWEEN ? AND DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY)
+                    THEN s.calc_diff ELSE 0
+                END
+            ), 0
         ) AS total_missing_points,
     SUM(
         CASE
@@ -136,7 +137,7 @@ GROUP BY
     u.id_profile;";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("ssiiss", $year, $month, $userId, $userId, $penultimateMP, $penultimateWorkday);
+    $stmt->bind_param("siiss", $penultimateMP, $userId, $userId, $penultimateMP, $penultimateWorkday);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
