@@ -135,7 +135,7 @@ GROUP BY
     u.id_profile;";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("iiss", $userId, $userId, $penultimateMP, $penultimateWorkday);
+    $stmt->bind_param("ssiiss", $year, $month, $userId, $userId, $penultimateMP, $penultimateWorkday);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
