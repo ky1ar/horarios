@@ -84,7 +84,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         ) + COALESCE(
         SUM(
             CASE
-                WHEN c.calendar_date BETWEEN ? AND DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY)
+                WHEN c.calendar_date BETWEEN '$penultimateMP' AND DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY)
                 THEN s.calc_diff ELSE 0
             END
         ), 0
