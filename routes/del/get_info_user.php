@@ -137,7 +137,7 @@ GROUP BY
     u.id_profile;";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("sssiiss", $penultimateMP, $year, $month, $userId, $userId, $penultimateMP, $penultimateWorkday);
+    $stmt->bind_param("sssiissi", $year, $month, $userId, $userId, $penultimateMP, $penultimateWorkday);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
