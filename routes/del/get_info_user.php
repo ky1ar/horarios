@@ -15,6 +15,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         // Para junio de 2024, el día inicial será el 1 de junio
         $penultimateMP = "2024-06-01";
     } else {
+        // Obtener el penúltimo día laborable del mes anterior
         $penultimateQueryMonthPast = "
             SELECT calendar_date AS last_working_day_previous_month
             FROM Calendar
@@ -33,6 +34,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         $penultimateMP = $penultimateWorkdayMP['last_working_day_previous_month'];
     }
 
+    // Obtener el penúltimo día laborable del mes
     $penultimateQuery = "
         SELECT calendar_date AS penultimate_workday
         FROM (
@@ -81,11 +83,12 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
             END, 0)
         ) + COALESCE(
             SUM(
-            CASE
-                WHEN c.calendar_date BETWEEN ? AND DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY)
-                THEN s.calc_diff ELSE 0 END
+                CASE
+                    WHEN c.calendar_date BETWEEN '$penultimateMP' AND DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY)
+                    THEN s.calc_diff ELSE 0
+                END
             ), 0
-    ) AS total_missing_points,
+        ) AS total_missing_points,
     SUM(
         CASE
             WHEN (LEFT(s.stamp, 5) > (CASE WHEN u.id_user = 13 OR c.calendar_date = '2024-07-06' THEN '10:00' ELSE '09:00' END)) AND c.calendar_date < CURDATE() THEN 1
@@ -134,7 +137,7 @@ GROUP BY
     u.id_profile;";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("sssiiss", $year, $month, $penultimateMP, $userId, $userId, $penultimateMP, $penultimateWorkday);
+    $stmt->bind_param("ssiiss", $year, $month, $userId, $userId, $penultimateMP, $penultimateWorkday);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
