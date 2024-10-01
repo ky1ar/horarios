@@ -644,7 +644,14 @@ $(document).ready(function () {
           parseInt(data.one_percent_total_hours.split(":")[0]) * 60 +
           parseInt(data.one_percent_total_hours.split(":")[1]);
         var difference = minutesLate - onePercentHours;
-        var differenceAdjusted = Math.max(0, difference) * 0.5;
+        
+        // Verificar si es octubre de 2024 o después
+        var adjustmentFactor = 0.5; // Por defecto es 50%
+        if ((year > 2024) || (year === 2024 && month >= 10)) {
+          adjustmentFactor = 1; // Cambia al 100% si es octubre de 2024 o después
+        }
+
+        var differenceAdjusted = Math.max(0, difference) * adjustmentFactor;
         differenceAdjusted = Math.round(differenceAdjusted);
         var hoursDifference = Math.floor(differenceAdjusted / 60);
         var minutesDifference = differenceAdjusted % 60;
