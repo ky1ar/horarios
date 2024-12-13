@@ -94,62 +94,61 @@ $id = $_SESSION['user_id'];
                         </div>
                     <?php endif; ?>
                     <?php if ($rango == 0) : ?>
-                        <?php
-                        $sql = "SELECT u.id_user, u.slug, u.name, a.name as area 
-                                FROM Users u 
-                                INNER JOIN Profile p ON u.id_profile = p.id_profile 
-                                INNER JOIN Area a ON u.id_area = a.id_area 
-                                WHERE u.id_user = ?";
-                        $stmt = $conn->prepare($sql);
-                        $stmt->bind_param("i", $id);
-                        $stmt->execute();
-                        $result = $stmt->get_result();
-                        $row = $result->fetch_assoc();
-                        ?>
-                        <div id="userList">
-                            <ul>
-                                <li class="active" data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
-                                    <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
-                                    <h3><?php echo $row['name'] ?></h3>
-                                </li>
-                                <?php
-                                $sql = "SELECT hijos FROM Users WHERE id_user = ?";
-                                $stmt = $conn->prepare($sql);
-                                $stmt->bind_param("i", $id);
-                                $stmt->execute();
-                                $stmt->bind_result($hijos);
-                                $stmt->fetch();
-                                $stmt->close();
+    <?php
+    // Verificar si el usuario tiene hijos
+    $sql = "SELECT hijos FROM Users WHERE id_user = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $stmt->bind_result($hijos);
+    $stmt->fetch();
+    $stmt->close();
 
-                                if ($hijos !== null && !empty($hijos)) {
-                                    $hijosArray = explode(',', $hijos);
-                                    $inClause = str_repeat('?,', count($hijosArray) - 1) . '?';
-                                    $params = str_repeat('i', count($hijosArray));
+    if ($hijos !== null && !empty($hijos)) {
+        // El usuario tiene hijos, mostrar la lista
+        $hijosArray = explode(',', $hijos); // Separar los ids por coma
+        $inClause = str_repeat('?,', count($hijosArray) - 1) . '?'; // Generar el ? para cada id
+        $params = str_repeat('i', count($hijosArray)); // Especificar el tipo de parámetros (enteros)
 
-                                    $sql = "SELECT u.id_user, u.slug, u.name, a.name as area 
-                                            FROM Users u 
-                                            INNER JOIN Profile p ON u.id_profile = p.id_profile 
-                                            INNER JOIN Area a ON u.id_area = a.id_area 
-                                            WHERE u.id_user IN ($inClause) 
-                                            ORDER BY u.name";
+        $sql = "SELECT u.id_user, u.slug, u.name, a.name as area 
+                FROM Users u 
+                INNER JOIN Profile p ON u.id_profile = p.id_profile 
+                INNER JOIN Area a ON u.id_area = a.id_area 
+                WHERE u.id_user IN ($inClause) 
+                ORDER BY u.name";
 
-                                    $stmt = $conn->prepare($sql);
-                                    $stmt->bind_param($params, ...$hijosArray);
-                                    $stmt->execute();
-                                    $result = $stmt->get_result();
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param($params, ...$hijosArray);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        ?>
+        <div id="userList">
+            <ul>
+                <li class="active" data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
+                    <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
+                    <h3><?php echo $row['name'] ?></h3>
+                </li>
+                <?php while ($row = $result->fetch_assoc()) : ?>
+                    <li data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
+                        <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
+                        <h3><?php echo $row['name'] ?></h3>
+                    </li>
+                <?php endwhile; ?>
+            </ul>
+        </div>
+    <?php } else { ?>
+        <!-- Si no hay hijos, mostrar solo el usuario principal -->
+        <div id="userList" style="visibility: hidden; opacity: 0;">
+            <ul>
+                <li class="active" data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
+                    <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
+                    <h3><?php echo $row['name'] ?></h3>
+                </li>
+            </ul>
+        </div>
+    <?php } ?>
+<?php endif; ?>
 
-                                    while ($row = $result->fetch_assoc()) :
-                                    ?>
-                                        <li data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
-                                            <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
-                                            <h3><?php echo $row['name'] ?></h3>
-                                        </li>
-                                    <?php endwhile;
-                                }
-                                ?>
-                            </ul>
-                        </div>
-                    <?php endif; ?>
                 </div>
             </div>
         </header>
