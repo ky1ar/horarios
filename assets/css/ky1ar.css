@@ -293,9 +293,6 @@ body {
   cursor: pointer;
   width: 100%;
 }
-#selectedUser #userList ul li:hover {
-  background-color: #bfbfbf;
-}
 #selectedUser #userList ul li img {
   width: 2rem;
   height: 2rem;
