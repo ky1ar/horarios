@@ -96,17 +96,16 @@ $id = $_SESSION['user_id'];
                     <?php if ($rango == 0) : ?>
                         <?php
                         $sql = "SELECT u.id_user, u.slug, u.name, a.name as area 
-            FROM Users u 
-            INNER JOIN Profile p ON u.id_profile = p.id_profile 
-            INNER JOIN Area a ON u.id_area = a.id_area 
-            WHERE u.id_user = ?";
+                                FROM Users u 
+                                INNER JOIN Profile p ON u.id_profile = p.id_profile 
+                                INNER JOIN Area a ON u.id_area = a.id_area 
+                                WHERE u.id_user = ?";
                         $stmt = $conn->prepare($sql);
                         $stmt->bind_param("i", $id);
                         $stmt->execute();
                         $result = $stmt->get_result();
                         $row = $result->fetch_assoc();
 
-                        // Consulta para obtener los hijos
                         $sql = "SELECT hijos FROM Users WHERE id_user = ?";
                         $stmt = $conn->prepare($sql);
                         $stmt->bind_param("i", $id);
@@ -128,12 +127,11 @@ $id = $_SESSION['user_id'];
                                     $params = str_repeat('i', count($hijosArray));
 
                                     $sql = "SELECT u.id_user, u.slug, u.name, a.name as area 
-                        FROM Users u 
-                        INNER JOIN Profile p ON u.id_profile = p.id_profile 
-                        INNER JOIN Area a ON u.id_area = a.id_area 
-                        WHERE u.id_user IN ($inClause) 
-                        ORDER BY u.name";
-
+                                            FROM Users u 
+                                            INNER JOIN Profile p ON u.id_profile = p.id_profile 
+                                            INNER JOIN Area a ON u.id_area = a.id_area 
+                                            WHERE u.id_user IN ($inClause) 
+                                            ORDER BY u.name";
                                     $stmt = $conn->prepare($sql);
                                     $stmt->bind_param($params, ...$hijosArray);
                                     $stmt->execute();

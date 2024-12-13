@@ -291,12 +291,10 @@ body {
   align-items: center;
   gap: 1rem;
   cursor: pointer;
-}
-#selectedUser #userList ul li {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
   width: 100%;
+}
+#selectedUser #userList ul li:hover {
+  background-color: #bfbfbf;
 }
 #selectedUser #userList ul li img {
   width: 2rem;
