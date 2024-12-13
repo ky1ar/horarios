@@ -106,7 +106,7 @@ $id = $_SESSION['user_id'];
                         $result = $stmt->get_result();
                         $row = $result->fetch_assoc();
                         ?>
-                        <div id="userList" <?php echo ($hijos === null || empty($hijos)) ? 'style="visibility: hidden;"' : ''; ?>>
+                        <div id="userList" <?php echo ($hijos === null || empty($hijos)) ? 'style="display: none;"' : ''; ?>>
                             <ul>
                                 <li class="active" data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
                                     <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
