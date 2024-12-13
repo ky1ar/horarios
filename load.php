@@ -95,7 +95,6 @@ $id = $_SESSION['user_id'];
                     <?php endif; ?>
                     <?php if ($rango == 0) : ?>
                         <?php
-                        // Primero, obtenemos la información del usuario principal
                         $sql = "SELECT u.id_user, u.slug, u.name, a.name as area 
                                 FROM Users u 
                                 INNER JOIN Profile p ON u.id_profile = p.id_profile 
@@ -113,9 +112,7 @@ $id = $_SESSION['user_id'];
                                     <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
                                     <h3><?php echo $row['name'] ?></h3>
                                 </li>
-
                                 <?php
-                                // Verificar si el usuario tiene hijos
                                 $sql = "SELECT hijos FROM Users WHERE id_user = ?";
                                 $stmt = $conn->prepare($sql);
                                 $stmt->bind_param("i", $id);
@@ -125,10 +122,9 @@ $id = $_SESSION['user_id'];
                                 $stmt->close();
 
                                 if ($hijos !== null && !empty($hijos)) {
-                                    // Los hijos están presentes, procesarlos
-                                    $hijosArray = explode(',', $hijos); // Separar los ids por coma
-                                    $inClause = str_repeat('?,', count($hijosArray) - 1) . '?'; // Generar el ? para cada id
-                                    $params = str_repeat('i', count($hijosArray)); // Especificar el tipo de parámetros (enteros)
+                                    $hijosArray = explode(',', $hijos);
+                                    $inClause = str_repeat('?,', count($hijosArray) - 1) . '?';
+                                    $params = str_repeat('i', count($hijosArray));
 
                                     $sql = "SELECT u.id_user, u.slug, u.name, a.name as area 
                                             FROM Users u 
