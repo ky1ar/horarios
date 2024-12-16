@@ -43,7 +43,7 @@ $id = $_SESSION['user_id'];
     <section id="ky1-rgt">
         <header>
             <div class="ky1-ttl">
-                <h1>Horarios</h1>
+                <h1>Horarioss</h1>
                 <span>Registro biométrico del mes</span>
             </div>
             <div class="ky1-permisos">
@@ -94,28 +94,57 @@ $id = $_SESSION['user_id'];
                         </div>
                     <?php endif; ?>
                     <?php if ($rango == 0) : ?>
-                        <div id="userList" style="visibility: hidden; opacity: 0;">
+                        <?php
+                        $sql = "SELECT u.id_user, u.slug, u.name, a.name as area 
+                                FROM Users u 
+                                INNER JOIN Profile p ON u.id_profile = p.id_profile 
+                                INNER JOIN Area a ON u.id_area = a.id_area 
+                                WHERE u.id_user = ?";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("i", $id);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        $row = $result->fetch_assoc();
+
+                        $sql = "SELECT hijos FROM Users WHERE id_user = ?";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("i", $id);
+                        $stmt->execute();
+                        $stmt->bind_result($hijos);
+                        $stmt->fetch();
+                        $stmt->close();
+                        ?>
+                        <div id="userList" <?php echo ($hijos === null || empty($hijos)) ? 'style="display: none;"' : ''; ?>>
                             <ul>
+                                <li class="active" data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
+                                    <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
+                                    <h3><?php echo $row['name'] ?></h3>
+                                </li>
                                 <?php
-                                $firstIndex = true;
-                                $sql = "SELECT u.id_user, u.slug, u.name, a.name as area 
-                                    FROM Users u 
-                                    INNER JOIN Profile p ON u.id_profile = p.id_profile 
-                                    INNER JOIN Area a ON u.id_area = a.id_area 
-                                    WHERE u.id_user = ?";
-                                $stmt = $conn->prepare($sql);
-                                $stmt->bind_param("i", $id);
-                                $stmt->execute();
-                                $result = $stmt->get_result();
-                                while ($row = $result->fetch_assoc()) : ?>
-                                    <li <?php echo $firstIndex ? 'class="active"' : '' ?> data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
-                                        <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
-                                        <h3><?php echo $row['name'] ?></h3>
-                                    </li>
-                                <?php
-                                    $firstIndex = false;
-                                endwhile;
-                                $stmt->close();
+                                if ($hijos !== null && !empty($hijos)) {
+                                    $hijosArray = explode(',', $hijos);
+                                    $inClause = str_repeat('?,', count($hijosArray) - 1) . '?';
+                                    $params = str_repeat('i', count($hijosArray));
+
+                                    $sql = "SELECT u.id_user, u.slug, u.name, a.name as area 
+                                            FROM Users u 
+                                            INNER JOIN Profile p ON u.id_profile = p.id_profile 
+                                            INNER JOIN Area a ON u.id_area = a.id_area 
+                                            WHERE u.id_user IN ($inClause) 
+                                            ORDER BY u.name";
+                                    $stmt = $conn->prepare($sql);
+                                    $stmt->bind_param($params, ...$hijosArray);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
+
+                                    while ($row = $result->fetch_assoc()) :
+                                ?>
+                                        <li data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
+                                            <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
+                                            <h3><?php echo $row['name'] ?></h3>
+                                        </li>
+                                <?php endwhile;
+                                }
                                 ?>
                             </ul>
                         </div>
