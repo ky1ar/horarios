@@ -391,6 +391,29 @@ $id = $_SESSION['user_id'];
         <img src="" alt="">
         <embed src="" type="application/pdf" />
     </div>
+
+    <div class="comentarios">
+        <?php
+        // Consulta SQL para obtener los comentarios
+        $query = "SELECT c.comentario, u.name 
+              FROM Comentarios c
+              JOIN Users u ON c.id_user = u.id_user";
+        $result = mysqli_query($conn, $query);
+
+        // Verifica si hay resultados y muestra los comentarios
+        if ($result && mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                // Mostrar cada comentario dentro de un <p>
+                echo '<p><strong>' . htmlspecialchars($row['name']) . ':</strong> ' . htmlspecialchars($row['comentario']) . '</p>';
+            }
+        } else {
+            echo '<p>No hay comentarios disponibles.</p>';
+        }
+
+        // Cierra la conexión
+        mysqli_close($conn);
+        ?>
+    </div>
 </body>
 
 </html>
