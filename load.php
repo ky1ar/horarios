@@ -19,7 +19,7 @@ $id = $_SESSION['user_id'];
     <?php require_once 'header.php'; ?>
 </head>
 
-<body style="display: flex;">
+<body style="display: flex; flex-direction: column;">
     <div class="out">
         <a href="./routes/del/logout.php"><img src="./assets/img/out.svg" alt=""></a>
     </div>
@@ -392,25 +392,19 @@ $id = $_SESSION['user_id'];
         <embed src="" type="application/pdf" />
     </div>
 
-    <div class="comentarios">
+    <div class="comentarios-boss">
         <?php
-        // Consulta SQL para obtener los comentarios
         $query = "SELECT c.comentario, u.name 
               FROM Comentarios c
               JOIN Users u ON c.id_user = u.id_user";
         $result = mysqli_query($conn, $query);
-
-        // Verifica si hay resultados y muestra los comentarios
         if ($result && mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
-                // Mostrar cada comentario dentro de un <p>
-                echo '<p><strong>' . htmlspecialchars($row['name']) . ':</strong> ' . htmlspecialchars($row['comentario']) . '</p>';
+                echo '<p><strong>Antonio: </strong> ' . htmlspecialchars($row['comentario']) . '</p>';
             }
         } else {
             echo '<p>No hay comentarios disponibles.</p>';
         }
-
-        // Cierra la conexión
         mysqli_close($conn);
         ?>
     </div>
