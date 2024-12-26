@@ -357,8 +357,6 @@ $id = $_SESSION['user_id'];
                 $n++;
             }
             fclose($reader);
-        } else {
-            echo "No se pudo abrir el archivo.";
         }
         ?>
     </section>
