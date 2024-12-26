@@ -393,7 +393,10 @@ $id = $_SESSION['user_id'];
     </div>
 
     <div class="comentarios-boss">
-        <h1>Comentarios</h1>
+        <div class="sup">
+            <h1>Comentarios</h1>
+            <button>Agregar</button>
+        </div>
         <?php
         $query = "SELECT c.comentario, u.name 
               FROM Comentarios c
