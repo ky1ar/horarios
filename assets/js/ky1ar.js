@@ -267,7 +267,6 @@ $(document).ready(function () {
         if (response.success) {
           hideModal();
           calcDiffGlobal = response.calcDiff;
-          // Suponiendo que userId, currentMonth y currentYear están disponibles
           getUserSchedule(formData.get("userId"), currentMonth, currentYear);
           location.reload(true);
         } else {
