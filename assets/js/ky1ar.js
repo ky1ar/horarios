@@ -833,7 +833,7 @@ $(document).ready(function () {
         data: { user_id: userId, comentario: comentario },
         success: function (response) {
           if (response.success) {
-            location.reload(); // Recargar la página tras éxito
+            location.reload(); 
           } else {
             alert("Hubo un error al agregar el comentario.");
           }
