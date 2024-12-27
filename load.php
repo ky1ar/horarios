@@ -397,7 +397,7 @@ $id = $_SESSION['user_id'];
         <div class="sup">
             <h1>Comentarios</h1>
             <div class="envio">
-                <form action="insertCommentBoss.php" method="POST">
+                <form action="../routes/del/insertCommentBoss.php" method="POST">
                     <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
                     <textarea name="comentario" id="comentarioInput" required></textarea>
                     <input type="submit" value="Agregar">
