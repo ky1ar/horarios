@@ -1007,6 +1007,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   align-items: center;
   text-align: left;
   width: 80%;  
+  flex-direction: column;
 }
 .comentarios-boss .mensajes p{
   padding: 1.5rem;
