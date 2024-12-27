@@ -199,14 +199,25 @@ $(document).ready(function () {
     return formattedDate;
   }
 
-  function showModal(stamp, just, coment, date, userId) {
+  function showModal(stamp, just, coment, midTime, fullTime, date, userId) {
     $("#stampInput").val(stamp);
     $("#comentInput").val(coment);
     $("#justNameInput").val(just);
     $("#dateInput").val(date);
+
     const formattedDate = formatDate(date);
     $("#dayInput").val(formattedDate);
     $("#userIdInput").val(userId);
+    if (midTime === 1) {
+      $("#check1").prop("checked", true);
+    } else {
+      $("#check1").prop("checked", false);
+    }
+    if (fullTime === 1) {
+      $("#check2").prop("checked", true);
+    } else {
+      $("#check2").prop("checked", false);
+    }
     $(".modal-stamp").fadeIn();
   }
 
@@ -237,6 +248,8 @@ $(document).ready(function () {
             response.stamp,
             response.just,
             response.coment,
+            response.mid_time,
+            response.full_time,
             date,
             userId
           );
