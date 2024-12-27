@@ -811,13 +811,19 @@ $(document).ready(function () {
   }
 
   $(document).ready(function () {
-    var userId = $(this).data("user-id");
-    console.log("id: " + userId);
+    function getActiveUserId() {
+      return $("#userList").find(".active").data("id");
+    }
     $("#commentForm").on("submit", function (event) {
       event.preventDefault();
+      var userId = getActiveUserId(); // Obtén el userId dinámicamente
       var comentario = $("#commentb").val().trim();
+      if (!userId) {
+        alert("No se pudo obtener el ID del usuario activo.");
+        return;
+      }
       if (comentario === "") {
-        alert("El comentario no puede estar vacío."); 
+        alert("El comentario no puede estar vacío.");
         return;
       }
       $.ajax({
@@ -826,9 +832,9 @@ $(document).ready(function () {
         data: { user_id: userId, comentario: comentario },
         success: function (response) {
           if (response.success) {
-            location.reload(); 
+            location.reload(); // Recargar la página tras éxito
           } else {
-            alert("Hubo un error al agregar el comentario."); 
+            alert("Hubo un error al agregar el comentario.");
           }
         },
         error: function (xhr, status, error) {
