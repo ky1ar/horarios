@@ -1010,19 +1010,15 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   flex-direction: column;
 }
 .comentarios-boss .mensajes p{
+  display: flex;
   padding: 1.5rem;
   background-color: var(--white);
   border-radius: 1rem;
   width: 100%;
-  position: relative;
 }
 .comentarios-boss .mensajes p strong{
   margin-right: .5rem;
 }
 .comentarios-boss .mensajes p .fecha{
-  position: absolute;
-  right: 1rem;
-  top: .5rem;
-  color: #8b8989;
-  font-style: italic;
+  margin-left: auto;
 }
