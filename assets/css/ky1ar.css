@@ -582,10 +582,10 @@ body {
   background-color: #2ee08d;
 }
 .modal-stamp form .switch input:checked + .slider.round:before {
-  border-radius: 2rem;
+  border-radius: 2.2rem;
 }
 .modal-stamp form .switch input:checked + .slider:before {
-  transform: translateX(2rem);
+  transform: translateX(2.2rem);
 }
 .modal-stamp form .switch input:checked + .slider.round {
   border-radius: 34px;
