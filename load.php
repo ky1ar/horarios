@@ -402,7 +402,6 @@ $id = $_SESSION['user_id'];
                     <textarea name="comentario" id="comentarioInput" required></textarea>
                     <input type="submit" value="Agregar">
                 </form>
-
             </div>
         </div>
         <?php
