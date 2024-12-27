@@ -395,7 +395,12 @@ $id = $_SESSION['user_id'];
     <div class="comentarios-boss">
         <div class="sup">
             <h1>Comentarios</h1>
-            <button>Agregar</button>
+            <div class="envio">
+                <form action="">
+                    <textarea name="" id=""></textarea>
+                    <input type="submit" value="Agregar">
+                </form>
+            </div>
         </div>
         <?php
         $query = "SELECT c.comentario, u.name 
