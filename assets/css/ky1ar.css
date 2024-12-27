@@ -579,7 +579,13 @@ body {
   transition: .4s;
 }
 .modal-stamp form .switch input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #2ee08d;
+}
+.modal-stamp form .switch input:checked + .slider.round:before {
+  border-radius: 2rem;
+}
+.modal-stamp form .switch input:checked + .slider:before {
+  transform: translateX(2rem);
 }
 .modal-stamp form .switch input:focus + .slider {
   box-shadow: 0 0 1px #2196F3;
@@ -591,9 +597,6 @@ body {
 }
 .modal-stamp form .switch input:checked + .slider.round {
   border-radius: 34px;
-}
-.modal-stamp form .switch input:checked + .slider.round:before {
-  border-radius: 50%;
 }
 
 .modal-stamp form label {
