@@ -816,7 +816,8 @@ $(document).ready(function () {
     }
     $("#commentForm").on("submit", function (event) {
       event.preventDefault();
-      var userId = getActiveUserId(); // Obtén el userId dinámicamente
+      var userId = getActiveUserId();
+      console.log("id: " + userId);
       var comentario = $("#commentb").val().trim();
       if (!userId) {
         alert("No se pudo obtener el ID del usuario activo.");
