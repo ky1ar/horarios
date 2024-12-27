@@ -812,9 +812,10 @@ $(document).ready(function () {
 
   $(document).ready(function () {
     var userId = $(this).data("user-id");
+    console.log("id: " + userId);
     $("#commentForm").on("submit", function (event) {
       event.preventDefault();
-      var comentario = $("#comentarioInput").val().trim();
+      var comentario = $("#commentb").val().trim();
       if (comentario === "") {
         alert("El comentario no puede estar vacío."); 
         return;

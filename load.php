@@ -396,7 +396,7 @@ $id = $_SESSION['user_id'];
         <h1>Comentarios</h1>
         <div class="envio">
             <form id="commentForm">
-                <textarea name="comentario" id="comentarioInput" required></textarea>
+                <textarea name="commentb" id="commentb" required></textarea>
                 <input type="submit" value="Agregar">
             </form>
         </div>
