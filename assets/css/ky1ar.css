@@ -1021,4 +1021,6 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
 }
 .comentarios-boss .mensajes p .fecha{
   margin-left: auto;
+  color: #8b8989;
+  font-style: italic;
 }
