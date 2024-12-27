@@ -373,7 +373,10 @@ $id = $_SESSION['user_id'];
                     <input type="checkbox">
                     <span class="slider round"></span>
                 </label>
-
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
                 <label for="stampInput" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">Registro:</label>
                 <input type="text" id="stampInput" name="stamp" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
                 <input type="hidden" id="dateInput" name="date">
