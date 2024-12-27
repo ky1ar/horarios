@@ -983,6 +983,9 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   border: none;
   background-color: #9eef88;  
 }
+.comentarios-boss .sup button:hover{
+  background-color: #449b2c;
+}
 .comentarios-boss p{
   display: flex;
   align-items: center;
