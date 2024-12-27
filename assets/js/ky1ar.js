@@ -798,7 +798,9 @@ $(document).ready(function () {
           var $mensajesDiv = $("#mensajes");
           $mensajesDiv.empty();
           comments.forEach(function (comment) {
-            $mensajesDiv.append("<p><strong>Antonio Moll:</strong> " + comment + "</p>");
+            $mensajesDiv.append(
+              "<p><strong>Antonio Moll:</strong> " + comment + "</p>"
+            );
           });
           $mensajesDiv.show();
         } else {
@@ -808,6 +810,33 @@ $(document).ready(function () {
       error: function () {},
     });
   }
+
+  $(document).ready(function () {
+    var userId = $("#userData").data("user-id");
+    $("#commentForm").on("submit", function (event) {
+      event.preventDefault();
+      var comentario = $("#comentarioInput").val().trim();
+      if (comentario === "") {
+        alert("El comentario no puede estar vacío."); 
+        return;
+      }
+      $.ajax({
+        url: "../routes/del/insertCommentBoss.php",
+        method: "POST",
+        data: { user_id: userId, comentario: comentario },
+        success: function (response) {
+          if (response.success) {
+            location.reload(); 
+          } else {
+            alert("Hubo un error al agregar el comentario."); 
+          }
+        },
+        error: function (xhr, status, error) {
+          alert("Error en la solicitud AJAX.");
+        },
+      });
+    });
+  });
 
   updateMonthDisplay();
   if (userList.find(".active").length === 0) {

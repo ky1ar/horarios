@@ -14,13 +14,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->bind_param("is", $id_user, $comentario);
                 $stmt->execute();
                 $stmt->close();
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Error al preparar la consulta.']);
             }
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Comentario vacío.']);
         }
-
-        header("Location: /load");
-        exit();
     } else {
-        echo "Faltan datos para agregar el comentario.";
+        echo json_encode(['success' => false, 'message' => 'Faltan datos para agregar el comentario.']);
     }
 }
 
