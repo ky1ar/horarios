@@ -397,8 +397,9 @@ $id = $_SESSION['user_id'];
         <div class="envio">
             <form id="commentForm">
                 <textarea id="commentb"></textarea>
-                <button type="submit">Agregar Comentario</button>
+                <input type="submit" value="Agregar Comentario">
             </form>
+
         </div>
         <div id="mensajes" class="mensajes">
 

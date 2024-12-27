@@ -817,14 +817,11 @@ $(document).ready(function () {
     $("#commentForm").on("submit", function (event) {
       event.preventDefault();
       var userId = getActiveUserId();
-      console.log("id: " + userId);
       var comentario = $("#commentb").val().trim();
       if (!userId) {
-        alert("No se pudo obtener el ID del usuario activo.");
         return;
       }
       if (comentario === "") {
-        alert("El comentario no puede estar vacío.");
         return;
       }
       $.ajax({
@@ -833,13 +830,10 @@ $(document).ready(function () {
         data: { user_id: userId, comentario: comentario },
         success: function (response) {
           if (response.success) {
-            location.reload(); 
-          } else {
-            alert("Hubo un error al agregar el comentario.");
+            location.reload();
           }
         },
-        error: function (xhr, status, error) {
-          alert("Error en la solicitud AJAX.");
+        error: function () {
         },
       });
     });
