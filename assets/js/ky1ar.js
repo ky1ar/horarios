@@ -92,6 +92,7 @@ $(document).ready(function () {
 
     getStampSpecial(newUser.data("id"), currentMonth, currentYear);
     getLastDayTime(newUser.data("id"), currentMonth, currentYear);
+    getUserComments(newUser.data("id"));
   }
 
   nextUser.on("click", function () {
@@ -111,6 +112,7 @@ $(document).ready(function () {
 
     getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
     getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getUserComments(selectedUser.attr("data-id"));
   });
 
   previousMonth.on("click", function () {
@@ -122,6 +124,7 @@ $(document).ready(function () {
 
     getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
     getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getUserComments(selectedUser.attr("data-id"));
   });
 
   userList.find("li").on("click", function () {
@@ -133,6 +136,7 @@ $(document).ready(function () {
 
     getStampSpecial($(this).data("id"), currentMonth, currentYear);
     getLastDayTime($(this).data("id"), currentMonth, currentYear);
+    getUserComments($(this).data("id"));
   });
 
   const lastUpdatedUserId = getCookie("lastUpdatedUserId");
@@ -158,6 +162,7 @@ $(document).ready(function () {
 
     getStampSpecial(userId, currentMonth, currentYear);
     getLastDayTime(userId, currentMonth, currentYear);
+    getUserComments(userId);
   }
 
   function formatDate(dateString) {
@@ -802,36 +807,34 @@ $(document).ready(function () {
     });
   });
 
-  $(document).ready(function() {
-    var userId = $(this).data("user-id");
-    console.log(userId);
+  function getUserComments(userId) {
+    // Obtener los comentarios del usuario
     $.ajax({
-      url: "../routes/del/getComments.php",
+      url: "../routes/del/getComentarios.php", // Ruta para obtener comentarios
       method: "POST",
       data: { id_user: userId },
+      dataType: "json",
       success: function (response) {
-        var data = JSON.parse(response);
-        if (data.success) {
-          var comments = data.comments;
+        if (response.success) {
+          var comments = response.comments;
           var $mensajesDiv = $("#mensajes");
-          $mensajesDiv.empty();
+          $mensajesDiv.empty(); // Limpiar los comentarios previos
+
+          // Mostrar los comentarios
           comments.forEach(function (comment) {
             $mensajesDiv.append("<p>" + comment + "</p>");
           });
-
-          // Muestra el contenedor si no estaba visible
-          $mensajesDiv.show();
+          $mensajesDiv.show(); // Mostrar el div con los comentarios
         } else {
-          console.log("Error:", data.message);
+          console.log("Error:", response.message);
           $("#mensajes").html("<p>No hay comentarios disponibles.</p>");
         }
       },
       error: function () {
-        console.log("Error en la solicitud AJAX.");
-        $("#mensajes").html("<p>Hubo un error al cargar los comentarios.</p>");
+        console.log("Error en la solicitud AJAX para comentarios.");
       },
     });
-  });
+  }
 
   updateMonthDisplay();
   if (userList.find(".active").length === 0) {
@@ -843,4 +846,5 @@ $(document).ready(function () {
   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
   getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
   getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
+  getUserComments(selectedUser.attr("data-id"));
 });
