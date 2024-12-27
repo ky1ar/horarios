@@ -393,20 +393,18 @@ $id = $_SESSION['user_id'];
     </div>
 
     <div class="comentarios-boss" id="comments-container">
-
-        <div class="sup">
-            <h1>Comentarios</h1>
-            <div class="envio">
-                <form action="../../routes/del/insertCommentBoss.php" method="POST">
-                    <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
-                    <textarea name="comentario" id="comentarioInput" required></textarea>
-                    <input type="submit" value="Agregar">
-                </form>
-            </div>
-            <div id="mensajes" class="mensajes">
-
-            </div>
+        <h1>Comentarios</h1>
+        <div class="envio">
+            <form action="../../routes/del/insertCommentBoss.php" method="POST">
+                <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
+                <textarea name="comentario" id="comentarioInput" required></textarea>
+                <input type="submit" value="Agregar">
+            </form>
         </div>
+        <div id="mensajes" class="mensajes">
+
+        </div>
+    </div>
     </div>
 </body>
 
