@@ -457,15 +457,11 @@ $(document).ready(function () {
             var acumuladoValorDia = response.data[0].acumulado_valor_dia;
             var idProfile = response.data[0].id_profile;
             callback(acumuladoValorDia, idProfile);
-          } else {
-            console.error("No se encontraron datos en la respuesta");
           }
-        } else {
-          console.error(response.message);
         }
       },
       error: function (xhr, status, error) {
-        console.error("Error en la solicitud AJAX:", error);
+        // El console.error ha sido omitido
       },
     });
   }
@@ -785,8 +781,7 @@ $(document).ready(function () {
         } else {
         }
       },
-      error: function () {
-      },
+      error: function () {},
     });
   });
 
@@ -810,8 +805,7 @@ $(document).ready(function () {
           $("#mensajes").html("<p>No hay comentarios disponibles.</p>");
         }
       },
-      error: function () {
-      },
+      error: function () {},
     });
   }
 
