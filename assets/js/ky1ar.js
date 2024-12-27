@@ -838,7 +838,7 @@ $(document).ready(function () {
           if (response.success) {
             $("#commentb").val("");
             getUserSchedule(formData.get("userId"), currentMonth, currentYear);
-            location.reload();
+            location.reload(true);
           } else {
             alert(
               "Hubo un error al guardar el comentario. Intenta nuevamente."
