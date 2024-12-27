@@ -1,6 +1,4 @@
 <?php
-// Asegúrate de iniciar la sesión si no lo has hecho antes
-session_start();
 require_once '../includes/app/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
