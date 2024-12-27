@@ -551,6 +551,9 @@ body {
   padding-bottom: 0;
   flex-direction: column;
 }
+.modal-stamp form .checks{
+  display: flex;
+}
 .modal-stamp form .checks .switch{
   position: relative;
   display: flex;
