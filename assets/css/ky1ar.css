@@ -982,6 +982,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   border-radius: 1rem;
   height: 4rem;
   padding: 1rem;
+  outline: none;
 }
 .comentarios-boss .sup form input{
   display: flex;
