@@ -995,7 +995,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   cursor: pointer;
   margin-bottom: 2rem;
 }
-.comentarios-boss .sup form input:hover{
+.comentarios-boss .envio form input:hover{
   background-color: #979797;
 }
 .comentarios-boss .mensajes{
