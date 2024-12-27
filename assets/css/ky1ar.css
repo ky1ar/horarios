@@ -589,7 +589,7 @@ body {
   border-radius: 2rem;
 }
 .modal-stamp form .switch input:checked + .slider:before {
-  transform: translateX(2.2rem);
+  transform: translateX(2rem);
 }
 .modal-stamp form .switch .slider.round,
 .modal-stamp form .switch .slider.round:before {
