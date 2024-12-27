@@ -966,21 +966,22 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   padding: 1rem;
   background-image: url(https://tiendakrear3d.com/wp-content/uploads/2024/06/whirlpool.webp);
 }
-.comentarios-boss .sup h1{
+.comentarios-boss h1{
+  width: 80%;
   text-align: left;
 }
-.comentarios-boss .sup form{
+.comentarios-boss .envio form{
   display: flex;
   flex-direction: column;
 }
-.comentarios-boss .sup form textarea{
+.comentarios-boss .envio form textarea{
   resize: vertical;
   border-radius: 1rem;
   height: 4rem;
   padding: 1rem;
   outline: none;
 }
-.comentarios-boss .sup form input{
+.comentarios-boss .envio form input{
   display: flex;
   margin-top: 1rem;
   width: fit-content;
