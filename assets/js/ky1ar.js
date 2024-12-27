@@ -839,7 +839,6 @@ $(document).ready(function () {
         success: function (response) {
           if (response.success) {
             $("#commentb").val("");
-            alert("Comentario guardado con éxito.");
           } else {
             alert(
               "Hubo un error al guardar el comentario. Intenta nuevamente."
