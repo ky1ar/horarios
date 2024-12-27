@@ -1,21 +1,21 @@
 <?php
 require_once '../../includes/app/db.php';
 
-// Lista de los meses en español
 $mesesEnEspanol = [
-    'January' => 'Enero',
-    'February' => 'Febrero',
-    'March' => 'Marzo',
-    'April' => 'Abril',
-    'May' => 'Mayo',
-    'June' => 'Junio',
-    'July' => 'Julio',
-    'August' => 'Agosto',
-    'September' => 'Septiembre',
-    'October' => 'Octubre',
-    'November' => 'Noviembre',
-    'December' => 'Diciembre'
+    'january' => 'enero',
+    'february' => 'febrero',
+    'march' => 'marzo',
+    'april' => 'abril',
+    'may' => 'mayo',
+    'june' => 'junio',
+    'july' => 'julio',
+    'august' => 'agosto',
+    'september' => 'septiembre',
+    'october' => 'octubre',
+    'november' => 'noviembre',
+    'december' => 'diciembre'
 ];
+
 
 if (isset($_POST['id_user'])) {
     $id_user = (int)$_POST['id_user'];
