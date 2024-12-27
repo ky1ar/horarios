@@ -973,11 +973,11 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
 .comentarios-boss .sup h1{
   text-align: left;
 }
-.comentarios-boss .sup .envio{
+.comentarios-boss .sup form{
   display: flex;
   flex-direction: column;
 }
-.comentarios-boss .sup textarea{
+.comentarios-boss .sup form textarea{
   resize: none;
 }
 .comentarios-boss .sup button:hover{
