@@ -551,13 +551,13 @@ body {
   padding-bottom: 0;
   flex-direction: column;
 }
-.modal-stamp form .switch{
+.modal-stamp form .checks .switch{
   position: relative;
   display: flex;
   width: 4rem;
   height: 2rem;
 }
-.modal-stamp form .switch .slider {
+.modal-stamp form .checks .switch .slider {
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -568,7 +568,7 @@ body {
   -webkit-transition: .4s;
   transition: .4s;
 }
-.modal-stamp form .switch .slider:before {
+.modal-stamp form .checks .switch .slider:before {
   position: absolute;
   content: "";
   height: 1.6rem;
@@ -579,20 +579,20 @@ body {
   -webkit-transition: .4s;
   transition: .4s;
 }
-.modal-stamp form .switch input:checked + .slider {
+.modal-stamp form .checks .switch input:checked + .slider {
   background-color: #2ee08d;
 }
-.modal-stamp form .switch input:checked + .slider.round {
+.modal-stamp form .checks .switch input:checked + .slider.round {
   border-radius: 2rem;
 }
-.modal-stamp form .switch input:checked + .slider.round:before {
+.modal-stamp form .checks .switch input:checked + .slider.round:before {
   border-radius: 2rem;
 }
-.modal-stamp form .switch input:checked + .slider:before {
+.modal-stamp form .checks .switch input:checked + .slider:before {
   transform: translateX(2rem);
 }
-.modal-stamp form .switch .slider.round,
-.modal-stamp form .switch .slider.round:before {
+.modal-stamp form .checks .switch .slider.round,
+.modal-stamp form .checks .switch .slider.round:before {
   border-radius: 2rem;
 }
 .modal-stamp form label {
