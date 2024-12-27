@@ -403,7 +403,7 @@ $id = $_SESSION['user_id'];
                     <input type="submit" value="Agregar">
                 </form>
             </div>
-            <div id="mensajes">
+            <div id="mensajes" class="mensajes">
 
             </div>
         </div>

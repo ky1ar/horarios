@@ -1002,14 +1002,16 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
 .comentarios-boss .sup form input:hover{
   background-color: #979797;
 }
-.comentarios-boss p{
+.comentarios-boss .mensajes{
   display: flex;
   align-items: center;
   text-align: left;
+  width: 80%;  
+}
+.comentarios-boss .mensajes p{
   padding: 1.5rem;
   background-color: var(--white);
   border-radius: 1rem;
-  width: 80%;  
 }
 .comentarios-boss p strong{
   margin-right: .5rem;
