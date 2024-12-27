@@ -970,9 +970,13 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   width: 80%;
   text-align: left;
 }
+.comentarios-boss .envio{
+  width: 80%;
+}
 .comentarios-boss .envio form{
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 .comentarios-boss .envio form textarea{
   resize: vertical;
