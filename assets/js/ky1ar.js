@@ -241,7 +241,6 @@ $(document).ready(function () {
             userId
           );
         } else if (response.message === "El día es un feriado") {
-          console.log("No se abrió un modal por ser feriado");
         } else {
           showModal("", "", date, userId);
         }
@@ -276,7 +275,6 @@ $(document).ready(function () {
             response.message ===
             "Cannot update stamp because calc_diff is not NULL"
           ) {
-            console.log("ya se ha actualizado anteriormente");
           } else {
             alert("Error al guardar el registro: " + response.message);
           }
@@ -298,7 +296,6 @@ $(document).ready(function () {
       success: function (response) {
         var calculatedTime = response.calculated_time;
         totalMonthlyTime = calculatedTime;
-        console.log("Before: " + calculatedTime);
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
@@ -315,7 +312,6 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         lastDayTime = response.calculated_time;
-        console.log("After: " + lastDayTime);
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
@@ -487,7 +483,6 @@ $(document).ready(function () {
       data: { userId: userId, month: month, year: year },
       dataType: "json",
       success: function (response) {
-        //console.log(response.schedule);
         if (response.success) {
           $(".ky1-hrr").empty();
           var daysCounter = 0;
@@ -549,11 +544,6 @@ $(document).ready(function () {
               $("<li class='test'>FERIADO</li>").appendTo($dayList);
             } else if (entry.stamp) {
               var stamps = entry.stamp.split(",");
-              // console.log(
-              //   entry.calendar_date,
-              //   getMonthWithoutLeadingZero(entry.calendar_date),
-              //   month
-              // );
               stamps.forEach(function (stamp, stampIndex) {
                 for (var i = 0; i < stamp.length; i += 5) {
                   const timeSlot = stamp.slice(i, i + 5);
@@ -640,10 +630,6 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         var data = response;
-        //console.log(data);
-        console.log("sin registro: " + data.total_missing_points);
-        console.log("horas base: " + data.total_hours_required);
-
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
           parseInt(data.total_minutes_late_formatted.split(":")[1]);
@@ -694,7 +680,6 @@ $(document).ready(function () {
           // Si no hay más de 6 registros, simplemente añade ":00" a total_hours_required
           var total_rq = data.total_hours_required + ":00";
         }
-        console.log("nueva hora + no marcas: " + total_rq);
         var adjustedHours =
           parseInt(total_rq.split(":")[0]) * 60 +
           parseInt(total_rq.split(":")[1]);
@@ -798,11 +783,9 @@ $(document).ready(function () {
             }
           });
         } else {
-          console.log("Error:", data.message);
         }
       },
       error: function () {
-        console.log("Error en la solicitud AJAX.");
       },
     });
   });
@@ -824,12 +807,10 @@ $(document).ready(function () {
           });
           $mensajesDiv.show();
         } else {
-          console.log("Error:", response.message);
           $("#mensajes").html("<p>No hay comentarios disponibles.</p>");
         }
       },
       error: function () {
-        console.log("Error en la solicitud AJAX para comentarios.");
       },
     });
   }
