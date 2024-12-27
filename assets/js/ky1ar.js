@@ -808,9 +808,9 @@ $(document).ready(function () {
   });
 
   function getUserComments(userId) {
-    // Obtener los comentarios del usuario
+    console.log("ids: " + userId);
     $.ajax({
-      url: "../routes/del/getComentarios.php", // Ruta para obtener comentarios
+      url: "../routes/del/getComentarios.php",
       method: "POST",
       data: { id_user: userId },
       dataType: "json",
@@ -818,13 +818,11 @@ $(document).ready(function () {
         if (response.success) {
           var comments = response.comments;
           var $mensajesDiv = $("#mensajes");
-          $mensajesDiv.empty(); // Limpiar los comentarios previos
-
-          // Mostrar los comentarios
+          $mensajesDiv.empty();
           comments.forEach(function (comment) {
             $mensajesDiv.append("<p>" + comment + "</p>");
           });
-          $mensajesDiv.show(); // Mostrar el div con los comentarios
+          $mensajesDiv.show();
         } else {
           console.log("Error:", response.message);
           $("#mensajes").html("<p>No hay comentarios disponibles.</p>");
