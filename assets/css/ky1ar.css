@@ -1015,6 +1015,6 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   border-radius: 1rem;
   width: 100%;
 }
-.comentarios-boss p strong{
+.comentarios-boss .mensajes p strong{
   margin-right: .5rem;
 }

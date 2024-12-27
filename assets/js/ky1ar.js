@@ -798,7 +798,7 @@ $(document).ready(function () {
           var $mensajesDiv = $("#mensajes");
           $mensajesDiv.empty();
           comments.forEach(function (comment) {
-            $mensajesDiv.append("<p>Antonio Moll:" + comment + "</p>");
+            $mensajesDiv.append("<p><strong>Antonio Moll:</strong> " + comment + "</p>");
           });
           $mensajesDiv.show();
         } else {
