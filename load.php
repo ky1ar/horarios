@@ -395,7 +395,7 @@ $id = $_SESSION['user_id'];
     <div class="comentarios-boss">
 
         <div class="sup">
-            <h1>Comentarioss</h1>
+            <h1>Comentarios</h1>
             <div class="envio">
                 <form action="../../routes/del/insertCommentBoss.php" method="POST">
                     <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
@@ -407,15 +407,19 @@ $id = $_SESSION['user_id'];
         <?php
         $query = "SELECT c.comentario, u.name 
               FROM Comentarios c
-              JOIN Users u ON c.id_user = u.id_user";
+              JOIN Users u ON c.id_user = u.id_user
+              ORDER BY c.created_at DESC";  // Ordena por la fecha más reciente
+
         $result = mysqli_query($conn, $query);
+
         if ($result && mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
-                echo '<p><strong>Antonio: </strong> ' . htmlspecialchars($row['comentario']) . '</p>';
+                echo '<p><strong>' . htmlspecialchars($row['name']) . ': </strong>' . htmlspecialchars($row['comentario']) . '</p>';
             }
         } else {
             echo '<p>No hay comentarios disponibles.</p>';
         }
+
         mysqli_close($conn);
         ?>
     </div>
