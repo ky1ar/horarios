@@ -38,7 +38,7 @@ if (isset($_POST['id_user'])) {
             $date = $row['created_at'];
             $timestamp = strtotime($date);
             $day = date('d', $timestamp);
-            $month = date('F', $timestamp); // Mes en inglés
+            $month = strtolower(date('F', $timestamp));
             $year = date('Y', $timestamp);
             
             // Convertir el mes al español
