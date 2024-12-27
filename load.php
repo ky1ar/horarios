@@ -408,29 +408,23 @@ $id = $_SESSION['user_id'];
         $query = "SELECT c.comentario, u.name
         FROM Comentarios c
         JOIN Users u ON c.id_user = u.id_user
-        WHERE c.id_user = ?";
+        WHERE c.id_user = ?
+        ORDER BY c.created_at DESC";
 
         $stmt = $conn->prepare($query);
-
-        // Verifica si la preparación de la consulta es exitosa
         if ($stmt === false) {
-        die("Error al preparar la consulta: " . $conn->error);
+            die("Error al preparar la consulta: " . $conn->error);
         }
-
-        // Vincula el parámetro de la sesión al placeholder
         $stmt->bind_param("i", $id);
         $stmt->execute();
-
-        // Obtener los resultados
         $result = $stmt->get_result();
 
         if ($result && mysqli_num_rows($result) > 0) {
-        while ($row = mysqli_fetch_assoc($result)) {
-        // Imprimir los comentarios con el nombre de "Antonio"
-        echo '<p><strong>Antonio:</strong> ' . htmlspecialchars($row['comentario']) . '</p>';
-        }
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<p><strong>Antonio:</strong> ' . htmlspecialchars($row['comentario']) . '</p>';
+            }
         } else {
-        echo '<p>No hay comentarios disponibles.</p>';
+            echo '<p>No hay comentarios disponibles.</p>';
         }
 
         $stmt->close();
