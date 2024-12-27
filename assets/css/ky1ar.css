@@ -978,7 +978,21 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   flex-direction: column;
 }
 .comentarios-boss .sup form textarea{
-  resize: none;
+  resize: vertical;
+  border-radius: 1rem;
+  height: 4rem;
+  padding: 1rem;
+}
+.comentarios-boss .sup form input{
+  display: flex;
+  margin-top: 1rem;
+  width: fit-content;
+  margin-left: auto;
+  border-radius: 1rem;
+  padding: .5rem 1rem;
+  border: none;
+  background-color: #cfcfcf;
+  box-shadow: 0.1rem 0.2rem 0.3rem gray;
 }
 .comentarios-boss .sup button:hover{
   background-color: #68c24f;
