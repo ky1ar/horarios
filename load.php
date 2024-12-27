@@ -406,28 +406,18 @@ $id = $_SESSION['user_id'];
         </div>
         <?php
         $query = "SELECT c.comentario, u.name 
-        FROM Comentarios c
-        JOIN Users u ON c.id_user = u.id_user
-        WHERE c.id_user = ?  // Filtra por el ID del usuario logueado
-        ORDER BY c.created_at DESC";  // Ordena por la fecha más reciente
+              FROM Comentarios c
+              JOIN Users u ON c.id_user = u.id_user
+              ORDER BY c.created_at DESC";  // Ordena por la fecha más reciente
 
-        if ($stmt = $conn->prepare($query)) {
-            $stmt->bind_param("i", $id); // "i" para entero
+        $result = mysqli_query($conn, $query);
 
-            $stmt->execute();
-            $result = $stmt->get_result();
-
-            if ($result && $result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo '<p><strong>Antonio:</strong> ' . htmlspecialchars($row['comentario']) . '</p>';
-                }
-            } else {
-                echo '<p>No hay comentarios disponibles.</p>';
+        if ($result && mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo '<p><strong>Antonio Moll:</strong> ' . htmlspecialchars($row['comentario']) . '</p>';
             }
-
-            $stmt->close();
         } else {
-            echo "Error en la consulta.";
+            echo '<p>No hay comentarios disponibles.</p>';
         }
 
         mysqli_close($conn);
