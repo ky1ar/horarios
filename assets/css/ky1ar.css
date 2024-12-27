@@ -982,6 +982,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   border-radius: .5rem;
   border: none;
   background-color: #9eef88;  
+  cursor: pointer;
 }
 .comentarios-boss .sup button:hover{
   background-color: #449b2c;
