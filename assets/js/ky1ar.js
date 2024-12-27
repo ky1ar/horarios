@@ -797,8 +797,13 @@ $(document).ready(function () {
           var $mensajesDiv = $("#mensajes");
           $mensajesDiv.empty();
           comments.forEach(function (comment) {
+            // Crear el HTML para cada comentario
             $mensajesDiv.append(
-              "<p><strong>Antonio Moll:</strong> " + comment + "</p>"
+              "<p><strong>Antonio Moll:</strong> " +
+                comment.comentario +
+                " <span class='fecha'>" +
+                comment.created_at +
+                "</span></p>"
             );
           });
           $mensajesDiv.show();
@@ -806,7 +811,9 @@ $(document).ready(function () {
           $("#mensajes").html("<p>Aun no hay comentarios.</p>");
         }
       },
-      error: function () {},
+      error: function () {
+        alert("Error al cargar los comentarios.");
+      },
     });
   }
 

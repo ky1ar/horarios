@@ -4,7 +4,7 @@ require_once '../../includes/app/db.php';
 if (isset($_POST['id_user'])) {
     $id_user = (int)$_POST['id_user'];
 
-    $query = "SELECT c.comentario
+    $query = "SELECT c.comentario, DATE_FORMAT(c.created_at, '%d de %M del %Y') AS formatted_date
               FROM Comentarios c
               WHERE c.id_user = ?
               ORDER BY c.created_at DESC";
@@ -18,7 +18,10 @@ if (isset($_POST['id_user'])) {
     $comments = [];
     if ($result && mysqli_num_rows($result) > 0) {
         while ($row = mysqli_fetch_assoc($result)) {
-            $comments[] = htmlspecialchars($row['comentario']);
+            $comments[] = [
+                'comentario' => htmlspecialchars($row['comentario']),
+                'created_at' => $row['formatted_date']
+            ];
         }
         echo json_encode(['success' => true, 'comments' => $comments]);
     } else {
