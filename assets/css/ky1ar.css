@@ -587,14 +587,6 @@ body {
 .modal-stamp form .switch input:checked + .slider:before {
   transform: translateX(2rem);
 }
-.modal-stamp form .switch input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-.modal-stamp form .switch input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
 .modal-stamp form .switch input:checked + .slider.round {
   border-radius: 34px;
 }
