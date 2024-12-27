@@ -414,7 +414,7 @@ $id = $_SESSION['user_id'];
 
         if ($result && mysqli_num_rows($result) > 0) {
             while ($row = mysqli_fetch_assoc($result)) {
-                echo '<p><strong>' . htmlspecialchars($row['name']) . ': </strong>' . htmlspecialchars($row['comentario']) . '</p>';
+                echo '<p><strong>Antonio:</strong> ' . htmlspecialchars($row['comentario']) . '</p>';
             }
         } else {
             echo '<p>No hay comentarios disponibles.</p>';
