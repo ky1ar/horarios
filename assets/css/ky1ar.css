@@ -1012,6 +1012,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   padding: 1.5rem;
   background-color: var(--white);
   border-radius: 1rem;
+  width: 100%;
 }
 .comentarios-boss p strong{
   margin-right: .5rem;
