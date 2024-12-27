@@ -392,7 +392,7 @@ $id = $_SESSION['user_id'];
         <embed src="" type="application/pdf" />
     </div>
 
-    <div class="comentarios-boss">
+    <div class="comentarios-boss" id="comments-container">
 
         <div class="sup">
             <h1>Comentarios</h1>
@@ -404,32 +404,6 @@ $id = $_SESSION['user_id'];
                 </form>
             </div>
         </div>
-        <?php
-        $query = "SELECT c.comentario, u.name
-        FROM Comentarios c
-        JOIN Users u ON c.id_user = u.id_user
-        WHERE c.id_user = ?
-        ORDER BY c.created_at DESC";
-
-        $stmt = $conn->prepare($query);
-        if ($stmt === false) {
-            die("Error al preparar la consulta: " . $conn->error);
-        }
-        $stmt->bind_param("i", $id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result && mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo '<p><strong>Antonio:</strong> ' . htmlspecialchars($row['comentario']) . '</p>';
-            }
-        } else {
-            echo '<p>No hay comentarios disponibles.</p>';
-        }
-
-        $stmt->close();
-        mysqli_close($conn);
-        ?>
     </div>
 </body>
 

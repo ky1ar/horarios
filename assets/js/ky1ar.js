@@ -294,7 +294,6 @@ $(document).ready(function () {
         var calculatedTime = response.calculated_time;
         totalMonthlyTime = calculatedTime;
         console.log("Before: " + calculatedTime);
-
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
@@ -318,7 +317,7 @@ $(document).ready(function () {
       },
     });
   }
-  
+
   let globalTotalMonthlyTimeNuev = "";
   function calcularSumaCalcPorSemana(userId, year, month) {
     var totalHoursMinutes = 0;
@@ -372,7 +371,7 @@ $(document).ready(function () {
               }
             }
           });
-          
+
           const nhours = Math.floor(final / 60);
           const nminutos = final % 60;
           const formattedMinutes = String(nminutos).padStart(2, "0");
@@ -387,7 +386,7 @@ $(document).ready(function () {
           }
 
           totalHoursMinutes += timeToMinutes(time1);
-          
+
           function calculatePercentage(time1, time2) {
             const minutes1 = timeToMinutes(time1);
             const minutes2 = timeToMinutes(time2);
@@ -405,7 +404,7 @@ $(document).ready(function () {
       const totalHours = Math.floor(totalHoursMinutes / 60);
       const totalMinutes = totalHoursMinutes % 60;
       //const formattedTotalTime = `${totalHours.toString().padStart(2, "0")}:${totalMinutes.toString().padStart(2, "0")}`;
-    
+
       let totalMonthlyMinutes = 0;
       if (
         totalMonthlyTime &&
@@ -413,12 +412,13 @@ $(document).ready(function () {
         totalMonthlyTime !== "" &&
         totalMonthlyTime !== null
       ) {
-        const [monthlyHoursStr, monthlyMinutesStr] = totalMonthlyTime.split(":");
+        const [monthlyHoursStr, monthlyMinutesStr] =
+          totalMonthlyTime.split(":");
         const monthlyHours = parseInt(monthlyHoursStr, 10);
         const monthlyMinutes = parseInt(monthlyMinutesStr, 10);
         totalMonthlyMinutes = monthlyHours * 60 + monthlyMinutes;
       }
-    
+
       let lastDayMinutes = 0;
       if (
         lastDayTime &&
@@ -431,16 +431,18 @@ $(document).ready(function () {
         const lastDayMinutesPart = parseInt(lastDayMinutesStr, 10);
         lastDayMinutes = lastDayHours * 60 + lastDayMinutesPart;
       }
-    
-      const newTotalMinutes = totalMonthlyMinutes + totalHours * 60 + totalMinutes - lastDayMinutes;
+
+      const newTotalMinutes =
+        totalMonthlyMinutes + totalHours * 60 + totalMinutes - lastDayMinutes;
       const newHours = Math.floor(newTotalMinutes / 60);
       const newMinutes = newTotalMinutes % 60;
-      const newFormattedTotalTime = `${newHours.toString().padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
-    
+      const newFormattedTotalTime = `${newHours
+        .toString()
+        .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
+
       globalTotalMonthlyTimeNuev = newFormattedTotalTime;
       $(document).off("ajaxStop");
     });
-    
   }
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({
@@ -459,6 +461,30 @@ $(document).ready(function () {
           }
         } else {
           console.error(response.message);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
+    });
+  }
+  function cargarComentarios(idUser) {
+    $.ajax({
+      url: "ruta/del/verComentariosBoss.php",
+      type: "POST",
+      data: { id_user: idUser },
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          // Mostrar los comentarios obtenidos
+          var commentsHtml = "";
+          response.comments.forEach(function (comment) {
+            commentsHtml += "<p>" + comment + "</p>";
+          });
+          $("#comments-container").html(commentsHtml);
+        } else {
+          // Mostrar mensaje si no hay comentarios
+          $("#comments-container").html("<p>" + response.message + "</p>");
         }
       },
       error: function (xhr, status, error) {
@@ -636,7 +662,7 @@ $(document).ready(function () {
         //console.log(data);
         console.log("sin registro: " + data.total_missing_points);
         console.log("horas base: " + data.total_hours_required);
-        
+
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
           parseInt(data.total_minutes_late_formatted.split(":")[1]);
@@ -644,10 +670,10 @@ $(document).ready(function () {
           parseInt(data.one_percent_total_hours.split(":")[0]) * 60 +
           parseInt(data.one_percent_total_hours.split(":")[1]);
         var difference = minutesLate - onePercentHours;
-        
+
         // Verificar si es octubre de 2024 o después
         var adjustmentFactor = 0.5; // Por defecto es 50%
-        if ((year > 2024) || (year === 2024 && month >= 10)) {
+        if (year > 2024 || (year === 2024 && month >= 10)) {
           adjustmentFactor = 1; // Cambia al 100% si es octubre de 2024 o después
         }
 
@@ -662,26 +688,30 @@ $(document).ready(function () {
           ":" +
           (minutesDifference < 10 ? "0" : "") +
           minutesDifference;
-        
-          if (data.total_missing_points > 6) {
-            // Calcula los minutos adicionales
-            var extraMinutes = (data.total_missing_points - 6) * 15;
-            
-            // Convierte total_hours_required a minutos
-            var total_rq_minutes = parseInt(data.total_hours_required) * 60;
-            
-            // Suma los minutos adicionales
-            total_rq_minutes += extraMinutes;
-            
-            // Convierte los minutos totales de nuevo a formato hh:mm
-            var total_rq_hours = Math.floor(total_rq_minutes / 60);
-            var total_rq_remainderMinutes = total_rq_minutes % 60;
-            
-            // Actualiza total_hours_required con el nuevo valor en formato hh:mm
-            var total_rq = total_rq_hours + ":" + (total_rq_remainderMinutes < 10 ? "0" : "") + total_rq_remainderMinutes;
+
+        if (data.total_missing_points > 6) {
+          // Calcula los minutos adicionales
+          var extraMinutes = (data.total_missing_points - 6) * 15;
+
+          // Convierte total_hours_required a minutos
+          var total_rq_minutes = parseInt(data.total_hours_required) * 60;
+
+          // Suma los minutos adicionales
+          total_rq_minutes += extraMinutes;
+
+          // Convierte los minutos totales de nuevo a formato hh:mm
+          var total_rq_hours = Math.floor(total_rq_minutes / 60);
+          var total_rq_remainderMinutes = total_rq_minutes % 60;
+
+          // Actualiza total_hours_required con el nuevo valor en formato hh:mm
+          var total_rq =
+            total_rq_hours +
+            ":" +
+            (total_rq_remainderMinutes < 10 ? "0" : "") +
+            total_rq_remainderMinutes;
         } else {
-            // Si no hay más de 6 registros, simplemente añade ":00" a total_hours_required
-            var total_rq = data.total_hours_required + ":00";
+          // Si no hay más de 6 registros, simplemente añade ":00" a total_hours_required
+          var total_rq = data.total_hours_required + ":00";
         }
         console.log("nueva hora + no marcas: " + total_rq);
         var adjustedHours =
@@ -720,7 +750,7 @@ $(document).ready(function () {
               "%"
           );
         }, 500);
-        
+
         setTimeout(function () {
           const sumFormattedParts = sumFormatted.split(":");
           const sumHours = parseInt(sumFormattedParts[0], 10);
