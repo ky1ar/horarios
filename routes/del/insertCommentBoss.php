@@ -1,5 +1,5 @@
 <?php
-require_once '../includes/app/db.php';
+require_once '../../includes/app/db.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_POST['user_id']) && isset($_POST['comentario'])) {
