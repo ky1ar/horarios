@@ -839,7 +839,8 @@ $(document).ready(function () {
         success: function (response) {
           if (response.success) {
             $("#commentb").val("");
-            location.reload(); 
+            getUserSchedule(formData.get("userId"));
+            location.reload();
           } else {
             alert(
               "Hubo un error al guardar el comentario. Intenta nuevamente."
