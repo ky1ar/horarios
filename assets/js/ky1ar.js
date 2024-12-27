@@ -802,7 +802,7 @@ $(document).ready(function () {
           });
           $mensajesDiv.show();
         } else {
-          $("#mensajes").html("<p>No hay comentarios disponibles.</p>");
+          $("#mensajes").html("<p>Aun no hay comentarios.</p>");
         }
       },
       error: function () {},
