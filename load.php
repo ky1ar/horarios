@@ -408,8 +408,7 @@ $id = $_SESSION['user_id'];
         $query = "SELECT c.comentario, u.name
         FROM Comentarios c
         JOIN Users u ON c.id_user = u.id_user
-        WHERE c.id_user = ? // Filtrar por el id_user de la sesión
-        ORDER BY c.created_at DESC"; // Ordena por la fecha más reciente
+        WHERE c.id_user = ?";
 
         $stmt = $conn->prepare($query);
 
