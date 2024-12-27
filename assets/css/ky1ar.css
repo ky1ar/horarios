@@ -590,7 +590,10 @@ body {
 .modal-stamp form .switch input:checked + .slider:before {
   transform: translateX(2.2rem);
 }
-
+.modal-stamp form .switch .slider.round,
+.modal-stamp form .switch .slider.round:before {
+  border-radius: 2rem;
+}
 .modal-stamp form label {
   font-weight: 600;
   margin-bottom: 0.2rem;
