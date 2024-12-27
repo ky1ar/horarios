@@ -786,7 +786,6 @@ $(document).ready(function () {
   });
 
   function getUserComments(userId) {
-    console.log("ids: " + userId);
     $.ajax({
       url: "../routes/del/getComments.php",
       method: "POST",
@@ -812,7 +811,7 @@ $(document).ready(function () {
   }
 
   $(document).ready(function () {
-    var userId = $("#userData").data("user-id");
+    var userId = $(this).data("user-id");
     $("#commentForm").on("submit", function (event) {
       event.preventDefault();
       var comentario = $("#comentarioInput").val().trim();
