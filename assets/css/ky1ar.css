@@ -585,9 +585,6 @@ body {
   -webkit-transition: .4s;
   transition: .4s;
 }
-.modal-stamp form .checks .switch input{
-  margin: 0;
-}
 .modal-stamp form .checks .switch input:checked + .slider {
   background-color: #2ee08d;
 }
@@ -608,7 +605,7 @@ body {
   font-weight: 600;
   margin-bottom: 0.2rem;
 }
-.modal-stamp form input {
+.modal-stamp form input:not(#check1):not(#check2) {
   border: 0;
   border-radius: 0.5rem;
   background-color: #f5f5f5;
@@ -618,6 +615,7 @@ body {
   font-family: "DM Sans", sans-serif;
   font-weight: 500;
 }
+
 .modal-stamp form textarea{
   resize: none;
   height: 4rem;
