@@ -527,7 +527,7 @@ body {
   left: 0;
   z-index: 9998;
 }
-.modal-stamp div {
+.modal-stamp > div {
   display: flex;
   padding: 1.5rem 1rem;
   background-color: white;
