@@ -814,26 +814,40 @@ $(document).ready(function () {
     function getActiveUserId() {
       return $("#userList").find(".active").data("id");
     }
+
     $("#commentForm").on("submit", function (event) {
       event.preventDefault();
       var userId = getActiveUserId();
       var comentario = $("#commentb").val().trim();
+
       if (!userId) {
+        alert(
+          "No se pudo obtener el ID del usuario activo. Intenta nuevamente."
+        );
         return;
       }
+
       if (comentario === "") {
+        alert("El comentario no puede estar vacío.");
         return;
       }
+
       $.ajax({
         url: "../routes/del/insertCommentBoss.php",
         method: "POST",
         data: { user_id: userId, comentario: comentario },
         success: function (response) {
           if (response.success) {
-            location.reload();
+            $("#commentb").val("");
+            alert("Comentario guardado con éxito.");
+          } else {
+            alert(
+              "Hubo un error al guardar el comentario. Intenta nuevamente."
+            );
           }
         },
         error: function () {
+          alert("Error en la solicitud. Por favor, inténtalo más tarde.");
         },
       });
     });
