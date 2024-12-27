@@ -405,36 +405,33 @@ $id = $_SESSION['user_id'];
             </div>
         </div>
         <?php
-        // No es necesario llamar session_start() si ya está iniciada en otro archivo
-        // Asegúrate de que la variable $id esté disponible (ya está en la sesión iniciada)
-
-        $query = "SELECT c.comentario, u.name 
-          FROM Comentarios c
-          JOIN Users u ON c.id_user = u.id_user
-          WHERE c.id_user = ?  // Filtrar por el id_user de la sesión
-          ORDER BY c.created_at DESC";  // Ordena por la fecha más reciente
+        $query = "SELECT c.comentario, u.name
+        FROM Comentarios c
+        JOIN Users u ON c.id_user = u.id_user
+        WHERE c.id_user = ? // Filtrar por el id_user de la sesión
+        ORDER BY c.created_at DESC"; // Ordena por la fecha más reciente
 
         $stmt = $conn->prepare($query);
 
         // Verifica si la preparación de la consulta es exitosa
         if ($stmt === false) {
-            die("Error al preparar la consulta: " . $conn->error);
+        die("Error al preparar la consulta: " . $conn->error);
         }
 
-        // Aquí ya está disponible $_SESSION['user_id'], por lo que se asigna a $id
-        $id = $_SESSION['user_id'];
-
-        $stmt->bind_param("i", $id);  // Vincula el parámetro de la sesión al placeholder
+        // Vincula el parámetro de la sesión al placeholder
+        $stmt->bind_param("i", $id);
         $stmt->execute();
 
+        // Obtener los resultados
         $result = $stmt->get_result();
 
         if ($result && mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo '<p><strong>' . htmlspecialchars($row['name']) . ':</strong> ' . htmlspecialchars($row['comentario']) . '</p>';
-            }
+        while ($row = mysqli_fetch_assoc($result)) {
+        // Imprimir los comentarios con el nombre de "Antonio"
+        echo '<p><strong>Antonio:</strong> ' . htmlspecialchars($row['comentario']) . '</p>';
+        }
         } else {
-            echo '<p>No hay comentarios disponibles.</p>';
+        echo '<p>No hay comentarios disponibles.</p>';
         }
 
         $stmt->close();
