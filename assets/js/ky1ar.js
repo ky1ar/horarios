@@ -788,7 +788,7 @@ $(document).ready(function () {
   function getUserComments(userId) {
     console.log("ids: " + userId);
     $.ajax({
-      url: "../routes/del/getComentarios.php",
+      url: "../routes/del/getComments.php",
       method: "POST",
       data: { id_user: userId },
       dataType: "json",
