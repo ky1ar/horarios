@@ -468,30 +468,6 @@ $(document).ready(function () {
       },
     });
   }
-  function cargarComentarios(idUser) {
-    $.ajax({
-      url: "ruta/del/verComentariosBoss.php",
-      type: "POST",
-      data: { id_user: idUser },
-      dataType: "json",
-      success: function (response) {
-        if (response.success) {
-          // Mostrar los comentarios obtenidos
-          var commentsHtml = "";
-          response.comments.forEach(function (comment) {
-            commentsHtml += "<p>" + comment + "</p>";
-          });
-          $("#comments-container").html(commentsHtml);
-        } else {
-          // Mostrar mensaje si no hay comentarios
-          $("#comments-container").html("<p>" + response.message + "</p>");
-        }
-      },
-      error: function (xhr, status, error) {
-        console.error("Error en la solicitud AJAX:", error);
-      },
-    });
-  }
 
   function getMonthWithoutLeadingZero(dateString) {
     const date = new Date(dateString);
@@ -822,6 +798,37 @@ $(document).ready(function () {
       },
       error: function () {
         console.log("Error en la solicitud AJAX.");
+      },
+    });
+  });
+
+  $(document).ready(function() {
+    var userId = $(this).data("user-id"); // Se toma el ID de usuario desde el atributo 'data-user-id'
+
+    $.ajax({
+      url: "../routes/del/getComments.php", // Cambia la URL al archivo que contiene el código PHP
+      method: "POST",
+      data: { id_user: userId }, // Se envía el ID de usuario
+      success: function (response) {
+        var data = JSON.parse(response);
+        if (data.success) {
+          var comments = data.comments; // Los comentarios llegan en un array
+          var $mensajesDiv = $("#mensajes"); // El contenedor de los comentarios
+          $mensajesDiv.empty();
+          comments.forEach(function (comment) {
+            $mensajesDiv.append("<p>" + comment + "</p>");
+          });
+
+          // Muestra el contenedor si no estaba visible
+          $mensajesDiv.show();
+        } else {
+          console.log("Error:", data.message);
+          $("#mensajes").html("<p>No hay comentarios disponibles.</p>");
+        }
+      },
+      error: function () {
+        console.log("Error en la solicitud AJAX.");
+        $("#mensajes").html("<p>Hubo un error al cargar los comentarios.</p>");
       },
     });
   });
