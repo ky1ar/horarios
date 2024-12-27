@@ -826,12 +826,10 @@ $(document).ready(function () {
         );
         return;
       }
-
       if (comentario === "") {
         alert("El comentario no puede estar vacío.");
         return;
       }
-
       $.ajax({
         url: "../routes/del/insertCommentBoss.php",
         method: "POST",
@@ -839,7 +837,6 @@ $(document).ready(function () {
         success: function (response) {
           if (response.success) {
             $("#commentb").val("");
-            getUserSchedule(formData.get("userId"));
             location.reload();
           } else {
             alert(
