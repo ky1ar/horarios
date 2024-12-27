@@ -972,6 +972,17 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
 .comentarios-boss .sup h1{
   text-align: left;
 }
+.comentarios-boss .sup button{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  height: max-content;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  border: none;
+  background-color: #9eef88;  
+}
 .comentarios-boss p{
   display: flex;
   align-items: center;
