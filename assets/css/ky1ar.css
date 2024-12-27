@@ -553,6 +553,9 @@ body {
 }
 .modal-stamp form .checks{
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
 }
 .modal-stamp form .checks .switch{
   position: relative;
