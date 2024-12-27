@@ -837,6 +837,7 @@ $(document).ready(function () {
         success: function (response) {
           if (response.success) {
             $("#commentb").val("");
+            getUserSchedule(formData.get("userId"), currentMonth, currentYear);
             location.reload();
           } else {
             alert(
