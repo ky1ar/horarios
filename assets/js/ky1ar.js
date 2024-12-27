@@ -803,17 +803,17 @@ $(document).ready(function () {
   });
 
   $(document).ready(function() {
-    var userId = $(this).data("user-id"); // Se toma el ID de usuario desde el atributo 'data-user-id'
-
+    var userId = $(this).data("user-id");
+    console.log(userId);
     $.ajax({
-      url: "../routes/del/getComments.php", // Cambia la URL al archivo que contiene el código PHP
+      url: "../routes/del/getComments.php",
       method: "POST",
-      data: { id_user: userId }, // Se envía el ID de usuario
+      data: { id_user: userId },
       success: function (response) {
         var data = JSON.parse(response);
         if (data.success) {
-          var comments = data.comments; // Los comentarios llegan en un array
-          var $mensajesDiv = $("#mensajes"); // El contenedor de los comentarios
+          var comments = data.comments;
+          var $mensajesDiv = $("#mensajes");
           $mensajesDiv.empty();
           comments.forEach(function (comment) {
             $mensajesDiv.append("<p>" + comment + "</p>");
