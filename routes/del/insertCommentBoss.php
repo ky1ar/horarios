@@ -14,15 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt->bind_param("is", $id_user, $comentario);
                 $stmt->execute();
                 $stmt->close();
-                echo '<script type="text/javascript">
-                        window.location.reload();
-                      </script>';
-            } else {
-                echo "Error al preparar la consulta: " . $conn->error;
             }
-        } else {
-            echo "El comentario no puede estar vacío.";
         }
+
+        header("Location: /load");
+        exit();
     } else {
         echo "Faltan datos para agregar el comentario.";
     }
