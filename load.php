@@ -368,14 +368,13 @@ $id = $_SESSION['user_id'];
             <form id="stampForm" enctype="multipart/form-data">
                 <label for="dayInput">Día:</label>
                 <input type="text" id="dayInput" name="day" disabled>
-
-                <div class="checks">
+                <div class="checks" id="fast-access">
                     <label class="switch">
-                        <input type="checkbox">
+                        <input type="checkbox" id="check1">
                         <span class="slider round"></span>
                     </label>
                     <label class="switch">
-                        <input type="checkbox">
+                        <input type="checkbox" id="check2">
                         <span class="slider round"></span>
                     </label>
                 </div>
@@ -392,7 +391,28 @@ $id = $_SESSION['user_id'];
             </form>
         </div>
     </div>
+    <script>
+    // Seleccionar los checkboxes
+    const check1 = document.getElementById("check1");
+    const check2 = document.getElementById("check2");
 
+    // Añadir eventos a los checkboxes para escuchar cambios de estado
+    check1.addEventListener("change", function() {
+        if (check1.checked) {
+            console.log("Check 1 activo");
+        } else {
+            console.log("Check 1 desactivo");
+        }
+    });
+
+    check2.addEventListener("change", function() {
+        if (check2.checked) {
+            console.log("Check 2 activo");
+        } else {
+            console.log("Check 2 desactivo");
+        }
+    });
+</script>
     <div id="messageVerify" class="message-verify">
         <img src="./assets/img/check.png" alt="">
         <p>Se ha actualizado el registro correctamente</p>
