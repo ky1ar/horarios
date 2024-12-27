@@ -604,7 +604,7 @@ body {
   filter: brightness(1.1);
 }
 .message-verify {
-  display: none;
+  display: none !important;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
   position: fixed;
