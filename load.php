@@ -366,11 +366,6 @@ $id = $_SESSION['user_id'];
             </form>
         </div>
     </div>
-    <div id="messageVerify" class="message-verify">
-        <img src="./assets/img/check.png" alt="">
-        <p>Se ha actualizado el registro correctamente</p>
-    </div>
-
     <div class="viewDoc" style="display: none;">
         <img src="" alt="">
         <embed src="" type="application/pdf" />
