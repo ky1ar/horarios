@@ -111,7 +111,7 @@ body {
   border-radius: 2rem;
 }
 .cont-insert:hover{
-  width: auto;
+  width: 15rem;
   height: auto;
   overflow: hidden;
   background-color: white;
