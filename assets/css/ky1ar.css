@@ -585,8 +585,11 @@ body {
   -webkit-transition: .4s;
   transition: .4s;
 }
-.modal-stamp form .checks .switch input:checked + .slider {
-  background-color: #2ee08d;
+.modal-stamp form .checks .switch:nth-of-type(1) input:checked + .slider{
+  background-color: #fdfa26;
+}
+.modal-stamp form .checks .switch:nth-of-type(2) input:checked + .slider{
+  background-color: #ff8b07;
 }
 .modal-stamp form .checks .switch input:checked + .slider.round {
   border-radius: 2rem;
