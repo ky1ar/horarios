@@ -992,10 +992,10 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   background-image: url("../img/whirlpool.png");
 }
 .comentarios-boss h1{
-  width: 80%;
+  width: 60rem;
 }
 .comentarios-boss .envio{
-  width: 80%;
+  width: 60rem;
 }
 .comentarios-boss .envio form{
   display: flex;
