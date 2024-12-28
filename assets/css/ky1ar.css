@@ -1052,5 +1052,9 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
 }
 
 @media only screen and (max-width: 62rem) {
-  
+  .comentarios-boss h1,
+  .comentarios-boss .envio,
+  .comentarios-boss .mensajes{
+    width: 50%;
+  }
 }
