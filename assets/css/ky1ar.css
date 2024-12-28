@@ -643,10 +643,10 @@ body {
 
 .modal-stamp form input[type="submit"] {
     width: 5rem;
-    background-color: #f4a27e;
-    border: 0;
-    border-radius: 2rem;
-    padding: 0.5rem 1rem;
+    background-color: #f4a27e !important;
+    border: 0 !important;
+    border-radius: 2rem !important;
+    padding: 0.5rem 1rem !important;
     margin: auto;
     cursor: pointer;
 }
