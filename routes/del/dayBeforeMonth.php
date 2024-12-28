@@ -1,5 +1,4 @@
 <?php
-// Establecer encabezado para indicar que la respuesta es JSON
 header('Content-Type: application/json');
 
 require_once '../../includes/app/db.php';

@@ -12,10 +12,8 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $currentDate = date('Y-m-d');
 
     if ($month == 6 && $year == 2024) {
-        // Para junio de 2024, el día inicial será el 1 de junio
         $penultimateMP = "2024-06-01";
     } else {
-        // Obtener el penúltimo día laborable del mes anterior
         $penultimateQueryMonthPast = "
             SELECT calendar_date AS last_working_day_previous_month
             FROM Calendar
@@ -34,7 +32,6 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         $penultimateMP = $penultimateWorkdayMP['last_working_day_previous_month'];
     }
 
-    // Obtener el penúltimo día laborable del mes
     $penultimateQuery = "
         SELECT calendar_date AS penultimate_workday
         FROM (
@@ -55,7 +52,6 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $result = $stmt->get_result();
     $penultimateWorkdayRow = $result->fetch_assoc();
     $penultimateWorkday = $penultimateWorkdayRow['penultimate_workday'];
-    // Consulta principal
     $query = "SELECT
     u.id_user AS id_user,
     u.id_profile,
