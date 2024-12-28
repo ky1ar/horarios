@@ -104,7 +104,18 @@ body {
   text-align: center;
   background-color: white;
   z-index: 2;
-  display: none !important;
+  width: 2rem;
+  height: 2rem;
+  overflow: hidden;
+  background-color: #47e3d3;
+  border-radius: 2rem;
+}
+.cont-insert:hover{
+  width: auto;
+  height: auto;
+  overflow: hidden;
+  background-color: white;
+  border-radius: 1rem;
 }
 .cont-insert h1 {
   font-size: 1.2rem;
