@@ -785,7 +785,7 @@ $(document).ready(function () {
           });
           $mensajesDiv.show();
         } else {
-          $("#mensajes").html("<p>Aun no hay comentarios.</p>");
+          $("#mensajes").html("<p>Aun no hay notificaciones.</p>");
         }
       },
       error: function () {
