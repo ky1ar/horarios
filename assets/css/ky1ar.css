@@ -1049,6 +1049,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   margin-left: auto;
   color: #8b8989;
   font-style: italic;
+  text-align: right;
 }
 
 @media only screen and (max-width: 62rem) {
