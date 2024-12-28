@@ -582,6 +582,10 @@ body {
   bottom: 0.2rem;
   left: 0.2rem;
   background-color: white;
+  background-image: url('../img/mid.png'); /* Ruta de la imagen */
+  background-size: cover; /* Ajusta la imagen al tamaño del elemento */
+  background-position: center; /* Centra la imagen dentro del elemento */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
   -webkit-transition: .4s;
   transition: .4s;
 }
