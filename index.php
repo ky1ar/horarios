@@ -1,6 +1,5 @@
 <?php
 session_start();
-// $currentPage = "Inicio";
 require_once 'db.php';
 ?>
 <!DOCTYPE html>
