@@ -36,7 +36,7 @@ $id = $_SESSION['user_id'];
                 <h1>Horarios</h1>
                 <span>Registro biométrico del mes</span>
             </div>
-            <div class="ky1-permisos">
+            <div class="ky1-permisos" style="display: <?php echo ($rango == 1) ? 'none' : 'flex'; ?>">
                 <div class="fond"></div>
                 <img class="desc" src="assets/img/descanso-medico.webp" alt="">
                 <button><img src="assets/img/descanso-medico.png" alt=""></button>
