@@ -140,7 +140,7 @@ body {
 
 /***************************************************************************/
 #ky1-rgt {
-  background-image: url('https://tiendakrear3d.com/wp-content/uploads/2024/06/whirlpool.webp');
+  background-image: url("../img/whirlpool.png");
   flex: 1;
   padding: 1rem;
 }
@@ -412,7 +412,7 @@ body {
   min-height: 17rem;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) {
-  background-image: url("https://soporte.krear3d.com/assets/css/whirlpool.png");
+  background-image: url("../img/whirlpool.png");
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) li.test {
   transform: rotate(90deg);
@@ -790,7 +790,7 @@ section.cont-login {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('https://tiendakrear3d.com/wp-content/uploads/2024/06/whirlpool.webp');
+  background-image: url("../img/whirlpool.png");
 }
 
 section.cont-login .login {
@@ -1031,7 +1031,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   align-items: center;
   justify-content: center;
   padding: 1rem;
-  background-image: url(https://tiendakrear3d.com/wp-content/uploads/2024/06/whirlpool.webp);
+  background-image: url("../img/whirlpool.png");
 }
 .comentarios-boss h1{
   width: 80%;
