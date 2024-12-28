@@ -104,18 +104,6 @@ body {
   text-align: center;
   background-color: white;
   z-index: 2;
-  width: 2rem;
-  height: 2rem;
-  overflow: hidden;
-  background-color: #47e3d3;
-  border-radius: 2rem;
-}
-.cont-insert:hover{
-  width: 15rem;
-  height: auto;
-  overflow: hidden;
-  background-color: white;
-  border-radius: 1rem;
 }
 .cont-insert h1 {
   font-size: 1.2rem;
@@ -678,7 +666,6 @@ body {
     margin: auto;
     cursor: pointer;
 }
-
 .modal-stamp form input[type="submit"]:hover {
   filter: brightness(1.1);
 }
@@ -694,18 +681,14 @@ body {
   align-items: center;
   z-index: 999;
 }
-
 .viewDoc img {
   max-width: 40rem;
   border-radius: 0.5rem;
 }
-
 .viewDoc embed {
   width: 50%;
   height: 80%;
 }
-
-
 .ky1-permisos {
   display: flex;
   flex-direction: column;
