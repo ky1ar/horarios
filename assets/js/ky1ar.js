@@ -764,7 +764,7 @@ $(document).ready(function () {
           $mensajesDiv.empty();
           comments.forEach(function (comment) {
             $mensajesDiv.append(
-              "<p><strong>Antonio Moll:</strong> " +
+              "<p><strong>Antonio:</strong> " +
                 comment.comentario +
                 " <span class='fecha'>" +
                 comment.created_at +
