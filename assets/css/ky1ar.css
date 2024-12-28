@@ -1032,7 +1032,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   display: flex;
   align-items: center;
   text-align: left;
-  width: 80%;  
+  width: 55rem;  
   flex-direction: column;
 }
 .comentarios-boss .mensajes p{
