@@ -34,7 +34,7 @@ $id = $_SESSION['user_id'];
     <section id="ky1-rgt">
         <header>
             <div class="ky1-ttl">
-                <h1>Horarios Test</h1>
+                <h1>Horarios</h1>
                 <span>Registro biométrico del mes</span>
             </div>
             <div class="ky1-permisos">
