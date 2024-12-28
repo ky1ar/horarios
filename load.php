@@ -377,7 +377,7 @@ $id = $_SESSION['user_id'];
     </div>
 
     <div class="comentarios-boss" id="comments-container">
-        <h1>Comentarios</h1>
+        <h1>Notificaciones</h1>
         <div class="envio" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
             <form id="commentForm">
                 <textarea id="commentb"></textarea>
