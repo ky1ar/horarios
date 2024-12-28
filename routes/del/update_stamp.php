@@ -11,26 +11,23 @@ function generateUniqueFileName($length = 6)
     }
     return $randomString;
 }
-
 if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) && isset($_POST['coment'])) {
     $userId = $_POST['userId'];
     $date = $_POST['date'];
     $stamp = $_POST['stamp'];
     $coment = $_POST['coment'];
-    $mid_time = isset($_POST['mid_time']) ? $_POST['mid_time'] : 0;  // Obtener el valor del checkbox "mid_time"
-    $full_time = isset($_POST['full_time']) ? $_POST['full_time'] : 0;  // Obtener el valor del checkbox "full_time"
+    $mid_time = isset($_POST['mid_time']) ? $_POST['mid_time'] : 0; 
+    $full_time = isset($_POST['full_time']) ? $_POST['full_time'] : 0; 
     $just = isset($_POST['just']) ? $_POST['just'] : '';
     $isNewRecord = false;
-
-    // Definir el valor de `stamp` dependiendo de los checkboxes
     if ($mid_time == 1 && $full_time == 0) {
-        $stamp = '09:0013:0013:0013:00';  // Solo mid_time activo
+        $stamp = '09:0013:0013:0013:00'; 
     } elseif ($mid_time == 0 && $full_time == 1) {
-        $stamp = '09:0009:0014:0018:00';  // Solo full_time activo
+        $stamp = '09:0009:0014:0018:00';
     } elseif ($mid_time == 1 && $full_time == 1) {
-        $stamp = '09:0013:0014:0018:00';  // Ambos checkboxes activos
+        $stamp = '09:0013:0014:0018:00';
     } else {
-        $stamp = $_POST['stamp'];  // Valor por defecto si no se marca ningún checkbox
+        $stamp = $_POST['stamp']; 
     }
 
     if (isset($_FILES['justFile']) && $_FILES['justFile']['error'] === UPLOAD_ERR_OK) {
@@ -83,11 +80,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
         $row = $result->fetch_assoc();
         $idSchedule = $row['id_schedule'];
         $previousStamp = $row['stamp'];
-
-        // Imprimir el stamp anterior por consola
         error_log("Stamp anterior: $previousStamp");
-
-        // Calcular la diferencia de caracteres en el `stamp`
         $previousLength = strlen($previousStamp);
         $newLength = strlen($stamp);
         $difference = $newLength - $previousLength;
@@ -103,7 +96,6 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
 
         if ($updateStmt->execute()) {
             $isNewRecord = false;
-            // Imprimir el nuevo stamp por consola
             error_log("Stamp actualizado: $stamp");
             setcookie('lastUpdatedUserId', $userId, time() + 600, '/');
             echo json_encode(['success' => true, 'isNewRecord' => $isNewRecord, 'calcDiff' => $calcDiff]);
@@ -112,8 +104,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
         }
         $updateStmt->close();
     } else {
-        // Calcular la diferencia de caracteres en el `stamp`
-        $previousLength = 0; // No hay stamp anterior en un nuevo registro
+        $previousLength = 0;
         $newLength = strlen($stamp);
         $difference = $newLength - $previousLength;
         $calcDiff = intdiv($difference, 5);

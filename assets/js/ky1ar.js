@@ -268,18 +268,12 @@ $(document).ready(function () {
   $("#stampForm").on("submit", function (event) {
     event.preventDefault();
     var formData = new FormData(this);
-
-    // Obtener el estado de los checkboxes
     var check1 = $("#check1").prop("checked");
     var check2 = $("#check2").prop("checked");
     var mid_time = check1 ? 1 : 0;
     var full_time = check2 ? 1 : 0;
-
-    // Agregar estos valores al formData
     formData.append("mid_time", mid_time);
     formData.append("full_time", full_time);
-
-    // Enviar el formulario
     $.ajax({
       url: "../routes/del/update_stamp.php",
       method: "POST",
