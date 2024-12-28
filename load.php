@@ -381,7 +381,7 @@ $id = $_SESSION['user_id'];
         <div class="envio" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
             <form id="commentForm">
                 <textarea id="commentb"></textarea>
-                <input type="submit" value="Agregar">
+                <input type="submit" value="Comentar">
             </form>
         </div>
         <div id="mensajes" class="mensajes">
