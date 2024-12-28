@@ -476,7 +476,7 @@ $(document).ready(function () {
       },
     });
   }
-
+  console.log = function () {};
   function getMonthWithoutLeadingZero(dateString) {
     const date = new Date(dateString);
     const month = date.getMonth() + 1;
