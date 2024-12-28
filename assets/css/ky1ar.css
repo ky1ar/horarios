@@ -586,6 +586,7 @@ body {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat; 
+  background-size: 1.5rem;
   -webkit-transition: .4s;
   transition: .4s;
 }
