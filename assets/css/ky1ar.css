@@ -992,10 +992,10 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   background-image: url("../img/whirlpool.png");
 }
 .comentarios-boss h1{
-  width: 55rem;
+  width: 45rem;
 }
 .comentarios-boss .envio{
-  width: 55rem;
+  width: 45rem;
 }
 .comentarios-boss .envio form{
   display: flex;
@@ -1032,7 +1032,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   display: flex;
   align-items: center;
   text-align: left;
-  width: 55rem;  
+  width: 45rem;  
   flex-direction: column;
 }
 .comentarios-boss .mensajes p{
