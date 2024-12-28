@@ -26,7 +26,7 @@ $id = $_SESSION['user_id'];
     <div class="cont-insert" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
         <h1>Insertar Registro</h1>
         <form id="uploadForm" action="./routes/del/cargarRegistro.php" method="post" enctype="multipart/form-data" class="form-insert">
-            <label for="fileInput" class="custom-file-upload insert">Selecciona</label>
+            <label for="fileInput" class="custom-file-upload insert">Archivo</label>
             <input type="file" id="fileInput" name="fileInput" accept=".csv" style="display: none;" required>
             <input type="submit" value="Cargar">
         </form>
