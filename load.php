@@ -31,15 +31,6 @@ $id = $_SESSION['user_id'];
             <input type="submit" value="Cargar">
         </form>
     </div>
-
-
-    <!-- <aside id="ky1-lft">
-        <a href="" class="ky1-lgo"><img src="assets/img/logod.webp" alt=""></a>
-        <ul class="ky1-lst">
-            <li>
-            </li>
-        </ul>
-    </aside> -->
     <section id="ky1-rgt">
         <header>
             <div class="ky1-ttl">
@@ -213,18 +204,7 @@ $id = $_SESSION['user_id'];
         <ul class="ky1-hrr">
             <li class="hrr-box">
                 <span>Semana 1</span>
-                <!-- <div class="data-sem">
-                    <p class="porT">80%</p>
-                    <p class="minS">20:00h</p>
-                </div> -->
                 <div class="hrr-day">
-                    <!-- <ul>
-                        <li class="day-nam"></li>
-                        <li><img src="assets/img/a.svg" width="20" height="20" alt=""></li>
-                        <li><img src="assets/img/b.svg" width="20" height="20" alt=""></li>
-                        <li><img src="assets/img/c.svg" width="20" height="20" alt=""></li>
-                        <li><img src="assets/img/d.svg" width="20" height="20" alt=""></li>
-                    </ul> -->
                     <ul>
                         <li class="day-nam">lun 1</li>
                         <li class="day-trd">09:11</li>
@@ -314,8 +294,6 @@ $id = $_SESSION['user_id'];
                             $date_id = $start_date_id + $offset;
                             if ($element != '') {
                                 $split = str_split($element, 5);
-                                // echo json_encode($split);
-                                // echo "\n";
                                 foreach ($split as $id => $value) {
                                     if (isset($split[$id + 1])) {
                                         $current = strtotime($value);
@@ -329,16 +307,13 @@ $id = $_SESSION['user_id'];
                                 }
                                 $split = array_values($split);
                                 $element = implode("", $split);
-                                //$element = str_replace(":", "", $element);
                                 $insert_query .= "(" . $store_id . ", " . $date_id . ", '" . $element . "'), ";
                             }
                             $offset++;
                         }
                         $insert_query = rtrim($insert_query, ", ");
                         if ($conn->query($insert_query) === TRUE) {
-                            //echo "Se insertaron los registros correctamente.";
                         } else {
-                            //echo "Error al insertar los registros: " . $conn->error;
                         }
                         $store = false;
                     } else {
@@ -391,28 +366,6 @@ $id = $_SESSION['user_id'];
             </form>
         </div>
     </div>
-    <script>
-    // Seleccionar los checkboxes
-    const check1 = document.getElementById("check1");
-    const check2 = document.getElementById("check2");
-
-    // Añadir eventos a los checkboxes para escuchar cambios de estado
-    check1.addEventListener("change", function() {
-        if (check1.checked) {
-            console.log("Check 1 activo");
-        } else {
-            console.log("Check 1 desactivo");
-        }
-    });
-
-    check2.addEventListener("change", function() {
-        if (check2.checked) {
-            console.log("Check 2 activo");
-        } else {
-            console.log("Check 2 desactivo");
-        }
-    });
-</script>
     <div id="messageVerify" class="message-verify">
         <img src="./assets/img/check.png" alt="">
         <p>Se ha actualizado el registro correctamente</p>
@@ -430,7 +383,6 @@ $id = $_SESSION['user_id'];
                 <textarea id="commentb"></textarea>
                 <input type="submit" value="Agregar">
             </form>
-
         </div>
         <div id="mensajes" class="mensajes">
 
