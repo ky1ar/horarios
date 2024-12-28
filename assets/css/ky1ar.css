@@ -582,12 +582,15 @@ body {
   bottom: 0.2rem;
   left: 0.2rem;
   background-color: white;
-  background-image: url('../img/mid.png'); /* Ruta de la imagen */
-  background-size: cover; /* Ajusta la imagen al tamaño del elemento */
-  background-position: center; /* Centra la imagen dentro del elemento */
-  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  background-image: url('../img/mid.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; 
   -webkit-transition: .4s;
   transition: .4s;
+}
+.modal-stamp form .checks .switch:nth-of-type(2) .slider:before {
+  background-image: url('../img/full.png');
 }
 .modal-stamp form .checks .switch:nth-of-type(1) input:checked + .slider{
   background-color: #ffe030;
