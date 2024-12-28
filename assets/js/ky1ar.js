@@ -59,7 +59,6 @@ $(document).ready(function () {
 
   let currentMonth = new Date().getMonth() + 1;
   let currentYear = new Date().getFullYear();
-
   function updateMonthDisplay() {
     $(".ky1-dte span").text(`${monthNames[currentMonth - 1]}, ${currentYear}`);
   }
@@ -76,7 +75,6 @@ $(document).ready(function () {
     let current = userList.find(".active").index();
     let total = userList.find("li").length - 1;
     userList.find("li").removeClass("active");
-
     current = current + offset;
     if (offset == 1) {
       if (current > total) current = 0;
@@ -89,7 +87,6 @@ $(document).ready(function () {
     updateUserDisplay();
     getUserSchedule(newUser.data("id"), currentMonth, currentYear);
     getUserData(newUser.data("id"), currentMonth, currentYear);
-
     getStampSpecial(newUser.data("id"), currentMonth, currentYear);
     getLastDayTime(newUser.data("id"), currentMonth, currentYear);
     getUserComments(newUser.data("id"));
@@ -102,7 +99,6 @@ $(document).ready(function () {
     updateUser(-1);
   });
 
-  //aqui revisar
   nextMonth.on("click", function () {
     currentMonth = (currentMonth % 12) + 1;
     if (currentMonth === 1) currentYear++;
@@ -333,11 +329,9 @@ $(document).ready(function () {
   let globalTotalMonthlyTimeNuev = "";
   function calcularSumaCalcPorSemana(userId, year, month) {
     var totalHoursMinutes = 0;
-
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
       var semana = index + 1;
-
       getWeeklyData(
         userId,
         semana,
@@ -345,7 +339,6 @@ $(document).ready(function () {
         month,
         function (acumuladoValorDia, idProfile) {
           var final = 0;
-
           $hrrBox.find(".calc").each(function () {
             var calc = $(this).text().trim();
             const dayname = $(this).closest("ul").find("li").first().text();
@@ -366,7 +359,6 @@ $(document).ready(function () {
                 } else {
                   fixed = 8 * 60;
                 }
-
                 const tiempo = calc.replace(/[^\d:]/g, "").split(":");
                 const horas = parseInt(tiempo[0], 10);
                 const minutos = parseInt(tiempo[1], 10);
@@ -390,21 +382,16 @@ $(document).ready(function () {
           const formattedHours = nhours.toString().padStart(2, "0");
           const time1 = formattedHours + ":" + formattedMinutes;
           const time2 = acumuladoValorDia;
-
-          // Funciones de utilidad
           function timeToMinutes(time) {
             const [hours, minutes] = time.split(":").map(Number);
             return hours * 60 + minutes;
           }
-
           totalHoursMinutes += timeToMinutes(time1);
-
           function calculatePercentage(time1, time2) {
             const minutes1 = timeToMinutes(time1);
             const minutes2 = timeToMinutes(time2);
             return (minutes1 / minutes2) * 100;
           }
-
           const percentage = calculatePercentage(time1, time2);
 
           $hrrBox.find(".minS").text(time1 + "h" + " / " + time2 + "h");
@@ -412,11 +399,10 @@ $(document).ready(function () {
         }
       );
     });
+
     $(document).ajaxStop(function () {
       const totalHours = Math.floor(totalHoursMinutes / 60);
       const totalMinutes = totalHoursMinutes % 60;
-      //const formattedTotalTime = `${totalHours.toString().padStart(2, "0")}:${totalMinutes.toString().padStart(2, "0")}`;
-
       let totalMonthlyMinutes = 0;
       if (
         totalMonthlyTime &&
@@ -430,7 +416,6 @@ $(document).ready(function () {
         const monthlyMinutes = parseInt(monthlyMinutesStr, 10);
         totalMonthlyMinutes = monthlyHours * 60 + monthlyMinutes;
       }
-
       let lastDayMinutes = 0;
       if (
         lastDayTime &&
@@ -456,6 +441,7 @@ $(document).ready(function () {
       $(document).off("ajaxStop");
     });
   }
+
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({
       url: "../routes/del/get_week.php",
@@ -472,11 +458,15 @@ $(document).ready(function () {
         }
       },
       error: function (xhr, status, error) {
-        // El console.error ha sido omitido
+        console.error("Error en la solicitud AJAX:", {
+          status: status,
+          error: error,
+          responseText: xhr.responseText,
+        });
       },
     });
   }
-  
+
   function getMonthWithoutLeadingZero(dateString) {
     const date = new Date(dateString);
     const month = date.getMonth() + 1;
@@ -502,7 +492,6 @@ $(document).ready(function () {
             if (dayName.toLowerCase() === "domingo") {
               return;
             }
-
             if (dayName.toLowerCase() === "lunes" || index === 0) {
               $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
                 ".ky1-hrr"
@@ -513,8 +502,6 @@ $(document).ready(function () {
               $("<span>Semana " + currentWeek + "</span>").appendTo(
                 $currentHrrBoxtitle
               );
-
-              // Añadir el bloque HTML data-sem
               $(
                 "<div class='data-sem'>" +
                   "<p class='porT'></p>" +
@@ -578,7 +565,6 @@ $(document).ready(function () {
             } else {
               $("<li></li>").appendTo($dayList);
             }
-
             if (entry.holiday != 1) {
               var $calcLi = $(
                 "<li class='calc' data-date='" +
@@ -587,10 +573,8 @@ $(document).ready(function () {
                   hPoints +
                   "</li>"
               );
-
               if (hPoints === "DF") {
                 $calcLi.addClass("df");
-                //$calcLi.text("Faltan Datos");
               } else if (hPoints.startsWith("-")) {
                 $calcLi.addClass("minus");
               } else {
@@ -599,7 +583,6 @@ $(document).ready(function () {
 
               $calcLi.appendTo($dayList);
               if (entry.just && entry.just.trim() !== "") {
-                // Insertar el elemento li solo si entry.just no está vacío
                 $(
                   "<li class='justDoc' data-date='" +
                     entry.calendar_date +
@@ -609,7 +592,6 @@ $(document).ready(function () {
                 ).appendTo($dayList);
               }
             }
-
             daysCounter++;
           });
           calcularSumaCalcPorSemana(userId, year, month);
@@ -644,13 +626,10 @@ $(document).ready(function () {
           parseInt(data.one_percent_total_hours.split(":")[0]) * 60 +
           parseInt(data.one_percent_total_hours.split(":")[1]);
         var difference = minutesLate - onePercentHours;
-
-        // Verificar si es octubre de 2024 o después
-        var adjustmentFactor = 0.5; // Por defecto es 50%
+        var adjustmentFactor = 0.5;
         if (year > 2024 || (year === 2024 && month >= 10)) {
-          adjustmentFactor = 1; // Cambia al 100% si es octubre de 2024 o después
+          adjustmentFactor = 1;
         }
-
         var differenceAdjusted = Math.max(0, difference) * adjustmentFactor;
         differenceAdjusted = Math.round(differenceAdjusted);
         var hoursDifference = Math.floor(differenceAdjusted / 60);
@@ -664,27 +643,17 @@ $(document).ready(function () {
           minutesDifference;
 
         if (data.total_missing_points > 6) {
-          // Calcula los minutos adicionales
           var extraMinutes = (data.total_missing_points - 6) * 15;
-
-          // Convierte total_hours_required a minutos
           var total_rq_minutes = parseInt(data.total_hours_required) * 60;
-
-          // Suma los minutos adicionales
           total_rq_minutes += extraMinutes;
-
-          // Convierte los minutos totales de nuevo a formato hh:mm
           var total_rq_hours = Math.floor(total_rq_minutes / 60);
           var total_rq_remainderMinutes = total_rq_minutes % 60;
-
-          // Actualiza total_hours_required con el nuevo valor en formato hh:mm
           var total_rq =
             total_rq_hours +
             ":" +
             (total_rq_remainderMinutes < 10 ? "0" : "") +
             total_rq_remainderMinutes;
         } else {
-          // Si no hay más de 6 registros, simplemente añade ":00" a total_hours_required
           var total_rq = data.total_hours_required + ":00";
         }
         var adjustedHours =
@@ -706,7 +675,6 @@ $(document).ready(function () {
           const [hours, minutes] = time.split(":").map(Number);
           return hours * 60 + minutes;
         }
-
         function calculatePercentage(time1, time2) {
           const minutes1 = timeToMinutes(time1);
           const minutes2 = timeToMinutes(time2);
@@ -742,7 +710,6 @@ $(document).ready(function () {
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(differenceAdjustedFormatted);
         $("#tarde").text(data.total_late_points);
-        // total_late_points
         $("#tolerancia").html(
           "<b>" +
             data.total_minutes_late_formatted +
@@ -808,7 +775,6 @@ $(document).ready(function () {
           var $mensajesDiv = $("#mensajes");
           $mensajesDiv.empty();
           comments.forEach(function (comment) {
-            // Crear el HTML para cada comentario
             $mensajesDiv.append(
               "<p><strong>Antonio Moll:</strong> " +
                 comment.comentario +
