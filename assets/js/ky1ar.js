@@ -528,7 +528,6 @@ $(document).ready(function () {
             if (entry.holiday == 1) {
               $("<li class='test'>FERIADO</li>").appendTo($dayList);
             } else if (entry.stamp) {
-              console.log("stamp: "+entry.stamp);
               var stamps = entry.stamp.split(",");
               stamps.forEach(function (stamp, stampIndex) {
                 for (var i = 0; i < stamp.length; i += 5) {
