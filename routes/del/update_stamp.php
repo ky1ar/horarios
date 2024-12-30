@@ -22,6 +22,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
     $isNewRecord = false;
     if ($full_time == 1) {
         $stamp = '09:0013:0014:0018:00';
+        $calcDiff = NULL;
     } else {
         $stamp = $_POST['stamp'];
     }
