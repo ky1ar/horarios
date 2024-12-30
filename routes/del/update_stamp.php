@@ -16,8 +16,8 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
     $date = $_POST['date'];
     $stamp = $_POST['stamp'];
     $coment = $_POST['coment'];
-    $mid_time = isset($_POST['mid_time']) ? $_POST['mid_time'] : 0; 
-    $full_time = isset($_POST['full_time']) ? $_POST['full_time'] : 0; 
+    $mid_time = isset($_POST['mid_time']) ? $_POST['mid_time'] : 0;
+    $full_time = isset($_POST['full_time']) ? $_POST['full_time'] : 0;
     $just = isset($_POST['just']) ? $_POST['just'] : '';
     $isNewRecord = false;
     if ($full_time == 1) {
@@ -77,13 +77,15 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
         $idSchedule = $row['id_schedule'];
         $previousStamp = $row['stamp'];
         error_log("Stamp anterior: $previousStamp");
-        $previousLength = strlen($previousStamp);
-        $newLength = strlen($stamp);
-        $difference = $newLength - $previousLength;
-        $calcDiff = $row['calc_diff'];
-
-        if ($calcDiff === NULL || $calcDiff === 0) {
-            $calcDiff = intdiv($difference, 5);
+        if ($full_time == 1) {
+            $calcDiff = NULL;
+        } else {
+            $previousLength = strlen($previousStamp);
+            $newLength = strlen($stamp);
+            $difference = $newLength - $previousLength;
+            if ($calcDiff === NULL || $calcDiff === 0) {
+                $calcDiff = intdiv($difference, 5); // Calcular la diferencia en bloques de 5
+            }
         }
 
         $updateSql = "UPDATE Schedule SET stamp = ?, just = ?, coment = ?, mid_time = ?, full_time = ?, modified = 1, calc_diff = ? WHERE id_schedule = ?";
@@ -100,10 +102,14 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
         }
         $updateStmt->close();
     } else {
-        $previousLength = 0;
-        $newLength = strlen($stamp);
-        $difference = $newLength - $previousLength;
-        $calcDiff = intdiv($difference, 5);
+        if ($full_time == 1) {
+            $calcDiff = NULL;
+        } else {
+            $previousLength = 0;
+            $newLength = strlen($stamp);
+            $difference = $newLength - $previousLength;
+            $calcDiff = intdiv($difference, 5); 
+        }
 
         $insertSql = "INSERT INTO Schedule (id_user, id_calendar, stamp, just, coment, mid_time, full_time, modified, created_from_form, calc_diff)
                       SELECT ?, c.id_date, ?, ?, ?, ?, ?, 1, 1, ?
