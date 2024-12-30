@@ -227,7 +227,7 @@ $(document).ready(function () {
       data: { userId: userId, date: date },
       dataType: "json",
       success: function (response) {
-        console.log(data.stamp);
+        console.log(response.stamp);
         if (response.success) {
           showModal(
             response.stamp,
