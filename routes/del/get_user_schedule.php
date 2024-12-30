@@ -24,8 +24,8 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         $endDate = date('Y-m-d', strtotime("$lastDayOfMonth + $daysToAdd days"));
     }
     // Imprimir las fechas calculadas
-    echo "Start Date: " . $startDate . "<br>";
-    echo "End Date: " . $endDate;
+    echo "Start Date: " . $startfirstDayOfMonthDate . "<br>";
+    echo "End Date: " . $lastDayOfMonth;
     $sql = "SELECT 
     t.id_date,
     t.calendar_date,
