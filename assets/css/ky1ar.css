@@ -594,7 +594,7 @@ body {
   background-image: url('../img/full_x1.png');
 }
 .modal-stamp form .checks .switch:nth-of-type(1) input:checked + .slider{
-  background-color: #ffe030;
+  background-color: #f98220;
 }
 .modal-stamp form .checks .switch:nth-of-type(2) input:checked + .slider{
   background-color: #6d4ac7;
@@ -609,7 +609,7 @@ body {
   transform: translateX(2rem);
 }
 .modal-stamp form .checks .switch:nth-of-type(1) input:checked + .slider:before{
-  background-color: #ffe030;
+  background-color: #f98220;
 }
 .modal-stamp form .checks .switch:nth-of-type(2) input:checked + .slider:before{
   background-color: transparent;
