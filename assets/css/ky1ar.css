@@ -1008,6 +1008,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   height: 4rem;
   padding: 1rem;
   outline: none;
+  font-family: "DM Sans", sans-serif;
 }
 .comentarios-boss .envio form input{
   display: flex;
