@@ -440,6 +440,7 @@ $(document).ready(function () {
       data: { userId: userId, week: week, year: year, month: month },
       dataType: "json",
       success: function (response) {
+        console.log("semana: " + response.acumulado_valor_dia);
         if (response.success) {
           if (response.data.length > 0) {
             var acumuladoValorDia = response.data[0].acumulado_valor_dia;
