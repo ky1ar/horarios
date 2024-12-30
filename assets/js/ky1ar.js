@@ -291,6 +291,7 @@ $(document).ready(function () {
       success: function (response) {
         var calculatedTime = response.calculated_time;
         totalMonthlyTime = calculatedTime;
+        console.log("primero: " + totalMonthlyTime);
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
@@ -307,6 +308,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         lastDayTime = response.calculated_time;
+        console.log("ultimo: " + lastDayTime);
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
