@@ -4,7 +4,7 @@ require_once '../../includes/app/db.php';
 if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) {
     $userId = $_POST['userId'];
     $month = $_POST['month'];
-    $year = $_POST['year'];
+    $year = 2025;
 
     $firstDayOfMonth = date('Y-m-01', strtotime("$year-$month-01"));
     $lastDayOfMonth = date('Y-m-t', strtotime("$year-$month-01"));
