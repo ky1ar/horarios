@@ -565,6 +565,7 @@ $(document).ready(function () {
                   hPoints +
                   "</li>"
               );
+              console.log(hPoints);
               if (hPoints === "DF") {
                 $calcLi.addClass("df");
               } else if (hPoints.startsWith("-")) {
