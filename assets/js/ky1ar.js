@@ -237,6 +237,7 @@ $(document).ready(function () {
             date,
             userId
           );
+          console.log("dta: " + response.stamp);
         } else if (response.message === "El día es un feriado") {
         } else {
           showModal("", "", date, userId);
