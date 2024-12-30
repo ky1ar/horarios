@@ -21,7 +21,8 @@ if (isset($_POST['id_user'])) {
     $query = "SELECT c.comentario, c.created_at
               FROM Comentarios c
               WHERE c.id_user = ?
-              ORDER BY c.created_at DESC";
+              ORDER BY c.created_at DESC
+              LIMIT 5";
     $stmt = $conn->prepare($query);
     if ($stmt === false) {
         die("Error al preparar la consulta: " . $conn->error);
