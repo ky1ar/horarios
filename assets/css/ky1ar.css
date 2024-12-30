@@ -344,6 +344,9 @@ body {
 #ky1-rgt .ky1-rsm .box-img.img-6 {
   background-color: #cc4742;
 }
+#ky1-rgt .ky1-rsm .box-img.img-7 {
+  background-color: #ffe551;
+}
 #ky1-rgt .ky1-rsm .box-txt {
   display: flex;
   flex-direction: column;
