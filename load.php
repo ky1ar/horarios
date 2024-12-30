@@ -199,7 +199,7 @@ $id = $_SESSION['user_id'];
                     <p>Tardanzas</p>
                 </div>
             </li>
-            <li>
+            <!-- <li>
                 <div class="box-img img-7">
                     <img src="assets/img/vacaciones.png" width="40" height="40" alt="">
                 </div>
@@ -207,7 +207,7 @@ $id = $_SESSION['user_id'];
                     <span id="vac"></span>
                     <p>Vacaciones</p>
                 </div>
-            </li>
+            </li> -->
         </ul>
         <ul class="ky1-hrr">
             <li class="hrr-box">
