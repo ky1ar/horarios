@@ -83,7 +83,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
         $calcDiff = $row['calc_diff'];
 
         if ($full_time === 1) {
-            $calcDiff = NULL;
+            $calcDiff = 0;
         } else {
             if ($calcDiff === NULL || $calcDiff === 0) {
                 $calcDiff = intdiv($difference, 5);
@@ -109,7 +109,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
         $difference = $newLength - $previousLength;
         
         if ($full_time === 1) {
-            $calcDiff = NULL; // O el valor necesario cuando full_time es 1
+            $calcDiff = 0; // O el valor necesario cuando full_time es 1
         } else {
             $calcDiff = intdiv($difference, 5);
         }
