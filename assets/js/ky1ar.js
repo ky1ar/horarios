@@ -227,6 +227,7 @@ $(document).ready(function () {
       data: { userId: userId, date: date },
       dataType: "json",
       success: function (response) {
+        console.log(data.stamp);
         if (response.success) {
           showModal(
             response.stamp,
@@ -237,7 +238,6 @@ $(document).ready(function () {
             date,
             userId
           );
-          console.log("dta: " + response.stamp);
         } else if (response.message === "El día es un feriado") {
         } else {
           showModal("", "", date, userId);
