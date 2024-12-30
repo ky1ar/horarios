@@ -7,20 +7,21 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $year = $_POST['year'];
 
     $query = "
-        SELECT s.stamp
-        FROM Schedule s
-        JOIN Calendar c ON s.id_calendar = c.id_date
-        WHERE s.id_user = ?
-        AND c.calendar_date = (
-            SELECT calendar_date
-            FROM Calendar
-            WHERE holiday = 0
-            AND DAYOFWEEK(calendar_date) <> 1
-            AND calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) 
-                AND LAST_DAY(DATE(CONCAT(?, '-', ?, '-01')))
-            ORDER BY calendar_date DESC
-            LIMIT 1
-        );
+        SELECT s.stamp, c.calendar_date
+            FROM Schedule s
+            JOIN Calendar c ON s.id_calendar = c.id_date
+            WHERE s.id_user = ?
+            AND c.calendar_date = (
+                SELECT calendar_date
+                FROM Calendar
+                WHERE holiday = 0
+                AND DAYOFWEEK(calendar_date) <> 1
+                AND calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) 
+                    AND LAST_DAY(DATE(CONCAT(?, '-', ?, '-01')))
+                ORDER BY calendar_date DESC
+                LIMIT 1
+            );
+
     ";
     $stmt = $conn->prepare($query);
     if ($stmt === false) {
@@ -33,6 +34,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $stamp = $row['stamp'];
+        $date = $row['calendar_date'];
         $length = strlen($stamp);
 
         if ($stamp == '0' || $stamp == null || $stamp == '' || $stamp == 'DF' || $length == 5 || $length > 30) {
@@ -85,6 +87,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
 
         $response = [
             'stamp' => $stamp,
+            'date' => $date,
             'calculated_time' => $calculated_time
         ];
 
