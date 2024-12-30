@@ -23,8 +23,6 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         $daysToAdd = 6 - $dayOfWeekLast;
         $endDate = date('Y-m-d', strtotime("$lastDayOfMonth + $daysToAdd days"));
     }
-    echo "First Day of Month: " . $firstDayOfMonth . "<br>";
-    echo "Last Day of Month: " . $lastDayOfMonth . "<br>";
     $sql = "SELECT 
     t.id_date,
     t.calendar_date,
