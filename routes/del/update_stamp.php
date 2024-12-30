@@ -20,14 +20,10 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
     $full_time = isset($_POST['full_time']) ? $_POST['full_time'] : 0; 
     $just = isset($_POST['just']) ? $_POST['just'] : '';
     $isNewRecord = false;
-    if ($mid_time == 1 && $full_time == 0) {
-        $stamp = '09:0013:0013:0013:00'; 
-    } elseif ($mid_time == 0 && $full_time == 1) {
-        $stamp = '09:0009:0014:0018:00';
-    } elseif ($mid_time == 1 && $full_time == 1) {
+    if ($full_time == 1) {
         $stamp = '09:0013:0014:0018:00';
     } else {
-        $stamp = $_POST['stamp']; 
+        $stamp = $_POST['stamp'];
     }
 
     if (isset($_FILES['justFile']) && $_FILES['justFile']['error'] === UPLOAD_ERR_OK) {
