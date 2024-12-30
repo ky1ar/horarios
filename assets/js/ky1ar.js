@@ -463,7 +463,13 @@ $(document).ready(function () {
     const month = date.getMonth() + 1;
     return month.toString();
   }
+  const originalConsoleLog = console.log;
 
+  console.log = function (...args) {
+      if (!args.some(arg => typeof arg === 'string' && arg.includes('XHR terminó de cargar'))) {
+          originalConsoleLog.apply(console, args);
+      }
+  };
   function getUserSchedule(userId, month, year) {
     $.ajax({
       url: "../routes/del/get_user_schedule.php",
