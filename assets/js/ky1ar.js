@@ -292,7 +292,6 @@ $(document).ready(function () {
         var calculatedTime = response.calculated_time;
         totalMonthlyTime = calculatedTime;
         first = response.date
-        console.log("primero: " + first);
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
