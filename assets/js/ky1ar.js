@@ -480,6 +480,7 @@ $(document).ready(function () {
             var dayName = entry.day_of_week_es;
             var dayNumber = entry.day_number;
             var hPoints = entry.time_difference;
+            console.log("stamp: " + hPoints);
             if (dayName.toLowerCase() === "domingo") {
               return;
             }
@@ -564,7 +565,6 @@ $(document).ready(function () {
                   hPoints +
                   "</li>"
               );
-              console.log(hPoints);
               if (hPoints === "DF") {
                 $calcLi.addClass("df");
               } else if (hPoints.startsWith("-")) {
