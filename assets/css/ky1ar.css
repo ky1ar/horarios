@@ -560,8 +560,8 @@ body {
 .modal-stamp form .checks .switch{
   position: relative;
   display: flex;
-  width: 4rem;
-  height: 2rem;
+  width: 5rem;
+  height: 3rem;
 }
 .modal-stamp form .checks .switch .slider {
   position: absolute;
@@ -577,8 +577,8 @@ body {
 .modal-stamp form .checks .switch .slider:before {
   position: absolute;
   content: "";
-  height: 1.6rem;
-  width: 1.6rem;
+  height: 2.6rem;
+  width: 2.6rem;
   bottom: 0.2rem;
   left: 0.2rem;
   background-color: white;
