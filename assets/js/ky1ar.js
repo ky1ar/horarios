@@ -387,6 +387,7 @@ $(document).ready(function () {
           const percentage = calculatePercentage(time1, time2);
 
           $hrrBox.find(".minS").text(time1 + "h" + " / " + time2 + "h");
+          console.log(time1 + " " + time2);
           $hrrBox.find(".porT").text(percentage.toFixed(1) + "%");
         }
       );
