@@ -23,7 +23,6 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         $daysToAdd = 6 - $dayOfWeekLast;
         $endDate = date('Y-m-d', strtotime("$lastDayOfMonth + $daysToAdd days"));
     }
-
     $sql = "SELECT 
     t.id_date,
     t.calendar_date,
@@ -263,7 +262,7 @@ FROM
         ORDER BY c.calendar_date
     ) AS t;";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iss", $userId, $firstDayOfMonth, $lastDayOfMonth);
+    $stmt->bind_param("iss", $userId, $startDate, $endDate);
     $stmt->execute();
     $result = $stmt->get_result();
 
