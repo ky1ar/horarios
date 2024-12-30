@@ -612,7 +612,8 @@ body {
   background-color: #ffe030;
 }
 .modal-stamp form .checks .switch:nth-of-type(2) input:checked + .slider:before{
-  background-color: #2942b3;
+  background-color: transparent;
+  filter: invert(1);
 }
 .modal-stamp form .checks .switch .slider.round,
 .modal-stamp form .checks .switch .slider.round:before {
