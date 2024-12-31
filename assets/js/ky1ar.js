@@ -441,7 +441,7 @@ $(document).ready(function () {
         const lastDayMinutesPart = parseInt(lastDayMinutesStr, 10);
         lastDayMinutes = lastDayHours * 60 + lastDayMinutesPart;
       }
-      
+
       const newTotalMinutes =
         totalMonthlyMinutes + totalHours * 60 + totalMinutes - lastDayMinutes;
       const newHours = Math.floor(newTotalMinutes / 60);
@@ -449,9 +449,11 @@ $(document).ready(function () {
       const newFormattedTotalTime = `${newHours
         .toString()
         .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
-        
+
+      console.log("spec: " + specialStamp);
+      console.log("spec: " + newFormattedTotalTime);
       globalTotalMonthlyTimeNuev = newFormattedTotalTime;
-      console.log('spec: ' + specialStamp );
+
       $(document).off("ajaxStop");
     });
   }
