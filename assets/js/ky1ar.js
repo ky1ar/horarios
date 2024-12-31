@@ -608,8 +608,6 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         var data = response;
-        var stampForDate = data.stampForDate;
-            console.log("Stamp for 30-12-2024:", stampForDate);
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
           parseInt(data.total_minutes_late_formatted.split(":")[1]);
