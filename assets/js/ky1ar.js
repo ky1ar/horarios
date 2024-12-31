@@ -443,6 +443,7 @@ $(document).ready(function () {
         const lastDayMinutesPart = parseInt(lastDayMinutesStr, 10);
         lastDayMinutes = lastDayHours * 60 + lastDayMinutesPart;
       }
+      console.log("esperado: " + lastDayMinutes);
       const newTotalMinutes =
         totalMonthlyMinutes + totalHours * 60 + totalMinutes - lastDayMinutes;
       const newHours = Math.floor(newTotalMinutes / 60);
@@ -450,33 +451,9 @@ $(document).ready(function () {
       const newFormattedTotalTime = `${newHours
         .toString()
         .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
-        
-      // Verificar si es diciembre de 2024
-      if (month === 12 && year === 2024) {
-        // Llamar a la función para obtener el `calculated_time` de la fecha
-        getStampForDate(userId); // Asume que tienes la función `getStampForDate` ya definida
 
-        $(document).ajaxStop(function () {
-          if (specialStamp && specialStamp !== "DF") {
-            const [specialHoursStr, specialMinutesStr] =
-              specialStamp.split(":");
-            const specialHours = parseInt(specialHoursStr, 10);
-            const specialMinutes = parseInt(specialMinutesStr, 10);
-            const specialTimeInMinutes = specialHours * 60 + specialMinutes;
-
-            // Sumar el `calculated_time` al total de tiempo mensual
-            const finalTotalMinutes = newTotalMinutes + specialTimeInMinutes;
-
-            const finalHours = Math.floor(finalTotalMinutes / 60);
-            const finalMinutes = finalTotalMinutes % 60;
-            newFormattedTotalTime = `${finalHours
-              .toString()
-              .padStart(2, "0")}:${finalMinutes.toString().padStart(2, "0")}`;
-          }
-        });
-      }
       globalTotalMonthlyTimeNuev = newFormattedTotalTime;
-
+      
       $(document).off("ajaxStop");
     });
   }
