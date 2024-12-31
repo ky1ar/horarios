@@ -607,6 +607,7 @@ $(document).ready(function () {
       processData: false,
       dataType: "json",
       success: function (response) {
+        console.log("prins: " + response.stampForDate);
         var data = response;
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +

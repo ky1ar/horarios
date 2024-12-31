@@ -32,7 +32,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         $penultimateMP = $penultimateWorkdayMP['last_working_day_previous_month'];
     }
 
-        $penultimateQuery = "
+    $penultimateQuery = "
             SELECT calendar_date AS penultimate_workday
             FROM (
                 SELECT calendar_date
@@ -45,13 +45,27 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
             ) AS subquery;
         ";
 
-        $stmt = $conn->prepare($penultimateQuery);
-        $stmt->bind_param("ssss", $year, $month, $year, $month);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $penultimateWorkdayRow = $result->fetch_assoc();
-        $penultimateWorkday = $penultimateWorkdayRow['penultimate_workday'];
-    
+    $stmt = $conn->prepare($penultimateQuery);
+    $stmt->bind_param("ssss", $year, $month, $year, $month);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $penultimateWorkdayRow = $result->fetch_assoc();
+    $penultimateWorkday = $penultimateWorkdayRow['penultimate_workday'];
+
+    // Consulta para recuperar el campo stamp para el 30-12-2024
+    $stampQuery = "
+        SELECT stamp
+        FROM Schedule
+        WHERE id_user = ? AND id_calendar = (
+            SELECT id_date FROM Calendar WHERE calendar_date = '2024-12-30'
+        );
+    ";
+    $stmt = $conn->prepare($stampQuery);
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $stampRow = $result->fetch_assoc();
+    $stampForDate = $stampRow['stamp'] ?? null;
 
     $query = "SELECT
     u.id_user AS id_user,
@@ -139,6 +153,8 @@ GROUP BY
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
 
+    // Agregar el valor de stamp al resultado
+    $row['stamp_2024_12_30'] = $stampForDate;
     echo json_encode($row);
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid parameters.']);
