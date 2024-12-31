@@ -295,10 +295,8 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-          specialStamp = response.stamp;
-          calcus = response.calculated_time;
-          console.log("Stamp:", specialStamp);
-          console.log("sum:", calcus);
+          specialStamp = response.specialStamp;
+          console.log("sum:", specialStamp);
         } else {
           console.error("Error:", response.message);
         }
