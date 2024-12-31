@@ -387,11 +387,7 @@ $(document).ready(function () {
         }
       );
     });
-     // Lógica para sumar 08:10 si el usuario es 18
-     if (userId === 18) {
-      const [hoursToAdd, minutesToAdd] = "08:10".split(":").map(Number);
-      totalHoursMinutes += hoursToAdd * 60 + minutesToAdd;
-    }
+    
     $(document).ajaxStop(function () {
       const totalHours = Math.floor(totalHoursMinutes / 60);
       const totalMinutes = totalHoursMinutes % 60;
