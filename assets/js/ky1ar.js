@@ -450,8 +450,32 @@ $(document).ready(function () {
         .toString()
         .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
 
-      console.log("special: " + specialStamp);
-      console.log("ante: " + newFormattedTotalTime);
+      // Solo ejecutar si el mes es diciembre (12) y el año es 2024
+      if (month === 12 && year === 2024) {
+        console.log("special: " + specialStamp);
+        console.log("ante: " + newFormattedTotalTime);
+
+        // Convertir specialStamp y newFormattedTotalTime de "hh:mm" a minutos
+        const specialStampMinutes = specialStamp
+          .split(":")
+          .reduce((acc, time) => 60 * acc + +time);
+        const newFormattedTotalMinutes = newFormattedTotalTime
+          .split(":")
+          .reduce((acc, time) => 60 * acc + +time);
+
+        // Sumar los minutos
+        const totalMinutes = specialStampMinutes + newFormattedTotalMinutes;
+
+        // Convertir los minutos de nuevo a "hh:mm"
+        const totalHours = Math.floor(totalMinutes / 60);
+        const totalRemainingMinutes = totalMinutes % 60;
+        const newFormattedTotalTimeWithSum = `${totalHours
+          .toString()
+          .padStart(2, "0")}:${totalRemainingMinutes
+          .toString()
+          .padStart(2, "0")}`;
+        console.log("Resultado sumado: " + newFormattedTotalTime);
+      }
       globalTotalMonthlyTimeNuev = newFormattedTotalTime;
 
       $(document).off("ajaxStop");
