@@ -366,7 +366,7 @@ $(document).ready(function () {
               }
             }
           });
-
+          console.log(final);
           const nhours = Math.floor(final / 60);
           const nminutos = final % 60;
           const formattedMinutes = String(nminutos).padStart(2, "0");
