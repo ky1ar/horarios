@@ -420,7 +420,7 @@ $(document).ready(function () {
       }
 
       const newTotalMinutes =
-        totalMonthlyMinutes + totalHours * 60 + totalMinutes;
+        totalMonthlyMinutes + totalHours * 60 + totalMinutes + lastDayMinutes;
       const newHours = Math.floor(newTotalMinutes / 60);
       const newMinutes = newTotalMinutes % 60;
       const newFormattedTotalTime = `${newHours
