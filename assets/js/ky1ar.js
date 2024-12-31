@@ -416,7 +416,7 @@ $(document).ready(function () {
         const lastDayMinutesPart = parseInt(lastDayMinutesStr, 10);
         lastDayMinutes = lastDayHours * 60 + lastDayMinutesPart;
       }
-
+      console.log("test: " + totalMonthlyMinutes);
       const newTotalMinutes =
         totalMonthlyMinutes + totalHours * 60 + totalMinutes - lastDayMinutes;
       const newHours = Math.floor(newTotalMinutes / 60);
