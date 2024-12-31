@@ -450,7 +450,10 @@ $(document).ready(function () {
         .toString()
         .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
 
-      // Solo ejecutar si el mes es diciembre (12) y el año es 2024
+      console.log("special: " + specialStamp);
+      console.log("ante: " + newFormattedTotalTime);
+
+      // Verificar si el mes es 12 (diciembre) y el año es 2024
       if (month === 12 && year === 2024) {
         console.log("special: " + specialStamp);
         console.log("ante: " + newFormattedTotalTime);
@@ -474,9 +477,15 @@ $(document).ready(function () {
           .padStart(2, "0")}:${totalRemainingMinutes
           .toString()
           .padStart(2, "0")}`;
-        console.log("Resultado sumado: " + newFormattedTotalTime);
+
+        // Asignar el resultado a globalTotalMonthlyTimeNuev
+        globalTotalMonthlyTimeNuev = newFormattedTotalTimeWithSum;
+
+        console.log("Resultado sumado: " + globalTotalMonthlyTimeNuev);
+      } else {
+        // Si no es diciembre 2024, mantener el valor original
+        globalTotalMonthlyTimeNuev = newFormattedTotalTime;
       }
-      globalTotalMonthlyTimeNuev = newFormattedTotalTime;
 
       $(document).off("ajaxStop");
     });
