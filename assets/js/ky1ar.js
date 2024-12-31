@@ -309,7 +309,6 @@ $(document).ready(function () {
       success: function (response) {
         lastDayTime = response.calculated_time;
         lastday = response.date
-        console.log("ultimo: " + lastday);
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
@@ -444,7 +443,6 @@ $(document).ready(function () {
         if (response.success) {
           if (response.data.length > 0) {
             var acumuladoValorDia = response.data[0].acumulado_valor_dia;
-            console.log("semana: " + acumuladoValorDia);
             var idProfile = response.data[0].id_profile;
             callback(acumuladoValorDia, idProfile);
           }
