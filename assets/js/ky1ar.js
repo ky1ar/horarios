@@ -443,51 +443,17 @@ $(document).ready(function () {
         const lastDayMinutesPart = parseInt(lastDayMinutesStr, 10);
         lastDayMinutes = lastDayHours * 60 + lastDayMinutesPart;
       }
-
-      function timeToMinutes(time) {
-        const [hours, minutes] = time.split(":").map(Number);
-        return hours * 60 + minutes;
-      }
-
-      // Solo sumar el valor de `specialStamp` si el mes es 12 (Diciembre) y el año es 2024
-      if (month === 12 && year === 2024) {
-        // Asegúrate de que `specialStamp` tenga un valor adecuado en formato "hh:mm"
-        if (specialStamp) {
-          const specialStampMinutes = timeToMinutes(specialStamp);
-
-          // Sumar el valor de specialStamp (en minutos) a los minutos totales calculados
-          const newTotalMinutes =
-            totalMonthlyMinutes +
-            totalHoursMinutes -
-            lastDayMinutes +
-            specialStampMinutes;
-
-          // Convertir los minutos totales de nuevo a "hh:mm"
-          const newHours = Math.floor(newTotalMinutes / 60);
-          const newMinutes = newTotalMinutes % 60;
-          const newFormattedTotalTime = `${newHours
-            .toString()
-            .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
-
-          // Asignar el nuevo tiempo formateado
-          globalTotalMonthlyTimeNuev = newFormattedTotalTime;
-        }
-      } else {
-        // Si no es diciembre de 2024, realizar el cálculo sin `specialStamp`
-        const newTotalMinutes =
-          totalMonthlyMinutes + totalHoursMinutes - lastDayMinutes;
-
-        // Convertir los minutos totales de nuevo a "hh:mm"
-        const newHours = Math.floor(newTotalMinutes / 60);
-        const newMinutes = newTotalMinutes % 60;
-        const newFormattedTotalTime = `${newHours
-          .toString()
-          .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
-
-        // Asignar el nuevo tiempo formateado
-        globalTotalMonthlyTimeNuev = newFormattedTotalTime;
-      }
-
+      
+      const newTotalMinutes =
+        totalMonthlyMinutes + totalHours * 60 + totalMinutes - lastDayMinutes;
+      const newHours = Math.floor(newTotalMinutes / 60);
+      const newMinutes = newTotalMinutes % 60;
+      const newFormattedTotalTime = `${newHours
+        .toString()
+        .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
+        
+      globalTotalMonthlyTimeNuev = newFormattedTotalTime;
+      
       $(document).off("ajaxStop");
     });
   }
