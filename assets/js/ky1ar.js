@@ -307,6 +307,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         lastDayTime = response.calculated_time;
+        console.log("stamp: " + response.stamp);
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
