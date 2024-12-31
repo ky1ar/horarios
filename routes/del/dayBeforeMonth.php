@@ -1,16 +1,13 @@
 <?php
-// Establecer encabezado para indicar que la respuesta es JSON
 header('Content-Type: application/json');
-
 require_once '../../includes/app/db.php';
-
 if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) {
     $userId = $_POST['userId'];
     $month = $_POST['month'];
     $year = $_POST['year'];
 
     $query = "
-        SELECT s.stamp
+        SELECT s.stamp, c.calendar_date
         FROM Schedule s
         JOIN Calendar c ON s.id_calendar = c.id_date
         WHERE s.id_user = ?
@@ -36,6 +33,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     if ($result->num_rows > 0) {
         $row = $result->fetch_assoc();
         $stamp = $row['stamp'];
+        $date = $row['calendar_date'];
         $length = strlen($stamp);
 
         if ($stamp == '0' || $stamp == null || $stamp == '' || $stamp == 'DF' || $length == 5 || $length > 30) {
@@ -88,6 +86,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
 
         $response = [
             'stamp' => $stamp,
+            'date' => $date,
             'calculated_time' => $calculated_time
         ];
 

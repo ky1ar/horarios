@@ -100,13 +100,14 @@ body {
   box-shadow: 0 0 0.25rem var(--graydark);
   padding: 1rem;
   border-radius: 0.5rem;
-  width: 15rem;
+  width: 7rem;
   text-align: center;
   background-color: white;
   z-index: 2;
 }
 .cont-insert h1 {
-  font-size: 1.2rem;
+  font-size: 1rem;
+  text-align: center;
 }
 .cont-insert .form-insert {
   display: flex;
@@ -116,7 +117,7 @@ body {
 .cont-insert .form-insert label {
   background-color: #f5f5f5;
   border-radius: 0.5rem;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
   margin-bottom: 1rem;
   cursor: pointer;
 }
@@ -139,7 +140,7 @@ body {
 
 /***************************************************************************/
 #ky1-rgt {
-  background-image: url('https://tiendakrear3d.com/wp-content/uploads/2024/06/whirlpool.webp');
+  background-image: url("../img/whirlpool.png");
   flex: 1;
   padding: 1rem;
 }
@@ -343,6 +344,9 @@ body {
 #ky1-rgt .ky1-rsm .box-img.img-6 {
   background-color: #cc4742;
 }
+#ky1-rgt .ky1-rsm .box-img.img-7 {
+  background-color: #ffe551;
+}
 #ky1-rgt .ky1-rsm .box-txt {
   display: flex;
   flex-direction: column;
@@ -411,7 +415,7 @@ body {
   min-height: 17rem;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) {
-  background-image: url("https://soporte.krear3d.com/assets/css/whirlpool.png");
+  background-image: url("../img/whirlpool.png");
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) li.test {
   transform: rotate(90deg);
@@ -420,6 +424,7 @@ body {
   font-weight: bold;
   font-size: 1rem;
   opacity: 0.5;
+  color: black;
 }
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:nth-child(odd) {
   background-color: #f5f5f5;
@@ -526,7 +531,7 @@ body {
   left: 0;
   z-index: 9998;
 }
-.modal-stamp div {
+.modal-stamp > div {
   display: flex;
   padding: 1.5rem 1rem;
   background-color: white;
@@ -550,12 +555,80 @@ body {
   padding-bottom: 0;
   flex-direction: column;
 }
+.modal-stamp form .checks{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+}
+.modal-stamp form .checks .switch{
+  position: relative;
+  display: flex;
+  width: 5rem;
+  height: 3rem;
+}
+.modal-stamp form .checks .switch .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.modal-stamp form .checks .switch .slider:before {
+  position: absolute;
+  content: "";
+  height: 2.6rem;
+  width: 2.6rem;
+  bottom: 0.2rem;
+  left: 0.2rem;
+  background-color: white;
+  background-image: url('../img/mid.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; 
+  background-size: 2rem;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+.modal-stamp form .checks .switch:nth-of-type(2) .slider:before {
+  background-image: url('../img/full_x1.png');
+}
+.modal-stamp form .checks .switch:nth-of-type(1) input:checked + .slider{
+  background-color: #f98220;
+}
+.modal-stamp form .checks .switch:nth-of-type(2) input:checked + .slider{
+  background-color: #6d4ac7;
+}
+.modal-stamp form .checks .switch input:checked + .slider.round {
+  border-radius: 2rem;
+}
+.modal-stamp form .checks .switch input:checked + .slider.round:before {
+  border-radius: 2rem;
+}
+.modal-stamp form .checks .switch input:checked + .slider:before {
+  transform: translateX(2rem);
+}
+.modal-stamp form .checks .switch:nth-of-type(1) input:checked + .slider:before{
+  background-color: transparent;
+  filter: invert(1);
+}
+.modal-stamp form .checks .switch:nth-of-type(2) input:checked + .slider:before{
+  background-color: transparent;
+  filter: invert(1);
+}
+.modal-stamp form .checks .switch .slider.round,
+.modal-stamp form .checks .switch .slider.round:before {
+  border-radius: 2rem;
+}
 .modal-stamp form label {
   font-weight: 600;
   margin-bottom: 0.2rem;
 }
-
-.modal-stamp form input {
+.modal-stamp form input:not(#check1):not(#check2) {
   border: 0;
   border-radius: 0.5rem;
   background-color: #f5f5f5;
@@ -565,6 +638,7 @@ body {
   font-family: "DM Sans", sans-serif;
   font-weight: 500;
 }
+
 .modal-stamp form textarea{
   resize: none;
   height: 4rem;
@@ -592,43 +666,16 @@ body {
 
 .modal-stamp form input[type="submit"] {
     width: 5rem;
-    background-color: #f4a27e;
-    border: 0;
-    border-radius: 2rem;
-    padding: 0.5rem 1rem;
+    background-color: #f4a27e !important;
+    border: 0 !important;
+    border-radius: 2rem !important;
+    padding: 0.5rem 1rem !important;
     margin: auto;
     cursor: pointer;
 }
-
 .modal-stamp form input[type="submit"]:hover {
   filter: brightness(1.1);
 }
-.message-verify {
-  display: none;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  position: fixed;
-  bottom: 12rem;
-  right: 1rem;
-  background-color: #ddffe9;
-  padding: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 1rem;
-  width: 15rem;
-}
-.message-verify.show {
-  display: flex;
-  opacity: 1;
-}
-
-.message-verify img {
-  width: 2rem;
-  height: 2rem;
-  margin-right: 1rem;
-}
-
 .viewDoc {
   position: fixed;
   top: 0;
@@ -641,18 +688,14 @@ body {
   align-items: center;
   z-index: 999;
 }
-
 .viewDoc img {
   max-width: 40rem;
   border-radius: 0.5rem;
 }
-
 .viewDoc embed {
   width: 50%;
   height: 80%;
 }
-
-
 .ky1-permisos {
   display: flex;
   flex-direction: column;
@@ -722,7 +765,7 @@ section.cont-login {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url('https://tiendakrear3d.com/wp-content/uploads/2024/06/whirlpool.webp');
+  background-image: url("../img/whirlpool.png");
 }
 
 section.cont-login .login {
@@ -814,7 +857,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
 }
 .out a {
   padding: 1rem;
-  background-color: #f4a27e;
+  background-color: #fd4b44;
   display: flex;
   border-radius: 2rem;
   align-items: center;
@@ -940,19 +983,99 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   #ky1-rgt .ky1-rsm li{
     padding: 1rem;
   }
-  .cont-insert{
-    width: 10rem;
-  }
-  .cont-insert h1,
-  .cont-insert .form-insert label,
-  .cont-insert .form-insert input{
-    font-size: 0.8rem;
-  }
-
-
 }
 @media only screen and (max-width: 416px) {
   #ky1-rgt .ky1-rsm li{
     width: 47%;
+  }
+}
+.comentarios-boss{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-image: url("../img/whirlpool.png");
+}
+.comentarios-boss h1{
+  width: 45rem;
+}
+.comentarios-boss .envio{
+  width: 45rem;
+}
+.comentarios-boss .envio form{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.comentarios-boss .envio form textarea{
+  resize: vertical;
+  border-radius: 1rem;
+  height: 4rem;
+  padding: 1rem;
+  outline: none;
+  font-family: "DM Sans", sans-serif;
+}
+.comentarios-boss .envio form input{
+  display: flex;
+  margin-top: 1rem;
+  width: fit-content;
+  margin-left: auto;
+  border-radius: 1rem;
+  padding: .5rem 1rem;
+  border: none;
+  background-color: #ff861d;
+  box-shadow: 0.1rem 0.2rem 0.3rem gray;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  color: white;
+  font-weight: bold;
+}
+.comentarios-boss .envio form input:hover{
+  background-color: #df6800;
+}
+.comentarios-boss .mensajes{
+  display: flex;
+  align-items: center;
+  text-align: left;
+  width: 45rem;  
+  flex-direction: column;
+}
+.comentarios-boss .mensajes p{
+  display: flex;
+  padding: 1.5rem;
+  background-color: var(--white);
+  border-radius: 1rem;
+  width: 100%;
+}
+.comentarios-boss .mensajes p strong{
+  margin-right: .5rem;
+}
+.comentarios-boss .mensajes p .fecha{
+  margin-left: auto;
+  color: #8b8989;
+  font-style: italic;
+  text-align: right;
+  font-size: 0.8rem;
+}
+
+@media only screen and (max-width: 62rem) {
+  .comentarios-boss h1,
+  .comentarios-boss .envio,
+  .comentarios-boss .mensajes{
+    width: 60%;
+  }
+}
+@media only screen and (max-width: 48rem) {
+  .comentarios-boss h1{
+    font-size: 1rem;
+    text-align: center;
+  }
+  .comentarios-boss h1, .comentarios-boss .envio, .comentarios-boss .mensajes{
+    width: 100%;
+  }
+  .cont-insert{
+    display: none !important;
   }
 }

@@ -21,7 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("Location: /load");
             exit();
         } else {
-            echo "Contraseña incorrecta.";
+            echo "<script>alert('Contraseña incorrecta.'); window.history.back();</script>";
+            exit();
         }
     } else {
         echo "DNI no encontrado.";

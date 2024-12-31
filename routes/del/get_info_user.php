@@ -12,10 +12,8 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $currentDate = date('Y-m-d');
 
     if ($month == 6 && $year == 2024) {
-        // Para junio de 2024, el día inicial será el 1 de junio
         $penultimateMP = "2024-06-01";
     } else {
-        // Obtener el penúltimo día laborable del mes anterior
         $penultimateQueryMonthPast = "
             SELECT calendar_date AS last_working_day_previous_month
             FROM Calendar
@@ -34,20 +32,18 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         $penultimateMP = $penultimateWorkdayMP['last_working_day_previous_month'];
     }
 
-    // Obtener el penúltimo día laborable del mes
     $penultimateQuery = "
-        SELECT calendar_date AS penultimate_workday
-        FROM (
-            SELECT calendar_date
-            FROM Calendar
-            WHERE holiday = 0
-            AND calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND LAST_DAY(DATE(CONCAT(?, '-', ?, '-01')))
-            AND DAYOFWEEK(calendar_date) <> 1
-            ORDER BY calendar_date DESC
-            LIMIT 1 OFFSET 1
-        ) AS subquery;
-    ";
-    
+            SELECT calendar_date AS penultimate_workday
+            FROM (
+                SELECT calendar_date
+                FROM Calendar
+                WHERE holiday = 0
+                AND calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND LAST_DAY(DATE(CONCAT(?, '-', ?, '-01')))
+                AND DAYOFWEEK(calendar_date) <> 1
+                ORDER BY calendar_date DESC
+                LIMIT 1 OFFSET 1
+            ) AS subquery;
+        ";
 
     $stmt = $conn->prepare($penultimateQuery);
     $stmt->bind_param("ssss", $year, $month, $year, $month);
@@ -55,7 +51,8 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $result = $stmt->get_result();
     $penultimateWorkdayRow = $result->fetch_assoc();
     $penultimateWorkday = $penultimateWorkdayRow['penultimate_workday'];
-    // Consulta principal
+
+
     $query = "SELECT
     u.id_user AS id_user,
     u.id_profile,

@@ -32,4 +32,3 @@ if (isset($_POST['date']) && isset($_POST['userId'])) {
 }
 
 $conn->close();
-?>

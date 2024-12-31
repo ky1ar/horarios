@@ -1,7 +1,6 @@
 <?php
 session_start();
-// $currentPage = "Inicio";
-require_once 'db.php';
+require_once './includes/app/db.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">

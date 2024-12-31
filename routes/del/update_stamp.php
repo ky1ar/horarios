@@ -11,14 +11,20 @@ function generateUniqueFileName($length = 6)
     }
     return $randomString;
 }
-
 if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) && isset($_POST['coment'])) {
     $userId = $_POST['userId'];
     $date = $_POST['date'];
     $stamp = $_POST['stamp'];
     $coment = $_POST['coment'];
+    $mid_time = isset($_POST['mid_time']) ? $_POST['mid_time'] : 0;
+    $full_time = isset($_POST['full_time']) ? $_POST['full_time'] : 0;
     $just = isset($_POST['just']) ? $_POST['just'] : '';
     $isNewRecord = false;
+    if ($full_time == 1) {
+        $stamp = '09:0013:0014:0018:00';
+    } else {
+        $stamp = $_POST['stamp'];
+    }
 
     if (isset($_FILES['justFile']) && $_FILES['justFile']['error'] === UPLOAD_ERR_OK) {
         $fileTmpPath = $_FILES['justFile']['tmp_name'];
@@ -55,7 +61,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
         }
     }
 
-    $sql = "SELECT s.id_schedule, s.stamp, s.coment, s.calc_diff
+    $sql = "SELECT s.id_schedule, s.stamp, s.coment, s.calc_diff, s.mid_time, s.full_time
             FROM Schedule s
             JOIN Calendar c ON s.id_calendar = c.id_date
             WHERE s.id_user = ? AND c.calendar_date = ?";
@@ -70,27 +76,26 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
         $row = $result->fetch_assoc();
         $idSchedule = $row['id_schedule'];
         $previousStamp = $row['stamp'];
-
-        // Imprimir el stamp anterior por consola
         error_log("Stamp anterior: $previousStamp");
-
-        // Calcular la diferencia de caracteres en el `stamp`
         $previousLength = strlen($previousStamp);
         $newLength = strlen($stamp);
         $difference = $newLength - $previousLength;
-        $calcDiff = $row['calc_diff'];
 
-        if ($calcDiff === NULL || $calcDiff === 0) {
-            $calcDiff = intdiv($difference, 5);
+        if ($full_time == 1) {
+            $calcDiff = NULL;
+        } else {
+            $calcDiff = $row['calc_diff'];
+            if ($calcDiff === NULL || $calcDiff === 0) {
+                $calcDiff = intdiv($difference, 5);
+            }
         }
 
-        $updateSql = "UPDATE Schedule SET stamp = ?, just = ?, coment = ?, modified = 1, calc_diff = ? WHERE id_schedule = ?";
+        $updateSql = "UPDATE Schedule SET stamp = ?, just = ?, coment = ?, mid_time = ?, full_time = ?, modified = 1, calc_diff = ? WHERE id_schedule = ?";
         $updateStmt = $conn->prepare($updateSql);
-        $updateStmt->bind_param("sssii", $stamp, $just, $coment, $calcDiff, $idSchedule);
+        $updateStmt->bind_param("sssiiii", $stamp, $just, $coment, $mid_time, $full_time, $calcDiff, $idSchedule);
 
         if ($updateStmt->execute()) {
             $isNewRecord = false;
-            // Imprimir el nuevo stamp por consola
             error_log("Stamp actualizado: $stamp");
             setcookie('lastUpdatedUserId', $userId, time() + 600, '/');
             echo json_encode(['success' => true, 'isNewRecord' => $isNewRecord, 'calcDiff' => $calcDiff]);
@@ -99,22 +104,24 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
         }
         $updateStmt->close();
     } else {
-        // Calcular la diferencia de caracteres en el `stamp`
-        $previousLength = 0; // No hay stamp anterior en un nuevo registro
+        $previousLength = 0;
         $newLength = strlen($stamp);
         $difference = $newLength - $previousLength;
-        $calcDiff = intdiv($difference, 5);
+        if ($full_time == 1) {
+            $calcDiff = NULL;
+        } else {
+            $calcDiff = intdiv($difference, 5);
+        }
 
-        $insertSql = "INSERT INTO Schedule (id_user, id_calendar, stamp, just, coment, modified, created_from_form, calc_diff)
-                      SELECT ?, c.id_date, ?, ?, ?, 1, 1, ?
+        $insertSql = "INSERT INTO Schedule (id_user, id_calendar, stamp, just, coment, mid_time, full_time, modified, created_from_form, calc_diff)
+                      SELECT ?, c.id_date, ?, ?, ?, ?, ?, 1, 1, ?
                       FROM Calendar c
                       WHERE c.calendar_date = ?";
         $insertStmt = $conn->prepare($insertSql);
-        $insertStmt->bind_param("isssis", $userId, $stamp, $just, $coment, $calcDiff, $date);
+        $insertStmt->bind_param("isssiiis", $userId, $stamp, $just, $coment, $mid_time, $full_time, $calcDiff, $date);
 
         if ($insertStmt->execute()) {
             $isNewRecord = true;
-            // Imprimir el nuevo stamp por consola
             error_log("Stamp insertado: $stamp");
             setcookie('lastUpdatedUserId', $userId, time() + 600, '/');
             echo json_encode(['success' => true, 'isNewRecord' => $isNewRecord, 'calcDiff' => $calcDiff]);

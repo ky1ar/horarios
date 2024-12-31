@@ -1,5 +1,4 @@
 <?php
-// Incluye el archivo de conexión a la base de datos v2
 require_once '../../includes/app/db.php';
 
 if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) {
@@ -7,20 +6,16 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $month = $_POST['month'];
     $year = $_POST['year'];
 
-    // Calcular fechas dinámicamente en PHP
     $firstDayOfMonth = date('Y-m-01', strtotime("$year-$month-01"));
     $lastDayOfMonth = date('Y-m-t', strtotime("$year-$month-01"));
 
     $dayOfWeekFirst = date('N', strtotime($firstDayOfMonth));
     if ($dayOfWeekFirst == 7) {
-        // Si el primer día del mes es domingo, ajusta la fecha de inicio al siguiente lunes
         $startDate = date('Y-m-d', strtotime("$firstDayOfMonth + 1 day"));
     } else {
-        // De lo contrario, calcula la fecha de inicio para que sea el lunes de la misma semana
         $startDate = date('Y-m-d', strtotime("$firstDayOfMonth - " . ($dayOfWeekFirst - 1) . " days"));
     }
 
-    // Calcular fecha de fin ajustada
     $dayOfWeekLast = date('N', strtotime($lastDayOfMonth));
     if ($dayOfWeekLast >= 6) {
         $endDate = $lastDayOfMonth;
@@ -28,8 +23,6 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         $daysToAdd = 6 - $dayOfWeekLast;
         $endDate = date('Y-m-d', strtotime("$lastDayOfMonth + $daysToAdd days"));
     }
-
-    // Consulta para obtener el horario del usuario seleccionado
     $sql = "SELECT 
     t.id_date,
     t.calendar_date,
@@ -185,7 +178,6 @@ FROM
             u.name,
             u.id_user,
             u.id_profile, 
-            -- Translate the day of the week to Spanish
             CASE 
                 WHEN DAYNAME(c.calendar_date) = 'Monday' THEN 'Lunes'
                 WHEN DAYNAME(c.calendar_date) = 'Tuesday' THEN 'Martes'
@@ -196,10 +188,8 @@ FROM
                 WHEN DAYNAME(c.calendar_date) = 'Sunday' THEN 'Domingo'
                 ELSE NULL
             END AS day_of_week_es,
-            
-            -- New column based on conditions
             CASE 
-                WHEN s.id_schedule IS NULL THEN 'DF' -- No hay registro en schedule para este día
+                WHEN s.id_schedule IS NULL THEN 'DF'
                 WHEN LENGTH(s.stamp) = 30 THEN 
                 CONCAT(
                 FLOOR(
@@ -271,7 +261,6 @@ FROM
             c.calendar_date BETWEEN ? AND ?
         ORDER BY c.calendar_date
     ) AS t;";
-
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("iss", $userId, $startDate, $endDate);
     $stmt->execute();
