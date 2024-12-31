@@ -426,10 +426,10 @@ $(document).ready(function () {
         .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
 
       globalTotalMonthlyTimeNuev = newFormattedTotalTime;
+      console.log("x: " + globalTotalMonthlyTimeNuev);
       $(document).off("ajaxStop");
     });
   }
-  console.log("t: " + globalTotalMonthlyTimeNuev);
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({
       url: "../routes/del/get_week.php",
