@@ -77,6 +77,7 @@ $(document).ready(function () {
     getUserData(newUser.data("id"), currentMonth, currentYear);
     getStampSpecial(newUser.data("id"), currentMonth, currentYear);
     getLastDayTime(newUser.data("id"), currentMonth, currentYear);
+    getStampForDate(newUser.data("id"));
     getUserComments(newUser.data("id"));
   }
 
@@ -96,6 +97,7 @@ $(document).ready(function () {
 
     getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
     getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getStampForDate(selectedUser.attr("data-id"));
     getUserComments(selectedUser.attr("data-id"));
   });
 
@@ -108,6 +110,7 @@ $(document).ready(function () {
 
     getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
     getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getStampForDate(selectedUser.attr("data-id"));
     getUserComments(selectedUser.attr("data-id"));
   });
 
@@ -120,6 +123,7 @@ $(document).ready(function () {
 
     getStampSpecial($(this).data("id"), currentMonth, currentYear);
     getLastDayTime($(this).data("id"), currentMonth, currentYear);
+    getStampForDate($(this).data("id"));
     getUserComments($(this).data("id"));
   });
 
@@ -146,6 +150,7 @@ $(document).ready(function () {
 
     getStampSpecial(userId, currentMonth, currentYear);
     getLastDayTime(userId, currentMonth, currentYear);
+    getStampForDate(userId);
     getUserComments(userId);
   }
 
@@ -281,6 +286,27 @@ $(document).ready(function () {
     });
   });
 
+  let specialStamp = "";
+  function getStampForDate(userId) {
+    $.ajax({
+      url: "../routes/del/salv.php",
+      method: "POST",
+      data: { userId: userId },
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          specialStamp = response.stamp;
+          console.log("Stamp:", specialStamp);
+        } else {
+          console.error("Error:", response.message);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
+    });
+  }
+
   let totalMonthlyTime = "";
   function getStampSpecial(userId, month, year) {
     $.ajax({
@@ -307,7 +333,6 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         lastDayTime = response.calculated_time;
-        console.log("stamp: " + response.stamp);
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
@@ -387,7 +412,7 @@ $(document).ready(function () {
         }
       );
     });
-    
+
     $(document).ajaxStop(function () {
       const totalHours = Math.floor(totalHoursMinutes / 60);
       const totalMinutes = totalHoursMinutes % 60;
@@ -416,7 +441,6 @@ $(document).ready(function () {
         const lastDayMinutesPart = parseInt(lastDayMinutesStr, 10);
         lastDayMinutes = lastDayHours * 60 + lastDayMinutesPart;
       }
-      console.log("test: " + totalMonthlyMinutes);
       const newTotalMinutes =
         totalMonthlyMinutes + totalHours * 60 + totalMinutes - lastDayMinutes;
       const newHours = Math.floor(newTotalMinutes / 60);
@@ -426,7 +450,6 @@ $(document).ready(function () {
         .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
 
       globalTotalMonthlyTimeNuev = newFormattedTotalTime;
-      console.log("x: " + globalTotalMonthlyTimeNuev);
       $(document).off("ajaxStop");
     });
   }
@@ -437,7 +460,6 @@ $(document).ready(function () {
       data: { userId: userId, week: week, year: year, month: month },
       dataType: "json",
       success: function (response) {
-        
         if (response.success) {
           if (response.data.length > 0) {
             var acumuladoValorDia = response.data[0].acumulado_valor_dia;
@@ -834,5 +856,6 @@ $(document).ready(function () {
   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
   getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
   getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
+  getStampForDate(selectedUser.attr("data-id"));
   getUserComments(selectedUser.attr("data-id"));
 });
