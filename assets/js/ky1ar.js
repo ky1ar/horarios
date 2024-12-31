@@ -453,7 +453,7 @@ $(document).ready(function () {
         .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
         
       globalTotalMonthlyTimeNuev = newFormattedTotalTime;
-      
+      console.log('spec: ' + specialStamp );
       $(document).off("ajaxStop");
     });
   }
