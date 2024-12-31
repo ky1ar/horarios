@@ -31,28 +31,30 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         $penultimateWorkdayMP = $result->fetch_assoc();
         $penultimateMP = $penultimateWorkdayMP['last_working_day_previous_month'];
     }
+    if ($month == 12 && $year == 2024) {
+        $penultimateQuery = "2024-12-30";
+    } else {
+        $penultimateQuery = "
+            SELECT calendar_date AS penultimate_workday
+            FROM (
+                SELECT calendar_date
+                FROM Calendar
+                WHERE holiday = 0
+                AND calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND LAST_DAY(DATE(CONCAT(?, '-', ?, '-01')))
+                AND DAYOFWEEK(calendar_date) <> 1
+                ORDER BY calendar_date DESC
+                LIMIT 1 OFFSET 1
+            ) AS subquery;
+        ";
+        
 
-    $penultimateQuery = "
-        SELECT calendar_date AS penultimate_workday
-        FROM (
-            SELECT calendar_date
-            FROM Calendar
-            WHERE holiday = 0
-            AND calendar_date BETWEEN DATE(CONCAT(?, '-', ?, '-01')) AND LAST_DAY(DATE(CONCAT(?, '-', ?, '-01')))
-            AND DAYOFWEEK(calendar_date) <> 1
-            ORDER BY calendar_date DESC
-            LIMIT 1 OFFSET 1
-        ) AS subquery;
-    ";
-    
-
-    $stmt = $conn->prepare($penultimateQuery);
-    $stmt->bind_param("ssss", $year, $month, $year, $month);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $penultimateWorkdayRow = $result->fetch_assoc();
-    $penultimateWorkday = $penultimateWorkdayRow['penultimate_workday'];
-
+        $stmt = $conn->prepare($penultimateQuery);
+        $stmt->bind_param("ssss", $year, $month, $year, $month);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $penultimateWorkdayRow = $result->fetch_assoc();
+        $penultimateWorkday = $penultimateWorkdayRow['penultimate_workday'];
+    }
 
     $query = "SELECT
     u.id_user AS id_user,
