@@ -429,7 +429,7 @@ $(document).ready(function () {
       $(document).off("ajaxStop");
     });
   }
-
+  console.log("t: " + globalTotalMonthlyTimeNuev);
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({
       url: "../routes/del/get_week.php",
