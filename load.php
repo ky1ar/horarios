@@ -379,7 +379,7 @@ $id = $_SESSION['user_id'];
         <embed src="" type="application/pdf" />
     </div>
 
-    <div class="comentarios-boss" id="comments-container">
+    <!-- <div class="comentarios-boss" id="comments-container">
         <h1>Notificaciones</h1>
         <div class="envio" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
             <form id="commentForm">
@@ -390,7 +390,7 @@ $id = $_SESSION['user_id'];
         <div id="mensajes" class="mensajes">
 
         </div>
-    </div>
+    </div> -->
     </div>
 </body>
 
