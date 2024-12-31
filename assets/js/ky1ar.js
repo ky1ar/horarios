@@ -296,7 +296,7 @@ $(document).ready(function () {
       success: function (response) {
         if (response.success) {
           specialStamp = response.stamp;
-          calcus = response.formattedTime;
+          calcus = response.calculated_time;
           console.log("Stamp:", specialStamp);
           console.log("sum:", calcus);
         } else {
