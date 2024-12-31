@@ -32,7 +32,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         $penultimateMP = $penultimateWorkdayMP['last_working_day_previous_month'];
     }
     if ($month == 12 && $year == 2024) {
-        $penultimateQuery = "2024-12-30";
+        $penultimateWorkday = "2024-12-30";
     } else {
         $penultimateQuery = "
             SELECT calendar_date AS penultimate_workday
@@ -46,7 +46,6 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                 LIMIT 1 OFFSET 1
             ) AS subquery;
         ";
-        
 
         $stmt = $conn->prepare($penultimateQuery);
         $stmt->bind_param("ssss", $year, $month, $year, $month);
