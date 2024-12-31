@@ -450,8 +450,8 @@ $(document).ready(function () {
         .toString()
         .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
 
-      console.log("spec: " + specialStamp);
-      console.log("spec: " + newFormattedTotalTime);
+      console.log("special: " + specialStamp);
+      console.log("ante: " + newFormattedTotalTime);
       globalTotalMonthlyTimeNuev = newFormattedTotalTime;
 
       $(document).off("ajaxStop");
