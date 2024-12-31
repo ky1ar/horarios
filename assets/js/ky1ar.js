@@ -309,6 +309,7 @@ $(document).ready(function () {
       success: function (response) {
         lastDayTime = response.calculated_time;
         lastday = response.date
+        console.log(lastDayTime);
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
