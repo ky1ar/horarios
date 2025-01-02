@@ -310,7 +310,7 @@ body {
   flex-wrap: wrap;
   gap: 2rem;
   padding: 1rem;
-  justify-content: left;
+  justify-content: center;
 }
 #ky1-rgt .ky1-rsm li {
   background-color: var(--white);
