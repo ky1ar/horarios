@@ -307,11 +307,12 @@ body {
   margin: 0;
   list-style: none;
   display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
   padding: 1rem;
 }
 #ky1-rgt .ky1-rsm li {
-  flex: 1;
+  flex: none;
   background-color: var(--white);
   padding: 1.5rem;
   border-radius: 1rem;
@@ -319,6 +320,7 @@ body {
   align-items: center;
   gap: 1.5rem;
   justify-content: space-evenly;
+  width: 30%;
 }
 #ky1-rgt .ky1-rsm .box-img {
   display: flex;
