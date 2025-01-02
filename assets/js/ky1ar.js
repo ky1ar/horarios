@@ -350,6 +350,7 @@ $(document).ready(function () {
       data: { userId: userId, year: year },
       dataType: "json",
       success: function (response) {
+        console.log(response);
         if (response.total_time !== undefined) {
           let totalTime = response.total_time;
           $("#vac").text(totalTime);
