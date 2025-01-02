@@ -1,27 +1,27 @@
 <?php
-require_once '../../includes/app/db.php';  // Incluye tu archivo de conexión a la base de datos
+require_once '../../includes/app/db.php';
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Asegúrate de que se reciban los parámetros necesarios
 if (isset($_POST['userId']) && isset($_POST['year'])) {
     $userId = $_POST['userId'];
     $year = $_POST['year'];
 
-    // Consulta adicional para calcular la sumatoria de mid_time y full_time
+    // Consulta para calcular la sumatoria de mid_time y full_time
     $additionalQuery = "
         SELECT 
-        SUM(CASE WHEN s.mid_time = 1 THEN 0.5 ELSE 0 END) +
-        SUM(CASE WHEN s.full_time = 1 THEN 1 ELSE 0 END) AS total_time
-            FROM Schedule s
-            JOIN Calendar c ON s.id_calendar = c.id_date
-            WHERE s.id_user = ? AND YEAR(c.calendar_date) = ?;
+            SUM(CASE WHEN s.mid_time = 1 THEN 0.5 ELSE 0 END) +
+            SUM(CASE WHEN s.full_time = 1 THEN 1 ELSE 0 END) AS total_time
+        FROM Schedule s
+        JOIN Calendar c ON s.id_calendar = c.id_date
+        WHERE s.id_user = ? AND YEAR(c.calendar_date) = ?;
     ";
 
+    // Preparar y ejecutar la consulta
     $stmt = $conn->prepare($additionalQuery);
-    $stmt->bind_param("ii", $userId, $year);
+    $stmt->bind_param("ii", $userId, $year);  // Bind de los parámetros
     $stmt->execute();
     $additionalResult = $stmt->get_result();
     $additionalRow = $additionalResult->fetch_assoc();
@@ -33,4 +33,5 @@ if (isset($_POST['userId']) && isset($_POST['year'])) {
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid parameters.']);
 }
+
 ?>
