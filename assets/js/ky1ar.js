@@ -79,6 +79,7 @@ $(document).ready(function () {
     getLastDayTime(newUser.data("id"), currentMonth, currentYear);
     getStampForDate(newUser.data("id"));
     getUserComments(newUser.data("id"));
+    getVacations(newUser.data("id"), currentYear);
   }
 
   nextUser.on("click", function () {
@@ -99,6 +100,7 @@ $(document).ready(function () {
     getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
     getStampForDate(selectedUser.attr("data-id"));
     getUserComments(selectedUser.attr("data-id"));
+    getVacations(selectedUser.attr("data-id"), currentYear);
   });
 
   previousMonth.on("click", function () {
@@ -112,6 +114,7 @@ $(document).ready(function () {
     getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
     getStampForDate(selectedUser.attr("data-id"));
     getUserComments(selectedUser.attr("data-id"));
+    getVacations(selectedUser.attr("data-id"));
   });
 
   userList.find("li").on("click", function () {
@@ -125,6 +128,7 @@ $(document).ready(function () {
     getLastDayTime($(this).data("id"), currentMonth, currentYear);
     getStampForDate($(this).data("id"));
     getUserComments($(this).data("id"));
+    getVacations($(this).data("id"));
   });
 
   const lastUpdatedUserId = getCookie("lastUpdatedUserId");
@@ -152,6 +156,7 @@ $(document).ready(function () {
     getLastDayTime(userId, currentMonth, currentYear);
     getStampForDate(userId);
     getUserComments(userId);
+    getVacations(userId, currentYear);
   }
 
   function formatDate(dateString) {
@@ -333,6 +338,26 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         lastDayTime = response.calculated_time;
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
+    });
+  }
+  function getVacations(userId, year) {
+    $.ajax({
+      url: "../routes/del/getVacations.php",
+      method: "POST",
+      data: { userId: userId, year: year },
+      dataType: "json",
+      success: function (response) {
+        if (response.total_time !== undefined) {
+          let totalTime = response.total_time;
+          console.log("Total Time:", totalTime);
+          $("#vac").text(totalTime); 
+        } else {
+          console.error("No se recibió el tiempo total en la respuesta.");
+        }
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
@@ -658,7 +683,7 @@ $(document).ready(function () {
       success: function (response) {
         var data = response;
         var additionalValue = data.total_time;
-        console.log("Valor adicional:", additionalValue); 
+        console.log("Valor adicional:", additionalValue);
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
           parseInt(data.total_minutes_late_formatted.split(":")[1]);
@@ -887,4 +912,5 @@ $(document).ready(function () {
   getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
   getStampForDate(selectedUser.attr("data-id"));
   getUserComments(selectedUser.attr("data-id"));
+  getVacations(selectedUser.attr("data-id"), currentYear);
 });
