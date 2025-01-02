@@ -20,7 +20,7 @@ $id = $_SESSION['user_id'];
 </head>
 
 <body style="display: flex; flex-direction: column;">
-    <div class="out">
+    <div class="out" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
         <a href="./routes/del/logout.php"><img src="./assets/img/out.svg" alt=""></a>
     </div>
     <div class="cont-insert" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
