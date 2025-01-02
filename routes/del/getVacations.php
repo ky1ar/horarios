@@ -13,10 +13,11 @@ if (isset($_POST['userId']) && isset($_POST['year'])) {
     // Consulta adicional para calcular la sumatoria de mid_time y full_time
     $additionalQuery = "
         SELECT 
-            SUM(CASE WHEN mid_time = 1 THEN 0.5 ELSE 0 END) +
-            SUM(CASE WHEN full_time = 1 THEN 1 ELSE 0 END) AS total_time
-        FROM Schedule
-        WHERE id_user = ? AND YEAR(stamp_date) = ?;
+        SUM(CASE WHEN s.mid_time = 1 THEN 0.5 ELSE 0 END) +
+        SUM(CASE WHEN s.full_time = 1 THEN 1 ELSE 0 END) AS total_time
+            FROM Schedule s
+            JOIN Calendar c ON s.id_calendar = c.id_date
+            WHERE s.id_user = ? AND YEAR(c.calendar_date) = ?;
     ";
 
     $stmt = $conn->prepare($additionalQuery);
