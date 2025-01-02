@@ -344,6 +344,8 @@ $(document).ready(function () {
     });
   }
   function getVacations(userId, year) {
+    console.log("usuario: " + userId);
+    console.log("año: " + year);
     $.ajax({
       url: "../routes/del/getVacations.php",
       method: "POST",
