@@ -301,7 +301,6 @@ $(document).ready(function () {
       success: function (response) {
         if (response.success) {
           specialStamp = response.calculated_time;
-          console.log("sum:", specialStamp);
         } else {
           console.error("Error:", response.message);
         }
@@ -475,11 +474,7 @@ $(document).ready(function () {
         .toString()
         .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
 
-      console.log("special: " + specialStamp);
-      console.log("ante: " + newFormattedTotalTime);
       if (month === 12 && year === 2024) {
-        console.log("special: " + specialStamp);
-        console.log("ante: " + newFormattedTotalTime);
         const specialStampMinutes = specialStamp
           .split(":")
           .reduce((acc, time) => 60 * acc + +time);
@@ -497,7 +492,6 @@ $(document).ready(function () {
           .toString()
           .padStart(2, "0")}`;
         globalTotalMonthlyTimeNuev = newFormattedTotalTimeWithSum;
-        console.log("Resultado sumado: " + globalTotalMonthlyTimeNuev);
       } else {
         globalTotalMonthlyTimeNuev = newFormattedTotalTime;
       }
@@ -683,7 +677,6 @@ $(document).ready(function () {
       success: function (response) {
         var data = response;
         var additionalValue = data.total_time;
-        console.log("Valor adicional:", additionalValue);
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
           parseInt(data.total_minutes_late_formatted.split(":")[1]);
