@@ -352,8 +352,7 @@ $(document).ready(function () {
       success: function (response) {
         if (response.total_time !== undefined) {
           let totalTime = response.total_time;
-          console.log("Total Time:", totalTime);
-          $("#vac").text(totalTime); 
+          $("#vac").text(totalTime);
         } else {
           console.error("No se recibió el tiempo total en la respuesta.");
         }
