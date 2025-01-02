@@ -946,12 +946,16 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   }
   #ky1-rgt .ky1-hrr .hrr-box{
     padding: 0.75rem;
+    width: 100%;
   }
   #ky1-rgt .ky1-hrr .hrr-box span{
     font-size: 1rem;
   }
   #ky1-rgt .ky1-hrr .hrr-box .data-sem p{
     font-size: 0.7rem;
+  }
+  #ky1-rgt .ky1-hrr .hrr-box .hrr-day{
+    justify-content: space-between;
   }
   #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul{
     padding: 1.5rem 0 0 0;
