@@ -351,7 +351,7 @@ $id = $_SESSION['user_id'];
             <form id="stampForm" enctype="multipart/form-data">
                 <label for="dayInput">Día:</label>
                 <input type="text" id="dayInput" name="day" disabled>
-                <!-- <div class="checks" id="fast-access">
+                <div class="checks" id="fast-access">
                     <label class="switch">
                         <input type="checkbox" id="check1">
                         <span class="slider round"></span>
@@ -360,7 +360,7 @@ $id = $_SESSION['user_id'];
                         <input type="checkbox" id="check2">
                         <span class="slider round"></span>
                     </label>
-                </div> -->
+                </div>
                 <label for="stampInput" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">Registro:</label>
                 <input type="text" id="stampInput" name="stamp" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
                 <input type="hidden" id="dateInput" name="date">
@@ -379,7 +379,7 @@ $id = $_SESSION['user_id'];
         <embed src="" type="application/pdf" />
     </div>
 
-    <!-- <div class="comentarios-boss" id="comments-container">
+    <div class="comentarios-boss" id="comments-container">
         <h1>Notificaciones</h1>
         <div class="envio" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
             <form id="commentForm">
@@ -390,7 +390,7 @@ $id = $_SESSION['user_id'];
         <div id="mensajes" class="mensajes">
 
         </div>
-    </div> -->
+    </div>
     </div>
 </body>
 
