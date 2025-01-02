@@ -852,7 +852,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
 .out {
   position: fixed;
   bottom: 1rem;
-  left: 1rem;
+  right: 1rem;
   display: flex;
   cursor: pointer;
   z-index: 1;
