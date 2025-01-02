@@ -114,7 +114,7 @@ $(document).ready(function () {
     getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
     getStampForDate(selectedUser.attr("data-id"));
     getUserComments(selectedUser.attr("data-id"));
-    getVacations(selectedUser.attr("data-id"));
+    getVacations(selectedUser.attr("data-id"), currentYear);
   });
 
   userList.find("li").on("click", function () {
@@ -128,7 +128,7 @@ $(document).ready(function () {
     getLastDayTime($(this).data("id"), currentMonth, currentYear);
     getStampForDate($(this).data("id"));
     getUserComments($(this).data("id"));
-    getVacations($(this).data("id"));
+    getVacations($(this).data("id"), currentYear);
   });
 
   const lastUpdatedUserId = getCookie("lastUpdatedUserId");
