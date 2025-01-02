@@ -869,6 +869,11 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
 .out a img {
   width: 1.5rem;
 }
+@media only screen and (max-width: 1300px) {
+  #ky1-rgt .ky1-rsm li{
+    width: 30%;
+  }
+}
 @media only screen and (max-width: 1200px) {
   section.cont-login .login {
     flex-direction: column;
