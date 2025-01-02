@@ -657,6 +657,8 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         var data = response;
+        var additionalValue = data.total_time;
+        console.log("Valor adicional:", additionalValue); 
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
           parseInt(data.total_minutes_late_formatted.split(":")[1]);

@@ -139,6 +139,23 @@ GROUP BY
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
 
+    // Consulta adicional para calcular la sumatoria de mid_time y full_time
+    $additionalQuery = "
+        SELECT 
+            SUM(CASE WHEN mid_time = 1 THEN 0.5 ELSE 0 END) +
+            SUM(CASE WHEN full_time = 1 THEN 1 ELSE 0 END) AS total_time
+        FROM Schedule
+        WHERE id_user = ? AND YEAR(stamp_date) = ?;
+    ";
+    $stmt = $conn->prepare($additionalQuery);
+    $stmt->bind_param("ii", $userId, $year);
+    $stmt->execute();
+    $additionalResult = $stmt->get_result();
+    $additionalRow = $additionalResult->fetch_assoc();
+
+    // Añadir el total_time al resultado de la consulta principal
+    $row['total_time'] = $additionalRow['total_time'] ?? 0;
+    
     echo json_encode($row);
 } else {
     echo json_encode(['success' => false, 'message' => 'Invalid parameters.']);
