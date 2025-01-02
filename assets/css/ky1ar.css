@@ -310,6 +310,7 @@ body {
   flex-wrap: wrap;
   gap: 2rem;
   padding: 1rem;
+  justify-content: space-between;
 }
 #ky1-rgt .ky1-rsm li {
   flex: none;
@@ -868,16 +869,6 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
 }
 .out a img {
   width: 1.5rem;
-}
-@media only screen and (max-width: 1600px) {
-  #ky1-rgt .ky1-rsm{
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  #ky1-rgt .ky1-rsm li{
-    flex: none;
-    width: 30%;
-  }
 }
 @media only screen and (max-width: 1200px) {
   section.cont-login .login {
