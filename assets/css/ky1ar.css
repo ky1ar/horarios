@@ -852,7 +852,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
 .out {
   position: fixed;
   bottom: 1rem;
-  right: 1rem;
+  left: 1rem;
   display: flex;
   cursor: pointer;
   z-index: 1;
@@ -988,6 +988,10 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   }
   .ky1-permisos{
     display: none !important;
+  }
+  .out {
+    right: 1rem;
+    left: auto;
   }
 }
 @media only screen and (max-width: 416px) {
