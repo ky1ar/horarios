@@ -292,6 +292,9 @@ body {
   width: 100%;
   padding: 1rem;
 }
+#selectedUser #userList ul li:hover{
+  background-color: var(--graydarkest);
+}
 #selectedUser #userList ul li img {
   width: 2rem;
   height: 2rem;
