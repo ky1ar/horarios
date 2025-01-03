@@ -542,6 +542,7 @@ $(document).ready(function () {
           var $currentHrrBox;
           var currentWeek = 1;
           response.schedule.forEach(function (entry, index) {
+            console.log(entry.full_time);
             var dayName = entry.day_of_week_es;
             var dayNumber = entry.day_number;
             var hPoints = entry.time_difference;

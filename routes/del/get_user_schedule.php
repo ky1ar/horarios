@@ -38,6 +38,8 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     t.stamp,
     t.just,
     t.modified,
+    t.mid_time,
+    t.full_time,
     CASE 
         WHEN t.new_column = 'DF' THEN 'DF'
         ELSE
