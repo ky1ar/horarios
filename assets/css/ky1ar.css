@@ -288,7 +288,7 @@ body {
   gap: 1rem;
   cursor: pointer;
   width: 100%;
-  padding: 1rem;
+  padding: 0.75rem;
 }
 #selectedUser #userList ul li:hover{
   background-color: var(--graydarkest);
