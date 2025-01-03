@@ -321,6 +321,7 @@ body {
   justify-content: space-around;
   gap: 1.5rem;
   width: 22%;
+  border: 0.2rem solid var(--graydarkest);
 }
 #ky1-rgt .ky1-rsm .box-img {
   display: flex;
