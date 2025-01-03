@@ -1036,7 +1036,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover{
   padding: .5rem 1rem;
   border: none;
   background-color: #ff861d;
-  box-shadow: 0.1rem 0.2rem 0.3rem gray;
+  box-shadow: 0.1rem 0.1rem 0.2rem gray;
   transition: background-color 0.3s ease;
   cursor: pointer;
   margin-bottom: 2rem;
