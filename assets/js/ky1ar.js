@@ -344,15 +344,12 @@ $(document).ready(function () {
     });
   }
   function getVacations(userId, year) {
-    console.log("usuario: " + userId);
-    console.log("año: " + year);
     $.ajax({
       url: "../routes/del/getVacations.php",
       method: "POST",
       data: { userId: userId, year: year },
       dataType: "json",
       success: function (response) {
-        console.log(response);
         if (response.total_time !== undefined) {
           let totalTime = response.total_time;
           $("#vac").text(totalTime);
