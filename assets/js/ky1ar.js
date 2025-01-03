@@ -542,7 +542,6 @@ $(document).ready(function () {
           var $currentHrrBox;
           var currentWeek = 1;
           response.schedule.forEach(function (entry, index) {
-            console.log(entry.full_time);
             var dayName = entry.day_of_week_es;
             var dayNumber = entry.day_number;
             var hPoints = entry.time_difference;
@@ -582,7 +581,18 @@ $(document).ready(function () {
                 color: "white",
               });
             }
-
+            if (entry.mid_time === 1) {
+              $dayList.css({
+                "background-color": "#f98220",
+                color: "white",
+              });
+            }
+            if (entry.full_time === 1) {
+              $dayList.css({
+                "background-color": "#6d4ac7",
+                color: "white",
+              });
+            }
             $(
               "<li class='day-nam'>" +
                 dayName.substring(0, 3) +
