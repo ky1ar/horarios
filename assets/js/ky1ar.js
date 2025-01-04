@@ -581,18 +581,13 @@ $(document).ready(function () {
                 color: "white",
               });
             }
-            if (entry.mid_time === 1) {
+            if (entry.mid_time === 1 || entry.full_time === 1) {
               $dayList.css({
-                "background-color": "#f98220",
+                "background-color": "#ff961a",
                 color: "white",
               });
             }
-            if (entry.full_time === 1) {
-              $dayList.css({
-                "background-color": "#6d4ac7",
-                color: "white",
-              });
-            }
+
             $(
               "<li class='day-nam'>" +
                 dayName.substring(0, 3) +
