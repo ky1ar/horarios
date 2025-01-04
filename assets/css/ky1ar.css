@@ -193,7 +193,7 @@ body {
   width: 16rem;
   color: var(--white);
 }
-#ky1-rgt header .ky1-dte img{
+#ky1-rgt header .ky1-dte img {
   filter: invert(1);
 }
 #previousMonth,
@@ -651,8 +651,9 @@ body {
 .modal-stamp form .checks {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 3rem;
+  justify-content: space-evenly;
+  gap: 1rem 2rem;
+  flex-wrap: wrap;
 }
 
 .modal-stamp form .checks .switch {
