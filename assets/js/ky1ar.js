@@ -184,8 +184,8 @@ $(document).ready(function () {
       "Diciembre",
     ];
 
-    // const [year, month, day] = dateString.split("-");
-    // const date = new Date(`${year}-${month}-${day}`);
+    const [year, month, day] = dateString.split("-");
+    const date = new Date(`${year}-${month}-${day}`);
     const dayOfWeek = daysOfWeek[date.getDay()];
     const formattedDate = `${dayOfWeek} ${day} de ${
       months[parseInt(month) - 1]
@@ -193,7 +193,7 @@ $(document).ready(function () {
     return formattedDate;
   }
 
-  function showModal(stamp, just, coment, midTime, fullTime, date, userId) {
+  function showModal(stamp, just, coment, midTime, fullTime, salud, servicio, date, userId) {
     $("#stampInput").val(stamp);
     $("#comentInput").val(coment);
     $("#justNameInput").val(just);
