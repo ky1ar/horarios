@@ -333,7 +333,7 @@ body {
 }
 
 #selectedUser #userList ul li:hover {
-  background-color: var(--graydarkest);
+  background-color: var(--gray);
 }
 
 #selectedUser #userList ul li img {
