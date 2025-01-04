@@ -212,6 +212,16 @@ $(document).ready(function () {
     } else {
       $("#check2").prop("checked", false);
     }
+    if (salud === 1) {
+      $("#check3").prop("checked", true);
+    } else {
+      $("#check3").prop("checked", false);
+    }
+    if (servicio === 1) {
+      $("#check4").prop("checked", true);
+    } else {
+      $("#check4").prop("checked", false);
+    }
     $(".modal-stamp").fadeIn();
   }
 
