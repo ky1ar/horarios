@@ -276,10 +276,16 @@ $(document).ready(function () {
     var formData = new FormData(this);
     var check1 = $("#check1").prop("checked");
     var check2 = $("#check2").prop("checked");
+    var check3 = $("#check3").prop("checked");
+    var check4 = $("#check4").prop("checked");
     var mid_time = check1 ? 1 : 0;
     var full_time = check2 ? 1 : 0;
+    var salud = check3 ? 1 : 0;
+    var servico = check4 ? 1 : 0;
     formData.append("mid_time", mid_time);
     formData.append("full_time", full_time);
+    formData.append("salud", salud);
+    formData.append("servico", servico);
     $.ajax({
       url: "../routes/del/update_stamp.php",
       method: "POST",
