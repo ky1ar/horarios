@@ -487,6 +487,7 @@ body {
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) {
   background-image: url("../img/whirlpool.png");
+  border: none;
 }
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) li.test {
