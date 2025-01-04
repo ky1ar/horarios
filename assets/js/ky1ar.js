@@ -184,7 +184,8 @@ $(document).ready(function () {
       "Diciembre",
     ];
 
-    const date = new Date(`${year}-${month}-${day}`);
+    // const [year, month, day] = dateString.split("-");
+    // const date = new Date(`${year}-${month}-${day}`);
     const dayOfWeek = daysOfWeek[date.getDay()];
     const formattedDate = `${dayOfWeek} ${day} de ${
       months[parseInt(month) - 1]
