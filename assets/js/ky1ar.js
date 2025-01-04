@@ -605,7 +605,18 @@ $(document).ready(function () {
                 color: "white",
               });
             }
-
+            if (entry.salud === 1) {
+              $dayList.css({
+                "background-color": "#71D7D6",
+                color: "white",
+              });
+            }
+            if (entry.servicio === 1) {
+              $dayList.css({
+                "background-color": "#3D3D3D",
+                color: "white",
+              });
+            }
             $(
               "<li class='day-nam'>" +
                 dayName.substring(0, 3) +
