@@ -282,7 +282,6 @@ $(document).ready(function () {
     var full_time = check2 ? 1 : 0;
     var salud = check3 ? 1 : 0;
     var servico = check4 ? 1 : 0;
-    console.log("s: " + servico);
     formData.append("mid_time", mid_time);
     formData.append("full_time", full_time);
     formData.append("salud", salud);
