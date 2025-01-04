@@ -550,7 +550,8 @@ body {
 }
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc.plus {
-  background-color: #d0e6a5;
+  background-color: #57db00;
+  color: var(--white);
 }
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc.minus {
