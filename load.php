@@ -360,6 +360,14 @@ $id = $_SESSION['user_id'];
                         <input type="checkbox" id="check2">
                         <span class="slider round"></span>
                     </label>
+                    <label class="switch">
+                        <input type="checkbox" id="check3">
+                        <span class="slider round"></span>
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" id="check4">
+                        <span class="slider round"></span>
+                    </label>
                 </div>
                 <label for="stampInput" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">Registro:</label>
                 <input type="text" id="stampInput" name="stamp" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
