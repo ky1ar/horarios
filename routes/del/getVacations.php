@@ -19,9 +19,8 @@ if (isset($_POST['userId']) && isset($_POST['year'])) {
         WHERE s.id_user = ? AND YEAR(c.calendar_date) = ?;
     ";
 
-    // Preparar y ejecutar la consulta
     $stmt = $conn->prepare($additionalQuery);
-    $stmt->bind_param("ii", $userId, $year);  // Bind de los parámetros
+    $stmt->bind_param("ii", $userId, $year);
     $stmt->execute();
     $additionalResult = $stmt->get_result();
     $additionalRow = $additionalResult->fetch_assoc();
