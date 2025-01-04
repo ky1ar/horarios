@@ -116,7 +116,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
         }
 
         $insertSql = "INSERT INTO Schedule (id_user, id_calendar, stamp, just, coment, mid_time, full_time, salud, servicio, modified, created_from_form, calc_diff)
-                      SELECT ?, c.id_date, ?, ?, ?, ?, ?, 1, 1, ?
+                      SELECT ?, c.id_date, ?, ?, ?, ?, ?, ?, ?, 1, 1, ?
                       FROM Calendar c
                       WHERE c.calendar_date = ?";
         $insertStmt = $conn->prepare($insertSql);
