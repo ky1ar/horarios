@@ -708,6 +708,13 @@ body {
 .modal-stamp form .checks .switch:nth-of-type(2) input:checked + .slider {
   background-color: #6d4ac7;
 }
+.modal-stamp form .checks .switch:nth-of-type(3) input:checked + .slider {
+  background-color: #71edff;
+}
+
+.modal-stamp form .checks .switch:nth-of-type(4) input:checked + .slider {
+  background-color: #000000;
+}
 
 .modal-stamp form .checks .switch input:checked + .slider.round {
   border-radius: 2rem;
