@@ -244,6 +244,8 @@ $(document).ready(function () {
             response.coment,
             response.mid_time,
             response.full_time,
+            response.salud,
+            response.servicio,
             date,
             userId
           );
