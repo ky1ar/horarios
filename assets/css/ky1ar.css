@@ -481,7 +481,7 @@ body {
 }
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:hover {
-  border: 0.1rem solid var(--graydarkest);
+  border: 0.1rem solid #afc9ff;
   overflow: hidden;
 }
 
