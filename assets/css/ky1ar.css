@@ -726,22 +726,7 @@ body {
   transform: translateX(2rem);
 }
 
-.modal-stamp
-  form
-  .checks
-  .switch:nth-of-type(1)
-  input:checked
-  + .slider:before {
-  background-color: transparent;
-  filter: invert(1);
-}
-
-.modal-stamp
-  form
-  .checks
-  .switch:nth-of-type(2)
-  input:checked
-  + .slider:before {
+.modal-stamp form .checks .switch input:checked + .slider:before {
   background-color: transparent;
   filter: invert(1);
 }
