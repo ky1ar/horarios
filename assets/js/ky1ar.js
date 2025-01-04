@@ -281,11 +281,11 @@ $(document).ready(function () {
     var mid_time = check1 ? 1 : 0;
     var full_time = check2 ? 1 : 0;
     var salud = check3 ? 1 : 0;
-    var servico = check4 ? 1 : 0;
+    var servicio = check4 ? 1 : 0;
     formData.append("mid_time", mid_time);
     formData.append("full_time", full_time);
     formData.append("salud", salud);
-    formData.append("servico", servico);
+    formData.append("servicio", servicio);
     $.ajax({
       url: "../routes/del/update_stamp.php",
       method: "POST",
