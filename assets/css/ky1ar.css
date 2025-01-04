@@ -139,7 +139,7 @@ body {
 
 .cont-insert .form-insert input {
   font-family: "DM Sans", sans-serif;
-  background-color: #f4a27e;
+  background-color: #45abff;
   padding: 0.5rem 1rem;
   border: none;
   cursor: pointer;
@@ -148,6 +148,7 @@ body {
   text-decoration: none;
   display: inline-block;
   margin: auto;
+  color: var(--white);
 }
 
 .cont-insert .form-insert input:hover {
