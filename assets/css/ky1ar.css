@@ -297,7 +297,7 @@ body {
 }
 
 #selectedUser #userList::-webkit-scrollbar-thumb {
-  background-color: #ffa880;
+  background-color: var(--black);
   border-radius: 0.75rem;
 }
 
