@@ -366,7 +366,7 @@ body {
   justify-content: space-around;
   gap: 1.5rem;
   width: 22%;
-  border: 0.2rem solid var(--graydarkest);
+  border: 0.15rem solid #94c6f5;
 }
 
 #ky1-rgt .ky1-rsm .box-img {
