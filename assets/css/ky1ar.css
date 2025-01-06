@@ -1209,7 +1209,9 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   #ky1-rgt .ky1-rsm li {
     padding: 1rem;
   }
-
+  #ky1-rgt .ky1-rsm li:last-child{
+    height: 6rem;
+  }
   .ky1-permisos {
     display: none !important;
   }
