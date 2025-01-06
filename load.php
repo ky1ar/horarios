@@ -358,7 +358,6 @@ $id = $_SESSION['user_id'];
         <div class="modal-content">
             <h1>Actualizar Registro</h1>
             <form id="stampForm" enctype="multipart/form-data">
-                <label for="dayInput">Día:</label>
                 <input type="text" id="dayInput" name="day" disabled>
                 <div class="checks" id="fast-access">
                     <p class="tit">Vacaciones</p>
