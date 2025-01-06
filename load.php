@@ -51,6 +51,7 @@ $id = $_SESSION['user_id'];
             </div>
             <div class="ky1-usr">
                 <div id="indice">
+                    Leyenda
                     <p><span></span> Normal</p>
                     <p><span></span> Modificado</p>
                     <p><span></span> Permiso de Salud</p>
