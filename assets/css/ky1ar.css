@@ -788,11 +788,11 @@ body {
   margin-bottom: 0.2rem;
 }
 .modal-stamp form #dayInput {
-  background-color: white;
+  background-color: white !important;
   color: #df6900;
   font-weight: 600;
   font-size: 1rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.5rem !important;
 }
 .modal-stamp form input:not(#check1):not(#check2):not(#check3):not(#check4) {
   border: 0;
