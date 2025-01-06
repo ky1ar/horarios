@@ -203,9 +203,10 @@ body {
 }
 #indice{
   display: flex;
+  flex-direction: column;
 }
-#indice img{
-  width: 2rem;
+#indice p{
+  
 }
 #ky1-rgt header .ky1-dte img:first-child {
   transform: scaleX(-1);

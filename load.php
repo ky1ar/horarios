@@ -59,7 +59,10 @@ $id = $_SESSION['user_id'];
                     </div>
                 <?php endif; ?>
                 <div id="indice">
-                    <img src="/assets/img/leyenda.png" alt="">
+                    <p><span></span> Normal</p>
+                    <p><span></span> Modificado</p>
+                    <p><span></span> Permiso de Salud</p>
+                    <p><span></span> Servicio</p>
                 </div>
                 <div id="selectedUser" data-id="">
                     <img id="userImage" src="" alt="">
