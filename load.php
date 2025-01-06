@@ -50,6 +50,12 @@ $id = $_SESSION['user_id'];
                 <img id="nextMonth" src="assets/img/r.svg" width="12" height="12" alt="">
             </div>
             <div class="ky1-usr">
+                <div id="indice">
+                    <p><span></span> Normal</p>
+                    <p><span></span> Modificado</p>
+                    <p><span></span> Permiso de Salud</p>
+                    <p><span></span> Servicio</p>
+                </div>
                 <?php if ($rango == 1) : ?>
                     <div class="usr-btn" id="previousUser">
                         <img src="assets/img/r.svg" width="12" height="12" alt="">
@@ -58,12 +64,7 @@ $id = $_SESSION['user_id'];
                         <img src="assets/img/r.svg" width="12" height="12" alt="">
                     </div>
                 <?php endif; ?>
-                <div id="indice">
-                    <p><span></span> Normal</p>
-                    <p><span></span> Modificado</p>
-                    <p><span></span> Permiso de Salud</p>
-                    <p><span></span> Servicio</p>
-                </div>
+
                 <div id="selectedUser" data-id="">
                     <img id="userImage" src="" alt="">
                     <span>

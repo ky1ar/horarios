@@ -201,12 +201,14 @@ body {
 #selectedUser {
   cursor: pointer;
 }
-#indice{
+#indice {
   display: flex;
   flex-direction: column;
 }
-#indice p{
-  
+#indice p {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
 }
 #ky1-rgt header .ky1-dte img:first-child {
   transform: scaleX(-1);
