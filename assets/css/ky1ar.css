@@ -205,6 +205,10 @@ body {
   display: flex;
   flex-direction: column;
 }
+#indice h1{
+  font-size: 1rem;
+  font-weight: 600;
+}
 #indice p {
   display: flex;
   margin: 0;
