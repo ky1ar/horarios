@@ -204,8 +204,11 @@ body {
 #indice {
   display: flex;
   flex-direction: column;
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
 }
-#indice h1{
+#indice h1 {
   font-size: 1rem;
   font-weight: 600;
   margin: 0;
@@ -215,24 +218,26 @@ body {
   margin: 0;
   padding: 0;
   line-height: 1;
+  font-size: 0.75rem;
 }
-#indice p span{
-  width: .7rem;
-  height: .7rem;
+#indice p span {
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-right: 0.25rem;
 }
-#indice p:nth-of-type(1) span{
+#indice p:nth-of-type(1) span {
   background-color: #edfaff;
 }
-#indice p:nth-of-type(2) span{
+#indice p:nth-of-type(2) span {
   background-color: #85929e;
 }
-#indice p:nth-of-type(3) span{
+#indice p:nth-of-type(3) span {
   background-color: #71d7d6;
 }
-#indice p:nth-of-type(4) span{
+#indice p:nth-of-type(4) span {
   background-color: #3d3d3d;
 }
-#indice p:nth-of-type(5) span{
+#indice p:nth-of-type(5) span {
   background-color: #ffc426;
 }
 #ky1-rgt header .ky1-dte img:first-child {
