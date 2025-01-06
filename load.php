@@ -208,7 +208,7 @@ $id = $_SESSION['user_id'];
                     <p>Tardanzas</p>
                 </div>
             </li>
-            <li style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
+            <li>
                 <div class="box-img img-7">
                     <img src="assets/img/vacaciones.png" width="40" height="40" alt="">
                 </div>
