@@ -703,6 +703,7 @@ body {
 .modal-stamp form .checks .tit:nth-of-type(2),
 .modal-stamp form .checks .tit:nth-of-type(3){
   font-weight: 600;
+  margin: 0;
 }
 .modal-stamp form .checks .switch {
   position: relative;
