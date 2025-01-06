@@ -206,6 +206,7 @@ body {
   flex-direction: column;
 }
 #indice p {
+  display: flex;
   margin: 0;
   padding: 0;
   line-height: 1;
