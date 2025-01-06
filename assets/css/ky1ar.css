@@ -678,6 +678,7 @@ body {
 .modal-stamp div h1 {
   text-align: center;
   margin: 0;
+  font-size: 1.2rem;
 }
 
 .modal-stamp form {
@@ -694,14 +695,14 @@ body {
   gap: 0 2rem;
   flex-wrap: wrap;
 }
-.modal-stamp form .checks .tit:nth-of-type(1){
+.modal-stamp form .checks .tit:nth-of-type(1) {
   width: 100%;
   margin: 0;
   text-align: center;
   font-weight: 600;
 }
 .modal-stamp form .checks .tit:nth-of-type(2),
-.modal-stamp form .checks .tit:nth-of-type(3){
+.modal-stamp form .checks .tit:nth-of-type(3) {
   font-weight: 600;
   margin: 1rem 0 0 0;
 }
@@ -786,8 +787,14 @@ body {
   font-weight: 600;
   margin-bottom: 0.2rem;
 }
-
-.modal-stamp form input:not(#check1):not(#check2) {
+.modal-stamp form #dayInput {
+  background-color: white;
+  color: #df6900;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+.modal-stamp form input:not(#check1):not(#check2):not(#check3):not(#check4) {
   border: 0;
   border-radius: 0.5rem;
   background-color: #f5f5f5;
@@ -1119,7 +1126,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 }
 
 @media only screen and (max-width: 576px) {
-  #ky1-rgt .ky1-rsm{
+  #ky1-rgt .ky1-rsm {
     justify-content: space-between;
   }
   section.cont-login .login {
@@ -1209,7 +1216,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
     right: 1rem;
     left: auto;
   }
-  #ky1-rgt header .ky1-usr .usr-btn{
+  #ky1-rgt header .ky1-usr .usr-btn {
     display: none;
   }
 }
