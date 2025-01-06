@@ -369,7 +369,7 @@ $id = $_SESSION['user_id'];
                         <input type="checkbox" id="check2">
                         <span class="slider round"></span>
                     </label>
-                    <p class="tit">Permiso de Salud</p>
+                    <p class="tit">Salud</p>
                     <p class="tit">Servicio</p>
                     <label class="switch">
                         <input type="checkbox" id="check3">
