@@ -595,7 +595,7 @@ $(document).ready(function () {
             ).appendTo($hrrDay);
             if (entry.modified === 1) {
               $dayList.css({
-                "background-color": "#85929E",
+                "background-color": "#ffc426",
                 color: "white",
               });
             }
