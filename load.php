@@ -55,6 +55,7 @@ $id = $_SESSION['user_id'];
                     <p><span></span> Modificado</p>
                     <p><span></span> Permiso de Salud</p>
                     <p><span></span> Servicio</p>
+                    <p><span></span> Vacaciones</p>
                 </div>
                 <?php if ($rango == 1) : ?>
                     <div class="usr-btn" id="previousUser">
