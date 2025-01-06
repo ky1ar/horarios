@@ -209,7 +209,8 @@ body {
   padding: 0.5rem;
 }
 #indice h1 {
-  font-size: 1rem;
+  text-align: center;
+  font-size: 0.8rem;
   font-weight: 600;
   margin: 0;
 }
