@@ -362,6 +362,7 @@ $id = $_SESSION['user_id'];
                 <input type="text" id="dayInput" name="day" disabled>
                 <div class="checks" id="fast-access">
                     <label class="switch">
+                        <p>Vacaciones</p>
                         <input type="checkbox" id="check1">
                         <span class="slider round"></span>
                     </label>
