@@ -201,7 +201,12 @@ body {
 #selectedUser {
   cursor: pointer;
 }
-
+#indice{
+  display: flex;
+}
+#indice img{
+  width: 2rem;
+}
 #ky1-rgt header .ky1-dte img:first-child {
   transform: scaleX(-1);
   margin-right: 5px;

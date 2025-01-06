@@ -58,6 +58,9 @@ $id = $_SESSION['user_id'];
                         <img src="assets/img/r.svg" width="12" height="12" alt="">
                     </div>
                 <?php endif; ?>
+                <div id="indice">
+                    <img src="/assets/img/leyenda.png" alt="">
+                </div>
                 <div id="selectedUser" data-id="">
                     <img id="userImage" src="" alt="">
                     <span>
