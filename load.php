@@ -361,7 +361,7 @@ $id = $_SESSION['user_id'];
                 <label for="dayInput">Día:</label>
                 <input type="text" id="dayInput" name="day" disabled>
                 <div class="checks" id="fast-access">
-                    <p>Vacaciones</p>
+                    <p class="tit">Vacaciones</p>
                     <label class="switch">
                         <input type="checkbox" id="check1">
                         <span class="slider round"></span>
@@ -370,8 +370,8 @@ $id = $_SESSION['user_id'];
                         <input type="checkbox" id="check2">
                         <span class="slider round"></span>
                     </label>
-                    <p>Permiso de Salud</p>
-                    <p>Servicio</p>
+                    <p class="tit">Permiso de Salud</p>
+                    <p class="tit">Servicio</p>
                     <label class="switch">
                         <input type="checkbox" id="check3">
                         <span class="slider round"></span>
