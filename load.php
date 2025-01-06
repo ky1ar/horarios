@@ -359,7 +359,7 @@ $id = $_SESSION['user_id'];
             <h1>Actualizar Registro</h1>
             <form id="stampForm" enctype="multipart/form-data">
                 <input type="text" id="dayInput" name="day" disabled>
-                <div class="checks" id="fast-access">
+                <div class="checks" id="fast-access" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
                     <p class="tit">Vacaciones</p>
                     <label class="switch">
                         <input type="checkbox" id="check1">
