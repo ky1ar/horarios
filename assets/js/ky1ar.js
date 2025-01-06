@@ -595,13 +595,13 @@ $(document).ready(function () {
             ).appendTo($hrrDay);
             if (entry.modified === 1) {
               $dayList.css({
-                "background-color": "#ffc426",
+                "background-color": "#85929E",
                 color: "white",
               });
             }
             if (entry.mid_time === 1 || entry.full_time === 1) {
               $dayList.css({
-                "background-color": "#ff961a",
+                "background-color": "#ffc426",
                 color: "white",
               });
             }
