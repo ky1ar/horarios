@@ -215,29 +215,23 @@ body {
   padding: 0;
   line-height: 1;
 }
+#indice p span{
+  width: .7rem;
+  height: .7rem;
+}
 #indice p:nth-of-type(1) span{
-  width: 1rem;
-  height: 1rem;
   background-color: #edfaff;
 }
 #indice p:nth-of-type(2) span{
-  width: 1rem;
-  height: 1rem;
   background-color: #85929e;
 }
 #indice p:nth-of-type(3) span{
-  width: 1rem;
-  height: 1rem;
   background-color: #71d7d6;
 }
 #indice p:nth-of-type(4) span{
-  width: 1rem;
-  height: 1rem;
   background-color: #3d3d3d;
 }
 #indice p:nth-of-type(5) span{
-  width: 1rem;
-  height: 1rem;
   background-color: #ffc426;
 }
 #ky1-rgt header .ky1-dte img:first-child {
