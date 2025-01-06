@@ -1089,6 +1089,8 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 
   #ky1-rgt header .ky1-usr {
     margin-left: auto;
+    width: 100%;
+    gap: 0;
   }
 }
 
