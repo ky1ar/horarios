@@ -159,7 +159,7 @@ body {
 #ky1-rgt {
   background-image: url("../img/whirlpool.png");
   flex: 1;
-  padding: 1rem;
+  padding: 0 1rem;
 }
 
 #ky1-rgt header {
