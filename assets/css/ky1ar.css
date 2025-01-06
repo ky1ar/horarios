@@ -1077,6 +1077,19 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   #ky1-rgt header .ky1-dte span {
     font-size: 0.9rem;
   }
+  #ky1-rgt header {
+    flex-wrap: wrap;
+    padding: 1rem 0;
+  }
+
+  #ky1-rgt header .ky1-dte {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  #ky1-rgt header .ky1-usr {
+    margin-left: auto;
+  }
 }
 
 @media only screen and (max-width: 768px) {
@@ -1115,20 +1128,6 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 
   section.cont-login .login div:first-child .logo {
     width: 10rem;
-  }
-
-  #ky1-rgt header {
-    flex-wrap: wrap;
-    padding: 1rem 0;
-  }
-
-  #ky1-rgt header .ky1-dte {
-    width: 100%;
-    margin-bottom: 1rem;
-  }
-
-  #ky1-rgt header .ky1-usr {
-    margin-left: auto;
   }
 
   #selectedUser h3,
