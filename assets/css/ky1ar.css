@@ -700,6 +700,10 @@ body {
   text-align: center;
   font-weight: 600;
 }
+.modal-stamp form .checks .tit:nth-of-type(2),
+.modal-stamp form .checks .tit:nth-of-type(3){
+  width: 50%;
+}
 .modal-stamp form .checks .switch {
   position: relative;
   display: flex;
