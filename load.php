@@ -20,7 +20,7 @@ $id = $_SESSION['user_id'];
 </head>
 
 <body style="display: flex; flex-direction: column;">
-    <div class="out">
+    <div class="out" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
         <a href="./routes/del/logout.php"><img src="./assets/img/out.svg" alt=""></a>
     </div>
     <div class="cont-insert" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
@@ -33,7 +33,7 @@ $id = $_SESSION['user_id'];
     <section id="ky1-rgt">
         <header>
             <div class="ky1-ttl">
-                <h1>Horarios</h1>
+                <h1>Horarios Krear 3D</h1>
                 <span>Registro biométrico del mes</span>
             </div>
             <div class="ky1-permisos" style="display: <?php echo ($rango == 1) ? 'none' : 'flex'; ?>">
@@ -50,6 +50,14 @@ $id = $_SESSION['user_id'];
                 <img id="nextMonth" src="assets/img/r.svg" width="12" height="12" alt="">
             </div>
             <div class="ky1-usr">
+                <div id="indice">
+                    <h1>Leyenda</h1>
+                    <p><span></span> Normal</p>
+                    <p><span></span> Modificado</p>
+                    <p><span></span> Permiso de Salud</p>
+                    <p><span></span> Servicio</p>
+                    <p><span></span> Vacaciones</p>
+                </div>
                 <?php if ($rango == 1) : ?>
                     <div class="usr-btn" id="previousUser">
                         <img src="assets/img/r.svg" width="12" height="12" alt="">
@@ -58,6 +66,7 @@ $id = $_SESSION['user_id'];
                         <img src="assets/img/r.svg" width="12" height="12" alt="">
                     </div>
                 <?php endif; ?>
+
                 <div id="selectedUser" data-id="">
                     <img id="userImage" src="" alt="">
                     <span>
@@ -69,7 +78,7 @@ $id = $_SESSION['user_id'];
                             <ul>
                                 <?php
                                 $firstIndex = true;
-                                $sql = "SELECT u.id_user, u.slug, u.name, a.name as area FROM Users u INNER JOIN Profile p ON u.id_profile = p.id_profile INNER JOIN Area a ON u.id_area = a.id_area WHERE u.id_user != 20 ORDER BY u.name";
+                                $sql = "SELECT u.id_user, u.slug, u.name, a.name as area FROM Users u INNER JOIN Profile p ON u.id_profile = p.id_profile INNER JOIN Area a ON u.id_area = a.id_area WHERE u.id_user NOT IN (20, 17, 24) ORDER BY u.name";
                                 $result = $conn->query($sql);
                                 while ($row = $result->fetch_assoc()) : ?>
                                     <li <?php echo $firstIndex ? 'class="active"' : '' ?> data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
@@ -199,7 +208,7 @@ $id = $_SESSION['user_id'];
                     <p>Tardanzas</p>
                 </div>
             </li>
-            <!-- <li>
+            <li>
                 <div class="box-img img-7">
                     <img src="assets/img/vacaciones.png" width="40" height="40" alt="">
                 </div>
@@ -207,7 +216,7 @@ $id = $_SESSION['user_id'];
                     <span id="vac"></span>
                     <p>Vacaciones</p>
                 </div>
-            </li> -->
+            </li>
         </ul>
         <ul class="ky1-hrr">
             <li class="hrr-box">
@@ -349,9 +358,9 @@ $id = $_SESSION['user_id'];
         <div class="modal-content">
             <h1>Actualizar Registro</h1>
             <form id="stampForm" enctype="multipart/form-data">
-                <label for="dayInput">Día:</label>
                 <input type="text" id="dayInput" name="day" disabled>
-                <!-- <div class="checks" id="fast-access">
+                <div class="checks" id="fast-access" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
+                    <p class="tit">Vacaciones</p>
                     <label class="switch">
                         <input type="checkbox" id="check1">
                         <span class="slider round"></span>
@@ -360,7 +369,17 @@ $id = $_SESSION['user_id'];
                         <input type="checkbox" id="check2">
                         <span class="slider round"></span>
                     </label>
-                </div> -->
+                    <p class="tit">Salud</p>
+                    <p class="tit">Servicio</p>
+                    <label class="switch">
+                        <input type="checkbox" id="check3">
+                        <span class="slider round"></span>
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" id="check4">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
                 <label for="stampInput" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">Registro:</label>
                 <input type="text" id="stampInput" name="stamp" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
                 <input type="hidden" id="dateInput" name="date">
@@ -379,7 +398,7 @@ $id = $_SESSION['user_id'];
         <embed src="" type="application/pdf" />
     </div>
 
-    <!-- <div class="comentarios-boss" id="comments-container">
+    <div class="comentarios-boss" id="comments-container">
         <h1>Notificaciones</h1>
         <div class="envio" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
             <form id="commentForm">
@@ -390,7 +409,7 @@ $id = $_SESSION['user_id'];
         <div id="mensajes" class="mensajes">
 
         </div>
-    </div> -->
+    </div>
     </div>
 </body>
 

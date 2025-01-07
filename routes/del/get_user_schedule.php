@@ -38,6 +38,10 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     t.stamp,
     t.just,
     t.modified,
+    t.mid_time,
+    t.full_time,
+    t.salud,
+    t.servicio,
     CASE 
         WHEN t.new_column = 'DF' THEN 'DF'
         ELSE
@@ -138,13 +142,13 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                         ), ':',
                         LPAD(
                             FLOOR(
-                                (ABS(TIME_TO_SEC(STR_TO_DATE(t.new_column, '%H:%i')) - TIME_TO_SEC('08:00')) % 3600) / 60
+                                 (ABS(TIME_TO_SEC(STR_TO_DATE(t.new_column, '%H:%i')) - TIME_TO_SEC('08:00')) % 3600) / 60
                             ), 2, '0'
                         )
                     )
                 ELSE 'DF'
             END
-    END AS time_difference
+            END AS time_difference
 FROM 
     (
         SELECT
@@ -156,6 +160,10 @@ FROM
         	s.stamp,
             s.just,
             s.modified,
+            s.mid_time,
+            s.full_time,
+            s.salud,
+            s.servicio,
             COALESCE(
                 CASE 
                     WHEN LENGTH(s.stamp) > 10 THEN 

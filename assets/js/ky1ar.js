@@ -79,6 +79,7 @@ $(document).ready(function () {
     getLastDayTime(newUser.data("id"), currentMonth, currentYear);
     getStampForDate(newUser.data("id"));
     getUserComments(newUser.data("id"));
+    getVacations(newUser.data("id"), currentYear);
   }
 
   nextUser.on("click", function () {
@@ -99,6 +100,7 @@ $(document).ready(function () {
     getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
     getStampForDate(selectedUser.attr("data-id"));
     getUserComments(selectedUser.attr("data-id"));
+    getVacations(selectedUser.attr("data-id"), currentYear);
   });
 
   previousMonth.on("click", function () {
@@ -112,6 +114,7 @@ $(document).ready(function () {
     getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
     getStampForDate(selectedUser.attr("data-id"));
     getUserComments(selectedUser.attr("data-id"));
+    getVacations(selectedUser.attr("data-id"), currentYear);
   });
 
   userList.find("li").on("click", function () {
@@ -125,6 +128,7 @@ $(document).ready(function () {
     getLastDayTime($(this).data("id"), currentMonth, currentYear);
     getStampForDate($(this).data("id"));
     getUserComments($(this).data("id"));
+    getVacations($(this).data("id"), currentYear);
   });
 
   const lastUpdatedUserId = getCookie("lastUpdatedUserId");
@@ -152,6 +156,7 @@ $(document).ready(function () {
     getLastDayTime(userId, currentMonth, currentYear);
     getStampForDate(userId);
     getUserComments(userId);
+    getVacations(userId, currentYear);
   }
 
   function formatDate(dateString) {
@@ -188,7 +193,7 @@ $(document).ready(function () {
     return formattedDate;
   }
 
-  function showModal(stamp, just, coment, midTime, fullTime, date, userId) {
+  function showModal(stamp, just, coment, midTime, fullTime, salud, servicio, date, userId) {
     $("#stampInput").val(stamp);
     $("#comentInput").val(coment);
     $("#justNameInput").val(just);
@@ -206,6 +211,16 @@ $(document).ready(function () {
       $("#check2").prop("checked", true);
     } else {
       $("#check2").prop("checked", false);
+    }
+    if (salud === 1) {
+      $("#check3").prop("checked", true);
+    } else {
+      $("#check3").prop("checked", false);
+    }
+    if (servicio === 1) {
+      $("#check4").prop("checked", true);
+    } else {
+      $("#check4").prop("checked", false);
     }
     $(".modal-stamp").fadeIn();
   }
@@ -239,6 +254,8 @@ $(document).ready(function () {
             response.coment,
             response.mid_time,
             response.full_time,
+            response.salud,
+            response.servicio,
             date,
             userId
           );
@@ -259,10 +276,16 @@ $(document).ready(function () {
     var formData = new FormData(this);
     var check1 = $("#check1").prop("checked");
     var check2 = $("#check2").prop("checked");
+    var check3 = $("#check3").prop("checked");
+    var check4 = $("#check4").prop("checked");
     var mid_time = check1 ? 1 : 0;
     var full_time = check2 ? 1 : 0;
+    var salud = check3 ? 1 : 0;
+    var servicio = check4 ? 1 : 0;
     formData.append("mid_time", mid_time);
     formData.append("full_time", full_time);
+    formData.append("salud", salud);
+    formData.append("servicio", servicio);
     $.ajax({
       url: "../routes/del/update_stamp.php",
       method: "POST",
@@ -296,7 +319,6 @@ $(document).ready(function () {
       success: function (response) {
         if (response.success) {
           specialStamp = response.calculated_time;
-          console.log("sum:", specialStamp);
         } else {
           console.error("Error:", response.message);
         }
@@ -333,6 +355,25 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         lastDayTime = response.calculated_time;
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
+    });
+  }
+  function getVacations(userId, year) {
+    $.ajax({
+      url: "../routes/del/getVacations.php",
+      method: "POST",
+      data: { userId: userId, year: year },
+      dataType: "json",
+      success: function (response) {
+        if (response.total_time !== undefined) {
+          let totalTime = response.total_time;
+          $("#vac").text(totalTime);
+        } else {
+          console.error("No se recibió el tiempo total en la respuesta.");
+        }
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
@@ -450,11 +491,7 @@ $(document).ready(function () {
         .toString()
         .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
 
-      console.log("special: " + specialStamp);
-      console.log("ante: " + newFormattedTotalTime);
       if (month === 12 && year === 2024) {
-        console.log("special: " + specialStamp);
-        console.log("ante: " + newFormattedTotalTime);
         const specialStampMinutes = specialStamp
           .split(":")
           .reduce((acc, time) => 60 * acc + +time);
@@ -472,7 +509,6 @@ $(document).ready(function () {
           .toString()
           .padStart(2, "0")}`;
         globalTotalMonthlyTimeNuev = newFormattedTotalTimeWithSum;
-        console.log("Resultado sumado: " + globalTotalMonthlyTimeNuev);
       } else {
         globalTotalMonthlyTimeNuev = newFormattedTotalTime;
       }
@@ -563,7 +599,24 @@ $(document).ready(function () {
                 color: "white",
               });
             }
-
+            if (entry.mid_time === 1 || entry.full_time === 1) {
+              $dayList.css({
+                "background-color": "#ffc426",
+                color: "white",
+              });
+            }
+            if (entry.salud === 1) {
+              $dayList.css({
+                "background-color": "#71D7D6",
+                color: "white",
+              });
+            }
+            if (entry.servicio === 1) {
+              $dayList.css({
+                "background-color": "#3D3D3D",
+                color: "white",
+              });
+            }
             $(
               "<li class='day-nam'>" +
                 dayName.substring(0, 3) +
@@ -657,6 +710,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         var data = response;
+        var additionalValue = data.total_time;
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
           parseInt(data.total_minutes_late_formatted.split(":")[1]);
@@ -885,4 +939,5 @@ $(document).ready(function () {
   getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
   getStampForDate(selectedUser.attr("data-id"));
   getUserComments(selectedUser.attr("data-id"));
+  getVacations(selectedUser.attr("data-id"), currentYear);
 });

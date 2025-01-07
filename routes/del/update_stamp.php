@@ -18,6 +18,8 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
     $coment = $_POST['coment'];
     $mid_time = isset($_POST['mid_time']) ? $_POST['mid_time'] : 0;
     $full_time = isset($_POST['full_time']) ? $_POST['full_time'] : 0;
+    $salud = isset($_POST['salud']) ? $_POST['salud'] : 0;
+    $servicio = isset($_POST['servicio']) ? $_POST['servicio'] : 0;
     $just = isset($_POST['just']) ? $_POST['just'] : '';
     $isNewRecord = false;
     if ($full_time == 1) {
@@ -61,7 +63,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
         }
     }
 
-    $sql = "SELECT s.id_schedule, s.stamp, s.coment, s.calc_diff, s.mid_time, s.full_time
+    $sql = "SELECT s.id_schedule, s.stamp, s.coment, s.calc_diff, s.mid_time, s.full_time, s.salud, s.servicio
             FROM Schedule s
             JOIN Calendar c ON s.id_calendar = c.id_date
             WHERE s.id_user = ? AND c.calendar_date = ?";
@@ -81,7 +83,7 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
         $newLength = strlen($stamp);
         $difference = $newLength - $previousLength;
 
-        if ($full_time == 1) {
+        if ($full_time == 1 || $salud == 1 || $servicio == 1) {
             $calcDiff = NULL;
         } else {
             $calcDiff = $row['calc_diff'];
@@ -90,9 +92,9 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
             }
         }
 
-        $updateSql = "UPDATE Schedule SET stamp = ?, just = ?, coment = ?, mid_time = ?, full_time = ?, modified = 1, calc_diff = ? WHERE id_schedule = ?";
+        $updateSql = "UPDATE Schedule SET stamp = ?, just = ?, coment = ?, mid_time = ?, full_time = ?, salud = ?, servicio = ?, modified = 1, calc_diff = ? WHERE id_schedule = ?";
         $updateStmt = $conn->prepare($updateSql);
-        $updateStmt->bind_param("sssiiii", $stamp, $just, $coment, $mid_time, $full_time, $calcDiff, $idSchedule);
+        $updateStmt->bind_param("sssiiiiii", $stamp, $just, $coment, $mid_time, $full_time, $salud, $servicio, $calcDiff, $idSchedule);
 
         if ($updateStmt->execute()) {
             $isNewRecord = false;
@@ -107,18 +109,18 @@ if (isset($_POST['userId']) && isset($_POST['date']) && isset($_POST['stamp']) &
         $previousLength = 0;
         $newLength = strlen($stamp);
         $difference = $newLength - $previousLength;
-        if ($full_time == 1) {
+        if ($full_time == 1 || $salud == 1 || $servicio == 1) {
             $calcDiff = NULL;
         } else {
             $calcDiff = intdiv($difference, 5);
         }
 
-        $insertSql = "INSERT INTO Schedule (id_user, id_calendar, stamp, just, coment, mid_time, full_time, modified, created_from_form, calc_diff)
-                      SELECT ?, c.id_date, ?, ?, ?, ?, ?, 1, 1, ?
+        $insertSql = "INSERT INTO Schedule (id_user, id_calendar, stamp, just, coment, mid_time, full_time, salud, servicio, modified, created_from_form, calc_diff)
+                      SELECT ?, c.id_date, ?, ?, ?, ?, ?, ?, ?, 1, 1, ?
                       FROM Calendar c
                       WHERE c.calendar_date = ?";
         $insertStmt = $conn->prepare($insertSql);
-        $insertStmt->bind_param("isssiiis", $userId, $stamp, $just, $coment, $mid_time, $full_time, $calcDiff, $date);
+        $insertStmt->bind_param("isssiiiiis", $userId, $stamp, $just, $coment, $mid_time, $full_time, $salud, $servicio, $calcDiff, $date);
 
         if ($insertStmt->execute()) {
             $isNewRecord = true;
