@@ -1,15 +1,12 @@
 <?php
 require_once '../../includes/app/db.php';
-
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
-
 if (isset($_POST['userId'])) {
     $userId = $_POST['userId'];
-
-    // Función para calcular la diferencia de tiempo en formato HH:MM
-    function calculateTimeDifference($conn, $userId, $date) {
+    function calculateTimeDifference($conn, $userId, $date)
+    {
         $query = "
             SELECT s.stamp
             FROM Schedule s
@@ -42,22 +39,15 @@ if (isset($_POST['userId'])) {
             }
             $stmt->close();
         }
-
-        return 0; // Retornar 0 si no hay datos
+        return 0;
     }
 
-    // Calcular diferencias de tiempo para el 30 y el 31 de diciembre
     $timeDiff30 = calculateTimeDifference($conn, $userId, '2024-12-30');
     $timeDiff31 = calculateTimeDifference($conn, $userId, '2024-12-31');
-
-    // Sumar ambos tiempos
     $totalTime = $timeDiff30 + $timeDiff31;
-
-    // Convertir la diferencia total a formato HH:MM
     $hours = floor($totalTime / 3600);
     $minutes = floor(($totalTime % 3600) / 60);
     $formattedTime = sprintf('%02d:%02d', $hours, $minutes);
-
     echo json_encode([
         'success' => true,
         'calculated_time' => $formattedTime,
@@ -71,4 +61,3 @@ if (isset($_POST['userId'])) {
 }
 
 $conn->close();
-?>
