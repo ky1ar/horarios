@@ -24,19 +24,17 @@ if (isset($_POST['userId'])) {
             $stamp = $row['stamp'] ?? null;
 
             if ($stamp) {
-                // Procesar el cálculo basado en el formato del `stamp`
-                $timePoints = str_split($stamp, 5); // Divide en bloques de 5 caracteres
+                $timePoints = str_split($stamp, 5);
                 if (count($timePoints) >= 4) {
-                    // Convertir a timestamps y calcular la diferencia
-                    $start = strtotime($timePoints[0]); // Primer tiempo (09:23)
-                    $end = strtotime($timePoints[3]); // Último tiempo (19:24)
-                    $middle1 = strtotime($timePoints[1]); // Segundo tiempo (13:01)
-                    $middle2 = strtotime($timePoints[2]); // Tercer tiempo (14:01)
+                    $start = strtotime($timePoints[0]);
+                    $end = strtotime($timePoints[3]); 
+                    $middle1 = strtotime($timePoints[1]);
+                    $middle2 = strtotime($timePoints[2]);
 
-                    $totalTime = ($end - $start); // Total en segundos (esquinas)
-                    $middleTime = ($middle2 - $middle1); // Intermedios en segundos
+                    $totalTime = ($end - $start); 
+                    $middleTime = ($middle2 - $middle1);
 
-                    $calculatedDifference = $totalTime - $middleTime; // Diferencia final en segundos
+                    $calculatedDifference = $totalTime - $middleTime;
 
                     // Convertir la diferencia a formato HH:MM
                     $hours = floor($calculatedDifference / 3600);
