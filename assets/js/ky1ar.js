@@ -491,7 +491,7 @@ $(document).ready(function () {
         .toString()
         .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
 
-      if (month === 1 && year === 2025) {
+      if (month === 12 && year === 2024) {
         const specialStampMinutes = specialStamp
           .split(":")
           .reduce((acc, time) => 60 * acc + +time);
