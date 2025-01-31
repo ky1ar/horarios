@@ -319,6 +319,7 @@ $(document).ready(function () {
       success: function (response) {
         if (response.success) {
           specialStamp = response.calculated_time;
+          console.log("s: " + specialStamp);
         } else {
           console.error("Error:", response.message);
         }
