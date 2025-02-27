@@ -127,7 +127,6 @@ $id = $_SESSION['user_id'];
 
                                     $sql = "SELECT u.id_user, u.slug, u.name, a.name as area 
                                             FROM Users u 
-                                            INNER JOIN Profile p ON u.id_profile = p.id_profile 
                                             INNER JOIN Area a ON u.id_area = a.id_area 
                                             WHERE u.id_user IN ($inClause) 
                                             ORDER BY u.name";

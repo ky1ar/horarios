@@ -17,7 +17,6 @@ if (isset($_POST['userId']) && isset($_POST['week']) && isset($_POST['year']) &&
         die(json_encode(["success" => false, "message" => "Error de conexión: " . $conn->connect_error]));
     }
 
-    // Obtener el schedule_type correspondiente al usuario
     $queryProfile = "SELECT schedule_type
                      FROM Profile_History
                      WHERE user_id = ?
