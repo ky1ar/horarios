@@ -84,7 +84,7 @@ if (isset($_POST['userId']) && isset($_POST['week']) && isset($_POST['year']) &&
         die(json_encode(["success" => false, "message" => "Error en la preparación de consulta principal: " . $conn->error]));
     }
 
-    $stmt->bind_param("iiiissssssssss", $scheduleType, $scheduleType, $scheduleType, $scheduleType, $year, $month, $week, $year, $month, $userId, $year, $month, $week, $year, $month);
+    $stmt->bind_param("iiiisssssisssss", $scheduleType, $scheduleType, $scheduleType, $scheduleType, $year, $month, $week, $year, $month, $userId, $year, $month, $week, $year, $month);
     if (!$stmt->execute()) {
         die(json_encode(["success" => false, "message" => "Error al ejecutar la consulta principal: " . $stmt->error]));
     }
