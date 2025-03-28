@@ -68,7 +68,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         WHEN t.new_column = 'DF' THEN 'DF'
         ELSE
             CASE 
-                WHEN ? = 1 AND t.day_of_week_es IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes') THEN
+                WHEN $scheduleType = 1 AND t.day_of_week_es IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes') THEN
                     CONCAT(
                         CASE
                             WHEN TIME_TO_SEC(STR_TO_DATE(t.new_column, '%H:%i')) - TIME_TO_SEC('08:00') >= 0 THEN '+'
@@ -85,7 +85,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                             ), 2, '0'
                         )
                     )
-                    WHEN ? = 1 AND t.day_of_week_es = 'Sábado' THEN 
+                    WHEN $scheduleType = 1 AND t.day_of_week_es = 'Sábado' THEN 
     CONCAT(
         '+',
         LPAD(
@@ -100,7 +100,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
             '0'
         )
     )
-                WHEN ? = 2 AND t.day_of_week_es IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes') THEN
+                WHEN $scheduleType = 2 AND t.day_of_week_es IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes') THEN
                     CONCAT(
                         CASE
                             WHEN TIME_TO_SEC(STR_TO_DATE(t.new_column, '%H:%i')) - TIME_TO_SEC('08:00') >= 0 THEN '+'
@@ -117,7 +117,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                             ), 2, '0'
                         )
                     )
-                WHEN ? = 2 AND t.day_of_week_es = 'Sábado' THEN
+                WHEN $scheduleType = 2 AND t.day_of_week_es = 'Sábado' THEN
                     CONCAT(
                         CASE
                             WHEN TIME_TO_SEC(STR_TO_DATE(t.new_column, '%H:%i')) - TIME_TO_SEC('04:00') >= 0 THEN '+'
@@ -134,7 +134,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                             ), 2, '0'
                         )
                     )
-                WHEN ? = 3 AND t.day_of_week_es IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes') THEN
+                WHEN $scheduleType = 3 AND t.day_of_week_es IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes') THEN
                     CONCAT(
                         CASE
                             WHEN TIME_TO_SEC(STR_TO_DATE(t.new_column, '%H:%i')) - TIME_TO_SEC('08:00') >= 0 THEN '+'
@@ -151,7 +151,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                             ), 2, '0'
                         )
                     )
-                WHEN ? = 3 AND t.day_of_week_es = 'Sábado' THEN
+                WHEN $scheduleType = 3 AND t.day_of_week_es = 'Sábado' THEN
                     CONCAT(
                         CASE
                             WHEN TIME_TO_SEC(STR_TO_DATE(t.new_column, '%H:%i')) - TIME_TO_SEC('08:00') >= 0 THEN '+'
@@ -207,6 +207,7 @@ FROM
             ) AS diff_hours_minutes_final,
             u.name,
             u.id_user,
+            $scheduleType AS id_profile, 
             CASE 
                 WHEN DAYNAME(c.calendar_date) = 'Monday' THEN 'Lunes'
                 WHEN DAYNAME(c.calendar_date) = 'Tuesday' THEN 'Martes'
@@ -248,7 +249,7 @@ FROM
                     END
                 WHEN DAYNAME(c.calendar_date) = 'Saturday' THEN 
                     CASE 
-                        WHEN ? IN (1, 2) AND LENGTH(s.stamp) IN (10, 20) THEN 
+                        WHEN $scheduleType IN (1, 2) AND LENGTH(s.stamp) IN (10, 20) THEN 
                             CASE 
                                 WHEN LENGTH(s.stamp) = 20 THEN 
                                     CONCAT(
@@ -266,7 +267,7 @@ FROM
                                     )
                                 ELSE 'DF'
                             END
-                        WHEN ? = 3 THEN 
+                        WHEN  = 3 THEN 
                             CASE 
                                 WHEN LENGTH(s.stamp) = 20 THEN 
                                     CONCAT(
@@ -291,7 +292,7 @@ FROM
         ORDER BY c.calendar_date
     ) AS t;";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iiiiiiiiiss", $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $userId, $startDate, $endDate);
+    $stmt->bind_param("iss", $userId, $startDate, $endDate);
     $stmt->execute();
     $result = $stmt->get_result();
 
