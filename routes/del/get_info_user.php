@@ -128,14 +128,14 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         SEC_TO_TIME(
             SUM(
                 CASE
-                    WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
-                    WHEN u.id_profile = 2 THEN
+                    WHEN ? = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
+                    WHEN ? = 2 THEN
                         CASE
                             WHEN DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
                             WHEN DAYOFWEEK(c.calendar_date) = 7 THEN 4
                             ELSE 0
                         END
-                    WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 THEN 8
+                    WHEN ? = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 THEN 8
                     ELSE 0
                 END
             ) * 60 * 60 * 0.01
@@ -155,7 +155,7 @@ GROUP BY
     u.id_profile;";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("iiiiiiisiiss", $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $penultimateMP, $userId, $userId, $penultimateMP, $penultimateWorkday);
+    $stmt->bind_param("iiiiiiisiiss", $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $penultimateMP, $scheduleType, $scheduleType, $scheduleType, $userId, $userId, $penultimateMP, $penultimateWorkday);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
