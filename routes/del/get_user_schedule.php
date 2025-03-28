@@ -27,7 +27,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $scheduleType = ($resultProfile->num_rows > 0) ? $resultProfile->fetch_assoc()['schedule_type'] : 0;
     $stmtProfile->close();
 
-    
+
     $firstDayOfMonth = date('Y-m-01', strtotime("$year-$month-01"));
     $lastDayOfMonth = date('Y-m-t', strtotime("$year-$month-01"));
 
@@ -68,7 +68,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         WHEN t.new_column = 'DF' THEN 'DF'
         ELSE
             CASE 
-                WHEN t.id_profile = 1 AND t.day_of_week_es IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes') THEN
+                WHEN ? = 1 AND t.day_of_week_es IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes') THEN
                     CONCAT(
                         CASE
                             WHEN TIME_TO_SEC(STR_TO_DATE(t.new_column, '%H:%i')) - TIME_TO_SEC('08:00') >= 0 THEN '+'
@@ -292,7 +292,7 @@ FROM
         ORDER BY c.calendar_date
     ) AS t;";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iss", $userId, $startDate, $endDate);
+    $stmt->bind_param("iiss", $scheduleType, $userId, $startDate, $endDate);
     $stmt->execute();
     $result = $stmt->get_result();
 
