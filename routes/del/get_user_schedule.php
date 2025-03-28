@@ -249,7 +249,7 @@ FROM
                     END
                 WHEN DAYNAME(c.calendar_date) = 'Saturday' THEN 
                     CASE 
-                        WHEN u.id_profile IN (1, 2) AND LENGTH(s.stamp) IN (10, 20) THEN 
+                        WHEN ? IN (1, 2) AND LENGTH(s.stamp) IN (10, 20) THEN 
                             CASE 
                                 WHEN LENGTH(s.stamp) = 20 THEN 
                                     CONCAT(
@@ -267,7 +267,7 @@ FROM
                                     )
                                 ELSE 'DF'
                             END
-                        WHEN u.id_profile = 3 THEN 
+                        WHEN ? = 3 THEN 
                             CASE 
                                 WHEN LENGTH(s.stamp) = 20 THEN 
                                     CONCAT(
@@ -292,7 +292,7 @@ FROM
         ORDER BY c.calendar_date
     ) AS t;";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iiiiiiiss", $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $userId, $startDate, $endDate);
+    $stmt->bind_param("iiiiiiiiiss", $scheduleType, $scheduleType, $scheduleType,$scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $userId, $startDate, $endDate);
     $stmt->execute();
     $result = $stmt->get_result();
 
