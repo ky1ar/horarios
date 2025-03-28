@@ -53,7 +53,6 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     t.diff_hours_minutes_final,
     t.name,
     t.id_user,
-    t.id_profile,
     t.day_of_week_es,
     t.day_number,
     t.new_column,
@@ -207,7 +206,6 @@ FROM
             ) AS diff_hours_minutes_final,
             u.name,
             u.id_user,
-            u.id_profile, 
             CASE 
                 WHEN DAYNAME(c.calendar_date) = 'Monday' THEN 'Lunes'
                 WHEN DAYNAME(c.calendar_date) = 'Tuesday' THEN 'Martes'
