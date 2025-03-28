@@ -100,7 +100,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
             '0'
         )
     )
-                WHEN t.id_profile = 2 AND t.day_of_week_es IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes') THEN
+                WHEN ? = 2 AND t.day_of_week_es IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes') THEN
                     CONCAT(
                         CASE
                             WHEN TIME_TO_SEC(STR_TO_DATE(t.new_column, '%H:%i')) - TIME_TO_SEC('08:00') >= 0 THEN '+'
@@ -117,7 +117,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                             ), 2, '0'
                         )
                     )
-                WHEN t.id_profile = 2 AND t.day_of_week_es = 'Sábado' THEN
+                WHEN ? = 2 AND t.day_of_week_es = 'Sábado' THEN
                     CONCAT(
                         CASE
                             WHEN TIME_TO_SEC(STR_TO_DATE(t.new_column, '%H:%i')) - TIME_TO_SEC('04:00') >= 0 THEN '+'
@@ -134,7 +134,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                             ), 2, '0'
                         )
                     )
-                WHEN t.id_profile = 3 AND t.day_of_week_es IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes') THEN
+                WHEN ? = 3 AND t.day_of_week_es IN ('Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes') THEN
                     CONCAT(
                         CASE
                             WHEN TIME_TO_SEC(STR_TO_DATE(t.new_column, '%H:%i')) - TIME_TO_SEC('08:00') >= 0 THEN '+'
@@ -151,7 +151,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                             ), 2, '0'
                         )
                     )
-                WHEN t.id_profile = 3 AND t.day_of_week_es = 'Sábado' THEN
+                WHEN ? = 3 AND t.day_of_week_es = 'Sábado' THEN
                     CONCAT(
                         CASE
                             WHEN TIME_TO_SEC(STR_TO_DATE(t.new_column, '%H:%i')) - TIME_TO_SEC('08:00') >= 0 THEN '+'
@@ -292,7 +292,7 @@ FROM
         ORDER BY c.calendar_date
     ) AS t;";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iiiss", $scheduleType,$scheduleType, $userId, $startDate, $endDate);
+    $stmt->bind_param("iiiiiiiss", $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $userId, $startDate, $endDate);
     $stmt->execute();
     $result = $stmt->get_result();
 
