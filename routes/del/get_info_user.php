@@ -152,10 +152,10 @@ WHERE
     AND c.holiday = 0
 GROUP BY
     u.id_user,
-    u.id_profile;";
+    ?;";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("iiiiiiisiiss", $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $penultimateMP, $scheduleType, $scheduleType, $scheduleType, $userId, $userId, $penultimateMP, $penultimateWorkday);
+    $stmt->bind_param("iiiiiiisiiss", $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $penultimateMP, $scheduleType, $scheduleType, $scheduleType, $userId, $userId, $penultimateMP, $penultimateWorkday, $scheduleType);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
