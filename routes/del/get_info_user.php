@@ -151,7 +151,8 @@ WHERE
     c.calendar_date BETWEEN ? AND ?
     AND c.holiday = 0
 GROUP BY
-    u.id_user;";
+    u.id_user,
+    u.id_profile;";
 
     $stmt = $conn->prepare($query);
     $stmt->bind_param("iiiiiiisiiiiiss", $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $penultimateMP, $scheduleType, $scheduleType, $scheduleType, $userId, $userId, $penultimateMP, $penultimateWorkday);
