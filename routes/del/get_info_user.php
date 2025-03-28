@@ -76,7 +76,6 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
 
     $query = "SELECT
     u.id_user AS id_user,
-    u.id_profile,
     SUM(
         CASE
             WHEN ? = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
