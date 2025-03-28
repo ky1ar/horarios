@@ -85,7 +85,7 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
                             ), 2, '0'
                         )
                     )
-                    WHEN t.id_profile = 1 AND t.day_of_week_es = 'Sábado' THEN 
+                    WHEN ? = 1 AND t.day_of_week_es = 'Sábado' THEN 
     CONCAT(
         '+',
         LPAD(
@@ -292,7 +292,7 @@ FROM
         ORDER BY c.calendar_date
     ) AS t;";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("iiss", $scheduleType, $userId, $startDate, $endDate);
+    $stmt->bind_param("iiiss", $scheduleType,$scheduleType, $userId, $startDate, $endDate);
     $stmt->execute();
     $result = $stmt->get_result();
 
