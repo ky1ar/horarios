@@ -10,7 +10,12 @@ if (isset($_POST['userId']) && isset($_POST['date'])) {
                 c.calendar_date, 
                 c.holiday,
                 s.just,
-                s.stamp
+                s.coment,
+                s.stamp,
+                s.mid_time,    
+                s.full_time,
+                s.salud,
+                s.servicio     
             FROM 
                 Calendar c
             LEFT JOIN 
@@ -32,7 +37,22 @@ if (isset($_POST['userId']) && isset($_POST['date'])) {
         } else {
             $stamp = isset($row['stamp']) ? $row['stamp'] : '';
             $just = isset($row['just']) ? $row['just'] : '';
-            echo json_encode(['success' => true, 'stamp' => $stamp, 'just' => $just]);
+            $coment = isset($row['coment']) ? $row['coment'] : '';
+            $midTime = isset($row['mid_time']) ? $row['mid_time'] : 0;
+            $fullTime = isset($row['full_time']) ? $row['full_time'] : 0;
+            $salud = isset($row['salud']) ? $row['salud'] : 0;
+            $servicio = isset($row['servicio']) ? $row['servicio'] : 0;
+            
+            echo json_encode([
+                'success' => true,
+                'stamp' => $stamp,
+                'just' => $just,
+                'coment' => $coment,
+                'mid_time' => $midTime,
+                'full_time' => $fullTime,
+                'salud' => $salud,
+                'servicio' => $servicio
+            ]);
         }
     } else {
         echo json_encode(['success' => false, 'message' => 'No se encontró ningún registro']);
@@ -44,4 +64,3 @@ if (isset($_POST['userId']) && isset($_POST['date'])) {
 }
 
 $conn->close();
-?>

@@ -4,25 +4,22 @@ $(document).ready(function () {
   const userList = $("#userList");
   const nextMonth = $("#nextMonth");
   const previousMonth = $("#previousMonth");
-
   const selectedUser = $("#selectedUser");
   const userName = $("#userName");
   const userCategory = $("#userCategory");
-
   const userImage = $("#userImage");
   const imagePath = "assets/img/profiles/";
 
-  window.onload = function () {
-    if (document.cookie.indexOf("registro_actualizado=true") !== -1) {
-      var messageVerify = document.getElementById("messageVerify");
-      messageVerify.classList.add("show");
-      setTimeout(function () {
-        messageVerify.classList.remove("show");
-      }, 3000);
-      document.cookie =
-        "registro_actualizado=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+  $(".ky1-permisos button").click(function () {
+    $(".ky1-permisos .desc").fadeIn();
+    $(".ky1-permisos .fond").fadeIn();
+  });
+  $(".ky1-permisos .fond").click(function (event) {
+    if ($(event.target).hasClass("fond")) {
+      $(".ky1-permisos .desc").fadeOut();
+      $(this).fadeOut();
     }
-  };
+  });
 
   document.getElementById("fileInput").addEventListener("change", function () {
     const label = document.querySelector('label[for="fileInput"]');
@@ -50,7 +47,6 @@ $(document).ready(function () {
 
   let currentMonth = new Date().getMonth() + 1;
   let currentYear = new Date().getFullYear();
-
   function updateMonthDisplay() {
     $(".ky1-dte span").text(`${monthNames[currentMonth - 1]}, ${currentYear}`);
   }
@@ -67,7 +63,6 @@ $(document).ready(function () {
     let current = userList.find(".active").index();
     let total = userList.find("li").length - 1;
     userList.find("li").removeClass("active");
-
     current = current + offset;
     if (offset == 1) {
       if (current > total) current = 0;
@@ -80,6 +75,11 @@ $(document).ready(function () {
     updateUserDisplay();
     getUserSchedule(newUser.data("id"), currentMonth, currentYear);
     getUserData(newUser.data("id"), currentMonth, currentYear);
+    getStampSpecial(newUser.data("id"), currentMonth, currentYear);
+    getLastDayTime(newUser.data("id"), currentMonth, currentYear);
+    getStampForDate(newUser.data("id"));
+    getUserComments(newUser.data("id"));
+    getVacations(newUser.data("id"), currentYear);
   }
 
   nextUser.on("click", function () {
@@ -95,6 +95,12 @@ $(document).ready(function () {
     updateMonthDisplay();
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
+
+    getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getStampForDate(selectedUser.attr("data-id"));
+    getUserComments(selectedUser.attr("data-id"));
+    getVacations(selectedUser.attr("data-id"), currentYear);
   });
 
   previousMonth.on("click", function () {
@@ -103,6 +109,12 @@ $(document).ready(function () {
     updateMonthDisplay();
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
+
+    getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getStampForDate(selectedUser.attr("data-id"));
+    getUserComments(selectedUser.attr("data-id"));
+    getVacations(selectedUser.attr("data-id"), currentYear);
   });
 
   userList.find("li").on("click", function () {
@@ -111,7 +123,41 @@ $(document).ready(function () {
     updateUserDisplay();
     getUserSchedule($(this).data("id"), currentMonth, currentYear);
     getUserData($(this).data("id"), currentMonth, currentYear);
+
+    getStampSpecial($(this).data("id"), currentMonth, currentYear);
+    getLastDayTime($(this).data("id"), currentMonth, currentYear);
+    getStampForDate($(this).data("id"));
+    getUserComments($(this).data("id"));
+    getVacations($(this).data("id"), currentYear);
   });
+
+  const lastUpdatedUserId = getCookie("lastUpdatedUserId");
+  if (lastUpdatedUserId) {
+    selectUserById(lastUpdatedUserId);
+  }
+
+  function getCookie(name) {
+    const match = document.cookie.match(
+      new RegExp("(^| )" + name + "=([^;]+)")
+    );
+    if (match) {
+      return match[2];
+    }
+  }
+  function selectUserById(userId) {
+    userList.find("li").removeClass("active");
+    const userToSelect = userList.find(`li[data-id="${userId}"]`);
+    userToSelect.addClass("active");
+    updateUserDisplay();
+    getUserSchedule(userId, currentMonth, currentYear);
+    getUserData(userId, currentMonth, currentYear);
+
+    getStampSpecial(userId, currentMonth, currentYear);
+    getLastDayTime(userId, currentMonth, currentYear);
+    getStampForDate(userId);
+    getUserComments(userId);
+    getVacations(userId, currentYear);
+  }
 
   function formatDate(dateString) {
     const daysOfWeek = [
@@ -147,13 +193,35 @@ $(document).ready(function () {
     return formattedDate;
   }
 
-  function showModal(stamp, just, date, userId) {
+  function showModal(stamp, just, coment, midTime, fullTime, salud, servicio, date, userId) {
     $("#stampInput").val(stamp);
+    $("#comentInput").val(coment);
     $("#justNameInput").val(just);
     $("#dateInput").val(date);
+
     const formattedDate = formatDate(date);
     $("#dayInput").val(formattedDate);
     $("#userIdInput").val(userId);
+    if (midTime === 1) {
+      $("#check1").prop("checked", true);
+    } else {
+      $("#check1").prop("checked", false);
+    }
+    if (fullTime === 1) {
+      $("#check2").prop("checked", true);
+    } else {
+      $("#check2").prop("checked", false);
+    }
+    if (salud === 1) {
+      $("#check3").prop("checked", true);
+    } else {
+      $("#check3").prop("checked", false);
+    }
+    if (servicio === 1) {
+      $("#check4").prop("checked", true);
+    } else {
+      $("#check4").prop("checked", false);
+    }
     $(".modal-stamp").fadeIn();
   }
 
@@ -180,10 +248,18 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.success) {
-          // console.log(response.just);
-          showModal(response.stamp, response.just, date, userId);
+          showModal(
+            response.stamp,
+            response.just,
+            response.coment,
+            response.mid_time,
+            response.full_time,
+            response.salud,
+            response.servicio,
+            date,
+            userId
+          );
         } else if (response.message === "El día es un feriado") {
-          console.log("No se abrió un modal por ser feriado");
         } else {
           showModal("", "", date, userId);
         }
@@ -198,7 +274,18 @@ $(document).ready(function () {
   $("#stampForm").on("submit", function (event) {
     event.preventDefault();
     var formData = new FormData(this);
-
+    var check1 = $("#check1").prop("checked");
+    var check2 = $("#check2").prop("checked");
+    var check3 = $("#check3").prop("checked");
+    var check4 = $("#check4").prop("checked");
+    var mid_time = check1 ? 1 : 0;
+    var full_time = check2 ? 1 : 0;
+    var salud = check3 ? 1 : 0;
+    var servicio = check4 ? 1 : 0;
+    formData.append("mid_time", mid_time);
+    formData.append("full_time", full_time);
+    formData.append("salud", salud);
+    formData.append("servicio", servicio);
     $.ajax({
       url: "../routes/del/update_stamp.php",
       method: "POST",
@@ -210,18 +297,10 @@ $(document).ready(function () {
         if (response.success) {
           hideModal();
           calcDiffGlobal = response.calcDiff;
-          // Suponiendo que userId, currentMonth y currentYear están disponibles
           getUserSchedule(formData.get("userId"), currentMonth, currentYear);
           location.reload(true);
         } else {
-          if (
-            response.message ===
-            "Cannot update stamp because calc_diff is not NULL"
-          ) {
-            console.log("ya se ha actualizado anteriormente");
-          } else {
-            alert("Error al guardar el registro: " + response.message);
-          }
+          alert("Error al guardar el registro: " + response.message);
         }
       },
       error: function (xhr, status, error) {
@@ -230,14 +309,85 @@ $(document).ready(function () {
     });
   });
 
-  var totalMonthlyTime = "";
+  let specialStamp = "";
+  function getStampForDate(userId) {
+    $.ajax({
+      url: "../routes/del/salv.php",
+      method: "POST",
+      data: { userId: userId },
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          specialStamp = response.calculated_time;
+          console.log("s: " + specialStamp);
+        } else {
+          console.error("Error:", response.message);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
+    });
+  }
+
+  let totalMonthlyTime = "";
+  function getStampSpecial(userId, month, year) {
+    $.ajax({
+      url: "../routes/del/dayBeforeMonth.php",
+      method: "POST",
+      data: { userId: userId, month: month, year: year },
+      dataType: "json",
+      success: function (response) {
+        var calculatedTime = response.calculated_time;
+        totalMonthlyTime = calculatedTime;
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
+    });
+  }
+
+  let lastDayTime = "";
+  function getLastDayTime(userId, month, year) {
+    $.ajax({
+      url: "../routes/del/dayUltimateMonth.php",
+      method: "POST",
+      data: { userId: userId, month: month, year: year },
+      dataType: "json",
+      success: function (response) {
+        lastDayTime = response.calculated_time;
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
+    });
+  }
+  function getVacations(userId, year) {
+    $.ajax({
+      url: "../routes/del/getVacations.php",
+      method: "POST",
+      data: { userId: userId, year: year },
+      dataType: "json",
+      success: function (response) {
+        if (response.total_time !== undefined) {
+          let totalTime = response.total_time;
+          $("#vac").text(totalTime);
+        } else {
+          console.error("No se recibió el tiempo total en la respuesta.");
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX:", error);
+      },
+    });
+  }
+
+  let globalTotalMonthlyTimeNuev = "";
   function calcularSumaCalcPorSemana(userId, year, month) {
     var totalHoursMinutes = 0;
-
     $(".hrr-box").each(function (index) {
       var $hrrBox = $(this);
       var semana = index + 1;
-
       getWeeklyData(
         userId,
         semana,
@@ -245,7 +395,6 @@ $(document).ready(function () {
         month,
         function (acumuladoValorDia, idProfile) {
           var final = 0;
-
           $hrrBox.find(".calc").each(function () {
             var calc = $(this).text().trim();
             const dayname = $(this).closest("ul").find("li").first().text();
@@ -254,59 +403,50 @@ $(document).ready(function () {
 
             if (mesCalc === currentMonth) {
               if (calc !== "DF") {
-                if (calc.startsWith("-")) {
-                  const tiempo = calc.replace(/[^\d:]/g, "").split(":");
-                  const horas = parseInt(tiempo[0], 10);
-                  const minutos = parseInt(tiempo[1], 10);
-                  const total = horas * 60 + minutos;
-                  const fixed = 8 * 60;
-                  let newc = fixed - total;
-                  final += newc;
-                } else {
-                  let fixed;
-                  if (dayname.includes("Sáb")) {
-                    if (idProfile == 1) {
-                      fixed = 0;
-                    } else if (idProfile == 2) {
-                      fixed = 4 * 60;
-                    } else {
-                      fixed = 8 * 60;
-                    }
+                let fixed;
+                if (dayname.includes("Sáb")) {
+                  if (idProfile == 1) {
+                    fixed = 0;
+                  } else if (idProfile == 2) {
+                    fixed = 4 * 60;
                   } else {
                     fixed = 8 * 60;
                   }
-                  const tiempo = calc.replace(/[^\d:]/g, "").split(":");
-                  const horas = parseInt(tiempo[0], 10);
-                  const minutos = parseInt(tiempo[1], 10);
-                  const total = horas * 60 + minutos;
-                  let newc = fixed + total;
-                  final += newc;
+                } else {
+                  fixed = 8 * 60;
                 }
+                const tiempo = calc.replace(/[^\d:]/g, "").split(":");
+                const horas = parseInt(tiempo[0], 10);
+                const minutos = parseInt(tiempo[1], 10);
+                const total = horas * 60 + minutos;
+                let newc;
+
+                if (calc.startsWith("-")) {
+                  newc = fixed - total;
+                } else {
+                  newc = total + fixed;
+                }
+
+                final += newc;
               }
             }
           });
-
           const nhours = Math.floor(final / 60);
           const nminutos = final % 60;
           const formattedMinutes = String(nminutos).padStart(2, "0");
           const formattedHours = nhours.toString().padStart(2, "0");
           const time1 = formattedHours + ":" + formattedMinutes;
           const time2 = acumuladoValorDia;
-
-          // Funciones de utilidad
           function timeToMinutes(time) {
             const [hours, minutes] = time.split(":").map(Number);
             return hours * 60 + minutes;
           }
-
           totalHoursMinutes += timeToMinutes(time1);
-
           function calculatePercentage(time1, time2) {
             const minutes1 = timeToMinutes(time1);
             const minutes2 = timeToMinutes(time2);
             return (minutes1 / minutes2) * 100;
           }
-
           const percentage = calculatePercentage(time1, time2);
 
           $hrrBox.find(".minS").text(time1 + "h" + " / " + time2 + "h");
@@ -315,19 +455,68 @@ $(document).ready(function () {
       );
     });
 
-    // Después de que todas las semanas hayan sido procesadas
     $(document).ajaxStop(function () {
       const totalHours = Math.floor(totalHoursMinutes / 60);
       const totalMinutes = totalHoursMinutes % 60;
-      const formattedTotalTime = `${totalHours
+      let totalMonthlyMinutes = 0;
+      if (
+        totalMonthlyTime &&
+        totalMonthlyTime !== "DF" &&
+        totalMonthlyTime !== "" &&
+        totalMonthlyTime !== null
+      ) {
+        const [monthlyHoursStr, monthlyMinutesStr] =
+          totalMonthlyTime.split(":");
+        const monthlyHours = parseInt(monthlyHoursStr, 10);
+        const monthlyMinutes = parseInt(monthlyMinutesStr, 10);
+        totalMonthlyMinutes = monthlyHours * 60 + monthlyMinutes;
+      }
+      let lastDayMinutes = 0;
+      if (
+        lastDayTime &&
+        lastDayTime !== "DF" &&
+        lastDayTime !== "" &&
+        lastDayTime !== null
+      ) {
+        const [lastDayHoursStr, lastDayMinutesStr] = lastDayTime.split(":");
+        const lastDayHours = parseInt(lastDayHoursStr, 10);
+        const lastDayMinutesPart = parseInt(lastDayMinutesStr, 10);
+        lastDayMinutes = lastDayHours * 60 + lastDayMinutesPart;
+      }
+
+      const newTotalMinutes =
+        totalMonthlyMinutes + totalHours * 60 + totalMinutes - lastDayMinutes;
+      const newHours = Math.floor(newTotalMinutes / 60);
+      const newMinutes = newTotalMinutes % 60;
+      const newFormattedTotalTime = `${newHours
         .toString()
-        .padStart(2, "0")}:${totalMinutes.toString().padStart(2, "0")}`;
-      // console.log("Total mensual de horas y minutos:", formattedTotalTime);
-      totalMonthlyTime = formattedTotalTime; // Asigna el valor a la variable global
+        .padStart(2, "0")}:${newMinutes.toString().padStart(2, "0")}`;
+
+      if (month === 12 && year === 2024) {
+        const specialStampMinutes = specialStamp
+          .split(":")
+          .reduce((acc, time) => 60 * acc + +time);
+        const newFormattedTotalMinutes = newFormattedTotalTime
+          .split(":")
+          .reduce((acc, time) => 60 * acc + +time);
+        const totalMinutes = specialStampMinutes + newFormattedTotalMinutes;
+
+        // Convertir los minutos de nuevo a "hh:mm"
+        const totalHours = Math.floor(totalMinutes / 60);
+        const totalRemainingMinutes = totalMinutes % 60;
+        const newFormattedTotalTimeWithSum = `${totalHours
+          .toString()
+          .padStart(2, "0")}:${totalRemainingMinutes
+          .toString()
+          .padStart(2, "0")}`;
+        globalTotalMonthlyTimeNuev = newFormattedTotalTimeWithSum;
+      } else {
+        globalTotalMonthlyTimeNuev = newFormattedTotalTime;
+      }
+
       $(document).off("ajaxStop");
     });
   }
-
   function getWeeklyData(userId, week, year, month, callback) {
     $.ajax({
       url: "../routes/del/get_week.php",
@@ -340,15 +529,15 @@ $(document).ready(function () {
             var acumuladoValorDia = response.data[0].acumulado_valor_dia;
             var idProfile = response.data[0].id_profile;
             callback(acumuladoValorDia, idProfile);
-          } else {
-            console.error("No se encontraron datos en la respuesta");
           }
-        } else {
-          console.error(response.message);
         }
       },
       error: function (xhr, status, error) {
-        console.error("Error en la solicitud AJAX:", error);
+        console.error("Error en la solicitud AJAX:", {
+          status: status,
+          error: error,
+          responseText: xhr.responseText,
+        });
       },
     });
   }
@@ -366,7 +555,6 @@ $(document).ready(function () {
       data: { userId: userId, month: month, year: year },
       dataType: "json",
       success: function (response) {
-        //console.log(response.schedule);
         if (response.success) {
           $(".ky1-hrr").empty();
           var daysCounter = 0;
@@ -376,12 +564,9 @@ $(document).ready(function () {
             var dayName = entry.day_of_week_es;
             var dayNumber = entry.day_number;
             var hPoints = entry.time_difference;
-
-            // console.log("Este es el just: " + entry.just);
             if (dayName.toLowerCase() === "domingo") {
               return;
             }
-
             if (dayName.toLowerCase() === "lunes" || index === 0) {
               $currentHrrBox = $("<li class='hrr-box'></li>").appendTo(
                 ".ky1-hrr"
@@ -392,8 +577,6 @@ $(document).ready(function () {
               $("<span>Semana " + currentWeek + "</span>").appendTo(
                 $currentHrrBoxtitle
               );
-
-              // Añadir el bloque HTML data-sem
               $(
                 "<div class='data-sem'>" +
                   "<p class='porT'></p>" +
@@ -411,7 +594,30 @@ $(document).ready(function () {
                 entry.calendar_date +
                 "'></ul>"
             ).appendTo($hrrDay);
-
+            if (entry.modified === 1) {
+              $dayList.css({
+                "background-color": "#85929E",
+                color: "white",
+              });
+            }
+            if (entry.mid_time === 1 || entry.full_time === 1) {
+              $dayList.css({
+                "background-color": "#ffc426",
+                color: "white",
+              });
+            }
+            if (entry.salud === 1) {
+              $dayList.css({
+                "background-color": "#71D7D6",
+                color: "white",
+              });
+            }
+            if (entry.servicio === 1) {
+              $dayList.css({
+                "background-color": "#3D3D3D",
+                color: "white",
+              });
+            }
             $(
               "<li class='day-nam'>" +
                 dayName.substring(0, 3) +
@@ -424,16 +630,18 @@ $(document).ready(function () {
               $("<li class='test'>FERIADO</li>").appendTo($dayList);
             } else if (entry.stamp) {
               var stamps = entry.stamp.split(",");
-              // console.log(
-              //   entry.calendar_date,
-              //   getMonthWithoutLeadingZero(entry.calendar_date),
-              //   month
-              // );
               stamps.forEach(function (stamp, stampIndex) {
                 for (var i = 0; i < stamp.length; i += 5) {
                   const timeSlot = stamp.slice(i, i + 5);
                   const $li = $("<li>" + timeSlot + "</li>");
-                  if (stampIndex === 0 && i === 0 && timeSlot > "09:00") {
+                  if (
+                    stampIndex === 0 &&
+                    i === 0 &&
+                    (entry.calendar_date === "2024-07-06"
+                      ? timeSlot > "10:00"
+                      : (userId === 13 && timeSlot > "10:00") ||
+                        (userId !== 13 && timeSlot > "09:00"))
+                  ) {
                     $li.addClass("late");
                   }
 
@@ -449,7 +657,6 @@ $(document).ready(function () {
             } else {
               $("<li></li>").appendTo($dayList);
             }
-
             if (entry.holiday != 1) {
               var $calcLi = $(
                 "<li class='calc' data-date='" +
@@ -458,10 +665,8 @@ $(document).ready(function () {
                   hPoints +
                   "</li>"
               );
-
               if (hPoints === "DF") {
                 $calcLi.addClass("df");
-                //$calcLi.text("Faltan Datos");
               } else if (hPoints.startsWith("-")) {
                 $calcLi.addClass("minus");
               } else {
@@ -470,7 +675,6 @@ $(document).ready(function () {
 
               $calcLi.appendTo($dayList);
               if (entry.just && entry.just.trim() !== "") {
-                // Insertar el elemento li solo si entry.just no está vacío
                 $(
                   "<li class='justDoc' data-date='" +
                     entry.calendar_date +
@@ -480,7 +684,6 @@ $(document).ready(function () {
                 ).appendTo($dayList);
               }
             }
-
             daysCounter++;
           });
           calcularSumaCalcPorSemana(userId, year, month);
@@ -508,7 +711,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         var data = response;
-        // console.log(data.adjusted_hours);
+        var additionalValue = data.total_time;
         var minutesLate =
           parseInt(data.total_minutes_late_formatted.split(":")[0]) * 60 +
           parseInt(data.total_minutes_late_formatted.split(":")[1]);
@@ -516,25 +719,40 @@ $(document).ready(function () {
           parseInt(data.one_percent_total_hours.split(":")[0]) * 60 +
           parseInt(data.one_percent_total_hours.split(":")[1]);
         var difference = minutesLate - onePercentHours;
-
-        // Multiplicar la diferencia por 1.2 y redondear
-        var differenceAdjusted = Math.max(0, difference) * 1.2;
-        differenceAdjusted = Math.round(differenceAdjusted); // Redondear
-
+        var adjustmentFactor = 0.5;
+        if (year > 2024 || (year === 2024 && month >= 10)) {
+          adjustmentFactor = 1;
+        }
+        var differenceAdjusted = Math.max(0, difference) * adjustmentFactor;
+        differenceAdjusted = Math.round(differenceAdjusted);
         var hoursDifference = Math.floor(differenceAdjusted / 60);
         var minutesDifference = differenceAdjusted % 60;
-        var differenceFormatted =
+
+        var differenceAdjustedFormatted =
           (hoursDifference < 10 ? "0" : "") +
           hoursDifference +
           ":" +
           (minutesDifference < 10 ? "0" : "") +
           minutesDifference;
 
+        if (data.total_missing_points > 6) {
+          var extraMinutes = (data.total_missing_points - 6) * 15;
+          var total_rq_minutes = parseInt(data.total_hours_required) * 60;
+          total_rq_minutes += extraMinutes;
+          var total_rq_hours = Math.floor(total_rq_minutes / 60);
+          var total_rq_remainderMinutes = total_rq_minutes % 60;
+          var total_rq =
+            total_rq_hours +
+            ":" +
+            (total_rq_remainderMinutes < 10 ? "0" : "") +
+            total_rq_remainderMinutes;
+        } else {
+          var total_rq = data.total_hours_required + ":00";
+        }
         var adjustedHours =
-          parseInt(data.adjusted_hours.split(":")[0]) * 60 +
-          parseInt(data.adjusted_hours.split(":")[1]);
+          parseInt(total_rq.split(":")[0]) * 60 +
+          parseInt(total_rq.split(":")[1]);
 
-        // Sumar la diferencia ajustada a adjusted_hours
         var sum = adjustedHours + differenceAdjusted;
         var sumHours = Math.floor(sum / 60);
         var sumMinutes = sum % 60;
@@ -550,7 +768,6 @@ $(document).ready(function () {
           const [hours, minutes] = time.split(":").map(Number);
           return hours * 60 + minutes;
         }
-
         function calculatePercentage(time1, time2) {
           const minutes1 = timeToMinutes(time1);
           const minutes2 = timeToMinutes(time2);
@@ -560,17 +777,32 @@ $(document).ready(function () {
         setTimeout(function () {
           $("#porcentHours").html(
             "<b>" +
-              calculatePercentage(totalMonthlyTime, sumFormatted).toFixed(1) +
-              "%</b><b>100%</b>"
+              calculatePercentage(
+                globalTotalMonthlyTimeNuev,
+                sumFormatted
+              ).toFixed(1) +
+              "%"
           );
         }, 500);
+
         setTimeout(function () {
+          const sumFormattedParts = sumFormatted.split(":");
+          const sumHours = parseInt(sumFormattedParts[0], 10);
+          const sumMinutes = parseInt(sumFormattedParts[1], 10);
+          const totalSumFormatted = `${sumHours
+            .toString()
+            .padStart(2, "0")}:${sumMinutes.toString().padStart(2, "0")}`;
           $("#totalHours").html(
-            "<b>" + totalMonthlyTime + "h</b><b>" + sumFormatted + "h</b>"
+            "<b>" +
+              globalTotalMonthlyTimeNuev +
+              "h</b><b>" +
+              totalSumFormatted +
+              "h</b>"
           );
         }, 500);
         $("#totalMissingPoints").text(data.total_missing_points);
-        $("#totalLatePoints").text(data.total_late_points);
+        $("#totalLatePoints").text(differenceAdjustedFormatted);
+        $("#tarde").text(data.total_late_points);
         $("#tolerancia").html(
           "<b>" +
             data.total_minutes_late_formatted +
@@ -618,12 +850,81 @@ $(document).ready(function () {
             }
           });
         } else {
-          console.log("Error:", data.message);
+        }
+      },
+      error: function () {},
+    });
+  });
+
+  function getUserComments(userId) {
+    $.ajax({
+      url: "../routes/del/getComments.php",
+      method: "POST",
+      data: { id_user: userId },
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          var comments = response.comments;
+          var $mensajesDiv = $("#mensajes");
+          $mensajesDiv.empty();
+          comments.forEach(function (comment) {
+            $mensajesDiv.append(
+              "<p><strong>Antonio:</strong> " +
+                comment.comentario +
+                " <span class='fecha'>" +
+                comment.created_at +
+                "</span></p>"
+            );
+          });
+          $mensajesDiv.show();
+        } else {
+          $("#mensajes").html("<p>Aun no hay notificaciones.</p>");
         }
       },
       error: function () {
-        console.log("Error en la solicitud AJAX.");
+        alert("Error al cargar los comentarios.");
       },
+    });
+  }
+
+  $(document).ready(function () {
+    function getActiveUserId() {
+      return $("#userList").find(".active").data("id");
+    }
+
+    $("#commentForm").on("submit", function (event) {
+      event.preventDefault();
+      var userId = getActiveUserId();
+      var comentario = $("#commentb").val().trim();
+
+      if (!userId) {
+        alert(
+          "No se pudo obtener el ID del usuario activo. Intenta nuevamente."
+        );
+        return;
+      }
+      if (comentario === "") {
+        alert("El comentario no puede estar vacío.");
+        return;
+      }
+      $.ajax({
+        url: "../routes/del/insertCommentBoss.php",
+        method: "POST",
+        data: { user_id: userId, comentario: comentario },
+        success: function (response) {
+          if (response.success) {
+            $("#commentb").val("");
+            location.reload();
+          } else {
+            alert(
+              "Hubo un error al guardar el comentario. Intenta nuevamente."
+            );
+          }
+        },
+        error: function () {
+          alert("Error en la solicitud. Por favor, inténtalo más tarde.");
+        },
+      });
     });
   });
 
@@ -635,4 +936,9 @@ $(document).ready(function () {
 
   getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
   getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
+  getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
+  getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
+  getStampForDate(selectedUser.attr("data-id"));
+  getUserComments(selectedUser.attr("data-id"));
+  getVacations(selectedUser.attr("data-id"), currentYear);
 });

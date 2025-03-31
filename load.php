@@ -4,7 +4,7 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: index.php");
     exit();
 }
-require_once 'db.php';
+require_once './includes/app/db.php';
 $rango =  $_SESSION['admin'];
 $id = $_SESSION['user_id'];
 ?>
@@ -19,33 +19,30 @@ $id = $_SESSION['user_id'];
     <?php require_once 'header.php'; ?>
 </head>
 
-<body style="display: flex;">
-    <div class="out">
+<body style="display: flex; flex-direction: column;">
+    <div class="out" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
         <a href="./routes/del/logout.php"><img src="./assets/img/out.svg" alt=""></a>
     </div>
     <div class="cont-insert" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
-        <h1>Insertar Registro</h1>
         <form id="uploadForm" action="./routes/del/cargarRegistro.php" method="post" enctype="multipart/form-data" class="form-insert">
-            <label for="fileInput" class="custom-file-upload insert">Selecciona</label>
+            <label for="fileInput" class="custom-file-upload insert">Archivo</label>
             <input type="file" id="fileInput" name="fileInput" accept=".csv" style="display: none;" required>
             <input type="submit" value="Cargar">
         </form>
     </div>
-
-
-    <!-- <aside id="ky1-lft">
-        <a href="" class="ky1-lgo"><img src="assets/img/logod.webp" alt=""></a>
-        <ul class="ky1-lst">
-            <li>
-            </li>
-        </ul>
-    </aside> -->
     <section id="ky1-rgt">
         <header>
             <div class="ky1-ttl">
-                <h1>Horarios</h1>
+                <h1>Horarios Krear 3D</h1>
                 <span>Registro biométrico del mes</span>
             </div>
+            <div class="ky1-permisos" style="display: <?php echo ($rango == 1) ? 'none' : 'flex'; ?>">
+                <div class="fond"></div>
+                <img class="desc" src="assets/img/descanso-medico.webp" alt="">
+                <button><img src="assets/img/descanso-medico.png" alt=""></button>
+                <a href="assets/img/solicitud-permiso.pdf" download><img src="assets/img/formato-permiso.png" alt=""></a>
+            </div>
+
             <div class="ky1-dte">
                 <img id="previousMonth" src="assets/img/r.svg" width="12" height="12" alt="">
                 <img src="assets/img/cal.svg" width="20" height="20" alt="">
@@ -53,6 +50,14 @@ $id = $_SESSION['user_id'];
                 <img id="nextMonth" src="assets/img/r.svg" width="12" height="12" alt="">
             </div>
             <div class="ky1-usr">
+                <div id="indice">
+                    <h1>Leyenda</h1>
+                    <p><span></span> Normal</p>
+                    <p><span></span> Modificado</p>
+                    <p><span></span> Permiso de Salud</p>
+                    <p><span></span> Servicio</p>
+                    <p><span></span> Vacaciones</p>
+                </div>
                 <?php if ($rango == 1) : ?>
                     <div class="usr-btn" id="previousUser">
                         <img src="assets/img/r.svg" width="12" height="12" alt="">
@@ -61,6 +66,7 @@ $id = $_SESSION['user_id'];
                         <img src="assets/img/r.svg" width="12" height="12" alt="">
                     </div>
                 <?php endif; ?>
+
                 <div id="selectedUser" data-id="">
                     <img id="userImage" src="" alt="">
                     <span>
@@ -72,7 +78,11 @@ $id = $_SESSION['user_id'];
                             <ul>
                                 <?php
                                 $firstIndex = true;
-                                $sql = "SELECT u.id_user, u.slug, u.name, a.name as area FROM Users u INNER JOIN Profile p ON u.id_profile = p.id_profile INNER JOIN Area a ON u.id_area = a.id_area WHERE u.id_user != 20 ORDER BY u.name";
+                                $sql = "SELECT u.id_user, u.slug, u.name, a.name as area 
+                                        FROM Users u 
+                                        INNER JOIN Area a ON u.id_area = a.id_area 
+                                        WHERE u.id_user NOT IN (20, 17, 24) 
+                                        ORDER BY u.name";
                                 $result = $conn->query($sql);
                                 while ($row = $result->fetch_assoc()) : ?>
                                     <li <?php echo $firstIndex ? 'class="active"' : '' ?> data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
@@ -87,28 +97,55 @@ $id = $_SESSION['user_id'];
                         </div>
                     <?php endif; ?>
                     <?php if ($rango == 0) : ?>
-                        <div id="userList" style="visibility: hidden; opacity: 0;">
+                        <?php
+                        $sql = "SELECT u.id_user, u.slug, u.name, a.name as area 
+                        FROM Users u 
+                        INNER JOIN Area a ON u.id_area = a.id_area 
+                        WHERE u.id_user = ?";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("i", $id);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+                        $row = $result->fetch_assoc();
+
+                        $sql = "SELECT hijos FROM Users WHERE id_user = ?";
+                        $stmt = $conn->prepare($sql);
+                        $stmt->bind_param("i", $id);
+                        $stmt->execute();
+                        $stmt->bind_result($hijos);
+                        $stmt->fetch();
+                        $stmt->close();
+                        ?>
+                        <div id="userList" <?php echo ($hijos === null || empty($hijos)) ? 'style="display: none;"' : ''; ?>>
                             <ul>
+                                <li class="active" data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
+                                    <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
+                                    <h3><?php echo $row['name'] ?></h3>
+                                </li>
                                 <?php
-                                $firstIndex = true;
-                                $sql = "SELECT u.id_user, u.slug, u.name, a.name as area 
-                                    FROM Users u 
-                                    INNER JOIN Profile p ON u.id_profile = p.id_profile 
-                                    INNER JOIN Area a ON u.id_area = a.id_area 
-                                    WHERE u.id_user = ?";
-                                $stmt = $conn->prepare($sql);
-                                $stmt->bind_param("i", $id);
-                                $stmt->execute();
-                                $result = $stmt->get_result();
-                                while ($row = $result->fetch_assoc()) : ?>
-                                    <li <?php echo $firstIndex ? 'class="active"' : '' ?> data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
-                                        <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
-                                        <h3><?php echo $row['name'] ?></h3>
-                                    </li>
-                                <?php
-                                    $firstIndex = false;
-                                endwhile;
-                                $stmt->close();
+                                if ($hijos !== null && !empty($hijos)) {
+                                    $hijosArray = explode(',', $hijos);
+                                    $inClause = str_repeat('?,', count($hijosArray) - 1) . '?';
+                                    $params = str_repeat('i', count($hijosArray));
+
+                                    $sql = "SELECT u.id_user, u.slug, u.name, a.name as area 
+                                            FROM Users u 
+                                            INNER JOIN Area a ON u.id_area = a.id_area 
+                                            WHERE u.id_user IN ($inClause) 
+                                            ORDER BY u.name";
+                                    $stmt = $conn->prepare($sql);
+                                    $stmt->bind_param($params, ...$hijosArray);
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
+
+                                    while ($row = $result->fetch_assoc()) :
+                                ?>
+                                        <li data-id="<?php echo $row['id_user'] ?>" data-slug="<?php echo $row['slug'] ?>" data-name="<?php echo $row['name'] ?>" data-category="<?php echo $row['area'] ?>">
+                                            <img src="assets/img/profiles/<?php echo $row['slug'] ?>.png" alt="">
+                                            <h3><?php echo $row['name'] ?></h3>
+                                        </li>
+                                <?php endwhile;
+                                }
                                 ?>
                             </ul>
                         </div>
@@ -152,7 +189,7 @@ $id = $_SESSION['user_id'];
                 </div>
                 <div class="box-txt">
                     <span id="totalLatePoints"></span>
-                    <p>Tardanzas</p>
+                    <p>Penalización Acumulada</p>
                 </div>
             </li>
             <li>
@@ -164,22 +201,29 @@ $id = $_SESSION['user_id'];
                     <p>Tolerancia</p>
                 </div>
             </li>
+            <li>
+                <div class="box-img img-6">
+                    <img src="assets/img/tarde.png" width="40" height="40" alt="">
+                </div>
+                <div class="box-txt">
+                    <span id="tarde"></span>
+                    <p>Tardanzas</p>
+                </div>
+            </li>
+            <li>
+                <div class="box-img img-7">
+                    <img src="assets/img/vacaciones.png" width="40" height="40" alt="">
+                </div>
+                <div class="box-txt">
+                    <span id="vac"></span>
+                    <p>Vacaciones</p>
+                </div>
+            </li>
         </ul>
         <ul class="ky1-hrr">
             <li class="hrr-box">
                 <span>Semana 1</span>
-                <!-- <div class="data-sem">
-                    <p class="porT">80%</p>
-                    <p class="minS">20:00h</p>
-                </div> -->
                 <div class="hrr-day">
-                    <!-- <ul>
-                        <li class="day-nam"></li>
-                        <li><img src="assets/img/a.svg" width="20" height="20" alt=""></li>
-                        <li><img src="assets/img/b.svg" width="20" height="20" alt=""></li>
-                        <li><img src="assets/img/c.svg" width="20" height="20" alt=""></li>
-                        <li><img src="assets/img/d.svg" width="20" height="20" alt=""></li>
-                    </ul> -->
                     <ul>
                         <li class="day-nam">lun 1</li>
                         <li class="day-trd">09:11</li>
@@ -269,8 +313,6 @@ $id = $_SESSION['user_id'];
                             $date_id = $start_date_id + $offset;
                             if ($element != '') {
                                 $split = str_split($element, 5);
-                                // echo json_encode($split);
-                                // echo "\n";
                                 foreach ($split as $id => $value) {
                                     if (isset($split[$id + 1])) {
                                         $current = strtotime($value);
@@ -284,16 +326,13 @@ $id = $_SESSION['user_id'];
                                 }
                                 $split = array_values($split);
                                 $element = implode("", $split);
-                                //$element = str_replace(":", "", $element);
                                 $insert_query .= "(" . $store_id . ", " . $date_id . ", '" . $element . "'), ";
                             }
                             $offset++;
                         }
                         $insert_query = rtrim($insert_query, ", ");
                         if ($conn->query($insert_query) === TRUE) {
-                            //echo "Se insertaron los registros correctamente.";
                         } else {
-                            //echo "Error al insertar los registros: " . $conn->error;
                         }
                         $store = false;
                     } else {
@@ -321,29 +360,58 @@ $id = $_SESSION['user_id'];
         <div class="modal-content">
             <h1>Actualizar Registro</h1>
             <form id="stampForm" enctype="multipart/form-data">
-                <label for="dayInput">Día:</label>
                 <input type="text" id="dayInput" name="day" disabled>
-               
-                    <label for="stampInput" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">Registro:</label>
-                    <input type="text" id="stampInput" name="stamp" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
-                    <input type="hidden" id="dateInput" name="date">
-                    <input type="hidden" id="userIdInput" name="userId">
+                <div class="checks" id="fast-access" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
+                    <p class="tit">Vacaciones</p>
+                    <label class="switch">
+                        <input type="checkbox" id="check1">
+                        <span class="slider round"></span>
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" id="check2">
+                        <span class="slider round"></span>
+                    </label>
+                    <p class="tit">Salud</p>
+                    <p class="tit">Servicio</p>
+                    <label class="switch">
+                        <input type="checkbox" id="check3">
+                        <span class="slider round"></span>
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" id="check4">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <label for="stampInput" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">Registro:</label>
+                <input type="text" id="stampInput" name="stamp" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
+                <input type="hidden" id="dateInput" name="date">
+                <input type="hidden" id="userIdInput" name="userId">
                 <input type="hidden" id="justNameInput" name="just">
                 <label for="justInput">Justificación:</label>
                 <input type="file" id="justInput" name="justFile" accept=".jpg, .jpeg, .png, .pdf">
+                <label for="comentInput" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">Comentarios:</label>
+                <textarea name="coment" id="comentInput" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>"></textarea>
                 <input type="submit" value="Guardar">
             </form>
         </div>
     </div>
-
-    <div id="messageVerify" class="message-verify">
-        <img src="./assets/img/check.png" alt="">
-        <p>Se ha actualizado el registro correctamente</p>
-    </div>
-
     <div class="viewDoc" style="display: none;">
         <img src="" alt="">
         <embed src="" type="application/pdf" />
+    </div>
+
+    <div class="comentarios-boss" id="comments-container">
+        <h1>Notificaciones</h1>
+        <div class="envio" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
+            <form id="commentForm">
+                <textarea id="commentb"></textarea>
+                <input type="submit" value="Comentar">
+            </form>
+        </div>
+        <div id="mensajes" class="mensajes">
+
+        </div>
+    </div>
     </div>
 </body>
 
