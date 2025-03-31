@@ -81,7 +81,7 @@ $id = $_SESSION['user_id'];
                                 $sql = "SELECT u.id_user, u.slug, u.name, a.name as area 
                                         FROM Users u 
                                         INNER JOIN Area a ON u.id_area = a.id_area 
-                                        WHERE u.id_user NOT IN (20, 17, 24) 
+                                        WHERE u.id_user NOT IN (20, 17, 24, 26, 30, 23) 
                                         ORDER BY u.name";
                                 $result = $conn->query($sql);
                                 while ($row = $result->fetch_assoc()) : ?>
