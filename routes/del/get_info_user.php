@@ -11,6 +11,27 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     $year = $_POST['year'];
     $currentDate = date('Y-m-d');
 
+    $queryProfile = "SELECT schedule_type
+    FROM Profile_History
+    WHERE user_id = ?
+    AND (year < ? OR (year = ? AND month <= ?))
+    ORDER BY year DESC, month DESC
+    LIMIT 1";
+
+    $stmtProfile = $conn->prepare($queryProfile);
+    if (!$stmtProfile) {
+        die(json_encode(["success" => false, "message" => "Error en la preparación de consulta Profile: " . $conn->error]));
+    }
+
+    $stmtProfile->bind_param("isss", $userId, $year, $year, $month);
+    if (!$stmtProfile->execute()) {
+        die(json_encode(["success" => false, "message" => "Error al ejecutar la consulta Profile: " . $stmtProfile->error]));
+    }
+
+    $resultProfile = $stmtProfile->get_result();
+    $scheduleType = ($resultProfile->num_rows > 0) ? $resultProfile->fetch_assoc()['schedule_type'] : 0;
+    $stmtProfile->close();
+
     if ($month == 6 && $year == 2024) {
         $penultimateMP = "2024-06-01";
     } else {
@@ -58,24 +79,24 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
     u.id_profile,
     SUM(
         CASE
-            WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
-            WHEN u.id_profile = 2 THEN
+            WHEN ? = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
+            WHEN ? = 2 THEN
                 CASE
                     WHEN DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
                     WHEN DAYOFWEEK(c.calendar_date) = 7 THEN 4
                     ELSE 0
                 END
-            WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 THEN 8
+            WHEN ? = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 THEN 8
             ELSE 0
         END
     ) AS total_hours_required,
     SUM(
         ROUND(
             CASE
-                WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                WHEN u.id_profile = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date < DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY) THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
-                WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date < DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                WHEN ? = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                WHEN ? = 2 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 AND c.calendar_date < DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                WHEN ? = 2 AND DAYOFWEEK(c.calendar_date) = 7 AND c.calendar_date < DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY) THEN GREATEST(0, (10 - COALESCE(LENGTH(s.stamp), 0)) / 5)
+                WHEN ? = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 AND c.calendar_date < DATE_SUB((SELECT MAX(stamp_date) FROM Archivos), INTERVAL 1 DAY) THEN GREATEST(0, (20 - COALESCE(LENGTH(s.stamp), 0)) / 5)
                 ELSE 0
             END, 0)
         ) + COALESCE(
@@ -107,14 +128,14 @@ if (isset($_POST['userId']) && isset($_POST['month']) && isset($_POST['year'])) 
         SEC_TO_TIME(
             SUM(
                 CASE
-                    WHEN u.id_profile = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
-                    WHEN u.id_profile = 2 THEN
+                    WHEN ? = 1 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
+                    WHEN ? = 2 THEN
                         CASE
                             WHEN DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 6 THEN 8
                             WHEN DAYOFWEEK(c.calendar_date) = 7 THEN 4
                             ELSE 0
                         END
-                    WHEN u.id_profile = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 THEN 8
+                    WHEN ? = 3 AND DAYOFWEEK(c.calendar_date) BETWEEN 2 AND 7 THEN 8
                     ELSE 0
                 END
             ) * 60 * 60 * 0.01
@@ -130,11 +151,10 @@ WHERE
     c.calendar_date BETWEEN ? AND ?
     AND c.holiday = 0
 GROUP BY
-    u.id_user,
-    u.id_profile;";
+    u.id_user;";
 
     $stmt = $conn->prepare($query);
-    $stmt->bind_param("siiss", $penultimateMP, $userId, $userId, $penultimateMP, $penultimateWorkday);
+    $stmt->bind_param("iiiiiiisiiiiiss", $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $scheduleType, $penultimateMP, $scheduleType, $scheduleType, $scheduleType, $userId, $userId, $penultimateMP, $penultimateWorkday);
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
