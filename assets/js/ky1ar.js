@@ -946,16 +946,13 @@ $(document).ready(function () {
     });
   }
   function getUserPointsAdmin(month, year) {
-    var sessionUserId =
-      document.getElementById("charge-points").dataset.sessionId;
+    var sessionUserId = document.getElementById("charge-points").dataset.sessionId;
 
     // Obtener todos los userId de la tabla
     var selectedUsers = [];
-    document
-      .querySelectorAll("#checkpoint-insert th input[type='hidden']")
-      .forEach((input) => {
+    document.querySelectorAll("#checkpoint-insert th input[type='hidden']").forEach((input) => {
         selectedUsers.push(input.value);
-      });
+    });
 
     var formData = new FormData();
     formData.append("month", month);
@@ -964,34 +961,32 @@ $(document).ready(function () {
     formData.append("selectedUsers", JSON.stringify(selectedUsers));
 
     fetch("../routes/del/getUserPointsAdmin.php", {
-      method: "POST",
-      body: formData,
+        method: "POST",
+        body: formData,
     })
-      .then((response) => response.json())
-      .then((data) => {
+    .then((response) => response.json())
+    .then((data) => {
         if (data.success) {
-          document.querySelectorAll("#checkpoint-insert tr").forEach((row) => {
-            var userIdInput = row.querySelector("th input[type='hidden']");
-            var checkbox = row.querySelector("td input[type='checkbox']");
+            var userIds = document.querySelectorAll("#checkpoint-insert th input[type='hidden']");
+            var checkboxes = document.querySelectorAll("#checkpoint-insert td input[type='checkbox']");
 
-            if (userIdInput && checkbox) {
-              var userId = userIdInput.value;
+            userIds.forEach((input, index) => {
+                var userId = input.value;
+                var checkbox = checkboxes[index]; // Asegurar que corresponde al mismo índice
 
-              if (data.data[userId]) {
-                checkbox.checked = true;
-              } else {
-                checkbox.checked = false;
-              }
-            }
-          });
+                if (checkbox) {
+                    checkbox.checked = !!data.data[userId]; // Marcar si el usuario está en los datos
+                }
+            });
         } else {
-          console.error("Error: " + data.message);
+            console.error("Error: " + data.message);
         }
-      })
-      .catch((error) => {
+    })
+    .catch((error) => {
         console.error("Error al obtener los datos:", error);
-      });
-  }
+    });
+}
+
 
   $(document).ready(function () {
     function getActiveUserId() {
