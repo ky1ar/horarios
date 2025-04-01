@@ -5,7 +5,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sessionUserId = $_POST["sessionUserId"]; // Jefe de área
     $month = $_POST["month"];
     $year = $_POST["year"];
-    $selectedUsers = json_decode($_POST["selectedUsers"], true);
     $date = "$year-$month";
 
     // Determinar la columna según el jefe de área
@@ -24,12 +23,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $columnToCheck = $areaColumns[$sessionUserId];
 
-    // Convertir selectedUsers en enteros para evitar problemas de comparación
-    $selectedUsers = array_map('intval', $selectedUsers);
-    $placeholders = implode(',', array_fill(0, count($selectedUsers), '?'));
-    $types = str_repeat('i', count($selectedUsers));
-
-    $sql = "SELECT id_user FROM Points WHERE date = ? AND $columnToCheck = 1 AND id_user IN ($placeholders)";
+    // Consulta SQL para obtener los valores de la columna correspondiente
+    $sql = "SELECT $columnToCheck FROM Points WHERE date = ?";
     $stmt = $conn->prepare($sql);
 
     if (!$stmt) {
@@ -38,15 +33,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    $params = array_merge([$date], $selectedUsers);
-    $stmt->bind_param(str_repeat('s', count($params)), ...$params);
+    $stmt->bind_param("s", $date);
     $stmt->execute();
-
     $result = $stmt->get_result();
+
     $data = [];
 
     while ($row = $result->fetch_assoc()) {
-        $data[$row["id_user"]] = 1;
+        $data[] = (int) $row[$columnToCheck]; // Convertir a entero para asegurar 1 y 0
     }
 
     echo json_encode(["success" => true, "data" => $data]);
