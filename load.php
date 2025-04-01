@@ -423,7 +423,7 @@ $id = $_SESSION['user_id'];
         <div class="info">
             <div class="valores">
                 <h1>Valoración de Personal</h1>
-                <table class="ventas">
+                <table>
                     <tr>
                         <?php
                         // Consulta para obtener los usuarios con id_area = 3
@@ -453,7 +453,7 @@ $id = $_SESSION['user_id'];
                 </table>
 
                 <h1>Áreas</h1>
-                <table class="ventas">
+                <table id="table-points">
                     <tr>
                         <th>Marketing</th>
                         <th>Logistica</th>

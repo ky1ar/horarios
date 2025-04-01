@@ -79,6 +79,7 @@ $(document).ready(function () {
     getLastDayTime(newUser.data("id"), currentMonth, currentYear);
     getStampForDate(newUser.data("id"));
     getUserComments(newUser.data("id"));
+    getUserPoints(newUser.data("id"), currentMonth, currentYear);
     getVacations(newUser.data("id"), currentYear);
   }
 
@@ -95,7 +96,7 @@ $(document).ready(function () {
     updateMonthDisplay();
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
-
+    getUserPoints(selectedUser.attr("data-id"), currentMonth, currentYear);
     getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
     getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
     getStampForDate(selectedUser.attr("data-id"));
@@ -109,6 +110,7 @@ $(document).ready(function () {
     updateMonthDisplay();
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getUserPoints(selectedUser.attr("data-id"), currentMonth, currentYear);
 
     getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
     getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
@@ -123,6 +125,7 @@ $(document).ready(function () {
     updateUserDisplay();
     getUserSchedule($(this).data("id"), currentMonth, currentYear);
     getUserData($(this).data("id"), currentMonth, currentYear);
+    getUserPoints($(this).data("id"), currentMonth, currentYear);
 
     getStampSpecial($(this).data("id"), currentMonth, currentYear);
     getLastDayTime($(this).data("id"), currentMonth, currentYear);
@@ -151,6 +154,7 @@ $(document).ready(function () {
     updateUserDisplay();
     getUserSchedule(userId, currentMonth, currentYear);
     getUserData(userId, currentMonth, currentYear);
+    getUserPoints(userId, currentMonth, currentYear);
 
     getStampSpecial(userId, currentMonth, currentYear);
     getLastDayTime(userId, currentMonth, currentYear);
@@ -866,6 +870,38 @@ $(document).ready(function () {
     });
   });
 
+  function getUserPoints(userId, month, year) {
+    var formData = new FormData();
+    formData.append("userId", userId);
+    formData.append("month", month);
+    formData.append("year", year);
+
+    $.ajax({
+      url: "../routes/del/getUserPoints.php",
+      method: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          var data = response.data;
+          var $table = $("#table-points");
+          $table
+            .find("tr:eq(1) td input[type='checkbox']")
+            .each(function (index) {
+              $(this).prop("checked", data[index] == 1);
+            });
+        } else {
+          alert("No se encontraron datos para este usuario y fecha.");
+        }
+      },
+      error: function () {
+        alert("Error al obtener los datos del usuario.");
+      },
+    });
+  }
+
   function getUserComments(userId) {
     $.ajax({
       url: "../routes/del/getComments.php",
@@ -950,6 +986,7 @@ $(document).ready(function () {
   getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
   getStampForDate(selectedUser.attr("data-id"));
   getUserComments(selectedUser.attr("data-id"));
+  getUserPoints(selectedUser.attr("data-id"), currentMonth, currentYear);
   getVacations(selectedUser.attr("data-id"), currentYear);
 });
 
@@ -958,15 +995,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnPoints = document.getElementById("btn-points");
 
   btnPoints.addEventListener("click", function () {
-      puntos.style.display =
-          puntos.style.display === "none" || puntos.style.display === ""
-              ? "flex"
-              : "none";
+    puntos.style.display =
+      puntos.style.display === "none" || puntos.style.display === ""
+        ? "flex"
+        : "none";
   });
 
   puntos.addEventListener("click", function (event) {
-      if (event.target === puntos) {
-          puntos.style.display = "none";
-      }
+    if (event.target === puntos) {
+      puntos.style.display = "none";
+    }
   });
 });
