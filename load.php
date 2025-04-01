@@ -451,7 +451,7 @@ $id = $_SESSION['user_id'];
                         ?>
                     </tr>
                 </table>
-                <table class="lideres">
+                <table class="ventas">
                     <tr>
                         <th>Marketing</th>
                         <th>Logistica</th>
