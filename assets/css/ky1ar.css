@@ -1388,3 +1388,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   padding: 1rem;
   text-align: center;
 }
+.container-pointscard .info .valores table td input{
+  width: 1.5rem;
+  height: 1.5rem;
+}
