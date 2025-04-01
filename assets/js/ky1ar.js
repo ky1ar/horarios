@@ -1038,7 +1038,7 @@ $(document).ready(function () {
         .then((data) => {
           alert(data.message);
           if (data.success) {
-            getUserPointsAdmin(month, year); // Recargar datos
+            location.reload();
           }
         })
         .catch((error) => {
