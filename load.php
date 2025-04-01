@@ -423,7 +423,7 @@ $id = $_SESSION['user_id'];
         <div class="info">
             <div class="valores">
                 <h1>Valoración de Personal</h1>
-                <table>
+                <table class="ventas">
                     <tr>
                         <th>Alex</th>
                         <th>Adrian</th>

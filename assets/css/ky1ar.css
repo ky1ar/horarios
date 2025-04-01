@@ -1373,3 +1373,13 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   border-radius: 1rem;
   padding: 1rem;
 }
+.container-pointscard .info .valores h1 {
+  margin: 0;
+  text-align: center;
+  font-size: 1.2rem;
+}
+.container-pointscard .info .valores .ventas {
+  border: 0.1rem solid var(--black);
+  border-collapse: collapse;
+  padding: 1rem;
+}
