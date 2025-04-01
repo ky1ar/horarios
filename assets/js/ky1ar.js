@@ -945,10 +945,9 @@ $(document).ready(function () {
       },
     });
   }
-
   function getUserPointsAdmin(month, year) {
     var sessionUserId =
-      document.getElementById("charge-points").dataset.sessionId; // Obtener el ID de sesión desde el botón
+      document.getElementById("charge-points").dataset.sessionId;
 
     // Obtener todos los userId de la tabla
     var selectedUsers = [];
@@ -962,7 +961,7 @@ $(document).ready(function () {
     formData.append("month", month);
     formData.append("year", year);
     formData.append("sessionUserId", sessionUserId);
-    formData.append("selectedUsers", JSON.stringify(selectedUsers)); // Enviar array en formato JSON
+    formData.append("selectedUsers", JSON.stringify(selectedUsers));
 
     fetch("../routes/del/getUserPointsAdmin.php", {
       method: "POST",
@@ -971,16 +970,20 @@ $(document).ready(function () {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          document
-            .querySelectorAll("#checkpoint-insert tr:nth-child(2) td")
-            .forEach((td, index) => {
-              var checkbox = td.querySelector("input[type='checkbox']");
-              var userId = selectedUsers[index]; // Obtener el userId en el mismo orden
+          document.querySelectorAll("#checkpoint-insert tr").forEach((row) => {
+            var userIdInput = row.querySelector("th input[type='hidden']");
+            var checkbox = row.querySelector("td input[type='checkbox']");
 
-              if (checkbox && data.data[userId]) {
+            if (userIdInput && checkbox) {
+              var userId = userIdInput.value;
+
+              if (data.data[userId]) {
                 checkbox.checked = true;
+              } else {
+                checkbox.checked = false;
               }
-            });
+            }
+          });
         } else {
           console.error("Error: " + data.message);
         }
@@ -1044,7 +1047,7 @@ $(document).ready(function () {
   getStampForDate(selectedUser.attr("data-id"));
   getUserComments(selectedUser.attr("data-id"));
   getUserPoints(selectedUser.attr("data-id"), currentMonth, currentYear);
-
+  getUserPointsAdmin(currentMonth, currentYear);
   getVacations(selectedUser.attr("data-id"), currentYear);
 });
 
