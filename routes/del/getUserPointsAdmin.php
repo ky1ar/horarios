@@ -29,18 +29,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $placeholders = implode(',', array_fill(0, count($selectedUsers), '?'));
     $types = str_repeat('i', count($selectedUsers));
 
-    // Consulta SQL para obtener los valores de los checkboxes
     $sql = "SELECT id_user FROM Points WHERE date = ? AND $columnToCheck = 1 AND id_user IN ($placeholders)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s" . $types, $date, ...$selectedUsers);
-    $stmt->execute();
-    $result = $stmt->get_result();
 
+    if (!$stmt) {
+        error_log("Error en la preparación de la consulta: " . $conn->error);
+        echo json_encode(["success" => false, "message" => "Error en la preparación de la consulta"]);
+        exit();
+    }
+
+    $params = array_merge([$date], $selectedUsers);
+    $stmt->bind_param(str_repeat('s', count($params)), ...$params);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
     $data = [];
+
     while ($row = $result->fetch_assoc()) {
         $data[$row["id_user"]] = 1;
     }
 
     echo json_encode(["success" => true, "data" => $data]);
 }
-?>
