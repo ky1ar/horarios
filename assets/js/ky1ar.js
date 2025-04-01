@@ -80,7 +80,6 @@ $(document).ready(function () {
     getStampForDate(newUser.data("id"));
     getUserComments(newUser.data("id"));
     getUserPoints(newUser.data("id"), currentMonth, currentYear);
-    getUserPointsAdmin(newUser.data("id"), currentMonth, currentYear);
     getVacations(newUser.data("id"), currentYear);
   }
 
@@ -98,7 +97,6 @@ $(document).ready(function () {
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserPoints(selectedUser.attr("data-id"), currentMonth, currentYear);
-    getUserPointsAdmin(selectedUser.attr("data-id"), currentMonth, currentYear);
     getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
     getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
     getStampForDate(selectedUser.attr("data-id"));
@@ -113,7 +111,6 @@ $(document).ready(function () {
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserPoints(selectedUser.attr("data-id"), currentMonth, currentYear);
-    getUserPointsAdmin(selectedUser.attr("data-id"), currentMonth, currentYear);
 
     getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
     getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
@@ -129,7 +126,6 @@ $(document).ready(function () {
     getUserSchedule($(this).data("id"), currentMonth, currentYear);
     getUserData($(this).data("id"), currentMonth, currentYear);
     getUserPoints($(this).data("id"), currentMonth, currentYear);
-    getUserPointsAdmin($(this).data("id"), currentMonth, currentYear);
 
     getStampSpecial($(this).data("id"), currentMonth, currentYear);
     getLastDayTime($(this).data("id"), currentMonth, currentYear);
@@ -159,7 +155,6 @@ $(document).ready(function () {
     getUserSchedule(userId, currentMonth, currentYear);
     getUserData(userId, currentMonth, currentYear);
     getUserPoints(userId, currentMonth, currentYear);
-    getUserPointsAdmin(userId, currentMonth, currentYear);
 
     getStampSpecial(userId, currentMonth, currentYear);
     getLastDayTime(userId, currentMonth, currentYear);
@@ -948,15 +943,24 @@ $(document).ready(function () {
       },
     });
   }
-  function getUserPointsAdmin(userId, month, year) {
+
+  function getUserPointsAdmin(month, year) {
     var sessionUserId =
       document.getElementById("charge-points").dataset.sessionId; // Obtener el ID de sesión desde el botón
 
+    // Obtener todos los userId de la tabla
+    var selectedUsers = [];
+    document
+      .querySelectorAll("#checkpoint-insert th input[type='hidden']")
+      .forEach((input) => {
+        selectedUsers.push(input.value);
+      });
+
     var formData = new FormData();
-    formData.append("userId", userId);
     formData.append("month", month);
     formData.append("year", year);
     formData.append("sessionUserId", sessionUserId);
+    formData.append("selectedUsers", JSON.stringify(selectedUsers)); // Enviar array en formato JSON
 
     fetch("../routes/del/getUserPointsAdmin.php", {
       method: "POST",
@@ -966,13 +970,13 @@ $(document).ready(function () {
       .then((data) => {
         if (data.success) {
           document
-            .querySelectorAll("#checkpoint-insert input[type='checkbox']")
-            .forEach((input) => {
-              var hiddenInput = input.previousElementSibling; // Input oculto con id_user
-              if (hiddenInput && data.data[hiddenInput.value]) {
-                input.checked = true;
-              } else {
-                input.checked = false;
+            .querySelectorAll("#checkpoint-insert tr:nth-child(2) td")
+            .forEach((td, index) => {
+              var checkbox = td.querySelector("input[type='checkbox']");
+              var userId = selectedUsers[index]; // Obtener el userId en el mismo orden
+
+              if (checkbox && data.data[userId]) {
+                checkbox.checked = true;
               }
             });
         } else {
@@ -1038,7 +1042,7 @@ $(document).ready(function () {
   getStampForDate(selectedUser.attr("data-id"));
   getUserComments(selectedUser.attr("data-id"));
   getUserPoints(selectedUser.attr("data-id"), currentMonth, currentYear);
-  getUserPointsAdmin(selectedUser.attr("data-id"), currentMonth, currentYear);
+
   getVacations(selectedUser.attr("data-id"), currentYear);
 });
 
