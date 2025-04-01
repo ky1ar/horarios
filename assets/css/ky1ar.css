@@ -1406,5 +1406,5 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   cursor: pointer;
 }
 .container-pointscard .info .valores .btn-insert:hover{
-  filter: opacity(0.9);
+  filter: brightness(0.9);
 }
