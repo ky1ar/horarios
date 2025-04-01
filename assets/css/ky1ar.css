@@ -1352,3 +1352,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 .points img {
   width: 2rem;
 }
+
+.container-pointscard{
+  display: none;
+}

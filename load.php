@@ -421,7 +421,7 @@ $id = $_SESSION['user_id'];
     <!-- puntos de area -->
      <div class="container-pointscard" id="points-view">
         <div class="info">
-
+            hola
         </div>
      </div>
 </body>
