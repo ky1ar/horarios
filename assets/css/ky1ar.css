@@ -1361,8 +1361,15 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   height: 100%;
   z-index: 3;
 }
-.container-pointscard  .info{
-  height: 20rem;
+.container-pointscard .info {
+  height: 80%;
   background-color: var(--white);
-  width: 10rem;
+  width: 80%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* translate: -50% -50%; */
+  transform: translate(-50%, -50%);
+  border-radius: 1rem;
+  padding: 1rem;
 }
