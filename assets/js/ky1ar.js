@@ -946,7 +946,7 @@ $(document).ready(function () {
     });
   }
   function getUserPointsAdmin(month, year) {
-    var sessionUserId = document.getElementById("charge-points").dataset.sessionId;
+    var sessionUserId = document.getElementById("checkpoint-insert").dataset.sessionId;
 
     // Obtener todos los userId de la tabla
     var selectedUsers = [];

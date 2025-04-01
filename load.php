@@ -423,7 +423,7 @@ $id = $_SESSION['user_id'];
         <div class="info">
             <div class="valores">
                 <h1>Valoración de Personal</h1>
-                <table id="checkpoint-insert">
+                <table id="checkpoint-insert" data-session-id="<?php echo $_SESSION['user_id']; ?>">
                     <tr>
                         <?php
                         // Consulta para obtener los usuarios con id_area = 3
@@ -451,7 +451,7 @@ $id = $_SESSION['user_id'];
                         ?>
                     </tr>
                 </table>
-                <button id="charge-points" class="btn-insert" data-session-id="<?php echo $_SESSION['user_id']; ?>">Guardar</button>
+                <button id="charge-points" class="btn-insert" >Guardar</button>
 
                 <h1>Áreas</h1>
                 <table id="table-points">
