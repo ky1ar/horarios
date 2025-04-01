@@ -955,11 +955,16 @@ $(document).ready(function () {
 
 document.addEventListener("DOMContentLoaded", function () {
   const puntos = document.getElementById("points-view");
+  const btnPoints = document.getElementById("btn-points");
 
-  puntos.addEventListener("click", function () {
+  btnPoints.addEventListener("click", function () {
     puntos.style.display =
       puntos.style.display === "none" || puntos.style.display === ""
         ? "flex"
         : "none";
+  });
+
+  puntos.addEventListener("click", function () {
+    puntos.style.display = "none";
   });
 });
