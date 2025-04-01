@@ -884,20 +884,31 @@ $(document).ready(function () {
       contentType: false,
       dataType: "json",
       success: function (response) {
-        if (response.success) {
+        var $table = $("#table-points");
+        var $checkboxCells = $table.find("tr:eq(1) td");
+
+        if (response.success && response.data.length > 0) {
           var data = response.data;
-          var $table = $("#table-points");
-          $table
-            .find("tr:eq(1) td input[type='checkbox']")
-            .each(function (index) {
-              $(this).prop("checked", data[index] == 1);
-            });
+          $checkboxCells.each(function (index) {
+            $(this)
+              .empty()
+              .append(
+                $("<input>", {
+                  type: "checkbox",
+                  checked: data[index] == 1,
+                  disabled: true, // Evita modificaciones
+                })
+              );
+          });
         } else {
-          alert("No se encontraron datos para este usuario y fecha.");
+          console.log("No tiene datos válidos");
+          $checkboxCells.each(function () {
+            $(this).empty().text("-");
+          });
         }
       },
       error: function () {
-        alert("Error al obtener los datos del usuario.");
+        console.log("Error al obtener los datos del usuario.");
       },
     });
   }
