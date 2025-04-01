@@ -957,7 +957,7 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("btn-points").addEventListener("click", function () {
     let puntos = document.getElementById("points-view");
     puntos.style.display =
-      puntos.style.display === "none" || elementoY.style.display === ""
+      puntos.style.display === "none" || puntos.style.display === ""
         ? "flex"
         : "none";
   });
