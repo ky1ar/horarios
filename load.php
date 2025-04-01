@@ -451,6 +451,7 @@ $id = $_SESSION['user_id'];
                         ?>
                     </tr>
                 </table>
+                <button>Guardar</button>
 
                 <h1>Áreas</h1>
                 <table id="table-points">
