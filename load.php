@@ -451,6 +451,22 @@ $id = $_SESSION['user_id'];
                         ?>
                     </tr>
                 </table>
+                <table class="lideres">
+                    <tr>
+                        <th>Marketing</th>
+                        <th>Logistica</th>
+                        <th>Soporte</th>
+                        <th>Administración</th>
+                        <th>Gerencia</th>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div>
