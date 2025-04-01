@@ -1339,7 +1339,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 
 /* puntos de area */
 .points{
-  position: absolute;
+  position: fixed;
   bottom: 8rem;
   left: 1rem;
   background-color: white;
