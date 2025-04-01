@@ -20,7 +20,7 @@ $id = $_SESSION['user_id'];
 </head>
 
 <body style="display: flex; flex-direction: column;">
-    <div class="points">
+    <div class="points" id="btn-points">
         <img src="./assets/img/btn-points.png" alt="">
     </div>
     <div class="out" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
@@ -416,6 +416,14 @@ $id = $_SESSION['user_id'];
         </div>
     </div>
     </div>
+
+
+    <!-- puntos de area -->
+     <div class="container-pointscard" id="points-view">
+        <div class="info">
+
+        </div>
+     </div>
 </body>
 
 </html>

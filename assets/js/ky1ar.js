@@ -942,3 +942,9 @@ $(document).ready(function () {
   getUserComments(selectedUser.attr("data-id"));
   getVacations(selectedUser.attr("data-id"), currentYear);
 });
+
+
+document.getElementById("btn-points").addEventListener("click", function() {
+  let puntos = document.getElementById("points-view");
+  puntos.style.display = (puntos.style.display === "none" || elementoY.style.display === "") ? "flex" : "none";
+});
