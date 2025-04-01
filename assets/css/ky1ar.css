@@ -1347,6 +1347,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   border-radius: 2rem;
   border: 0.1rem solid var(--graydarkest);
   z-index: 2;
+  cursor: pointer;
 }
 
 .points img {
@@ -1402,6 +1403,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   box-shadow: 0.1rem 0.1rem 0.1rem #0f202785;
+  cursor: pointer;
 }
 .container-pointscard .info .valores .btn-insert:hover{
   filter: opacity(0.9);
