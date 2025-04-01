@@ -946,47 +946,105 @@ $(document).ready(function () {
     });
   }
   function getUserPointsAdmin(month, year) {
-    var sessionUserId = document.getElementById("checkpoint-insert").dataset.sessionId;
-
-    // Obtener todos los userId de la tabla
+    var sessionUserId =
+      document.getElementById("checkpoint-insert").dataset.sessionId;
     var selectedUsers = [];
-    document.querySelectorAll("#checkpoint-insert th input[type='hidden']").forEach((input) => {
+    document
+      .querySelectorAll("#checkpoint-insert th input[type='hidden']")
+      .forEach((input) => {
         selectedUsers.push(input.value);
-    });
+      });
 
     var formData = new FormData();
     formData.append("month", month);
     formData.append("year", year);
     formData.append("sessionUserId", sessionUserId);
-    formData.append("selectedUsers", JSON.stringify(selectedUsers));
 
     fetch("../routes/del/getUserPointsAdmin.php", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          var userIds = document.querySelectorAll(
+            "#checkpoint-insert th input[type='hidden']"
+          );
+          var checkboxes = document.querySelectorAll(
+            "#checkpoint-insert td input[type='checkbox']"
+          );
+
+          userIds.forEach((input, index) => {
+            var userId = input.value;
+            var checkbox = checkboxes[index];
+
+            if (checkbox) {
+              checkbox.checked = !!data.data[userId];
+              checkbox.dataset.initialState = checkbox.checked ? "1" : "0"; // Estado inicial
+            }
+          });
+        } else {
+          console.error("Error: " + data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error al obtener los datos:", error);
+      });
+  }
+
+  // ✅ Evento para capturar cambios y enviar actualización al mismo PHP
+  document
+    .getElementById("charge-points")
+    .addEventListener("click", function () {
+      var sessionUserId =
+        document.getElementById("checkpoint-insert").dataset.sessionId;
+      var month = new Date().getMonth() + 1;
+      var year = new Date().getFullYear();
+      var updates = [];
+
+      var checkboxes = document.querySelectorAll(
+        "#checkpoint-insert td input[type='checkbox']"
+      );
+      var userIds = document.querySelectorAll(
+        "#checkpoint-insert th input[type='hidden']"
+      );
+
+      checkboxes.forEach((checkbox, index) => {
+        var userId = userIds[index].value;
+        var currentState = checkbox.checked ? "1" : "0";
+        var initialState = checkbox.dataset.initialState;
+
+        if (currentState !== initialState) {
+          updates.push({ id_user: userId, value: parseInt(currentState) });
+        }
+      });
+
+      if (updates.length === 0) {
+        alert("No hay cambios para guardar.");
+        return;
+      }
+
+      var formData = new FormData();
+      formData.append("month", month);
+      formData.append("year", year);
+      formData.append("sessionUserId", sessionUserId);
+      formData.append("updates", JSON.stringify(updates));
+
+      fetch("../routes/del/getUserPointsAdmin.php", {
         method: "POST",
         body: formData,
-    })
-    .then((response) => response.json())
-    .then((data) => {
-        if (data.success) {
-            var userIds = document.querySelectorAll("#checkpoint-insert th input[type='hidden']");
-            var checkboxes = document.querySelectorAll("#checkpoint-insert td input[type='checkbox']");
-
-            userIds.forEach((input, index) => {
-                var userId = input.value;
-                var checkbox = checkboxes[index]; // Asegurar que corresponde al mismo índice
-
-                if (checkbox) {
-                    checkbox.checked = !!data.data[userId]; // Marcar si el usuario está en los datos
-                }
-            });
-        } else {
-            console.error("Error: " + data.message);
-        }
-    })
-    .catch((error) => {
-        console.error("Error al obtener los datos:", error);
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          alert(data.message);
+          if (data.success) {
+            getUserPointsAdmin(month, year); // Recargar datos
+          }
+        })
+        .catch((error) => {
+          console.error("Error al actualizar los datos:", error);
+        });
     });
-}
-
 
   $(document).ready(function () {
     function getActiveUserId() {
