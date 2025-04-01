@@ -419,11 +419,23 @@ $id = $_SESSION['user_id'];
 
 
     <!-- puntos de area -->
-     <div class="container-pointscard" id="points-view">
+    <div class="container-pointscard" id="points-view">
         <div class="info">
-            hola
+            <div class="valores">
+                <h1>Valoración de Personal</h1>
+                <table>
+                    <tr>
+                        <th>Alex</th>
+                        <th>Adrian</th>
+                    </tr>
+                    <tr>
+                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox"></td>
+                    </tr>
+                </table>
+            </div>
         </div>
-     </div>
+    </div>
 </body>
 
 </html>
