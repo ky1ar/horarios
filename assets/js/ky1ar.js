@@ -1036,7 +1036,6 @@ $(document).ready(function () {
       })
         .then((response) => response.json())
         .then((data) => {
-          alert(data.message);
           if (data.success) {
             location.reload();
           }
