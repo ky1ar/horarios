@@ -958,13 +958,15 @@ document.addEventListener("DOMContentLoaded", function () {
   const btnPoints = document.getElementById("btn-points");
 
   btnPoints.addEventListener("click", function () {
-    puntos.style.display =
-      puntos.style.display === "none" || puntos.style.display === ""
-        ? "flex"
-        : "none";
+      puntos.style.display =
+          puntos.style.display === "none" || puntos.style.display === ""
+              ? "flex"
+              : "none";
   });
 
-  puntos.addEventListener("click", function () {
-    puntos.style.display = "none";
+  puntos.addEventListener("click", function (event) {
+      if (event.target === puntos) {
+          puntos.style.display = "none";
+      }
   });
 });
