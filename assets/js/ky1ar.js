@@ -101,6 +101,7 @@ $(document).ready(function () {
     getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
     getStampForDate(selectedUser.attr("data-id"));
     getUserComments(selectedUser.attr("data-id"));
+    getUserPointsAdmin(currentMonth, currentYear);
     getVacations(selectedUser.attr("data-id"), currentYear);
   });
 
@@ -111,6 +112,7 @@ $(document).ready(function () {
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserPoints(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getUserPointsAdmin(currentMonth, currentYear);
 
     getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
     getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
