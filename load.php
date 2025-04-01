@@ -425,12 +425,30 @@ $id = $_SESSION['user_id'];
                 <h1>Valoración de Personal</h1>
                 <table class="ventas">
                     <tr>
-                        <th>Alex</th>
-                        <th>Adrian</th>
+                        <?php
+                        // Consulta para obtener los usuarios con id_area = 3
+                        $sql = "SELECT id_user, name FROM Users WHERE id_area = 3 ORDER BY name";
+                        $result = $conn->query($sql);
+
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo '<th>';
+                                echo $row['name'];
+                                echo '<input type="hidden" value="' . $row['id_user'] . '">';
+                                echo '</th>';
+                            }
+                        } else {
+                            echo '<th>No hay usuarios en esta área</th>';
+                        }
+                        ?>
                     </tr>
                     <tr>
-                        <td><input type="checkbox"></td>
-                        <td><input type="checkbox"></td>
+                        <?php
+                        $result->data_seek(0); // Reiniciar el puntero del resultado
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<td><input type="checkbox"></td>';
+                        }
+                        ?>
                     </tr>
                 </table>
             </div>
