@@ -462,11 +462,11 @@ $id = $_SESSION['user_id'];
                         <th>Gerencia</th>
                     </tr>
                     <tr>
-                        <td><input type="checkbox"></td>
-                        <td><input type="checkbox"></td>
-                        <td><input type="checkbox"></td>
-                        <td><input type="checkbox"></td>
-                        <td><input type="checkbox"></td>
+                        <td><input type="checkbox" disabled></td>
+                        <td><input type="checkbox" disabled></td>
+                        <td><input type="checkbox" disabled></td>
+                        <td><input type="checkbox" disabled></td>
+                        <td><input type="checkbox" disabled></td>
                     </tr>
                 </table>
             </div>
