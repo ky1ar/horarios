@@ -68,5 +68,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    echo json_encode(["success" => true, "message" => "Datos actualizados correctamente."]);
+    echo json_encode(["success" => true]);
 }
