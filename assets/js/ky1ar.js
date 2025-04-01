@@ -193,7 +193,17 @@ $(document).ready(function () {
     return formattedDate;
   }
 
-  function showModal(stamp, just, coment, midTime, fullTime, salud, servicio, date, userId) {
+  function showModal(
+    stamp,
+    just,
+    coment,
+    midTime,
+    fullTime,
+    salud,
+    servicio,
+    date,
+    userId
+  ) {
     $("#stampInput").val(stamp);
     $("#comentInput").val(coment);
     $("#justNameInput").val(just);
@@ -943,8 +953,12 @@ $(document).ready(function () {
   getVacations(selectedUser.attr("data-id"), currentYear);
 });
 
-
-document.getElementById("btn-points").addEventListener("click", function() {
-  let puntos = document.getElementById("points-view");
-  puntos.style.display = (puntos.style.display === "none" || elementoY.style.display === "") ? "flex" : "none";
+document.addEventListener("DOMContentLoaded", function () {
+  document.getElementById("btn-points").addEventListener("click", function () {
+    let puntos = document.getElementById("points-view");
+    puntos.style.display =
+      puntos.style.display === "none" || elementoY.style.display === ""
+        ? "flex"
+        : "none";
+  });
 });
