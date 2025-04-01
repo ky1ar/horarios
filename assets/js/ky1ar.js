@@ -877,7 +877,7 @@ $(document).ready(function () {
     formData.append("year", year);
 
     $.ajax({
-      url: "../routes/del/getUserPoints.php",
+      url: "../routes/del/getUserPoints.php", // Ajusta la ruta según tu estructura
       method: "POST",
       data: formData,
       processData: false,
@@ -887,17 +887,17 @@ $(document).ready(function () {
         if (response.success) {
           var data = response.data;
           var $table = $("#table-points");
-          $table
-            .find("tr:eq(1) td input[type='checkbox']")
-            .each(function (index) {
-              $(this).prop("checked", data[index] == 1);
-            });
-        } else {
-          alert("No se encontraron datos para este usuario y fecha.");
+          var $checkboxes = $table.find("input[type='checkbox']");
+
+          // Itera sobre los valores y marca/desmarca los checkboxes
+          $checkboxes.each(function (index) {
+            $(this).prop("checked", data[index] == 1);
+          });
         }
+        // Si no hay datos, simplemente no hace nada
       },
       error: function () {
-        alert("Error al obtener los datos del usuario.");
+        alert("Error al obtener los datos.");
       },
     });
   }
