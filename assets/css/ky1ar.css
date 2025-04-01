@@ -1353,6 +1353,10 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   width: 2rem;
 }
 
-.container-pointscard{
-  display: none;
+.container-pointscard {
+  position: absolute;
+  background-color: #f0f0f094;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
 }
