@@ -5,6 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sessionUserId = $_POST["sessionUserId"]; // Jefe de área
     $month = $_POST["month"];
     $year = $_POST["year"];
+    $selectedUsers = json_decode($_POST["selectedUsers"], true);
     $date = "$year-$month";
 
     // Determinar la columna según el jefe de área
@@ -23,10 +24,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $columnToCheck = $areaColumns[$sessionUserId];
 
-    // Obtener solo los usuarios que tienen un 1 en la columna correspondiente
-    $sql = "SELECT id_user FROM Points WHERE date = ? AND $columnToCheck = 1";
+    // Convertir selectedUsers en enteros para evitar problemas de comparación
+    $selectedUsers = array_map('intval', $selectedUsers);
+    $placeholders = implode(',', array_fill(0, count($selectedUsers), '?'));
+    $types = str_repeat('i', count($selectedUsers));
+
+    // Consulta SQL para obtener los valores de los checkboxes
+    $sql = "SELECT id_user FROM Points WHERE date = ? AND $columnToCheck = 1 AND id_user IN ($placeholders)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("s", $date);
+    $stmt->bind_param("s" . $types, $date, ...$selectedUsers);
     $stmt->execute();
     $result = $stmt->get_result();
 
