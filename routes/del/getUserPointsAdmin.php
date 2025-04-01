@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sessionUserId = $_POST["sessionUserId"]; // Jefe de área
     $month = $_POST["month"];
     $year = $_POST["year"];
-    $date = "$year-$month";
+    $date = "$year-" . str_pad($month, 2, "0", STR_PAD_LEFT);
 
     // Determinar la columna según el jefe de área
     $areaColumns = [
@@ -23,13 +23,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $columnToCheck = $areaColumns[$sessionUserId];
 
-    // Consulta SQL para obtener los valores de la columna correspondiente
-    $sql = "SELECT $columnToCheck FROM Points WHERE date = ?";
+    // Consulta SQL para obtener id_user y el valor de la columna correspondiente
+    $sql = "SELECT id_user, $columnToCheck AS valor FROM Points WHERE date = ?";
     $stmt = $conn->prepare($sql);
 
     if (!$stmt) {
         error_log("Error en la preparación de la consulta: " . $conn->error);
-        echo json_encode(["success" => false, "message" => "Error en la preparación de la consulta"]);
+        echo json_encode(["success" => false, "message" => "Error en la consulta"]);
         exit();
     }
 
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = [];
 
     while ($row = $result->fetch_assoc()) {
-        $data[] = (int) $row[$columnToCheck]; // Convertir a entero para asegurar 1 y 0
+        $data[$row["id_user"]] = (int) $row["valor"]; // Asociar por id_user
     }
 
     echo json_encode(["success" => true, "data" => $data]);
