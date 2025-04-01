@@ -945,9 +945,10 @@ $(document).ready(function () {
       },
     });
   }
+
   function getUserPointsAdmin(month, year) {
     var sessionUserId =
-      document.getElementById("charge-points").dataset.sessionId;
+      document.getElementById("charge-points").dataset.sessionId; // Obtener el ID de sesión desde el botón
 
     // Obtener todos los userId de la tabla
     var selectedUsers = [];
@@ -961,7 +962,7 @@ $(document).ready(function () {
     formData.append("month", month);
     formData.append("year", year);
     formData.append("sessionUserId", sessionUserId);
-    formData.append("selectedUsers", JSON.stringify(selectedUsers));
+    formData.append("selectedUsers", JSON.stringify(selectedUsers)); // Enviar array en formato JSON
 
     fetch("../routes/del/getUserPointsAdmin.php", {
       method: "POST",
@@ -970,20 +971,16 @@ $(document).ready(function () {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          document.querySelectorAll("#checkpoint-insert tr").forEach((row) => {
-            var userIdInput = row.querySelector("th input[type='hidden']");
-            var checkbox = row.querySelector("td input[type='checkbox']");
+          document
+            .querySelectorAll("#checkpoint-insert tr:nth-child(2) td")
+            .forEach((td, index) => {
+              var checkbox = td.querySelector("input[type='checkbox']");
+              var userId = selectedUsers[index]; // Obtener el userId en el mismo orden
 
-            if (userIdInput && checkbox) {
-              var userId = userIdInput.value;
-
-              if (data.data[userId]) {
+              if (checkbox && data.data[userId]) {
                 checkbox.checked = true;
-              } else {
-                checkbox.checked = false;
               }
-            }
-          });
+            });
         } else {
           console.error("Error: " + data.message);
         }
