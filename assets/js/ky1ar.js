@@ -954,8 +954,9 @@ $(document).ready(function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("btn-points").addEventListener("click", function () {
-    let puntos = document.getElementById("points-view");
+  const puntos = document.getElementById("points-view");
+
+  puntos.addEventListener("click", function () {
     puntos.style.display =
       puntos.style.display === "none" || puntos.style.display === ""
         ? "flex"
