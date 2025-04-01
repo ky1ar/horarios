@@ -1380,6 +1380,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 }
 .container-pointscard .info .valores .ventas {
   border-collapse: collapse;
+  margin: 2rem auto;
 }
 .container-pointscard .info .valores .ventas td,
 .container-pointscard .info .valores .ventas th {
