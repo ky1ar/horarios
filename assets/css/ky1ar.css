@@ -1416,5 +1416,9 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 .inf-2 table td,
 .inf-2 table th{
   padding: 1rem;
-  
+
+}
+
+.inf-2 table th{
+  background-color: #3fc5c4;
 }
