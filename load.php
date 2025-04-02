@@ -470,9 +470,6 @@ $id = $_SESSION['user_id'];
                     </tr>
                 </table>
                 <button id="charge-points" class="btn-insert">Guardar</button>
-
-                <h1>Áreas</h1>
-
             </div>
         </div>
     </div>
