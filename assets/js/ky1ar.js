@@ -977,9 +977,10 @@ $(document).ready(function () {
               checkbox.dataset.initialState = checkbox.checked ? "1" : "0"; // Estado inicial
             }
           });
-        } else {
-          console.error("Error: " + data.message);
         }
+        // else {
+        //   console.error("Error: " + data.message);
+        // }
       })
       .catch((error) => {
         console.error("Error al obtener los datos:", error);
