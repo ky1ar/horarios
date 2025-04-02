@@ -173,6 +173,7 @@ body {
   display: flex;
   justify-content: space-between;
   flex-direction: column;
+  display: none;
 }
 
 #ky1-rgt header .ky1-ttl h1 {
@@ -194,7 +195,7 @@ body {
   color: var(--white);
 }
 #ky1-rgt header .ky1-dte img {
-  filter: invert(1);
+  filter: invert(1) brightness(2);
 }
 #previousMonth,
 #nextMonth,
