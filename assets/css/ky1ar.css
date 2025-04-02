@@ -268,7 +268,7 @@ body {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  background-color: var(--white);
+  background-color: #4f585d;
 }
 
 #ky1-rgt header .ky1-usr #usr-prv img {
@@ -283,6 +283,7 @@ body {
 
 #ky1-rgt header .ky1-usr #previousUser img {
   transform: scaleX(-1);
+  filter: invert(1);
 }
 
 /***************************************************************************/
