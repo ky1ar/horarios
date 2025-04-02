@@ -241,7 +241,7 @@ $id = $_SESSION['user_id'];
                     <td><input type="checkbox" disabled></td>
                 </tr>
             </table>
-            <div class="">
+            <div class="puntajes">
                 <label for="descargas">Descargas:</label>
                 <input type="text" name="descargas">
 

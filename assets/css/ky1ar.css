@@ -1429,3 +1429,18 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   width: 1.2rem;
   height: 1.2rem;
 }
+
+.inf-2 .puntajes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.inf-2 .puntajes label {
+  font-weight: 600;
+}
+.inf-2 .puntajes input {
+  border: 0.1rem solid var(--graydark);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  width: 20rem;
+}
