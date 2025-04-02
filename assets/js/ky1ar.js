@@ -50,8 +50,6 @@ $(document).ready(function () {
   function updateMonthDisplay() {
     $(".ky1-dte span").text(`${monthNames[currentMonth - 1]}, ${currentYear}`);
   }
-  document.getElementById("month-pointsk3d").textContent =
-    monthNames[currentMonth - 1] + " " + currentYear;
 
   function updateUserDisplay() {
     const activeUser = userList.find(".active");
@@ -142,6 +140,8 @@ $(document).ready(function () {
   if (lastUpdatedUserId) {
     selectUserById(lastUpdatedUserId);
   }
+  document.getElementById("month-pointsk3d").textContent =
+    monthNames[currentMonth - 1] + " " + currentYear;
 
   function getCookie(name) {
     const match = document.cookie.match(
