@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sessionUserId = $_POST["sessionUserId"];
     $month = $_POST["month"];
     $year = $_POST["year"];
-    $date = "$year-" . str_pad($month, 2, "0", STR_PAD_LEFT) . "-01";
+    $date = "$year-" . str_pad($month, 2, "0", STR_PAD_LEFT);
 
     // Determinar la columna según el jefe de área
     $areaColumns = [
@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Si hay "updates", actualizar los valores existentes
+    // Procesar las actualizaciones
     $updates = json_decode($_POST["updates"], true);
     foreach ($updates as $update) {
         $id_user = $update["id_user"];
@@ -50,12 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmtUpdate = $conn->prepare($sqlUpdate);
         $stmtUpdate->bind_param("isi", $value, $date, $id_user);
         $stmtUpdate->execute();
-
-        if ($stmtUpdate->affected_rows === 0) {
-            error_log("⚠️ No se actualizó ninguna fila: date=$date, id_user=$id_user");
-        } else {
-            error_log("✅ Actualización exitosa: date=$date, id_user=$id_user, columna=$columnToModify, valor=$value");
-        }
     }
 
     echo json_encode(["success" => true]);
