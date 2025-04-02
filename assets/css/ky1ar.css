@@ -522,7 +522,7 @@ body {
 }
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:has(> li.test) {
-  background-image: url("../img/whirlpool.png");
+  background-color: #ffbfbf;
   border: none;
 }
 
@@ -533,7 +533,7 @@ body {
   font-weight: bold;
   font-size: 1rem;
   opacity: 0.5;
-  color: #2c0d85;
+  color: var(--black);
 }
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul {
