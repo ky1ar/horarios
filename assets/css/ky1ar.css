@@ -1405,3 +1405,8 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 .container-pointscard .info .valores .btn-insert:hover {
   filter: brightness(0.9);
 }
+.inf-2 {
+  display: flex;
+  margin: auto;
+  width: fit-content;
+}
