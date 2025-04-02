@@ -223,6 +223,24 @@ $id = $_SESSION['user_id'];
                 </div>
             </li>
         </ul>
+        <div class="inf-2">
+            <table id="table-points">
+                <tr>
+                    <th>Marketing</th>
+                    <th>Logistica</th>
+                    <th>Soporte</th>
+                    <th>Administración</th>
+                    <th>Gerencia</th>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" disabled></td>
+                    <td><input type="checkbox" disabled></td>
+                    <td><input type="checkbox" disabled></td>
+                    <td><input type="checkbox" disabled></td>
+                    <td><input type="checkbox" disabled></td>
+                </tr>
+            </table>
+        </div>
         <ul class="ky1-hrr">
             <li class="hrr-box">
                 <span>Semana 1</span>
@@ -454,22 +472,7 @@ $id = $_SESSION['user_id'];
                 <button id="charge-points" class="btn-insert">Guardar</button>
 
                 <h1>Áreas</h1>
-                <table id="table-points">
-                    <tr>
-                        <th>Marketing</th>
-                        <th>Logistica</th>
-                        <th>Soporte</th>
-                        <th>Administración</th>
-                        <th>Gerencia</th>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" disabled></td>
-                        <td><input type="checkbox" disabled></td>
-                        <td><input type="checkbox" disabled></td>
-                        <td><input type="checkbox" disabled></td>
-                        <td><input type="checkbox" disabled></td>
-                    </tr>
-                </table>
+
             </div>
         </div>
     </div>
