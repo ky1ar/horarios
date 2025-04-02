@@ -1361,14 +1361,12 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 }
 .container-pointscard .info {
   background-color: var(--white);
-  width: 80%;
   position: fixed;
   top: 50%;
   left: 50%;
-  /* translate: -50% -50%; */
   transform: translate(-50%, -50%);
   border-radius: 1rem;
-  padding: 1rem;
+  padding: 2rem;
 }
 .container-pointscard .info .valores h1 {
   margin: 0;
