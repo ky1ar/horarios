@@ -47,6 +47,10 @@ $(document).ready(function () {
 
   let currentMonth = new Date().getMonth() + 1;
   let currentYear = new Date().getFullYear();
+
+  // Actualizar el contenido del <span> con el mes y año actuales
+  document.getElementById("month-pointsk3d").textContent =
+    monthNames[currentMonth - 1] + " " + currentYear;
   function updateMonthDisplay() {
     $(".ky1-dte span").text(`${monthNames[currentMonth - 1]}, ${currentYear}`);
   }
@@ -115,7 +119,7 @@ $(document).ready(function () {
     // Actualizar la visualización del mes en el <span>
     document.getElementById("month-pointsk3d").textContent =
       monthNames[currentMonth - 1] + " " + currentYear;
-      
+
     updateMonthDisplay();
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
