@@ -254,9 +254,9 @@ body {
 
 #ky1-rgt header .ky1-usr {
   display: flex;
-  justify-content: space-between;
   gap: 1rem;
   align-items: center;
+  margin-left: auto;
 }
 
 #ky1-rgt header .ky1-usr .usr-btn {
