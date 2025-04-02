@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sessionUserId = $_POST["sessionUserId"];
     $month = $_POST["month"];
     $year = $_POST["year"];
-    $date = "$year-" . str_pad($month, 2, "0", STR_PAD_LEFT);
+    $date = "$year-" . str_pad($month, 2, "0", STR_PAD_LEFT) . "-01";
 
     // Determinar la columna según el jefe de área
     $areaColumns = [
@@ -40,31 +40,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // Si hay "updates", insertar o actualizar
+    // Si hay "updates", actualizar los valores existentes
     $updates = json_decode($_POST["updates"], true);
     foreach ($updates as $update) {
         $id_user = $update["id_user"];
         $value = $update["value"];
 
-        // Verificar si la fila ya existe
-        $sqlCheck = "SELECT id_user FROM Points WHERE date = ? AND id_user = ?";
-        $stmtCheck = $conn->prepare($sqlCheck);
-        $stmtCheck->bind_param("si", $date, $id_user);
-        $stmtCheck->execute();
-        $resultCheck = $stmtCheck->get_result();
+        $sqlUpdate = "UPDATE Points SET $columnToModify = ? WHERE date = ? AND id_user = ?";
+        $stmtUpdate = $conn->prepare($sqlUpdate);
+        $stmtUpdate->bind_param("isi", $value, $date, $id_user);
+        $stmtUpdate->execute();
 
-        if ($resultCheck->num_rows == 0) {
-            // Insertar si no existe
-            $sqlInsert = "INSERT INTO Points (date, id_user, $columnToModify) VALUES (?, ?, ?)";
-            $stmtInsert = $conn->prepare($sqlInsert);
-            $stmtInsert->bind_param("sii", $date, $id_user, $value);
-            $stmtInsert->execute();
+        if ($stmtUpdate->affected_rows === 0) {
+            error_log("⚠️ No se actualizó ninguna fila: date=$date, id_user=$id_user");
         } else {
-            // Actualizar si ya existe
-            $sqlUpdate = "UPDATE Points SET $columnToModify = ? WHERE date = ? AND id_user = ?";
-            $stmtUpdate = $conn->prepare($sqlUpdate);
-            $stmtUpdate->bind_param("isi", $value, $date, $id_user);
-            $stmtUpdate->execute();
+            error_log("✅ Actualización exitosa: date=$date, id_user=$id_user, columna=$columnToModify, valor=$value");
         }
     }
 
