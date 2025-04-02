@@ -1407,6 +1407,6 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 }
 .inf-2 {
   display: flex;
-  margin: auto;
+  margin: 1rem auto;
   width: fit-content;
 }
