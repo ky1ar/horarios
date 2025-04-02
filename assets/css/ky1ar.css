@@ -157,7 +157,7 @@ body {
 
 /***************************************************************************/
 #ky1-rgt {
-  background-color: #d3edfb4a;
+  background-color: #c8e8ff73;
   flex: 1;
   padding: 0 1rem;
 }
@@ -1408,7 +1408,8 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   width: fit-content;
 }
 .inf-2 table {
-  border-collapse: collapse;
+  border-radius: 1rem;
+  overflow: hidden;
 }
 .inf-2 table td,
 .inf-2 table th {
