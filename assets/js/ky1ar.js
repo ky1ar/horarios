@@ -990,7 +990,7 @@ $(document).ready(function () {
             }
           });
         } else {
-          console.error("Error: " + data.message);
+          // console.error("Error: " + data.message);
         }
       })
       .catch((error) => {
