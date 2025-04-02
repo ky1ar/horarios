@@ -54,11 +54,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $resultCheck = $stmtCheck->get_result();
 
         if ($resultCheck->num_rows == 0) {
-            // Insertar si no existe
             $sqlInsert = "INSERT INTO Points (date, id_user, $columnToModify) VALUES (?, ?, ?)";
-            $stmtInsert = $conn->prepare($sqlInsert);
-            $stmtInsert->bind_param("sii", $date, $id_user, $value);
-            $stmtInsert->execute();
+    $stmtInsert = $conn->prepare($sqlInsert);
+    if (!$stmtInsert) {
+        error_log("Error en prepare: " . $conn->error);
+        echo json_encode(["success" => false, "message" => "Error en la consulta."]);
+        exit();
+    }
+    $stmtInsert->bind_param("sii", $date, $id_user, $value);
+    if (!$stmtInsert->execute()) {
+        error_log("Error en execute: " . $stmtInsert->error);
+    }
         } else {
             // Actualizar si ya existe
             $sqlUpdate = "UPDATE Points SET $columnToModify = ? WHERE date = ? AND id_user = ?";
