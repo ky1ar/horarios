@@ -225,13 +225,8 @@ $allowed_users = [5, 9, 12, 13, 28];
                 </div>
             </li>
         </ul>
-        
-        <div class="inf-2"
-            <?php
-            if (!in_array($user_id, $allowed_users)) {
-                echo 'style="display: none;"';
-            }
-            ?>>
+
+        <div class="inf-2">
             <table id="table-points">
                 <tr>
                     <th>Marketing</th>
