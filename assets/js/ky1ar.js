@@ -50,7 +50,6 @@ $(document).ready(function () {
   function updateMonthDisplay() {
     $(".ky1-dte span").text(`${monthNames[currentMonth - 1]}, ${currentYear}`);
   }
-
   function updateUserDisplay() {
     const activeUser = userList.find(".active");
     selectedUser.attr("data-id", activeUser.data("id"));
@@ -94,6 +93,10 @@ $(document).ready(function () {
     currentMonth = (currentMonth % 12) + 1;
     if (currentMonth === 1) currentYear++;
     updateMonthDisplay();
+
+    document.getElementById("month-pointsk3d").textContent =
+      monthNames[currentMonth - 1] + " " + currentYear;
+
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserPoints(selectedUser.attr("data-id"), currentMonth, currentYear);
@@ -108,6 +111,11 @@ $(document).ready(function () {
   previousMonth.on("click", function () {
     currentMonth = currentMonth === 1 ? 12 : currentMonth - 1;
     if (currentMonth === 12) currentYear--;
+
+    // Actualizar la visualización del mes en el <span>
+    document.getElementById("month-pointsk3d").textContent =
+      monthNames[currentMonth - 1] + " " + currentYear;
+      
     updateMonthDisplay();
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
@@ -140,8 +148,6 @@ $(document).ready(function () {
   if (lastUpdatedUserId) {
     selectUserById(lastUpdatedUserId);
   }
-  document.getElementById("month-pointsk3d").textContent =
-    monthNames[currentMonth - 1] + " " + currentYear;
 
   function getCookie(name) {
     const match = document.cookie.match(
