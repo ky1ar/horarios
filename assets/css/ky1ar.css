@@ -157,7 +157,7 @@ body {
 
 /***************************************************************************/
 #ky1-rgt {
-  background-image: url("../img/whirlpool.png");
+  background-color: #d3edfb4a;
   flex: 1;
   padding: 0 1rem;
 }
