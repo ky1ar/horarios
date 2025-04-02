@@ -224,8 +224,8 @@ $id = $_SESSION['user_id'];
                 </div>
             </li>
         </ul>
-        <div class="inf-2" style="display: <?php echo in_array($id, [5, 9, 12, 13, 28]) ? 'flex' : 'none'; ?>;">
-            <table id="table-points">
+        <div class="inf-2">
+            <table id="table-points" style="display: <?php echo in_array($id, [5, 9, 12, 13, 28]) ? 'flex' : 'none'; ?>;">
                 <tr>
                     <th>Marketing</th>
                     <th>Logistica</th>
@@ -242,14 +242,14 @@ $id = $_SESSION['user_id'];
                 </tr>
             </table>
             <div class="">
-                  <label for="descargas">Descargas:</label>              
-                  <input type="text" name="descargas">
+                <label for="descargas">Descargas:</label>
+                <input type="text" name="descargas">
 
-                  <label for="dias">Días:</label>              
-                  <input type="text" name="dias">
+                <label for="dias">Días:</label>
+                <input type="text" name="dias">
 
-                  <label for="servicios">Servicios:</label>              
-                  <input type="text" name="servicios">
+                <label for="servicios">Servicios:</label>
+                <input type="text" name="servicios">
             </div>
         </div>
         <ul class="ky1-hrr">
