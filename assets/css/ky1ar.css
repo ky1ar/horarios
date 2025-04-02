@@ -1414,11 +1414,15 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   border-collapse: collapse;
 }
 .inf-2 table td,
-.inf-2 table th{
+.inf-2 table th {
   padding: 1rem;
-
+  text-align: center;
 }
 
-.inf-2 table th{
+.inf-2 table th {
   background-color: #3fc5c4;
+  color: white;
+}
+.inf-2 table td{
+  background-color: white;
 }
