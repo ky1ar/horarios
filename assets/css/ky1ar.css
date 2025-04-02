@@ -1423,6 +1423,11 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   background-color: #3fc5c4;
   color: white;
 }
-.inf-2 table td{
+.inf-2 table td {
   background-color: white;
+}
+.inf-2 table td input {
+  margin: 0;
+  width: 1.2rem;
+  height: 1.2rem;
 }
