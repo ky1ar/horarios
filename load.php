@@ -248,7 +248,7 @@ $id = $_SESSION['user_id'];
                   <label for="dias">Días:</label>              
                   <input type="text" name="dias">
 
-                  <label for="servicios"></label>              
+                  <label for="servicios">Servicios:</label>              
                   <input type="text" name="servicios">
             </div>
         </div>
