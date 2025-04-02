@@ -977,10 +977,9 @@ $(document).ready(function () {
               checkbox.dataset.initialState = checkbox.checked ? "1" : "0"; // Estado inicial
             }
           });
+        } else {
+          console.error("Error: " + data.message);
         }
-        // else {
-        //   console.error("Error: " + data.message);
-        // }
       })
       .catch((error) => {
         console.error("Error al obtener los datos:", error);
@@ -988,57 +987,53 @@ $(document).ready(function () {
   }
 
   // ✅ Evento para capturar cambios y enviar actualización
-  document
-    .getElementById("charge-points")
-    .addEventListener("click", function () {
-      var sessionUserId =
-        document.getElementById("checkpoint-insert").dataset.sessionId;
-      var month = new Date().getMonth() + 1;
-      var year = new Date().getFullYear();
-      var updates = [];
-
-      var checkboxes = document.querySelectorAll(
-        "#checkpoint-insert td input[type='checkbox']"
-      );
-      var userIds = document.querySelectorAll(
-        "#checkpoint-insert th input[type='hidden']"
-      );
-
-      checkboxes.forEach((checkbox, index) => {
-        var userId = userIds[index].value;
-        var currentState = checkbox.checked ? "1" : "0";
-        var initialState = checkbox.dataset.initialState;
-
-        if (currentState !== initialState) {
-          updates.push({ id_user: userId, value: parseInt(currentState) });
-        }
-      });
-
-      if (updates.length === 0) {
-        alert("No hay cambios para guardar.");
-        return;
+  document.getElementById("charge-points").addEventListener("click", function () {
+    var sessionUserId = document.getElementById("checkpoint-insert").dataset.sessionId;
+    var updates = [];
+  
+    var checkboxes = document.querySelectorAll("#checkpoint-insert td input[type='checkbox']");
+    var userIds = document.querySelectorAll("#checkpoint-insert th input[type='hidden']");
+  
+    checkboxes.forEach((checkbox, index) => {
+      var userId = userIds[index].value;
+      var currentState = checkbox.checked ? "1" : "0";
+      var initialState = checkbox.dataset.initialState;
+  
+      if (currentState !== initialState) {
+        updates.push({ id_user: userId, value: parseInt(currentState) });
       }
-
-      var formData = new FormData();
-      formData.append("month", month);
-      formData.append("year", year);
-      formData.append("sessionUserId", sessionUserId);
-      formData.append("updates", JSON.stringify(updates));
-
-      fetch("../routes/del/getUserPointsAdmin.php", {
-        method: "POST",
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            location.reload();
-          }
-        })
-        .catch((error) => {
-          console.error("Error al actualizar los datos:", error);
-        });
     });
+  
+    if (updates.length === 0) {
+      alert("No hay cambios para guardar.");
+      return;
+    }
+  
+    var formData = new FormData();
+    formData.append("month", currentMonth); // 🔹 Asegurar que se usa el mes actualizado
+    formData.append("year", currentYear);
+    formData.append("sessionUserId", sessionUserId);
+    formData.append("updates", JSON.stringify(updates));
+  
+    console.log("⚡ Enviando actualización con:", { month: currentMonth, year: currentYear, updates });
+  
+    fetch("../routes/del/getUserPointsAdmin.php", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("✔ Respuesta del update:", data);
+        if (data.success) {
+          location.reload();
+        } else {
+          console.error("❌ Error en el update:", data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("⚠ Error al actualizar los datos:", error);
+      });
+  });
 
   $(document).ready(function () {
     function getActiveUserId() {

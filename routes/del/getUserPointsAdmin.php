@@ -17,12 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ];
 
     if (!isset($areaColumns[$sessionUserId])) {
-        echo json_encode(["success" => false, "message" => "Usuario sin permisos."]);
+        echo json_encode(["success" => false]);
         exit();
     }
 
     $columnToModify = $areaColumns[$sessionUserId];
-    file_put_contents("debug_log.txt", "Fecha generada: $date" . PHP_EOL, FILE_APPEND);
 
     // Si no hay "updates", solo devuelve los datos
     if (empty($_POST["updates"])) {
