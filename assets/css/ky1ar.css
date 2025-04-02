@@ -1436,6 +1436,12 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   align-items: center;
   justify-content: center;
 }
+.inf-2 .puntajes div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
 .inf-2 .puntajes label {
   font-weight: 600;
 }
