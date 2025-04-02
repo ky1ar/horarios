@@ -1434,6 +1434,8 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
 }
 .inf-2 .puntajes label {
   font-weight: 600;
