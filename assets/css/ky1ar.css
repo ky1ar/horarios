@@ -207,6 +207,7 @@ body {
   background-color: white;
   border-radius: 0.5rem;
   padding: 0.5rem;
+  border: 0.1rem solid var(--graydarkest);
 }
 #indice h1 {
   text-align: center;
