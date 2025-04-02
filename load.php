@@ -440,7 +440,7 @@ $id = $_SESSION['user_id'];
     <div class="container-pointscard" id="points-view">
         <div class="info">
             <div class="valores">
-                <h1>Valoración de Personal</h1>
+                <h1>Valoración de Personal <span id="month-pointsk3d"></span></h1>
                 <table id="checkpoint-insert" data-session-id="<?php echo $_SESSION['user_id']; ?>">
                     <tr>
                         <?php

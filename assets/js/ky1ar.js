@@ -50,6 +50,8 @@ $(document).ready(function () {
   function updateMonthDisplay() {
     $(".ky1-dte span").text(`${monthNames[currentMonth - 1]}, ${currentYear}`);
   }
+  document.getElementById("month-pointsk3d").textContent =
+    monthNames[currentMonth - 1] + " " + currentYear;
 
   function updateUserDisplay() {
     const activeUser = userList.find(".active");
@@ -987,53 +989,64 @@ $(document).ready(function () {
   }
 
   // ✅ Evento para capturar cambios y enviar actualización
-  document.getElementById("charge-points").addEventListener("click", function () {
-    var sessionUserId = document.getElementById("checkpoint-insert").dataset.sessionId;
-    var updates = [];
-  
-    var checkboxes = document.querySelectorAll("#checkpoint-insert td input[type='checkbox']");
-    var userIds = document.querySelectorAll("#checkpoint-insert th input[type='hidden']");
-  
-    checkboxes.forEach((checkbox, index) => {
-      var userId = userIds[index].value;
-      var currentState = checkbox.checked ? "1" : "0";
-      var initialState = checkbox.dataset.initialState;
-  
-      if (currentState !== initialState) {
-        updates.push({ id_user: userId, value: parseInt(currentState) });
-      }
-    });
-  
-    if (updates.length === 0) {
-      alert("No hay cambios para guardar.");
-      return;
-    }
-  
-    var formData = new FormData();
-    formData.append("month", currentMonth); // 🔹 Asegurar que se usa el mes actualizado
-    formData.append("year", currentYear);
-    formData.append("sessionUserId", sessionUserId);
-    formData.append("updates", JSON.stringify(updates));
-  
-    console.log("⚡ Enviando actualización con:", { month: currentMonth, year: currentYear, updates });
-  
-    fetch("../routes/del/getUserPointsAdmin.php", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("✔ Respuesta del update:", data);
-        if (data.success) {
-          location.reload();
-        } else {
-          console.error("❌ Error en el update:", data.message);
+  document
+    .getElementById("charge-points")
+    .addEventListener("click", function () {
+      var sessionUserId =
+        document.getElementById("checkpoint-insert").dataset.sessionId;
+      var updates = [];
+
+      var checkboxes = document.querySelectorAll(
+        "#checkpoint-insert td input[type='checkbox']"
+      );
+      var userIds = document.querySelectorAll(
+        "#checkpoint-insert th input[type='hidden']"
+      );
+
+      checkboxes.forEach((checkbox, index) => {
+        var userId = userIds[index].value;
+        var currentState = checkbox.checked ? "1" : "0";
+        var initialState = checkbox.dataset.initialState;
+
+        if (currentState !== initialState) {
+          updates.push({ id_user: userId, value: parseInt(currentState) });
         }
-      })
-      .catch((error) => {
-        console.error("⚠ Error al actualizar los datos:", error);
       });
-  });
+
+      if (updates.length === 0) {
+        alert("No hay cambios para guardar.");
+        return;
+      }
+
+      var formData = new FormData();
+      formData.append("month", currentMonth); // 🔹 Asegurar que se usa el mes actualizado
+      formData.append("year", currentYear);
+      formData.append("sessionUserId", sessionUserId);
+      formData.append("updates", JSON.stringify(updates));
+
+      console.log("⚡ Enviando actualización con:", {
+        month: currentMonth,
+        year: currentYear,
+        updates,
+      });
+
+      fetch("../routes/del/getUserPointsAdmin.php", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("✔ Respuesta del update:", data);
+          if (data.success) {
+            location.reload();
+          } else {
+            console.error("❌ Error en el update:", data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("⚠ Error al actualizar los datos:", error);
+        });
+    });
 
   $(document).ready(function () {
     function getActiveUserId() {
