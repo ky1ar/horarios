@@ -39,14 +39,6 @@ $id = $_SESSION['user_id'];
                 <h1>Horarios Krear 3D</h1>
                 <span>Registro biométrico del mes</span>
             </div>
-            <div id="indice">
-                <h1>Leyenda</h1>
-                <p><span></span> Normal</p>
-                <p><span></span> Modificado</p>
-                <p><span></span> Permiso de Salud</p>
-                <p><span></span> Servicio</p>
-                <p><span></span> Vacaciones</p>
-            </div>
             <div class="ky1-permisos" style="display: <?php echo ($rango == 1) ? 'none' : 'flex'; ?>">
                 <div class="fond"></div>
                 <img class="desc" src="assets/img/descanso-medico.webp" alt="">
@@ -60,8 +52,15 @@ $id = $_SESSION['user_id'];
                 <span>Enero, 2024</span>
                 <img id="nextMonth" src="assets/img/r.svg" width="12" height="12" alt="">
             </div>
+            <div id="indice">
+                <h1>Leyenda</h1>
+                <p><span></span> Normal</p>
+                <p><span></span> Modificado</p>
+                <p><span></span> Permiso de Salud</p>
+                <p><span></span> Servicio</p>
+                <p><span></span> Vacaciones</p>
+            </div>
             <div class="ky1-usr">
-
                 <?php if ($rango == 1) : ?>
                     <div class="usr-btn" id="previousUser">
                         <img src="assets/img/r.svg" width="12" height="12" alt="">
