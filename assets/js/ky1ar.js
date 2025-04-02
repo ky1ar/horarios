@@ -948,12 +948,6 @@ $(document).ready(function () {
   function getUserPointsAdmin(month, year) {
     var sessionUserId =
       document.getElementById("checkpoint-insert").dataset.sessionId;
-    var selectedUsers = [];
-    document
-      .querySelectorAll("#checkpoint-insert th input[type='hidden']")
-      .forEach((input) => {
-        selectedUsers.push(input.value);
-      });
 
     var formData = new FormData();
     formData.append("month", month);
@@ -992,7 +986,7 @@ $(document).ready(function () {
       });
   }
 
-  // ✅ Evento para capturar cambios y enviar actualización al mismo PHP
+  // ✅ Evento para capturar cambios y enviar actualización
   document
     .getElementById("charge-points")
     .addEventListener("click", function () {

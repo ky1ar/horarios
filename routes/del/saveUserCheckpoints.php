@@ -1,10 +1,11 @@
 <?php
 require_once '../../includes/app/db.php';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sessionUserId = $_POST["sessionUserId"];
     $month = $_POST["month"];
     $year = $_POST["year"];
-    $selectedUsers = json_decode($_POST["selectedUsers"], true);
+    $date = "$year-" . str_pad($month, 2, "0", STR_PAD_LEFT);
 
     // Determinar la columna según el jefe de área
     $areaColumns = [
@@ -16,37 +17,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ];
 
     if (!isset($areaColumns[$sessionUserId])) {
-        echo json_encode(["success" => false, "message" => "Usuario sin permisos para modificar."]);
+        echo json_encode(["success" => false, "message" => "Usuario sin permisos."]);
         exit();
     }
 
-    $columnToUpdate = $areaColumns[$sessionUserId]; // Columna correspondiente
+    $columnToModify = $areaColumns[$sessionUserId];
 
-    foreach ($selectedUsers as $userId) {
-        $date = "$year-$month";
-
-        // Verificar si ya existe el registro para ese usuario y fecha
-        $sql = "SELECT id_point FROM Points WHERE id_user = ? AND date = ?";
+    // Si no hay "updates", solo devolver los datos
+    if (empty($_POST["updates"])) {
+        $sql = "SELECT id_user, $columnToModify AS valor FROM Points WHERE date = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("is", $userId, $date);
+        $stmt->bind_param("s", $date);
         $stmt->execute();
         $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
-            // Si existe, actualizar el valor de la columna correspondiente
-            $sqlUpdate = "UPDATE Points SET $columnToUpdate = 1 WHERE id_user = ? AND date = ?";
-            $stmtUpdate = $conn->prepare($sqlUpdate);
-            $stmtUpdate->bind_param("is", $userId, $date);
-            $stmtUpdate->execute();
-        } else {
-            // Si no existe, insertar un nuevo registro con la columna correspondiente en 1
-            $sqlInsert = "INSERT INTO Points (id_user, date, $columnToUpdate) VALUES (?, ?, 1)";
-            $stmtInsert = $conn->prepare($sqlInsert);
-            $stmtInsert->bind_param("is", $userId, $date);
-            $stmtInsert->execute();
+        $data = [];
+        while ($row = $result->fetch_assoc()) {
+            $data[$row["id_user"]] = (int) $row["valor"];
         }
+
+        echo json_encode(["success" => true, "data" => $data]);
+        exit();
     }
 
-    echo json_encode(["success" => true, "message" => "Datos guardados correctamente."]);
+    // Si hay "updates", solo actualizar si existe
+    $updates = json_decode($_POST["updates"], true);
+    foreach ($updates as $update) {
+        $id_user = $update["id_user"];
+        $value = $update["value"];
+
+        // Actualizar si la fila ya existe
+        $sqlUpdate = "UPDATE Points SET $columnToModify = ? WHERE date = ? AND id_user = ?";
+        $stmtUpdate = $conn->prepare($sqlUpdate);
+        $stmtUpdate->bind_param("isi", $value, $date, $id_user);
+        $stmtUpdate->execute();
+    }
+
+    echo json_encode(["success" => true]);
 }
-?>
