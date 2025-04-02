@@ -20,7 +20,7 @@ $id = $_SESSION['user_id'];
 </head>
 
 <body style="display: flex; flex-direction: column;">
-    <div class="points" id="btn-points" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
+    <div class="points" id="btn-points" style="display: <?php echo in_array($id, [5, 9, 12, 13, 28]) ? 'flex' : 'none'; ?>;">
         <img src="./assets/img/btn-points.png" alt="">
     </div>
     <div class="out" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
