@@ -517,7 +517,7 @@ body {
 }
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:hover {
-  border: 0.1rem solid #8daef1;
+  border: 0.1rem solid #ff733e;
   overflow: hidden;
 }
 
@@ -537,7 +537,7 @@ body {
 }
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul {
-  background-color: #edfaff;
+  background-color: #ffe1cc66;
 }
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day li {
@@ -585,7 +585,7 @@ body {
 }
 
 #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul li.calc.df {
-  background-color: #c3f5ff;
+  background-color: #ffdcc3;
   line-height: 1.75rem;
   font-size: 0.75rem;
 }
