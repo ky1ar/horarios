@@ -283,9 +283,10 @@ body {
 
 #ky1-rgt header .ky1-usr #previousUser img {
   transform: scaleX(-1);
+}
+#ky1-rgt header .ky1-usr .usr-btn img {
   filter: invert(1);
 }
-
 /***************************************************************************/
 #selectedUser {
   display: flex;
