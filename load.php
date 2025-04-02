@@ -7,6 +7,8 @@ if (!isset($_SESSION['user_id'])) {
 require_once './includes/app/db.php';
 $rango =  $_SESSION['admin'];
 $id = $_SESSION['user_id'];
+
+$allowed_users = [5, 9, 12, 13, 28];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -223,7 +225,7 @@ $id = $_SESSION['user_id'];
                 </div>
             </li>
         </ul>
-        <div class="inf-2">
+        <div class="inf-2" <?php echo in_array($user_id, $allowed_users) ? '' : 'style="display: none;"'; ?>>
             <table id="table-points">
                 <tr>
                     <th>Marketing</th>
