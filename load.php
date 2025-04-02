@@ -21,7 +21,7 @@ $id = $_SESSION['user_id'];
 
 <body style="display: flex; flex-direction: column;">
     <div class="points" id="btn-points" style="display: <?php echo in_array($id, [2, 11, 19, 25, 20]) ? 'flex' : 'none'; ?>; 
-<?php echo !in_array($id, [20]) ? 'bottom: 10rem;' : ''; ?> ">
+        <?php echo !in_array($id, [20]) ? 'bottom: 10rem;' : ''; ?> ">
         <img src="./assets/img/btn-points.png" alt="">
     </div>
     <div class="out" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
@@ -241,6 +241,16 @@ $id = $_SESSION['user_id'];
                     <td><input type="checkbox" disabled></td>
                 </tr>
             </table>
+            <div class="">
+                  <label for="descargas">Descargas:</label>              
+                  <input type="text" name="descargas">
+
+                  <label for="dias">Días:</label>              
+                  <input type="text" name="dias">
+
+                  <label for="servicios"></label>              
+                  <input type="text" name="servicios">
+            </div>
         </div>
         <ul class="ky1-hrr">
             <li class="hrr-box">
