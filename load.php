@@ -242,14 +242,18 @@ $id = $_SESSION['user_id'];
                 </tr>
             </table>
             <div class="puntajes">
-                <label for="descargas">Descargas:</label>
-                <input type="text" name="descargas">
+                <div style="display: <?php echo in_array($id, [11, 20]) ? 'flex' : 'none'; ?>;">
+                    <label for="descargas">Descargas:</label>
+                    <input type="text" name="descargas">
+                </div>
 
-                <label for="dias">Días:</label>
-                <input type="text" name="dias">
+                <div style="display: <?php echo in_array($id, [25, 20]) ? 'flex' : 'none'; ?>;">
+                    <label for="dias">Días:</label>
+                    <input type="text" name="dias">
 
-                <label for="servicios">Servicios:</label>
-                <input type="text" name="servicios">
+                    <label for="servicios">Servicios:</label>
+                    <input type="text" name="servicios">
+                </div>
             </div>
         </div>
         <ul class="ky1-hrr">
