@@ -22,6 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $columnToModify = $areaColumns[$sessionUserId];
+    file_put_contents("debug_log.txt", "Fecha generada: $date" . PHP_EOL, FILE_APPEND);
 
     // Si no hay "updates", solo devuelve los datos
     if (empty($_POST["updates"])) {
