@@ -413,34 +413,6 @@ body {
   min-width: 4.5rem;
 }
 
-#ky1-rgt .ky1-rsm .box-img.img-5 {
-  background-color: #8bfff8;
-}
-
-#ky1-rgt .ky1-rsm .box-img.img-1 {
-  background-color: #d3f987;
-}
-
-#ky1-rgt .ky1-rsm .box-img.img-2 {
-  background-color: #ffdd95;
-}
-
-#ky1-rgt .ky1-rsm .box-img.img-3 {
-  background-color: #ffa263;
-}
-
-#ky1-rgt .ky1-rsm .box-img.img-4 {
-  background-color: #acb0ff;
-}
-
-#ky1-rgt .ky1-rsm .box-img.img-6 {
-  background-color: #ff605a;
-}
-
-#ky1-rgt .ky1-rsm .box-img.img-7 {
-  background-color: #ffc426;
-}
-
 #ky1-rgt .ky1-rsm .box-txt {
   display: flex;
   flex-direction: column;
