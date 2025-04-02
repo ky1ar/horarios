@@ -1391,7 +1391,6 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 .container-pointscard .info .valores .btn-insert {
   margin: auto;
   display: flex;
-  margin-bottom: 3rem;
   background-color: var(--gray);
   border: none;
   padding: 0.5rem 1rem;
