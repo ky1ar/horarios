@@ -442,7 +442,7 @@ echo "ID de usuario: " . $id2 . "<br>";
 
     <div class="comentarios-boss" id="comments-container">
         <h1>Notificaciones</h1>
-        <div class="envio" style="display: <?php echo in_array($id2, [20]) ? 'flex' : 'none'; ?>" data-user-id="<?php echo $id2; ?>">
+        <div class="envio" style="display: <?php echo in_array($id2, [11, 20]) ? 'flex' : 'none'; ?>" data-user-id="<?php echo $id2; ?>">
             <form id="commentForm">
                 <textarea id="commentb"></textarea>
                 <input type="submit" value="Comentar">
