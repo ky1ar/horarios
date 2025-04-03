@@ -9,17 +9,14 @@ $rango =  $_SESSION['admin'];
 $id = $_SESSION['user_id'];
 $id2 = $_SESSION['user_id'];
 
-$name = "Usuario no encontrado"; // Valor por defecto en caso de error
+$name = "Usuario no encontrado";
 
-// Consulta para obtener el nombre del usuario
 $stmt = $conn->prepare("SELECT name FROM Users WHERE id_user = ?");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $stmt->bind_result($name);
 $stmt->fetch();
 $stmt->close();
-
-echo "Nombre del usuario: " . htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -452,7 +449,7 @@ echo "Nombre del usuario: " . htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
 
     <div class="comentarios-boss" id="comments-container">
         <h1>Notificaciones</h1>
-        <div class="envio" style="display: <?php echo in_array($id2, [11, 20]) ? 'flex' : 'none'; ?>" data-user-id="<?php echo $id2; ?>" data-user-name="<?php echo $_SESSION['user_name']; ?>">
+        <div class="envio" style="display: <?php echo in_array($id2, [11, 20]) ? 'flex' : 'none'; ?>" data-user-id="<?php echo $id2; ?>" data-user-name="<?php echo $name; ?>">
             <form id="commentForm">
                 <textarea id="commentb"></textarea>
                 <input type="submit" value="Comentar">
