@@ -8,8 +8,6 @@ require_once './includes/app/db.php';
 $rango =  $_SESSION['admin'];
 $id = $_SESSION['user_id'];
 $id2 = $_SESSION['user_id'];
-
-echo "ID de usuario: " . $id2 . "<br>";
 ?>
 <!DOCTYPE html>
 <html lang="es">
