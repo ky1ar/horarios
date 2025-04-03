@@ -7,10 +7,9 @@ if (!isset($_SESSION['user_id'])) {
 require_once './includes/app/db.php';
 $rango =  $_SESSION['admin'];
 $id = $_SESSION['user_id'];
+$id2 = $_SESSION['user_id'];
 
-// Mostrar los valores de la sesión
-echo "Rango: " . $rango . "<br>";
-echo "ID de usuario: " . $id . "<br>";
+echo "ID de usuario: " . $id2 . "<br>";
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -443,7 +442,7 @@ echo "ID de usuario: " . $id . "<br>";
 
     <div class="comentarios-boss" id="comments-container">
         <h1>Notificaciones</h1>
-        <div class="envio" style="display: <?php echo in_array($id, [11, 20]) ? 'flex' : 'none'; ?>" data-user-id="<?php echo $id; ?>">
+        <div class="envio" style="display: <?php echo in_array($id2, [11, 20]) ? 'flex' : 'none'; ?>" data-user-id="<?php echo $id2; ?>">
             <form id="commentForm">
                 <textarea id="commentb"></textarea>
                 <input type="submit" value="Comentar">
