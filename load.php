@@ -254,6 +254,7 @@ $id = $_SESSION['user_id'];
                     <label for="servicios">Servicios:</label>
                     <input type="text" name="servicios">
                 </div>
+                <button id="save-pinf2">Guardar</button>
             </div>
         </div>
         <ul class="ky1-hrr">
