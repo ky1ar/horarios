@@ -931,10 +931,11 @@ $(document).ready(function () {
       },
     });
   }
+
   function getUserActivities(userId, month, year) {
     $.ajax({
       url: "../routes/del/getUserActivities.php",
-      type: "GET",
+      type: "POST", // Cambiado a POST
       data: {
         userId: userId,
         month: month,
