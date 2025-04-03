@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date = sprintf("%04d-%02d", $year, $month); // Formato YYYY-MM
 
     if ($userId > 0 && $month > 0 && $year > 0) {
-        // Consulta para actualizar los datos
+        // Consulta para actualizar los datos solo de la fila correspondiente
         $sql = "UPDATE Activ SET `desc` = ?, `days` = ?, `services` = ? WHERE id_user = ? AND month_year = ?";
         $stmt = $conn->prepare($sql);
         
