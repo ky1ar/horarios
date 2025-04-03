@@ -1450,7 +1450,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   border: 0.1rem solid var(--graydark);
   border-radius: 0.5rem;
   padding: 0.5rem;
-  width: 20rem;
+  width: 10rem;
   outline: none;
 }
 .inf-2 .puntajes button {
