@@ -983,8 +983,7 @@ $(document).ready(function () {
               dataType: "json",
               success: function (updateResponse) {
                 if (updateResponse.success) {
-                  alert("Datos actualizados con éxito.");
-                  // Recargar los datos actualizados
+                  location.reload(); 
                   getUserActivities(userId, month, year);
                 } else {
                   alert(
