@@ -22,7 +22,7 @@ if (isset($_POST['id_user'])) {
     // Consulta con JOIN para obtener también el nombre del autor (de la tabla Users)
     $query = "SELECT c.comentario, c.created_at, u.name AS autor
               FROM Comentarios c
-              JOIN Users u ON c.id_user = u.id_user
+              JOIN Users u ON c.autor = u.id_user  -- Usamos el campo 'autor' para hacer JOIN con 'Users'
               WHERE c.id_user = ?
               ORDER BY c.created_at DESC
               LIMIT 5";
