@@ -1152,6 +1152,7 @@ $(document).ready(function () {
       event.preventDefault();
       var userId = getActiveUserId();
       var comentario = $("#commentb").val().trim();
+      var autor = $("#sec-mes-env").data("user-id");
 
       if (!userId) {
         alert(
@@ -1166,7 +1167,7 @@ $(document).ready(function () {
       $.ajax({
         url: "../routes/del/insertCommentBoss.php",
         method: "POST",
-        data: { user_id: userId, comentario: comentario },
+        data: { user_id: userId, comentario: comentario, autor: autor },
         success: function (response) {
           if (response.success) {
             $("#commentb").val("");
