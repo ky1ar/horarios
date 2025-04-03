@@ -8,6 +8,7 @@ require_once './includes/app/db.php';
 $rango =  $_SESSION['admin'];
 $id = $_SESSION['user_id'];
 $id2 = $_SESSION['user_id'];
+$name = $_SESSION['user_name'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -440,7 +441,7 @@ $id2 = $_SESSION['user_id'];
 
     <div class="comentarios-boss" id="comments-container">
         <h1>Notificaciones</h1>
-        <div class="envio" style="display: <?php echo in_array($id2, [11, 20]) ? 'flex' : 'none'; ?>" data-user-id="<?php echo $id2; ?>">
+        <div class="envio" style="display: <?php echo in_array($id2, [11, 20]) ? 'flex' : 'none'; ?>" data-user-id="<?php echo $id2; ?>" data-user-name="<?php echo $_SESSION['user_name']; ?>">
             <form id="commentForm">
                 <textarea id="commentb"></textarea>
                 <input type="submit" value="Comentar">
