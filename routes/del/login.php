@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Guardamos los valores en la sesión
             $_SESSION['user_id'] = $id_user;
             $_SESSION['admin'] = $admin;
-            $_SESSION['user_name'] = $name; // Almacenamos el nombre
+            $_SESSION['name'] = $name; // Almacenamos el nombre
 
             header("Location: /load");
             exit();
