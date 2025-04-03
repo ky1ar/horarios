@@ -1453,3 +1453,12 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   width: 20rem;
   outline: none;
 }
+.inf-2 .puntajes button {
+  display: flex;
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  border: 0.1rem solid var(--graydarkest);
+  background-color: #4eb5ff;
+  color: white;
+  cursor: pointer;
+}
