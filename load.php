@@ -241,7 +241,7 @@ $id = $_SESSION['user_id'];
                     <td><input type="checkbox" disabled></td>
                 </tr>
             </table>
-            <div class="puntajes">
+            <div class="puntajes" id="points-inf2">
                 <div style="display: <?php echo in_array($id, [11, 20]) ? 'flex' : 'none'; ?>;">
                     <label for="descargas">Descargas:</label>
                     <input type="text" name="descargas">

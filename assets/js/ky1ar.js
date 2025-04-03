@@ -947,8 +947,12 @@ $(document).ready(function () {
           $("input[name='descargas']").val(response.desc);
           $("input[name='dias']").val(response.days);
           $("input[name='servicios']").val(response.services);
+          // Asegurarse de que el elemento esté visible si hay datos
+          $("#points-inf2").show();
         } else {
           console.log("No se encontraron datos: " + response.message);
+          // Ocultar el elemento si no hay datos
+          $("#points-inf2").hide();
         }
       },
       error: function (xhr, status, error) {
