@@ -83,6 +83,7 @@ $(document).ready(function () {
     getStampForDate(newUser.data("id"));
     getUserComments(newUser.data("id"));
     getUserPoints(newUser.data("id"), currentMonth, currentYear);
+    getUserActivities(newUser.data("id"), currentMonth, currentYear);
     getVacations(newUser.data("id"), currentYear);
   }
 
@@ -104,6 +105,7 @@ $(document).ready(function () {
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserPoints(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getUserActivities(selectedUser.attr("data-id"), currentMonth, currentYear);
     getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
     getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
     getStampForDate(selectedUser.attr("data-id"));
@@ -124,6 +126,7 @@ $(document).ready(function () {
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserPoints(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getUserActivities(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserPointsAdmin(currentMonth, currentYear);
 
     getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
@@ -140,7 +143,8 @@ $(document).ready(function () {
     getUserSchedule($(this).data("id"), currentMonth, currentYear);
     getUserData($(this).data("id"), currentMonth, currentYear);
     getUserPoints($(this).data("id"), currentMonth, currentYear);
-
+    getUserActivities($(this).data("id"), currentMonth, currentYear);
+    
     getStampSpecial($(this).data("id"), currentMonth, currentYear);
     getLastDayTime($(this).data("id"), currentMonth, currentYear);
     getStampForDate($(this).data("id"));
@@ -169,6 +173,7 @@ $(document).ready(function () {
     getUserSchedule(userId, currentMonth, currentYear);
     getUserData(userId, currentMonth, currentYear);
     getUserPoints(userId, currentMonth, currentYear);
+    getUserActivities(userId, currentMonth, currentYear);
 
     getStampSpecial(userId, currentMonth, currentYear);
     getLastDayTime(userId, currentMonth, currentYear);
@@ -926,6 +931,30 @@ $(document).ready(function () {
       },
     });
   }
+  function getUserActivities(userId, month, year) {
+    $.ajax({
+      url: "ruta/al/archivo/getUserActivities.php",
+      type: "GET",
+      data: {
+        userId: userId,
+        month: month,
+        year: year,
+      },
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          $("input[name='descargas']").val(response.desc);
+          $("input[name='dias']").val(response.days);
+          $("input[name='servicios']").val(response.services);
+        } else {
+          console.log("No se encontraron datos: " + response.message);
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX: " + error);
+      },
+    });
+  }
 
   function getUserComments(userId) {
     $.ajax({
@@ -1112,6 +1141,7 @@ $(document).ready(function () {
   getStampForDate(selectedUser.attr("data-id"));
   getUserComments(selectedUser.attr("data-id"));
   getUserPoints(selectedUser.attr("data-id"), currentMonth, currentYear);
+  getUserActivities(selectedUser.attr("data-id"), currentMonth, currentYear);
   getUserPointsAdmin(currentMonth, currentYear);
   getVacations(selectedUser.attr("data-id"), currentYear);
 });
