@@ -445,6 +445,7 @@ $id = $_SESSION['user_id'];
                 <input type="submit" value="Comentar">
             </form>
         </div>
+
         <div id="mensajes" class="mensajes">
 
         </div>
