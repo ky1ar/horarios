@@ -933,83 +933,85 @@ $(document).ready(function () {
   }
 
   function getUserActivities(userId, month, year) {
+    // Limpiar los campos antes de cargar los nuevos datos
+    $("input[name='descargas']").val('');
+    $("input[name='dias']").val('');
+    $("input[name='servicios']").val('');
+
     $.ajax({
-      url: "../routes/del/getUserActivities.php",
-      type: "POST", // Cambiado a POST
-      data: {
-        userId: userId,
-        month: month,
-        year: year,
-      },
-      dataType: "json",
-      success: function (response) {
-        if (response.success) {
-          // Llenar los campos con los datos recibidos
-          $("input[name='descargas']").val(response.desc);
-          $("input[name='dias']").val(response.days);
-          $("input[name='servicios']").val(response.services);
+        url: "../routes/del/getUserActivities.php",
+        type: "POST", // Cambiado a POST
+        data: {
+            userId: userId,
+            month: month,
+            year: year,
+        },
+        dataType: "json",
+        success: function (response) {
+            if (response.success) {
+                // Llenar los campos con los datos recibidos
+                $("input[name='descargas']").val(response.desc);
+                $("input[name='dias']").val(response.days);
+                $("input[name='servicios']").val(response.services);
 
-          // Asegurarse de que el elemento esté visible si hay datos
-          $("#points-inf2").show();
+                // Asegurarse de que el elemento esté visible si hay datos
+                $("#points-inf2").show();
 
-          // Gestionar el clic en el botón Guardar
-          $("#save-pinf2").click(function () {
-            // Recoger los valores de los campos
-            var descargas = $("input[name='descargas']").val();
-            var dias = $("input[name='dias']").val();
-            var servicios = $("input[name='servicios']").val();
+                // Gestionar el clic en el botón Guardar
+                $("#save-pinf2").click(function () {
+                    // Recoger los valores de los campos
+                    var descargas = $("input[name='descargas']").val();
+                    var dias = $("input[name='dias']").val();
+                    var servicios = $("input[name='servicios']").val();
 
-            // Validar los datos
-            if (!descargas || !dias || !servicios) {
-              alert("Por favor, complete todos los campos.");
-              return;
+                    // Validar los datos
+                    if (!descargas || !dias || !servicios) {
+                        alert("Por favor, complete todos los campos.");
+                        return;
+                    }
+
+                    // Preparar los datos para enviar al archivo PHP de actualización
+                    var updateData = {
+                        userId: userId,
+                        month: currentMonth,
+                        year: currentYear,
+                        descargas: descargas,
+                        dias: dias,
+                        servicios: servicios,
+                    };
+
+                    // Hacer la solicitud AJAX para actualizar los datos
+                    $.ajax({
+                        url: "../routes/del/updateUserActivities.php", // El archivo PHP para actualizar los datos
+                        type: "POST",
+                        data: updateData,
+                        dataType: "json",
+                        success: function (updateResponse) {
+                            if (updateResponse.success) {
+                                location.reload(true); // Recargar la página para limpiar el caché
+                                getUserActivities(userId, month, year); // Recargar los datos del usuario actualizado
+                            } else {
+                                alert("Error al actualizar los datos: " + updateResponse.message);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error en la solicitud AJAX para actualizar: " + error);
+                            alert("Hubo un error al intentar actualizar los datos.");
+                        },
+                    });
+                });
+            } else {
+                console.log("No se encontraron datos: " + response.message);
+                // Ocultar el elemento si no hay datos
+                $("#points-inf2").hide();
             }
-
-            // Preparar los datos para enviar al archivo PHP de actualización
-            var updateData = {
-              userId: userId,
-              month: currentMonth,
-              year: currentYear,
-              descargas: descargas,
-              dias: dias,
-              servicios: servicios,
-            };
-
-            // Hacer la solicitud AJAX para actualizar los datos
-            $.ajax({
-              url: "../routes/del/updateUserActivities.php", // El archivo PHP para actualizar los datos
-              type: "POST",
-              data: updateData,
-              dataType: "json",
-              success: function (updateResponse) {
-                if (updateResponse.success) {
-                  location.reload(true); 
-                  getUserActivities(userId, month, year);
-                } else {
-                  alert(
-                    "Error al actualizar los datos: " + updateResponse.message
-                  );
-                }
-              },
-              error: function (xhr, status, error) {
-                console.error(
-                  "Error en la solicitud AJAX para actualizar: " + error
-                );
-                alert("Hubo un error al intentar actualizar los datos.");
-              },
-            });
-          });
-        } else {
-          console.log("No se encontraron datos: " + response.message);
-          // Ocultar el elemento si no hay datos
-          $("#points-inf2").hide();
-        }
-      },
-      error: function (xhr, status, error) {
-        console.error("Error en la solicitud AJAX: " + error);
-      },
+        },
+        error: function (xhr, status, error) {
+            console.error("Error en la solicitud AJAX: " + error);
+        },
     });
-  }
+}
+
 
   function getUserComments(userId) {
     $.ajax({
