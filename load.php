@@ -7,6 +7,10 @@ if (!isset($_SESSION['user_id'])) {
 require_once './includes/app/db.php';
 $rango =  $_SESSION['admin'];
 $id = $_SESSION['user_id'];
+
+// Mostrar los valores de la sesión
+echo "Rango: " . $rango . "<br>";
+echo "ID de usuario: " . $id . "<br>";
 ?>
 <!DOCTYPE html>
 <html lang="es">
