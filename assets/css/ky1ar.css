@@ -1410,7 +1410,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   border-collapse: collapse;
   border-radius: 1rem;
   overflow: hidden;
-  padding: 1rem 0;
+  margin: 1rem 0;
 }
 .inf-2 table td,
 .inf-2 table th {
