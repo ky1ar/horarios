@@ -968,8 +968,8 @@ $(document).ready(function () {
             // Preparar los datos para enviar al archivo PHP de actualización
             var updateData = {
               userId: userId,
-              month: month,
-              year: year,
+              month: currentMonth,
+              year: currentYear,
               descargas: descargas,
               dias: dias,
               servicios: servicios,
