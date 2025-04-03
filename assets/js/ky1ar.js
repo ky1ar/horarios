@@ -144,7 +144,7 @@ $(document).ready(function () {
     getUserData($(this).data("id"), currentMonth, currentYear);
     getUserPoints($(this).data("id"), currentMonth, currentYear);
     getUserActivities($(this).data("id"), currentMonth, currentYear);
-    
+
     getStampSpecial($(this).data("id"), currentMonth, currentYear);
     getLastDayTime($(this).data("id"), currentMonth, currentYear);
     getStampForDate($(this).data("id"));
@@ -933,7 +933,7 @@ $(document).ready(function () {
   }
   function getUserActivities(userId, month, year) {
     $.ajax({
-      url: "ruta/al/archivo/getUserActivities.php",
+      url: "../routes/del/getUserActivities.php",
       type: "GET",
       data: {
         userId: userId,
