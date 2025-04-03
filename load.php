@@ -9,15 +9,17 @@ $rango =  $_SESSION['admin'];
 $id = $_SESSION['user_id'];
 $id2 = $_SESSION['user_id'];
 
-// Asegurarnos de que la variable de sesión 'user_name' esté disponible
-if (isset($_SESSION['user_name'])) {
-    $name = $_SESSION['user_name'];  // Recuperamos correctamente el nombre
-    echo "Nombre de usuario en sesión: " . $name;  // Verificamos el valor con un eco
-} else {
-    // Si no existe el 'user_name' en la sesión, puedes asignar un valor por defecto o redirigir
-    $name = "Usuario no encontrado";  // Por ejemplo, para manejar errores.
-    echo "Error: No se encontró el nombre de usuario en la sesión.";
-}
+$name = "Usuario no encontrado"; // Valor por defecto en caso de error
+
+// Consulta para obtener el nombre del usuario
+$stmt = $conn->prepare("SELECT name FROM Users WHERE id_user = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$stmt->bind_result($name);
+$stmt->fetch();
+$stmt->close();
+
+echo "Nombre del usuario: " . htmlspecialchars($name, ENT_QUOTES, 'UTF-8');
 ?>
 <!DOCTYPE html>
 <html lang="es">

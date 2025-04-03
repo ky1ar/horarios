@@ -6,22 +6,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $dni = $_POST['dni'];
     $pass = $_POST['pass'];
 
-    // Consulta SQL actualizada para incluir el campo 'name'
-    $stmt = $conn->prepare("SELECT id_user, pass, admin, name FROM Users WHERE dni = ?");
+    $stmt = $conn->prepare("SELECT id_user, pass, admin FROM Users WHERE dni = ?");
     $stmt->bind_param("s", $dni);
     $stmt->execute();
     $stmt->store_result();
 
     if ($stmt->num_rows > 0) {
-        $stmt->bind_result($id_user, $stored_pass, $admin, $name);
+        $stmt->bind_result($id_user, $stored_pass, $admin);
         $stmt->fetch();
 
         if ($pass == $stored_pass) {
-            // Guardamos los valores en la sesión, incluyendo el nombre
             $_SESSION['user_id'] = $id_user;
             $_SESSION['admin'] = $admin;
-            $_SESSION['user_name'] = $name; // Almacenamos el nombre correctamente
-
             header("Location: /load");
             exit();
         } else {
@@ -36,3 +32,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: index.php");
     exit();
 }
+?>
