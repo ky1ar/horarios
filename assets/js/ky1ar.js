@@ -1025,7 +1025,7 @@ $(document).ready(function () {
           var userName = $(".envio").data("user-name");
           comments.forEach(function (comment) {
             $mensajesDiv.append(
-              "<p><strong>" + userName + ":</strong> " +
+              "<p><strong>Antonio:</strong> " +
                 comment.comentario +
                 " <span class='fecha'>" +
                 comment.created_at +
