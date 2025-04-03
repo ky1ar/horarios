@@ -9,7 +9,13 @@ $rango =  $_SESSION['admin'];
 $id = $_SESSION['user_id'];
 $id2 = $_SESSION['user_id'];
 
-$name = $_SESSION['name'];
+// Asegurarnos de que la variable de sesión 'user_name' esté disponible
+if (isset($_SESSION['user_name'])) {
+    $name = $_SESSION['user_name'];  // Recuperamos correctamente el nombre
+} else {
+    // Si no existe el 'user_name' en la sesión, puedes asignar un valor por defecto o redirigir
+    $name = "Usuario no encontrado";  // Por ejemplo, para manejar errores.
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">

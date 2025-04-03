@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $dni = $_POST['dni'];
     $pass = $_POST['pass'];
 
-    // Actualizamos la consulta para incluir el campo 'name'
+    // Consulta SQL actualizada para incluir el campo 'name'
     $stmt = $conn->prepare("SELECT id_user, pass, admin, name FROM Users WHERE dni = ?");
     $stmt->bind_param("s", $dni);
     $stmt->execute();
@@ -17,10 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->fetch();
 
         if ($pass == $stored_pass) {
-            // Guardamos los valores en la sesión
+            // Guardamos los valores en la sesión, incluyendo el nombre
             $_SESSION['user_id'] = $id_user;
             $_SESSION['admin'] = $admin;
-            $_SESSION['name'] = $name; // Almacenamos el nombre
+            $_SESSION['user_name'] = $name; // Almacenamos el nombre correctamente
 
             header("Location: /load");
             exit();
@@ -36,4 +36,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: index.php");
     exit();
 }
-?>
