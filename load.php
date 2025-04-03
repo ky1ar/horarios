@@ -12,9 +12,11 @@ $id2 = $_SESSION['user_id'];
 // Asegurarnos de que la variable de sesión 'user_name' esté disponible
 if (isset($_SESSION['user_name'])) {
     $name = $_SESSION['user_name'];  // Recuperamos correctamente el nombre
+    echo "Nombre de usuario en sesión: " . $name;  // Verificamos el valor con un eco
 } else {
     // Si no existe el 'user_name' en la sesión, puedes asignar un valor por defecto o redirigir
     $name = "Usuario no encontrado";  // Por ejemplo, para manejar errores.
+    echo "Error: No se encontró el nombre de usuario en la sesión.";
 }
 ?>
 <!DOCTYPE html>
