@@ -985,7 +985,7 @@ $(document).ready(function () {
                 if (updateResponse.success) {
                   // Recargar los datos del usuario actual
                   getUserActivities(userId, month, year);
-                  alert("Datos actualizados correctamente.");
+                  location.reload(true) 
                 } else {
                   alert("Error al actualizar los datos: " + updateResponse.message);
                 }
