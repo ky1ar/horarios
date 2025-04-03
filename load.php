@@ -443,12 +443,13 @@ echo "ID de usuario: " . $id . "<br>";
 
     <div class="comentarios-boss" id="comments-container">
         <h1>Notificaciones</h1>
-        <div class="envio" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
-            <form id="commentForm">
-                <textarea id="commentb"></textarea>
-                <input type="submit" value="Comentar">
-            </form>
-        </div>
+        <div class="envio" style="display: <?php echo in_array($id, [11, 20]) ? 'flex' : 'none'; ?>">
+    <form id="commentForm">
+        <textarea id="commentb"></textarea>
+        <input type="submit" value="Comentar">
+    </form>
+</div>
+
         <div id="mensajes" class="mensajes">
 
         </div>
