@@ -1,5 +1,6 @@
 <?php
 require_once '../../includes/app/db.php';
+
 $mesesEnEspanol = [
     'january' => 'enero',
     'february' => 'febrero',
@@ -18,8 +19,9 @@ $mesesEnEspanol = [
 if (isset($_POST['id_user'])) {
     $id_user = (int)$_POST['id_user'];
 
-    $query = "SELECT c.comentario, c.created_at
+    $query = "SELECT c.comentario, c.created_at, u.name AS autor
               FROM Comentarios c
+              JOIN Users u ON u.id_user = c.id_user
               WHERE c.id_user = ?
               ORDER BY c.created_at DESC
               LIMIT 5";
@@ -44,7 +46,8 @@ if (isset($_POST['id_user'])) {
             $formatted_date = "$day de $month del $year";
             $comments[] = [
                 'comentario' => htmlspecialchars($row['comentario']),
-                'created_at' => $formatted_date
+                'created_at' => $formatted_date,
+                'autor' => htmlspecialchars($row['autor'])
             ];
         }
         echo json_encode(['success' => true, 'comments' => $comments]);
@@ -56,3 +59,4 @@ if (isset($_POST['id_user'])) {
 } else {
     echo json_encode(['success' => false, 'message' => 'ID de usuario no proporcionado']);
 }
+?>
