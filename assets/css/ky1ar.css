@@ -1403,13 +1403,14 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 }
 .inf-2 {
   display: flex;
-  margin: 1rem auto;
+  margin: 0 auto;
   width: fit-content;
 }
 .inf-2 table {
   border-collapse: collapse;
   border-radius: 1rem;
   overflow: hidden;
+  padding: 1rem 0;
 }
 .inf-2 table td,
 .inf-2 table th {
