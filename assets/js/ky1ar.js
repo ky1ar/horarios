@@ -998,7 +998,6 @@ $(document).ready(function () {
             });
           });
         } else {
-          console.log("No se encontraron datos: " + response.message);
           $("#points-inf2").hide();
         }
       },
