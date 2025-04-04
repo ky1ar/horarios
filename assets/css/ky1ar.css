@@ -1498,6 +1498,9 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   #indice{
     display: none;
   }
+  #ky1-rgt header .ky1-usr .usr-btn{
+    display: none;
+  }
 }
 
 @media only screen and (max-width: 48rem) { /* 768px */
