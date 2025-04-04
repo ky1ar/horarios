@@ -904,13 +904,12 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         var $table = $("#table-points");
-        // Crear el encabezado dinámico con el mes y año proporcionado
-        var headerText = "Desempeño " + month + " " + year;
-        var $header = $("<h1>").text(headerText);
-
-        // Insertar el encabezado antes de la tabla
-        $table.before($header);
-
+        var allowedIds = [5, 9, 12, 13, 28];
+        if (allowedIds.includes(userId)) {
+          var headerText = "Desempeño " + month + " " + year;
+          var $header = $("<h1>").text(headerText);
+          $table.before($header);
+        }
         var $checkboxCells = $table.find("tr:eq(1) td");
 
         if (response.success && response.data.length > 0) {
