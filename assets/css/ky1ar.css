@@ -1433,8 +1433,8 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 }
 .inf-2 table td input[type="checkbox"]:not(:checked) {
   background-image: url('/assets/img/no-aceptado.png');
-  width: 40px;
-  height: 40px;
+  width: 1.5rem;
+  height: 1.5rem;
   border: none;
   appearance: none;
   background-size: cover;
