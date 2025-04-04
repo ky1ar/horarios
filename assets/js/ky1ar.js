@@ -904,7 +904,8 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         var $table = $("#table-points");
-        $("#mes-año-desc").text(month + " " + year);
+        const mesTexto = monthNames[parseInt(month, 10) - 1];
+        $("#mes-año-desc").text(mesTexto + " " + year);
         var $checkboxCells = $table.find("tr:eq(1) td");
 
         if (response.success && response.data.length > 0) {
