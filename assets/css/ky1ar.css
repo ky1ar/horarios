@@ -436,9 +436,7 @@ body {
 
 #ky1-rgt .ky1-rsm .box-img {
   display: flex;
-  padding: 1rem;
   border-radius: 1rem;
-  min-width: 4.5rem;
 }
 
 #ky1-rgt .ky1-rsm .box-txt {
