@@ -1405,6 +1405,10 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   display: flex;
   margin: 0 auto;
   width: fit-content;
+  flex-direction: column;
+}
+.inf-2 >h1{
+  
 }
 .inf-2 table {
   border-collapse: collapse;

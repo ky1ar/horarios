@@ -236,7 +236,7 @@ $stmt->close();
         </ul>
         <div class="inf-2">
             <h1 style="display: <?php echo in_array($id, [5, 9, 12, 13, 28]) ? 'flex' : 'none'; ?>;">
-                Desempeño <span id="mes-año-desc"></span>
+                Desempeño de <span id="mes-año-desc"></span>
             </h1>
             <table id="table-points" style="display: <?php echo in_array($id, [5, 9, 12, 13, 28]) ? 'flex' : 'none'; ?>;">
                 <tr>
