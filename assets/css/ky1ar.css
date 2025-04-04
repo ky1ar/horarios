@@ -1407,8 +1407,11 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   width: fit-content;
   flex-direction: column;
 }
-.inf-2 >h1{
-  
+.inf-2 > h1 {
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
 .inf-2 table {
   border-collapse: collapse;
@@ -1436,7 +1439,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   pointer-events: none;
 }
 .inf-2 table td input[type="checkbox"]:not(:checked) {
-  background-image: url('/assets/img/no-aceptado.png');
+  background-image: url("/assets/img/no-aceptado.png");
   width: 1.5rem;
   height: 1.5rem;
   border: none;
