@@ -1431,20 +1431,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   height: 1.2rem;
   pointer-events: none;
 }
-.inf-2 table td input[type="checkbox"]:not(:checked) {
-  display: none; /* Oculta el checkbox original */
-}
-.inf-2 table td input[type="checkbox"]:not(:checked)::before {
-  content: '';
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  background-image: url('ruta/a/tu/imagen.png');
-  background-size: cover;
-}
-.inf-2 table td input[type="checkbox"]:checked {
-  background-color: transparent;
-}
+
 .inf-2 .puntajes {
   display: flex;
   gap: 0.5rem;
