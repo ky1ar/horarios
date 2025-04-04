@@ -287,6 +287,7 @@ body {
 #ky1-rgt header .ky1-usr .usr-btn img {
   filter: invert(1);
 }
+
 /***************************************************************************/
 #selectedUser {
   display: flex;
@@ -1483,4 +1484,26 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   background-color: #4eb5ff;
   color: white;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 100rem) { /* 1600px */
+  /* Estilos para pantallas de hasta 1600px */
+}
+
+@media only screen and (max-width: 75rem) { /* 1200px */
+  /* Estilos para pantallas de hasta 1200px */
+}
+
+@media only screen and (max-width: 62rem) { /* 992px */
+  #indice{
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 48rem) { /* 768px */
+  /* Estilos para pantallas de hasta 768px */
+}
+
+@media only screen and (max-width: 36rem) { /* 576px */
+  /* Estilos para pantallas de hasta 576px */
 }
