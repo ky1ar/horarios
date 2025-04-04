@@ -915,7 +915,6 @@ $(document).ready(function () {
                 $("<input>", {
                   type: "checkbox",
                   checked: data[index] == 1,
-                  disabled: true, // Evita modificaciones
                 })
               );
           });
