@@ -244,11 +244,11 @@ $stmt->close();
                     <th>Gerencia</th>
                 </tr>
                 <tr>
-                    <td><input type="checkbox" disabled></td>
-                    <td><input type="checkbox" disabled></td>
-                    <td><input type="checkbox" disabled></td>
-                    <td><input type="checkbox" disabled></td>
-                    <td><input type="checkbox" disabled></td>
+                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox"></td>
                 </tr>
             </table>
             <div class="puntajes" id="points-inf2">

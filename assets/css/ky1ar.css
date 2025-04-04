@@ -1429,6 +1429,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   margin: 0;
   width: 1.2rem;
   height: 1.2rem;
+  pointer-events: none;
 }
 
 .inf-2 .puntajes {
