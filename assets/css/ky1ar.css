@@ -1431,7 +1431,21 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   height: 1.2rem;
   pointer-events: none;
 }
+.inf-2 table td input[type="checkbox"]:not(:checked) {
+  background-image: url('/assets/img/no-aceptado.png');
+  width: 40px;
+  height: 40px;
+  border: none;
+  appearance: none;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  cursor: pointer;
+}
 
+.inf-2 table td input[type="checkbox"]:checked {
+  background-color: transparent;
+}
 .inf-2 .puntajes {
   display: flex;
   gap: 0.5rem;
