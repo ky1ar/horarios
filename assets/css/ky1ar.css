@@ -456,7 +456,7 @@ body {
 
 #ky1-rgt .ky1-rsm .box-txt p {
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.9rem;
   opacity: 0.75;
   text-align: right;
 }
@@ -1484,30 +1484,35 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   cursor: pointer;
 }
 
-@media only screen and (max-width: 100rem) { /* 1600px */
+@media only screen and (max-width: 100rem) {
+  /* 1600px */
   /* Estilos para pantallas de hasta 1600px */
 }
 
-@media only screen and (max-width: 75rem) { /* 1200px */
+@media only screen and (max-width: 75rem) {
+  /* 1200px */
   /* Estilos para pantallas de hasta 1200px */
 }
 
-@media only screen and (max-width: 62rem) { /* 992px */
-  #indice{
+@media only screen and (max-width: 62rem) {
+  /* 992px */
+  #indice {
     display: none;
   }
-  #ky1-rgt header .ky1-usr .usr-btn{
+  #ky1-rgt header .ky1-usr .usr-btn {
     display: none;
   }
-  #selectedUser{
+  #selectedUser {
     justify-content: normal;
   }
 }
 
-@media only screen and (max-width: 48rem) { /* 768px */
+@media only screen and (max-width: 48rem) {
+  /* 768px */
   /* Estilos para pantallas de hasta 768px */
 }
 
-@media only screen and (max-width: 36rem) { /* 576px */
+@media only screen and (max-width: 36rem) {
+  /* 576px */
   /* Estilos para pantallas de hasta 576px */
 }
