@@ -917,11 +917,14 @@ $(document).ready(function () {
             // Si el checkbox no está seleccionado, se agrega la imagen de fondo
             if (data[index] != 1) {
               $checkbox.css({
-                "background-image": "url('/assets/img/no-aceptado.png')",
-                "background-size": "cover",
-                width: "20px", // Ajusta el tamaño según lo necesites
-                height: "20px",
-                border: "none", // Elimina el borde si es necesario
+                "width": "40px",  // Ajusta el tamaño del checkbox
+                "height": "40px", // Ajusta el tamaño del checkbox
+                "border": "none", // Elimina el borde si es necesario
+                "appearance": "none", // Elimina la apariencia predeterminada del checkbox
+                "background-size": "cover", // Asegura que la imagen cubra todo el área del checkbox
+                "background-repeat": "no-repeat", // Evita que la imagen se repita
+                "background-position": "center", // Centra la imagen en el checkbox
+                "cursor": "pointer" // Muestra el cursor de pointer para indicar que e
               });
             }
 
