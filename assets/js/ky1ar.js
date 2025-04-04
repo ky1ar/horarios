@@ -904,12 +904,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         var $table = $("#table-points");
-        var allowedIds = [5, 9, 12, 13, 28];
-        if (allowedIds.includes(userId)) {
-          var headerText = "Desempeño " + month + " " + year;
-          var $header = $("<h1>").text(headerText);
-          $table.before($header);
-        }
+        $("#mes-año-desc").text(month + " " + year);
         var $checkboxCells = $table.find("tr:eq(1) td");
 
         if (response.success && response.data.length > 0) {
@@ -920,7 +915,7 @@ $(document).ready(function () {
               .append(
                 $("<input>", {
                   type: "checkbox",
-                  checked: data[index] == 1,
+                  checked: data[index] == 1
                 })
               );
           });
@@ -940,7 +935,7 @@ $(document).ready(function () {
   function getUserActivities(userId, month, year) {
     $.ajax({
       url: "../routes/del/getUserActivities.php",
-      type: "POST",
+      type: "POST", 
       data: {
         userId: userId,
         month: month,
@@ -953,60 +948,54 @@ $(document).ready(function () {
           $("input[name='descargas']").val(response.desc);
           $("input[name='dias']").val(response.days);
           $("input[name='servicios']").val(response.services);
-
+  
           // Asegurarse de que el elemento esté visible si hay datos
           $("#points-inf2").show();
-
+  
           // Eliminar los eventos previos del botón de guardar
-          $("#save-pinf2")
-            .off("click")
-            .on("click", function () {
-              // Recoger los valores de los campos
-              var descargas = $("input[name='descargas']").val();
-              var dias = $("input[name='dias']").val();
-              var servicios = $("input[name='servicios']").val();
-
-              // Validar los datos
-              if (!descargas || !dias || !servicios) {
-                alert("Por favor, complete todos los campos.");
-                return;
-              }
-
-              // Preparar los datos para enviar al archivo PHP de actualización
-              var updateData = {
-                userId: userId, // Aquí se asegura de que se envíe el userId correcto
-                month: month, // El mes correcto
-                year: year, // El año correcto
-                descargas: descargas,
-                dias: dias,
-                servicios: servicios,
-              };
-
-              // Hacer la solicitud AJAX para actualizar los datos
-              $.ajax({
-                url: "../routes/del/updateUserActivities.php",
-                type: "POST",
-                data: updateData,
-                dataType: "json",
-                success: function (updateResponse) {
-                  if (updateResponse.success) {
-                    // Recargar los datos del usuario actual
-                    getUserActivities(userId, month, year);
-                    location.reload(true);
-                  } else {
-                    alert(
-                      "Error al actualizar los datos: " + updateResponse.message
-                    );
-                  }
-                },
-                error: function (xhr, status, error) {
-                  console.error(
-                    "Error en la solicitud AJAX para actualizar: " + error
-                  );
-                  alert("Hubo un error al intentar actualizar los datos.");
-                },
-              });
+          $("#save-pinf2").off('click').on('click', function () {
+            // Recoger los valores de los campos
+            var descargas = $("input[name='descargas']").val();
+            var dias = $("input[name='dias']").val();
+            var servicios = $("input[name='servicios']").val();
+  
+            // Validar los datos
+            if (!descargas || !dias || !servicios) {
+              alert("Por favor, complete todos los campos.");
+              return;
+            }
+  
+            // Preparar los datos para enviar al archivo PHP de actualización
+            var updateData = {
+              userId: userId,  // Aquí se asegura de que se envíe el userId correcto
+              month: month,    // El mes correcto
+              year: year,      // El año correcto
+              descargas: descargas,
+              dias: dias,
+              servicios: servicios,
+            };
+  
+            // Hacer la solicitud AJAX para actualizar los datos
+            $.ajax({
+              url: "../routes/del/updateUserActivities.php",
+              type: "POST",
+              data: updateData,
+              dataType: "json",
+              success: function (updateResponse) {
+                if (updateResponse.success) {
+                  // Recargar los datos del usuario actual
+                  getUserActivities(userId, month, year);
+                  location.reload(true) 
+                } else {
+                  alert("Error al actualizar los datos: " + updateResponse.message);
+                }
+              },
+              error: function (xhr, status, error) {
+                console.error("Error en la solicitud AJAX para actualizar: " + error);
+                alert("Hubo un error al intentar actualizar los datos.");
+              },
             });
+          });
         } else {
           console.log("No se encontraron datos: " + response.message);
           $("#points-inf2").hide();
@@ -1017,6 +1006,7 @@ $(document).ready(function () {
       },
     });
   }
+  
 
   function getUserComments(userId) {
     $.ajax({
@@ -1031,9 +1021,7 @@ $(document).ready(function () {
           $mensajesDiv.empty();
           comments.forEach(function (comment) {
             $mensajesDiv.append(
-              "<p><strong>" +
-                comment.autor +
-                "</strong> " +
+              "<p><strong>" + comment.autor + "</strong> " +
                 comment.comentario +
                 " <span class='fecha'>" +
                 comment.created_at +
