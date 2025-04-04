@@ -909,14 +909,24 @@ $(document).ready(function () {
         if (response.success && response.data.length > 0) {
           var data = response.data;
           $checkboxCells.each(function (index) {
-            $(this)
-              .empty()
-              .append(
-                $("<input>", {
-                  type: "checkbox",
-                  checked: data[index] == 1
-                })
-              );
+            var $checkbox = $("<input>", {
+              type: "checkbox",
+              checked: data[index] == 1,
+            });
+
+            // Si el checkbox no está seleccionado, se agrega la imagen de fondo
+            if (data[index] != 1) {
+              $checkbox.css({
+                "background-image": "url('ruta/a/tu/imagen.png')",
+                "background-size": "cover",
+                width: "20px", // Ajusta el tamaño según lo necesites
+                height: "20px",
+                border: "none", // Elimina el borde si es necesario
+              });
+            }
+
+            // Reemplaza el contenido de la celda con el nuevo checkbox
+            $(this).empty().append($checkbox);
           });
         } else {
           console.log("No tiene datos válidos");
@@ -934,7 +944,7 @@ $(document).ready(function () {
   function getUserActivities(userId, month, year) {
     $.ajax({
       url: "../routes/del/getUserActivities.php",
-      type: "POST", 
+      type: "POST",
       data: {
         userId: userId,
         month: month,
@@ -947,54 +957,60 @@ $(document).ready(function () {
           $("input[name='descargas']").val(response.desc);
           $("input[name='dias']").val(response.days);
           $("input[name='servicios']").val(response.services);
-  
+
           // Asegurarse de que el elemento esté visible si hay datos
           $("#points-inf2").show();
-  
+
           // Eliminar los eventos previos del botón de guardar
-          $("#save-pinf2").off('click').on('click', function () {
-            // Recoger los valores de los campos
-            var descargas = $("input[name='descargas']").val();
-            var dias = $("input[name='dias']").val();
-            var servicios = $("input[name='servicios']").val();
-  
-            // Validar los datos
-            if (!descargas || !dias || !servicios) {
-              alert("Por favor, complete todos los campos.");
-              return;
-            }
-  
-            // Preparar los datos para enviar al archivo PHP de actualización
-            var updateData = {
-              userId: userId,  // Aquí se asegura de que se envíe el userId correcto
-              month: month,    // El mes correcto
-              year: year,      // El año correcto
-              descargas: descargas,
-              dias: dias,
-              servicios: servicios,
-            };
-  
-            // Hacer la solicitud AJAX para actualizar los datos
-            $.ajax({
-              url: "../routes/del/updateUserActivities.php",
-              type: "POST",
-              data: updateData,
-              dataType: "json",
-              success: function (updateResponse) {
-                if (updateResponse.success) {
-                  // Recargar los datos del usuario actual
-                  getUserActivities(userId, month, year);
-                  location.reload(true) 
-                } else {
-                  alert("Error al actualizar los datos: " + updateResponse.message);
-                }
-              },
-              error: function (xhr, status, error) {
-                console.error("Error en la solicitud AJAX para actualizar: " + error);
-                alert("Hubo un error al intentar actualizar los datos.");
-              },
+          $("#save-pinf2")
+            .off("click")
+            .on("click", function () {
+              // Recoger los valores de los campos
+              var descargas = $("input[name='descargas']").val();
+              var dias = $("input[name='dias']").val();
+              var servicios = $("input[name='servicios']").val();
+
+              // Validar los datos
+              if (!descargas || !dias || !servicios) {
+                alert("Por favor, complete todos los campos.");
+                return;
+              }
+
+              // Preparar los datos para enviar al archivo PHP de actualización
+              var updateData = {
+                userId: userId, // Aquí se asegura de que se envíe el userId correcto
+                month: month, // El mes correcto
+                year: year, // El año correcto
+                descargas: descargas,
+                dias: dias,
+                servicios: servicios,
+              };
+
+              // Hacer la solicitud AJAX para actualizar los datos
+              $.ajax({
+                url: "../routes/del/updateUserActivities.php",
+                type: "POST",
+                data: updateData,
+                dataType: "json",
+                success: function (updateResponse) {
+                  if (updateResponse.success) {
+                    // Recargar los datos del usuario actual
+                    getUserActivities(userId, month, year);
+                    location.reload(true);
+                  } else {
+                    alert(
+                      "Error al actualizar los datos: " + updateResponse.message
+                    );
+                  }
+                },
+                error: function (xhr, status, error) {
+                  console.error(
+                    "Error en la solicitud AJAX para actualizar: " + error
+                  );
+                  alert("Hubo un error al intentar actualizar los datos.");
+                },
+              });
             });
-          });
         } else {
           console.log("No se encontraron datos: " + response.message);
           $("#points-inf2").hide();
@@ -1005,7 +1021,6 @@ $(document).ready(function () {
       },
     });
   }
-  
 
   function getUserComments(userId) {
     $.ajax({
@@ -1020,7 +1035,9 @@ $(document).ready(function () {
           $mensajesDiv.empty();
           comments.forEach(function (comment) {
             $mensajesDiv.append(
-              "<p><strong>" + comment.autor + "</strong> " +
+              "<p><strong>" +
+                comment.autor +
+                "</strong> " +
                 comment.comentario +
                 " <span class='fecha'>" +
                 comment.created_at +
