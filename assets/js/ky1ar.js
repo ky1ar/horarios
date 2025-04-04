@@ -914,7 +914,7 @@ $(document).ready(function () {
               .append(
                 $("<input>", {
                   type: "checkbox",
-                  checked: data[index] == 1,
+                  checked: data[index] == 1
                 })
               );
           });
