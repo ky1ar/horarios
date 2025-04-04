@@ -917,7 +917,7 @@ $(document).ready(function () {
             // Si el checkbox no está seleccionado, se agrega la imagen de fondo
             if (data[index] != 1) {
               $checkbox.css({
-                "background-image": "url('ruta/a/tu/imagen.png')",
+                "background-image": "url('/assets/img/no-aceptado.png')",
                 "background-size": "cover",
                 width: "20px", // Ajusta el tamaño según lo necesites
                 height: "20px",
