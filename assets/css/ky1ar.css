@@ -1541,7 +1541,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
     width: 100%;
   }
   .inf-2 table{
-    display: table;
+    overflow: auto;
   }
 }
 
