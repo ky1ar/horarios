@@ -1538,6 +1538,10 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   }
   .inf-2 {
     margin: 2rem auto 0 auto;
+    width: 100%;
+  }
+  .inf-2 table{
+    display: table;
   }
 }
 
@@ -1546,4 +1550,5 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
     right: 1rem;
     left: auto;
   }
+
 }
