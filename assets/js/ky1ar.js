@@ -955,15 +955,14 @@ $(document).ready(function () {
           } else {
             $("#inf-luc").show();
           }
+
+          // Asegurarse de que el elemento esté visible si hay datos
+          $("#points-inf2").show();
           if (userId == 21 || userId == 6 || userId == 32) {
             $("#points-inf2").hide();
           } else {
             $("#points-inf2").show();
           }
-          
-          // Asegurarse de que el elemento esté visible si hay datos
-          $("#points-inf2").show();
-
           // Eliminar los eventos previos del botón de guardar
           $("#save-pinf2")
             .off("click")
