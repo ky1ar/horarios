@@ -1510,11 +1510,16 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   #ky1-rgt .ky1-rsm li:nth-of-type(1),
   #ky1-rgt .ky1-rsm li:nth-of-type(2),
   #ky1-rgt .ky1-rsm li:nth-of-type(3),
-  #ky1-rgt .ky1-rsm li:nth-of-type(4){
+  #ky1-rgt .ky1-rsm li:nth-of-type(4) {
     width: 24%;
   }
-  #ky1-rgt .ky1-rsm{
-    gap: 0;
+  #ky1-rgt .ky1-rsm li:nth-of-type(5),
+  #ky1-rgt .ky1-rsm li:nth-of-type(6),
+  #ky1-rgt .ky1-rsm li:nth-of-type(7){
+    width: 32%;
+  }
+  #ky1-rgt .ky1-rsm {
+    gap: 1rem 0;
   }
 }
 
