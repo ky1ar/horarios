@@ -907,22 +907,18 @@ $(document).ready(function () {
         const mesTexto = monthNames[parseInt(month, 10) - 1];
         $("#mes-año-desc").text(mesTexto + " " + year);
         var $checkboxCells = $table.find("tr:eq(1) td");
-    
+
         if (response.success && response.data.length > 0) {
           var data = response.data;
           $checkboxCells.each(function (index) {
-            const value = data[index];
-            $(this).empty();
-            if (value == 2) {
-              $(this).text("-");
-            } else {
-              $(this).append(
+            $(this)
+              .empty()
+              .append(
                 $("<input>", {
                   type: "checkbox",
-                  checked: value == 1,
+                  checked: data[index] == 1,
                 })
               );
-            }
           });
         } else {
           console.log("No tiene datos válidos");
@@ -935,7 +931,7 @@ $(document).ready(function () {
         console.log("Error al obtener los datos del usuario.");
       },
     });
-    
+  }
 
   function getUserActivities(userId, month, year) {
     $.ajax({
