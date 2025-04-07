@@ -1289,6 +1289,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   background-color: var(--white);
   border-radius: 1rem;
   width: 100%;
+  flex-direction: column;
 }
 
 .comentarios-boss .mensajes p strong {
