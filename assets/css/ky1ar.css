@@ -1574,6 +1574,6 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
     font-size: 0.75rem;
   }
   .points{
-    bottom: 1rem !important;
+    display: none;
   }
 }
