@@ -911,19 +911,14 @@ $(document).ready(function () {
         if (response.success && response.data.length > 0) {
           var data = response.data;
           $checkboxCells.each(function (index) {
-            const state = data[index];
-            const $cell = $(this).empty();
-
-            if (state == 1 || state == 0) {
-              const $checkbox = $("<input>", {
-                type: "checkbox",
-                checked: state == 1,
-              });
-
-              $cell.append($checkbox);
-            } else {
-              $cell.text("-");
-            }
+            $(this)
+              .empty()
+              .append(
+                $("<input>", {
+                  type: "checkbox",
+                  checked: data[index] == 1,
+                })
+              );
           });
         } else {
           console.log("No tiene datos válidos");
@@ -931,25 +926,6 @@ $(document).ready(function () {
             $(this).empty().text("-");
           });
         }
-
-        // Interacción por clic para ciclo: "-" → 1 → 0 → "-"
-        $checkboxCells.off("click").on("click", function () {
-          const $cell = $(this);
-          const $input = $cell.find("input[type=checkbox]");
-
-          if ($input.length === 0) {
-            // Estaba en "-", pasa a 1 (checked)
-            $cell
-              .empty()
-              .append($("<input>", { type: "checkbox", checked: true }));
-          } else if ($input.is(":checked")) {
-            // Estaba en 1, pasa a 0 (unchecked)
-            $input.prop("checked", false);
-          } else {
-            // Estaba en 0, vuelve a "-"
-            $cell.empty().text("-");
-          }
-        });
       },
       error: function () {
         console.log("Error al obtener los datos del usuario.");
