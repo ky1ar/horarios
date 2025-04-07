@@ -135,7 +135,7 @@ body {
   padding: 1rem;
   margin-bottom: 1rem;
   cursor: pointer;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 .cont-insert .form-insert input {
@@ -1535,6 +1535,9 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 @media only screen and (max-width: 48rem) {
   #ky1-rgt .ky1-rsm li {
     width: calc(50% - 0.5rem) !important;
+  }
+  .inf-2 {
+    margin: 2rem auto 0 auto;
   }
 }
 
