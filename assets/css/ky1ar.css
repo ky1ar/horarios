@@ -1573,4 +1573,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   .inf-2 table th {
     font-size: 0.75rem;
   }
+  .points{
+    bottom: 1rem;
+  }
 }
