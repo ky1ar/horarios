@@ -1537,6 +1537,8 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 }
 
 @media only screen and (max-width: 36rem) {
-  /* 576px */
-  /* Estilos para pantallas de hasta 576px */
+  .points {
+    right: 1rem;
+    left: auto;
+  }
 }
