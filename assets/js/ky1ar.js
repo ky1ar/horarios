@@ -911,14 +911,41 @@ $(document).ready(function () {
         if (response.success && response.data.length > 0) {
           var data = response.data;
           $checkboxCells.each(function (index) {
-            $(this)
-              .empty()
-              .append(
-                $("<input>", {
+            const value = data[index];
+            const $cell = $(this);
+            $cell.empty();
+
+            if (value == 1) {
+              const $input = $("<input>", {
+                type: "checkbox",
+                checked: true,
+              });
+
+              $cell.append($input);
+            } else {
+              // Estado inicial: sin checkbox visible, solo "-"
+              $cell.text("-");
+
+              // Al hacer clic por primera vez, se convierte en checkbox
+              $cell.one("click", function () {
+                const $input = $("<input>", {
                   type: "checkbox",
-                  checked: data[index] == 1,
-                })
-              );
+                  checked: true,
+                });
+
+                let clickCount = 1;
+
+                $input.on("click", function () {
+                  clickCount++;
+                  if (clickCount === 2) {
+                    // Desactivado con imagen
+                    $input.prop("checked", false).addClass("no-accepted");
+                  }
+                });
+
+                $cell.empty().append($input);
+              });
+            }
           });
         } else {
           console.log("No tiene datos válidos");
@@ -960,7 +987,7 @@ $(document).ready(function () {
           } else {
             $("#desc-kev").show();
           }
-          
+
           // Asegurarse de que el elemento esté visible si hay datos
           $("#points-inf2").show();
 
