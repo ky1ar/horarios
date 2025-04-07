@@ -258,7 +258,7 @@ $stmt->close();
                 </tr>
             </table>
             <div class="puntajes" id="points-inf2">
-                <div style="display: <?php echo in_array($id, [11, 20]) ? 'flex' : 'none'; ?>;">
+                <div id="desc-kev" style="display: <?php echo in_array($id, [11, 20]) ? 'flex' : 'none'; ?>;">
                     <label for="descargas">Descargas:</label>
                     <input type="text" name="descargas">
                 </div>
