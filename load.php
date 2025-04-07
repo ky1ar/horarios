@@ -203,7 +203,7 @@ $stmt->close();
                 </div>
                 <div class="box-txt">
                     <span id="totalLatePoints"></span>
-                    <p>Penalización Acumulada</p>
+                    <p>Extra por Tardanza</p>
                 </div>
             </li>
             <li>
