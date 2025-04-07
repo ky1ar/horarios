@@ -112,7 +112,7 @@ body {
   box-shadow: 0 0 0.25rem var(--graydark);
   padding: 1rem;
   border-radius: 0.5rem;
-  width: 7rem;
+  width: 9rem;
   text-align: center;
   background-color: white;
   z-index: 2;
@@ -135,6 +135,7 @@ body {
   padding: 1rem;
   margin-bottom: 1rem;
   cursor: pointer;
+  font-size: .9rem;
 }
 
 .cont-insert .form-insert input {
