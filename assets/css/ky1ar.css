@@ -1513,6 +1513,9 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   #ky1-rgt .ky1-rsm li:nth-of-type(4){
     width: 24%;
   }
+  #ky1-rgt .ky1-rsm{
+    gap: 0;
+  }
 }
 
 @media only screen and (max-width: 62rem) {
