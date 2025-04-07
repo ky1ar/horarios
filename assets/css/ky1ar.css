@@ -1485,12 +1485,18 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 }
 
 @media only screen and (max-width: 100rem) {
+  #ky1-rgt .ky1-rsm{
+    gap: 1rem;
+  }
   #ky1-rgt .ky1-rsm .box-img{
     padding: 0;
     width: auto;
   }
   #ky1-rgt .ky1-rsm .box-txt p{
-    font-size: .9rem;
+    font-size: .8rem;
+  }
+  #ky1-rgt .ky1-rsm li{
+    gap: 0;
   }
 }
 
