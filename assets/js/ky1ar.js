@@ -955,7 +955,7 @@ $(document).ready(function () {
           } else {
             $("#inf-luc").show();
           }
-          if (userId == 21 || userId == 6 || userId == 32) {
+          if (userId == 21 || userId == 6 || userId == 32 || userId == 29) {
             $("#desc-kev").hide();
           } else {
             $("#desc-kev").show();
