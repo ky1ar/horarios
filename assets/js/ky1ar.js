@@ -911,40 +911,18 @@ $(document).ready(function () {
         if (response.success && response.data.length > 0) {
           var data = response.data;
           $checkboxCells.each(function (index) {
-            const value = data[index];
-            const $cell = $(this);
-            $cell.empty();
+            const state = data[index];
+            const $cell = $(this).empty();
 
-            if (value == 1) {
-              const $input = $("<input>", {
+            if (state == 1 || state == 0) {
+              const $checkbox = $("<input>", {
                 type: "checkbox",
-                checked: true,
+                checked: state == 1,
               });
 
-              $cell.append($input);
+              $cell.append($checkbox);
             } else {
-              // Estado inicial: sin checkbox visible, solo "-"
               $cell.text("-");
-
-              // Al hacer clic por primera vez, se convierte en checkbox
-              $cell.one("click", function () {
-                const $input = $("<input>", {
-                  type: "checkbox",
-                  checked: true,
-                });
-
-                let clickCount = 1;
-
-                $input.on("click", function () {
-                  clickCount++;
-                  if (clickCount === 2) {
-                    // Desactivado con imagen
-                    $input.prop("checked", false).addClass("no-accepted");
-                  }
-                });
-
-                $cell.empty().append($input);
-              });
             }
           });
         } else {
@@ -953,6 +931,25 @@ $(document).ready(function () {
             $(this).empty().text("-");
           });
         }
+
+        // Interacción por clic para ciclo: "-" → 1 → 0 → "-"
+        $checkboxCells.off("click").on("click", function () {
+          const $cell = $(this);
+          const $input = $cell.find("input[type=checkbox]");
+
+          if ($input.length === 0) {
+            // Estaba en "-", pasa a 1 (checked)
+            $cell
+              .empty()
+              .append($("<input>", { type: "checkbox", checked: true }));
+          } else if ($input.is(":checked")) {
+            // Estaba en 1, pasa a 0 (unchecked)
+            $input.prop("checked", false);
+          } else {
+            // Estaba en 0, vuelve a "-"
+            $cell.empty().text("-");
+          }
+        });
       },
       error: function () {
         console.log("Error al obtener los datos del usuario.");
