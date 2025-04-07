@@ -1515,7 +1515,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   }
   #ky1-rgt .ky1-rsm li:nth-of-type(5),
   #ky1-rgt .ky1-rsm li:nth-of-type(6),
-  #ky1-rgt .ky1-rsm li:nth-of-type(7){
+  #ky1-rgt .ky1-rsm li:nth-of-type(7) {
     width: 32.5%;
   }
   #ky1-rgt .ky1-rsm {
@@ -1524,7 +1524,6 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 }
 
 @media only screen and (max-width: 62rem) {
-  /* 992px */
   #indice {
     display: none;
   }
@@ -1537,8 +1536,9 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 }
 
 @media only screen and (max-width: 48rem) {
-  /* 768px */
-  /* Estilos para pantallas de hasta 768px */
+  #ky1-rgt .ky1-rsm li {
+    width: 49% !important;
+  }
 }
 
 @media only screen and (max-width: 36rem) {
