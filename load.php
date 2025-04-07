@@ -165,6 +165,9 @@ $stmt->close();
                         </div>
                     <?php endif; ?>
                 </div>
+                <div class="out2" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
+                    <a href="./routes/del/logout.php"><img src="./assets/img/out.svg" alt=""></a>
+                </div>
             </div>
         </header>
 
