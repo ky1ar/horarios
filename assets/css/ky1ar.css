@@ -1481,10 +1481,10 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   cursor: pointer;
 }
 
-.out2{
+.out2 {
   margin-left: auto;
 }
-.out2 a img{
+.out2 a img {
   width: 2.5rem;
 }
 @media only screen and (max-width: 100rem) {
@@ -1546,7 +1546,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
     margin: 2rem auto 0 auto;
     width: 100%;
   }
-  .inf-2 table{
+  .inf-2 table {
     overflow-x: scroll;
   }
 }
@@ -1556,5 +1556,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
     right: 1rem;
     left: auto;
   }
-
+  #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:hover {
+    border: none;
+  }
 }
