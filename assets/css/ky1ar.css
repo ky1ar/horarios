@@ -1485,8 +1485,12 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 }
 
 @media only screen and (max-width: 100rem) {
-  /* 1600px */
-  /* Estilos para pantallas de hasta 1600px */
+  #ky1-rgt .ky1-rsm .box-img{
+    padding: 0;
+  }
+  #ky1-rgt .ky1-rsm .box-txt p{
+    font-size: .9rem;
+  }
 }
 
 @media only screen and (max-width: 75rem) {
