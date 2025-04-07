@@ -1485,27 +1485,34 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 }
 
 @media only screen and (max-width: 100rem) {
-  #ky1-rgt .ky1-rsm{
+  #ky1-rgt .ky1-rsm {
     gap: 1rem;
   }
-  #ky1-rgt .ky1-rsm .box-img{
+  #ky1-rgt .ky1-rsm .box-img {
     padding: 0;
     width: auto;
   }
-  #ky1-rgt .ky1-rsm .box-txt p{
-    font-size: .8rem;
+  #ky1-rgt .ky1-rsm .box-txt p {
+    font-size: 0.8rem;
   }
-  #ky1-rgt .ky1-rsm li{
+  #ky1-rgt .ky1-rsm li {
     gap: 0;
   }
-  #ky1-rgt .ky1-rsm .box-txt span{
+  #ky1-rgt .ky1-rsm .box-txt span {
     font-size: 1.1rem;
   }
 }
 
 @media only screen and (max-width: 75rem) {
-  /* 1200px */
-  /* Estilos para pantallas de hasta 1200px */
+  #ky1-rgt .ky1-rsm {
+    flex-wrap: wrap;
+  }
+  #ky1-rgt .ky1-rsm li:nth-of-type(1),
+  #ky1-rgt .ky1-rsm li:nth-of-type(2),
+  #ky1-rgt .ky1-rsm li:nth-of-type(3),
+  #ky1-rgt .ky1-rsm li:nth-of-type(4){
+    width: 24%;
+  }
 }
 
 @media only screen and (max-width: 62rem) {
