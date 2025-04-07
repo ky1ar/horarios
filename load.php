@@ -263,7 +263,7 @@ $stmt->close();
                     <input type="text" name="descargas">
                 </div>
 
-                <div style="display: <?php echo in_array($id, [25, 20]) ? 'flex' : 'none'; ?>;">
+                <div id="inf-luc" style="display: <?php echo in_array($id, [25, 20]) ? 'flex' : 'none'; ?>;">
                     <label for="dias">Días:</label>
                     <input type="text" name="dias">
 
