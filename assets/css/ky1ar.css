@@ -1559,4 +1559,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   #ky1-rgt .ky1-hrr .hrr-box .hrr-day ul:hover {
     border: none;
   }
+  .inf-2 > h1{
+    font-size: 1rem;
+  }
 }
