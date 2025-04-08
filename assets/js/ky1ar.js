@@ -1136,11 +1136,11 @@ $(document).ready(function () {
         }
       });
 
-      // Si no hay actualizaciones, detener el proceso
-      if (updates.length === 0) {
-        console.log("⚠ No hay cambios para enviar.");
-        return; // No se realiza el fetch si no hay cambios
-      }
+      // // Si no hay actualizaciones, detener el proceso
+      // if (updates.length === 0) {
+      //   console.log("⚠ No hay cambios para enviar.");
+      //   return; // No se realiza el fetch si no hay cambios
+      // }
 
       // Crear el objeto FormData para enviar los datos
       var formData = new FormData();
