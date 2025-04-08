@@ -1128,10 +1128,10 @@ $(document).ready(function () {
         }
       });
 
-      if (updates.length === 0) {
-        alert("No hay cambios para guardar.");
-        return;
-      }
+      // if (updates.length === 0) {
+      //   alert("No hay cambios para guardar.");
+      //   return;
+      // }
 
       var formData = new FormData();
       formData.append("month", currentMonth); // 🔹 Asegurar que se usa el mes actualizado
