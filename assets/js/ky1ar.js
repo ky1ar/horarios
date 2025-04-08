@@ -1125,6 +1125,9 @@ $(document).ready(function () {
         checkbox.addEventListener("click", function () {
           var newState = checkbox.checked ? "1" : "0";
           checkbox.dataset.initialState = newState; // Actualizamos el estado en el dataset
+          
+          // Log para ver qué valor recupera al hacer clic
+          console.log(`Checkbox para usuario ${userId} ha cambiado a: ${newState}`);
         });
 
         var currentState = checkbox.checked ? "1" : "0";
@@ -1165,6 +1168,7 @@ $(document).ready(function () {
           console.error("⚠ Error al actualizar los datos:", error);
         });
     });
+
 
   $(document).ready(function () {
     function getActiveUserId() {
