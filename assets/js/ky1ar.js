@@ -1117,31 +1117,23 @@ $(document).ready(function () {
       "#checkpoint-insert th input[type='hidden']"
     );
 
-    // Solo agregamos las actualizaciones de los checkboxes que han cambiado
     checkboxes.forEach((checkbox, index) => {
       var userId = userIds[index].value;
-      var currentState = checkbox.checked ? "1" : "0";
-      var initialState = checkbox.dataset.initialState;
+      var currentState = checkbox.checked ? "1" : "0"; // 1 si está marcado, 0 si no está marcado
+      var initialState = checkbox.dataset.initialState; // Inicialmente puede ser "2", "1", o "0"
 
-      // Solo agregar el cambio si el estado ha cambiado
-      if (currentState !== initialState) {
+      // Verificamos si el estado del checkbox ha cambiado
+      if (initialState !== currentState) {
+        // Si cambia de 2 a 1 o 2 a 0, se agrega a la lista de cambios
         updates.push({ id_user: userId, value: parseInt(currentState) });
 
         // Actualizamos el estado del checkbox en el dataset
-        checkbox.dataset.initialState = currentState;
-
-        // Log para ver qué valor se está recuperando
-        console.log(
-          `Checkbox para usuario ${userId} ha cambiado a: ${currentState}`
-        );
+        checkbox.dataset.initialState = currentState; // Ahora el nuevo estado será el de checkbox
       }
-    });
 
-    // Si no hay cambios, no enviamos nada
-    if (updates.length === 0) {
-      console.log("⚠ No hay cambios para enviar.");
-      return; // No se realiza el fetch si no hay cambios
-    }
+      // Log para ver qué valor se está recuperando
+      console.log(`Checkbox para usuario ${userId} ha cambiado a: ${currentState}`);
+    });
 
     // Crear el objeto FormData para enviar los datos
     var formData = new FormData();
@@ -1156,7 +1148,6 @@ $(document).ready(function () {
       updates,
     });
 
-    // Enviamos la actualización al servidor
     fetch("../routes/del/getUserPointsAdmin.php", {
       method: "POST",
       body: formData,
@@ -1165,7 +1156,7 @@ $(document).ready(function () {
       .then((data) => {
         console.log("✔ Respuesta del update:", data);
         if (data.success) {
-          location.reload(); // Recargar la página si el update es exitoso
+          location.reload();
         } else {
           console.error("❌ Error en el update:", data.message);
         }
