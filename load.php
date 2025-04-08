@@ -250,7 +250,7 @@ $stmt->close();
                     <th>Gerencia</th>
                 </tr>
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" class="ho"></td>
                     <td><input type="checkbox"></td>
                     <td><input type="checkbox"></td>
                     <td><input type="checkbox"></td>
