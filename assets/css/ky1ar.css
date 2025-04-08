@@ -1547,7 +1547,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
     width: 100%;
   }
   .inf-2 table {
-    display: table !important;
+    overflow-x: scroll;
   }
   .inf-2 .puntajes {
     flex-direction: column;
@@ -1570,14 +1570,10 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   .inf-2 > h1 {
     font-size: 1rem;
   }
-  .inf-2 table {
-    display: flex !important;
-    overflow-x: scroll;
-  }
   .inf-2 table th {
     font-size: 0.75rem;
   }
-  .points {
+  .points{
     display: none !important;
   }
 }
