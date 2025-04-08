@@ -1103,69 +1103,65 @@ $(document).ready(function () {
       });
   }
 
+  // ✅ Evento para capturar cambios y enviar actualización
   document
-  .getElementById("charge-points")
-  .addEventListener("click", function () {
-    var sessionUserId =
-      document.getElementById("checkpoint-insert").dataset.sessionId;
-    var updates = [];
+    .getElementById("charge-points")
+    .addEventListener("click", function () {
+      var sessionUserId =
+        document.getElementById("checkpoint-insert").dataset.sessionId;
+      var updates = [];
 
-    var checkboxes = document.querySelectorAll(
-      "#checkpoint-insert td input[type='checkbox']"
-    );
-    var userIds = document.querySelectorAll(
-      "#checkpoint-insert th input[type='hidden']"
-    );
+      var checkboxes = document.querySelectorAll(
+        "#checkpoint-insert td input[type='checkbox']"
+      );
+      var userIds = document.querySelectorAll(
+        "#checkpoint-insert th input[type='hidden']"
+      );
 
-    checkboxes.forEach((checkbox, index) => {
-      var userId = userIds[index].value;
-      var currentState = checkbox.checked ? "1" : "0"; // 1 si está marcado, 0 si no está marcado
-      var initialState = checkbox.dataset.initialState; // Inicialmente puede ser "2", "1", o "0"
+      checkboxes.forEach((checkbox, index) => {
+        var userId = userIds[index].value;
+        var currentState = checkbox.checked ? "1" : "0";
+        var initialState = checkbox.dataset.initialState;
 
-      // Verificamos si el estado del checkbox ha cambiado
-      if (initialState !== currentState) {
-        // Si cambia de 2 a 1 o 2 a 0, se agrega a la lista de cambios
-        updates.push({ id_user: userId, value: parseInt(currentState) });
-
-        // Actualizamos el estado del checkbox en el dataset
-        checkbox.dataset.initialState = currentState; // Ahora el nuevo estado será el de checkbox
-      }
-
-      // Log para ver qué valor se está recuperando
-      console.log(`Checkbox para usuario ${userId} ha cambiado a: ${currentState}`);
-    });
-
-    // Crear el objeto FormData para enviar los datos
-    var formData = new FormData();
-    formData.append("month", currentMonth); // Asegurar que se usa el mes actualizado
-    formData.append("year", currentYear);
-    formData.append("sessionUserId", sessionUserId);
-    formData.append("updates", JSON.stringify(updates));
-
-    console.log("⚡ Enviando actualización con:", {
-      month: currentMonth,
-      year: currentYear,
-      updates,
-    });
-
-    fetch("../routes/del/getUserPointsAdmin.php", {
-      method: "POST",
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("✔ Respuesta del update:", data);
-        if (data.success) {
-          location.reload();
-        } else {
-          console.error("❌ Error en el update:", data.message);
+        if (currentState !== initialState) {
+          updates.push({ id_user: userId, value: parseInt(currentState) });
         }
-      })
-      .catch((error) => {
-        console.error("⚠ Error al actualizar los datos:", error);
       });
-  });
 
+      // if (updates.length === 0) {
+      //   alert("No hay cambios para guardar.");
+      //   return;
+      // }
+
+      var formData = new FormData();
+      formData.append("month", currentMonth); // 🔹 Asegurar que se usa el mes actualizado
+      formData.append("year", currentYear);
+      formData.append("sessionUserId", sessionUserId);
+      formData.append("updates", JSON.stringify(updates));
+
+      console.log("⚡ Enviando actualización con:", {
+        month: currentMonth,
+        year: currentYear,
+        updates,
+      });
+
+      fetch("../routes/del/getUserPointsAdmin.php", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("✔ Respuesta del update:", data);
+          if (data.success) {
+            location.reload();
+          } else {
+            console.error("❌ Error en el update:", data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("⚠ Error al actualizar los datos:", error);
+        });
+    });
 
   $(document).ready(function () {
     function getActiveUserId() {
