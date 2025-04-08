@@ -1136,11 +1136,7 @@ $(document).ready(function () {
         }
       });
 
-      // Si no hay cambios en ningún usuario, no se envía la actualización
-      if (updates.length === 0) {
-        console.log("⚠ No hay cambios para enviar.");
-        return; // No se realiza el fetch si no hay cambios
-      }
+    
 
       // Crear el objeto FormData para enviar los datos
       var formData = new FormData();
