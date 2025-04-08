@@ -1087,10 +1087,11 @@ $(document).ready(function () {
           userIds.forEach((input, index) => {
             var userId = input.value;
             var checkbox = checkboxes[index];
-
+  
             if (checkbox) {
-              checkbox.checked = !!data.data[userId];
-              checkbox.dataset.initialState = checkbox.checked ? "1" : "0"; // Estado inicial
+              const value = data.data[userId]; // 0, 1 o 2
+              checkbox.checked = (value === 1); // solo se marca si es 1
+              checkbox.dataset.initialState = checkbox.checked ? "1" : "0";
             }
           });
         } else {
