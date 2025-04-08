@@ -911,14 +911,19 @@ $(document).ready(function () {
         if (response.success && response.data.length > 0) {
           var data = response.data;
           $checkboxCells.each(function (index) {
-            $(this)
-              .empty()
-              .append(
+            $(this).empty(); // Limpia el contenido anterior
+
+            if (data[index] == 2) {
+              $(this).text("-"); // Mostrar guion
+            } else {
+              // Mostrar checkbox (marcado o no)
+              $(this).append(
                 $("<input>", {
                   type: "checkbox",
                   checked: data[index] == 1,
                 })
               );
+            }
           });
         } else {
           console.log("No tiene datos válidos");
