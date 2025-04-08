@@ -1123,18 +1123,23 @@ $(document).ready(function () {
         var currentState = checkbox.checked ? "1" : "0";
         var initialState = checkbox.dataset.initialState;
 
+        // Si el estado actual es diferente al estado inicial, se agrega a la lista de actualizaciones
         if (currentState !== initialState) {
           updates.push({ id_user: userId, value: parseInt(currentState) });
         }
+
+        // Actualizamos el estado en el dataset para que siempre contenga el valor más reciente
+        checkbox.dataset.initialState = currentState;
+
+        // Log para ver qué valor se está recuperando
+        console.log(
+          `Checkbox para usuario ${userId} ha cambiado a: ${currentState}`
+        );
       });
 
-      // if (updates.length === 0) {
-      //   alert("No hay cambios para guardar.");
-      //   return;
-      // }
-
+      // Crear el objeto FormData para enviar los datos
       var formData = new FormData();
-      formData.append("month", currentMonth); // 🔹 Asegurar que se usa el mes actualizado
+      formData.append("month", currentMonth); // Asegurar que se usa el mes actualizado
       formData.append("year", currentYear);
       formData.append("sessionUserId", sessionUserId);
       formData.append("updates", JSON.stringify(updates));
@@ -1153,7 +1158,7 @@ $(document).ready(function () {
         .then((data) => {
           console.log("✔ Respuesta del update:", data);
           if (data.success) {
-            location.reload();
+            location.reload(); // Recargar la página si el update es exitoso
           } else {
             console.error("❌ Error en el update:", data.message);
           }
@@ -1162,6 +1167,7 @@ $(document).ready(function () {
           console.error("⚠ Error al actualizar los datos:", error);
         });
     });
+
 
   $(document).ready(function () {
     function getActiveUserId() {
