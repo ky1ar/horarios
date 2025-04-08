@@ -1122,17 +1122,25 @@ $(document).ready(function () {
         var currentState = checkbox.checked ? "1" : "0";
         var initialState = checkbox.dataset.initialState;
 
-        // Actualizamos el estado del checkbox en el dataset, ya sea que cambie de 1 a 0 o de 0 a 1
-        checkbox.dataset.initialState = currentState;
+        // Solo se agrega al array de actualizaciones si el estado cambió
+        if (currentState !== initialState) {
+          updates.push({ id_user: userId, value: parseInt(currentState) });
 
-        // Aunque no haya cambios visibles, agregamos la actualización al array
-        updates.push({ id_user: userId, value: parseInt(currentState) });
+          // Actualizamos el estado del checkbox en el dataset
+          checkbox.dataset.initialState = currentState;
 
-        // Log para ver qué valor se está recuperando
-        console.log(
-          `Checkbox para usuario ${userId} ha cambiado a: ${currentState}`
-        );
+          // Log para ver qué valor se está recuperando
+          console.log(
+            `Cambio detectado para el usuario ${userId}: ${currentState}`
+          );
+        }
       });
+
+      // Si no hay cambios en ningún usuario, no se envía la actualización
+      if (updates.length === 0) {
+        console.log("⚠ No hay cambios para enviar.");
+        return; // No se realiza el fetch si no hay cambios
+      }
 
       // Crear el objeto FormData para enviar los datos
       var formData = new FormData();
@@ -1155,7 +1163,7 @@ $(document).ready(function () {
         .then((data) => {
           console.log("✔ Respuesta del update:", data);
           if (data.success) {
-            location.reload();
+            location.reload(); // Recargar la página si el update es exitoso
           } else {
             console.error("❌ Error en el update:", data.message);
           }
@@ -1164,6 +1172,7 @@ $(document).ready(function () {
           console.error("⚠ Error al actualizar los datos:", error);
         });
     });
+
 
   $(document).ready(function () {
     function getActiveUserId() {
