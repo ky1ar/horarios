@@ -1123,18 +1123,19 @@ $(document).ready(function () {
         var currentState = checkbox.checked ? "1" : "0";
         var initialState = checkbox.dataset.initialState;
 
-        if (currentState !== initialState) {
-          updates.push({ id_user: userId, value: parseInt(currentState) });
-        }
+        // Actualizamos el estado del checkbox en el dataset, ya sea que cambie de 1 a 0 o de 0 a 1
+        checkbox.dataset.initialState = currentState;
+
+        // Aunque no haya cambios visibles, agregamos la actualización al array
+        updates.push({ id_user: userId, value: parseInt(currentState) });
+
+        // Log para ver qué valor se está recuperando
+        console.log(`Checkbox para usuario ${userId} ha cambiado a: ${currentState}`);
       });
 
-      // if (updates.length === 0) {
-      //   alert("No hay cambios para guardar.");
-      //   return;
-      // }
-
+      // Crear el objeto FormData para enviar los datos
       var formData = new FormData();
-      formData.append("month", currentMonth); // 🔹 Asegurar que se usa el mes actualizado
+      formData.append("month", currentMonth); // Asegurar que se usa el mes actualizado
       formData.append("year", currentYear);
       formData.append("sessionUserId", sessionUserId);
       formData.append("updates", JSON.stringify(updates));
@@ -1162,6 +1163,7 @@ $(document).ready(function () {
           console.error("⚠ Error al actualizar los datos:", error);
         });
     });
+
 
   $(document).ready(function () {
     function getActiveUserId() {
