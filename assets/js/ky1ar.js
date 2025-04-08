@@ -1103,7 +1103,6 @@ $(document).ready(function () {
       });
   }
 
-  // ✅ Evento para capturar cambios y enviar actualización
   document
     .getElementById("charge-points")
     .addEventListener("click", function () {
@@ -1123,19 +1122,25 @@ $(document).ready(function () {
         var currentState = checkbox.checked ? "1" : "0";
         var initialState = checkbox.dataset.initialState;
 
-        // Si el estado actual es diferente al estado inicial, se agrega a la lista de actualizaciones
+        // Solo se agrega una actualización si el estado cambia (de 0 a 1 o de 1 a 0)
         if (currentState !== initialState) {
           updates.push({ id_user: userId, value: parseInt(currentState) });
+
+          // Actualizamos el estado en el dataset para que siempre contenga el valor más reciente
+          checkbox.dataset.initialState = currentState;
+
+          // Log para ver qué valor se está recuperando
+          console.log(
+            `Checkbox para usuario ${userId} ha cambiado a: ${currentState}`
+          );
         }
-
-        // Actualizamos el estado en el dataset para que siempre contenga el valor más reciente
-        checkbox.dataset.initialState = currentState;
-
-        // Log para ver qué valor se está recuperando
-        console.log(
-          `Checkbox para usuario ${userId} ha cambiado a: ${currentState}`
-        );
       });
+
+      // Si no hay actualizaciones, detener el proceso
+      if (updates.length === 0) {
+        console.log("⚠ No hay cambios para enviar.");
+        return; // No se realiza el fetch si no hay cambios
+      }
 
       // Crear el objeto FormData para enviar los datos
       var formData = new FormData();
@@ -1167,6 +1172,7 @@ $(document).ready(function () {
           console.error("⚠ Error al actualizar los datos:", error);
         });
     });
+
 
 
   $(document).ready(function () {
