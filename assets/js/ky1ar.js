@@ -1122,24 +1122,17 @@ $(document).ready(function () {
         var currentState = checkbox.checked ? "1" : "0";
         var initialState = checkbox.dataset.initialState;
 
-        // Verificamos si el estado actual difiere del inicial antes de agregarlo a la lista de actualizaciones
-        if (currentState !== initialState) {
-          // Agregamos solo aquellos usuarios cuyo estado ha cambiado
-          updates.push({ id_user: userId, value: parseInt(currentState) });
-          
-          // Actualizamos el estado del checkbox en el dataset, ya sea que cambie de 1 a 0 o de 0 a 1
-          checkbox.dataset.initialState = currentState;
+        // Actualizamos el estado del checkbox en el dataset, ya sea que cambie de 1 a 0 o de 0 a 1
+        checkbox.dataset.initialState = currentState;
 
-          // Log para ver qué valor se está recuperando
-          console.log(`Checkbox para usuario ${userId} ha cambiado a: ${currentState}`);
-        }
+        // Aunque no haya cambios visibles, agregamos la actualización al array
+        updates.push({ id_user: userId, value: parseInt(currentState) });
+
+        // Log para ver qué valor se está recuperando
+        console.log(
+          `Checkbox para usuario ${userId} ha cambiado a: ${currentState}`
+        );
       });
-
-      // // Si no hay actualizaciones, no enviamos nada al servidor
-      // if (updates.length === 0) {
-      //   console.log("⚠ No hay cambios para enviar.");
-      //   return; // No se hace el fetch si no hay cambios
-      // }
 
       // Crear el objeto FormData para enviar los datos
       var formData = new FormData();
@@ -1171,7 +1164,6 @@ $(document).ready(function () {
           console.error("⚠ Error al actualizar los datos:", error);
         });
     });
-
 
   $(document).ready(function () {
     function getActiveUserId() {
