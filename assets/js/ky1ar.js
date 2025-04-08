@@ -1103,6 +1103,7 @@ $(document).ready(function () {
       });
   }
 
+  // ✅ Evento para capturar cambios y enviar actualización
   document
     .getElementById("charge-points")
     .addEventListener("click", function () {
@@ -1122,25 +1123,18 @@ $(document).ready(function () {
         var currentState = checkbox.checked ? "1" : "0";
         var initialState = checkbox.dataset.initialState;
 
-        // Solo se agrega al array de actualizaciones si el estado cambió
         if (currentState !== initialState) {
           updates.push({ id_user: userId, value: parseInt(currentState) });
-
-          // Actualizamos el estado del checkbox en el dataset
-          checkbox.dataset.initialState = currentState;
-
-          // Log para ver qué valor se está recuperando
-          console.log(
-            `Cambio detectado para el usuario ${userId}: ${currentState}`
-          );
         }
       });
 
-    
+      // if (updates.length === 0) {
+      //   alert("No hay cambios para guardar.");
+      //   return;
+      // }
 
-      // Crear el objeto FormData para enviar los datos
       var formData = new FormData();
-      formData.append("month", currentMonth); // Asegurar que se usa el mes actualizado
+      formData.append("month", currentMonth); // 🔹 Asegurar que se usa el mes actualizado
       formData.append("year", currentYear);
       formData.append("sessionUserId", sessionUserId);
       formData.append("updates", JSON.stringify(updates));
@@ -1159,7 +1153,7 @@ $(document).ready(function () {
         .then((data) => {
           console.log("✔ Respuesta del update:", data);
           if (data.success) {
-            location.reload(); // Recargar la página si el update es exitoso
+            location.reload();
           } else {
             console.error("❌ Error en el update:", data.message);
           }
@@ -1168,7 +1162,6 @@ $(document).ready(function () {
           console.error("⚠ Error al actualizar los datos:", error);
         });
     });
-
 
   $(document).ready(function () {
     function getActiveUserId() {
