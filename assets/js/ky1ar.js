@@ -1090,8 +1090,8 @@ $(document).ready(function () {
 
             if (checkbox) {
               const value = data.data[userId]; // 0, 1 o 2
-              checkbox.checked = value === 1; // solo se marca si es 1
-              checkbox.dataset.initialState = checkbox.checked ? "1" : "0";
+              checkbox.checked = value === 1;
+              checkbox.dataset.initialDbValue = value.toString(); // <--- nuevo
             }
           });
         } else {
@@ -1121,9 +1121,9 @@ $(document).ready(function () {
       checkboxes.forEach((checkbox, index) => {
         var userId = userIds[index].value;
         var currentState = checkbox.checked ? "1" : "0";
-        var initialState = checkbox.dataset.initialState;
+        var initialDbValue = checkbox.dataset.initialDbValue;
 
-        if (currentState !== initialState) {
+        if (initialDbValue !== currentState) {
           updates.push({ id_user: userId, value: parseInt(currentState) });
         }
       });
