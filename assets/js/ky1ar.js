@@ -1122,22 +1122,19 @@ $(document).ready(function () {
 
   // Evento para capturar clics en el checkbox y cambiar su estado entre 0, 1, y 2
   document
-    .querySelectorAll("#checkpoint-insert td input[type='checkbox']")
-    .forEach((checkbox) => {
-      checkbox.addEventListener("click", function () {
-        var currentState = parseInt(checkbox.dataset.state);
+  .querySelectorAll("#checkpoint-insert td input[type='checkbox']")
+  .forEach((checkbox) => {
+    checkbox.addEventListener("click", function () {
+      var currentState = parseInt(checkbox.dataset.state);
 
-        // Si el estado es 2, pasa a 1, si no, pasa al siguiente valor (ciclo entre 0, 1, 2)
-        if (currentState === 2) {
-          currentState = 1;
-        } else {
-          currentState = (currentState + 1) % 3;
-        }
+      // Cambia entre 0, 1 y 2 secuencialmente (0 -> 1 -> 2 -> 0)
+      currentState = (currentState + 1) % 3;
 
-        checkbox.dataset.state = currentState.toString();
-        updateCheckboxAppearance(checkbox); // Actualiza la apariencia visual del checkbox
-      });
+      checkbox.dataset.state = currentState.toString();
+      updateCheckboxAppearance(checkbox); // Actualiza la apariencia visual del checkbox
     });
+  });
+
 
   // Evento para capturar cambios y enviar actualización
   document
