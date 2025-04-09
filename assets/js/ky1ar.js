@@ -1064,12 +1064,12 @@ $(document).ready(function () {
   function getUserPointsAdmin(month, year) {
     var sessionUserId =
       document.getElementById("checkpoint-insert").dataset.sessionId;
-  
+
     var formData = new FormData();
     formData.append("month", month);
     formData.append("year", year);
     formData.append("sessionUserId", sessionUserId);
-  
+
     fetch("../routes/del/getUserPointsAdmin.php", {
       method: "POST",
       body: formData,
@@ -1080,13 +1080,17 @@ $(document).ready(function () {
           var checkboxes = document.querySelectorAll(
             "#checkpoint-insert td input[type='checkbox']"
           );
-  
+
           checkboxes.forEach((checkbox) => {
             var userId = checkbox.dataset.idUser;
-            var value = data.data[userId]; // puede ser 0, 1 o 2
-  
+            var value = data.data[userId]; // 0, 1 o 2
+
             checkbox.checked = value === 1;
-            checkbox.dataset.initialDbValue = value.toString();
+
+            // Solo define initialDbValue si aún no estaba definido
+            if (!checkbox.dataset.initialDbValue) {
+              checkbox.dataset.initialDbValue = value.toString();
+            }
           });
         } else {
           console.error("Error: " + data.message);
@@ -1096,7 +1100,7 @@ $(document).ready(function () {
         console.error("Error al obtener los datos:", error);
       });
   }
-  
+
   // ✅ Evento para capturar cambios y enviar actualización
   document
     .getElementById("charge-points")
@@ -1104,33 +1108,33 @@ $(document).ready(function () {
       var sessionUserId =
         document.getElementById("checkpoint-insert").dataset.sessionId;
       var updates = [];
-  
+
       var checkboxes = document.querySelectorAll(
         "#checkpoint-insert td input[type='checkbox']"
       );
-  
+
       checkboxes.forEach((checkbox) => {
         var userId = checkbox.dataset.idUser;
         var currentState = checkbox.checked ? "1" : "0";
         var initialDbValue = checkbox.dataset.initialDbValue;
-  
+
         if (initialDbValue !== currentState) {
           updates.push({ id_user: userId, value: parseInt(currentState) });
         }
       });
-  
+
       var formData = new FormData();
       formData.append("month", currentMonth); // 🔹 Usa mes actual
       formData.append("year", currentYear);
       formData.append("sessionUserId", sessionUserId);
       formData.append("updates", JSON.stringify(updates));
-  
+
       console.log("⚡ Enviando actualización con:", {
         month: currentMonth,
         year: currentYear,
         updates,
       });
-  
+
       fetch("../routes/del/getUserPointsAdmin.php", {
         method: "POST",
         body: formData,
@@ -1148,7 +1152,6 @@ $(document).ready(function () {
           console.error("⚠ Error al actualizar los datos:", error);
         });
     });
-  
 
   $(document).ready(function () {
     function getActiveUserId() {

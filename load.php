@@ -491,12 +491,12 @@ $stmt->close();
     ?>
 </tr>
 <tr>
-    <?php
-    $result->data_seek(0); // Reiniciar el puntero
-    while ($row = $result->fetch_assoc()) {
-        echo '<td><input type="checkbox" data-id-user="' . $row['id_user'] . '"></td>';
-    }
-    ?>
+<?php
+$result->data_seek(0);
+while ($row = $result->fetch_assoc()) {
+    echo '<td><input type="checkbox" data-id-user="' . $row['id_user'] . '" data-initial-db-value="0"></td>';
+}
+?>
 </tr>
 
                 </table>
