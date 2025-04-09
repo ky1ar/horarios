@@ -1062,99 +1062,100 @@ $(document).ready(function () {
     });
   }
   function getUserPointsAdmin(month, year) {
-    var sessionUserId = document.getElementById("checkpoint-insert").dataset.sessionId;
+    var sessionUserId =
+      document.getElementById("checkpoint-insert").dataset.sessionId;
+
     var formData = new FormData();
     formData.append("month", month);
     formData.append("year", year);
     formData.append("sessionUserId", sessionUserId);
 
     fetch("../routes/del/getUserPointsAdmin.php", {
-        method: "POST",
-        body: formData,
+      method: "POST",
+      body: formData,
     })
-    .then(response => response.json())
-    .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         if (data.success) {
-            document.querySelectorAll("#checkpoint-insert th input[type='hidden']").forEach((input, index) => {
-                var checkbox = document.querySelectorAll("#checkpoint-insert td input[type='checkbox']")[index];
-                var userId = input.value;
-                const value = data.data[userId];
+          var userIds = document.querySelectorAll(
+            "#checkpoint-insert th input[type='hidden']"
+          );
+          var checkboxes = document.querySelectorAll(
+            "#checkpoint-insert td input[type='checkbox']"
+          );
 
-                // Establecer el valor del checkbox según el valor recuperado de la base de datos
-                checkbox.checked = value === 1;
-                checkbox.dataset.in = value; // Guardar el valor de la base de datos
-                checkbox.dataset.initialState = value; // Guardar el valor inicial para comparación
+          userIds.forEach((input, index) => {
+            var userId = input.value;
+            var checkbox = checkboxes[index];
 
-                // Agregar evento para gestionar los clics y cambiar el valor
-                checkbox.addEventListener('click', function() {
-                    // No cambiar el valor a 2 si es 0 o 1, mantenerlo
-                    if (checkbox.dataset.in !== "2") {
-                        checkbox.dataset.in = checkbox.checked ? "1" : "0";
-                    }
-                });
-            });
+            if (checkbox) {
+              const value = data.data[userId]; // 0, 1 o 2
+              checkbox.checked = value === 1; // solo se marca si es 1
+              checkbox.dataset.initialState = checkbox.checked ? "1" : "0";
+            }
+          });
         } else {
-            console.error("Error:", data.message);
+          // console.error("Error: " + data.message);
         }
-    })
-    .catch(console.error);
-}
+      })
+      .catch((error) => {
+        console.error("Error al obtener los datos:", error);
+      });
+  }
 
-// ✅ Evento para capturar cambios y enviar actualización
-document
+  // ✅ Evento para capturar cambios y enviar actualización
+  document
     .getElementById("charge-points")
     .addEventListener("click", function () {
-        var sessionUserId = document.getElementById("checkpoint-insert").dataset.sessionId;
-        var updates = [];
+      var sessionUserId =
+        document.getElementById("checkpoint-insert").dataset.sessionId;
+      var updates = [];
 
-        var checkboxes = document.querySelectorAll("#checkpoint-insert td input[type='checkbox']");
-        var userIds = document.querySelectorAll("#checkpoint-insert th input[type='hidden']");
+      var checkboxes = document.querySelectorAll(
+        "#checkpoint-insert td input[type='checkbox']"
+      );
+      var userIds = document.querySelectorAll(
+        "#checkpoint-insert th input[type='hidden']"
+      );
 
-        checkboxes.forEach((checkbox, index) => {
-            var userId = userIds[index].value;
-            var currentState = checkbox.dataset.in;
-            var initialState = checkbox.dataset.initialState;
+      checkboxes.forEach((checkbox, index) => {
+        var userId = userIds[index].value;
+        var currentState = checkbox.checked ? "1" : "0";
+        var initialState = checkbox.dataset.initialState;
 
-            // Solo se envían cambios si el estado de data-in ha cambiado con respecto al estado inicial
-            if (currentState !== initialState) {
-                updates.push({ id_user: userId, value: parseInt(currentState) });
-            }
-        });
-
-        if (updates.length > 0) {
-            var formData = new FormData();
-            formData.append("month", currentMonth);
-            formData.append("year", currentYear);
-            formData.append("sessionUserId", sessionUserId);
-            formData.append("updates", JSON.stringify(updates));
-
-            console.log("⚡ Enviando actualización con:", {
-                month: currentMonth,
-                year: currentYear,
-                updates,
-            });
-
-            fetch("../routes/del/getUserPointsAdmin.php", {
-                method: "POST",
-                body: formData,
-            })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log("✔ Respuesta del update:", data);
-                if (data.success) {
-                    location.reload();
-                } else {
-                    console.error("❌ Error en el update:", data.message);
-                }
-            })
-            .catch((error) => {
-                console.error("⚠ Error al actualizar los datos:", error);
-            });
-        } else {
-            console.log("No hay cambios para guardar.");
+        if (currentState !== initialState) {
+          updates.push({ id_user: userId, value: parseInt(currentState) });
         }
-    });
+      });
+      var formData = new FormData();
+      formData.append("month", currentMonth); 
+      formData.append("year", currentYear);
+      formData.append("sessionUserId", sessionUserId);
+      formData.append("updates", JSON.stringify(updates));
 
+      console.log("⚡ Enviando actualización con:", {
+        month: currentMonth,
+        year: currentYear,
+        updates,
+      });
+
+      fetch("../routes/del/getUserPointsAdmin.php", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("✔ Respuesta del update:", data);
+          if (data.success) {
+            location.reload();
+          } else {
+            console.error("❌ Error en el update:", data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("⚠ Error al actualizar los datos:", error);
+        });
+    });
 
   $(document).ready(function () {
     function getActiveUserId() {
