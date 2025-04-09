@@ -1090,9 +1090,8 @@ $(document).ready(function () {
 
             if (checkbox) {
               const value = data.data[userId]; // 0, 1 o 2
-              checkbox.checked = value === 1;
+              checkbox.checked = value === 1; // solo se marca si es 1
               checkbox.dataset.initialState = checkbox.checked ? "1" : "0";
-              checkbox.dataset.originalValue = value; // Guardamos el valor real de BD
             }
           });
         } else {
@@ -1120,17 +1119,14 @@ $(document).ready(function () {
       );
 
       checkboxes.forEach((checkbox, index) => {
-        const userId = userIds[index].value;
-        const currentState = checkbox.checked ? "1" : "0";
-        const initialState = checkbox.dataset.initialState;
-        const originalValue = checkbox.dataset.originalValue;
+        var userId = userIds[index].value;
+        var currentState = checkbox.checked ? "1" : "0";
+        var initialState = checkbox.dataset.initialState;
 
-        // Detectar cambio si: visual cambió, o si viene de un 2
-        if (currentState !== initialState || originalValue === "2") {
+        if (currentState !== initialState) {
           updates.push({ id_user: userId, value: parseInt(currentState) });
         }
       });
-
       var formData = new FormData();
       formData.append("month", currentMonth);
       formData.append("year", currentYear);

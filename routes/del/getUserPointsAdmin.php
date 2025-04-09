@@ -7,6 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $year = $_POST["year"];
     $date = "$year-" . str_pad($month, 2, "0", STR_PAD_LEFT);
 
+    // Determinar la columna según el jefe de área
     $areaColumns = [
         19 => "c_marketing",
         11 => "c_logistica",
@@ -22,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $columnToModify = $areaColumns[$sessionUserId];
 
+    // Si no hay "updates", solo devuelve los datos
     if (empty($_POST["updates"])) {
         $sql = "SELECT id_user, $columnToModify AS valor FROM Points WHERE date = ?";
         $stmt = $conn->prepare($sql);
@@ -38,14 +40,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
+    // Procesar las actualizaciones
     $updates = json_decode($_POST["updates"], true);
     foreach ($updates as $update) {
-        if (!isset($update["id_user"], $update["value"])) {
-            continue;
-        }
-
-        $id_user = (int)$update["id_user"];
-        $value = (int)$update["value"];
+        $id_user = $update["id_user"];
+        $value = $update["value"];
 
         $sqlUpdate = "UPDATE Points SET $columnToModify = ? WHERE date = ? AND id_user = ?";
         $stmtUpdate = $conn->prepare($sqlUpdate);
