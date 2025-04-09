@@ -1085,10 +1085,11 @@ $(document).ready(function () {
                 checkbox.dataset.initialState = checkbox.checked ? "1" : "0";
 
                 checkbox.addEventListener('click', function() {
+                    // Si el valor es 2, cambiar a 1 o 0, según el estado del checkbox
                     if (checkbox.dataset.in === "2") {
-                        checkbox.dataset.in = "1";
-                        checkbox.checked = true;
+                        checkbox.dataset.in = checkbox.checked ? "1" : "0";
                     } else {
+                        // Alternar entre 1 y 0 si no está en estado 2
                         checkbox.dataset.in = checkbox.checked ? "1" : "0";
                     }
                 });
@@ -1100,60 +1101,57 @@ $(document).ready(function () {
     .catch(console.error);
 }
 
-
-  // ✅ Evento para capturar cambios y enviar actualización
-  document
+// ✅ Evento para capturar cambios y enviar actualización
+document
     .getElementById("charge-points")
     .addEventListener("click", function () {
-      var sessionUserId =
-        document.getElementById("checkpoint-insert").dataset.sessionId;
-      var updates = [];
+        var sessionUserId = document.getElementById("checkpoint-insert").dataset.sessionId;
+        var updates = [];
 
-      var checkboxes = document.querySelectorAll(
-        "#checkpoint-insert td input[type='checkbox']"
-      );
-      var userIds = document.querySelectorAll(
-        "#checkpoint-insert th input[type='hidden']"
-      );
+        var checkboxes = document.querySelectorAll("#checkpoint-insert td input[type='checkbox']");
+        var userIds = document.querySelectorAll("#checkpoint-insert th input[type='hidden']");
 
-      checkboxes.forEach((checkbox, index) => {
-        var userId = userIds[index].value;
-        var currentState = checkbox.checked ? "1" : "0";
-        var initialState = checkbox.dataset.initialState;
+        checkboxes.forEach((checkbox, index) => {
+            var userId = userIds[index].value;
+            // Usar el valor actual de data-in
+            var currentState = checkbox.dataset.in === "1" ? "1" : (checkbox.dataset.in === "0" ? "0" : "1");
+            var initialState = checkbox.dataset.initialState;
 
-        if (currentState !== initialState) {
-          updates.push({ id_user: userId, value: parseInt(currentState) });
-        }
-      });
-      var formData = new FormData();
-      formData.append("month", currentMonth);
-      formData.append("year", currentYear);
-      formData.append("sessionUserId", sessionUserId);
-      formData.append("updates", JSON.stringify(updates));
+            if (currentState !== initialState) {
+                updates.push({ id_user: userId, value: parseInt(currentState) });
+            }
+        });
 
-      console.log("⚡ Enviando actualización con:", {
-        month: currentMonth,
-        year: currentYear,
-        updates,
-      });
+        var formData = new FormData();
+        formData.append("month", currentMonth);
+        formData.append("year", currentYear);
+        formData.append("sessionUserId", sessionUserId);
+        formData.append("updates", JSON.stringify(updates));
 
-      fetch("../routes/del/getUserPointsAdmin.php", {
-        method: "POST",
-        body: formData,
-      })
+        console.log("⚡ Enviando actualización con:", {
+            month: currentMonth,
+            year: currentYear,
+            updates,
+        });
+
+        fetch("../routes/del/getUserPointsAdmin.php", {
+            method: "POST",
+            body: formData,
+        })
         .then((response) => response.json())
         .then((data) => {
-          console.log("✔ Respuesta del update:", data);
-          if (data.success) {
-            location.reload();
-          } else {
-            console.error("❌ Error en el update:", data.message);
-          }
+            console.log("✔ Respuesta del update:", data);
+            if (data.success) {
+                location.reload();
+            } else {
+                console.error("❌ Error en el update:", data.message);
+            }
         })
         .catch((error) => {
-          console.error("⚠ Error al actualizar los datos:", error);
+            console.error("⚠ Error al actualizar los datos:", error);
         });
     });
+
 
   $(document).ready(function () {
     function getActiveUserId() {
