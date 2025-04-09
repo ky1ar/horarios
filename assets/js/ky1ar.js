@@ -1082,16 +1082,13 @@ $(document).ready(function () {
 
                 // Establecer el valor del checkbox según el valor recuperado de la base de datos
                 checkbox.checked = value === 1;
-                checkbox.dataset.in = value;
-                checkbox.dataset.initialState = checkbox.checked ? "1" : "0";
+                checkbox.dataset.in = value; // Guardar el valor de la base de datos
+                checkbox.dataset.initialState = value; // Guardar el valor inicial para comparación
 
                 // Agregar evento para gestionar los clics y cambiar el valor
                 checkbox.addEventListener('click', function() {
-                    // Si el valor es 2 (no modificado), cambiar a 1 o 0, dependiendo de si está marcado o no
-                    if (checkbox.dataset.in === "2") {
-                        checkbox.dataset.in = checkbox.checked ? "1" : "0"; // Alternar entre 1 y 0
-                    } else {
-                        // Para los que están en 0 o 1, mantener la lógica de alternar
+                    // No cambiar el valor a 2 si es 0 o 1, mantenerlo
+                    if (checkbox.dataset.in !== "2") {
                         checkbox.dataset.in = checkbox.checked ? "1" : "0";
                     }
                 });
@@ -1115,43 +1112,47 @@ document
 
         checkboxes.forEach((checkbox, index) => {
             var userId = userIds[index].value;
-            // Usar el valor actual de data-in para determinar si el estado cambió
-            var currentState = checkbox.dataset.in === "1" ? "1" : (checkbox.dataset.in === "0" ? "0" : "1");
+            var currentState = checkbox.dataset.in;
             var initialState = checkbox.dataset.initialState;
 
+            // Solo se envían cambios si el estado de data-in ha cambiado con respecto al estado inicial
             if (currentState !== initialState) {
                 updates.push({ id_user: userId, value: parseInt(currentState) });
             }
         });
 
-        var formData = new FormData();
-        formData.append("month", currentMonth);
-        formData.append("year", currentYear);
-        formData.append("sessionUserId", sessionUserId);
-        formData.append("updates", JSON.stringify(updates));
+        if (updates.length > 0) {
+            var formData = new FormData();
+            formData.append("month", currentMonth);
+            formData.append("year", currentYear);
+            formData.append("sessionUserId", sessionUserId);
+            formData.append("updates", JSON.stringify(updates));
 
-        console.log("⚡ Enviando actualización con:", {
-            month: currentMonth,
-            year: currentYear,
-            updates,
-        });
+            console.log("⚡ Enviando actualización con:", {
+                month: currentMonth,
+                year: currentYear,
+                updates,
+            });
 
-        fetch("../routes/del/getUserPointsAdmin.php", {
-            method: "POST",
-            body: formData,
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log("✔ Respuesta del update:", data);
-            if (data.success) {
-                location.reload();
-            } else {
-                console.error("❌ Error en el update:", data.message);
-            }
-        })
-        .catch((error) => {
-            console.error("⚠ Error al actualizar los datos:", error);
-        });
+            fetch("../routes/del/getUserPointsAdmin.php", {
+                method: "POST",
+                body: formData,
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log("✔ Respuesta del update:", data);
+                if (data.success) {
+                    location.reload();
+                } else {
+                    console.error("❌ Error en el update:", data.message);
+                }
+            })
+            .catch((error) => {
+                console.error("⚠ Error al actualizar los datos:", error);
+            });
+        } else {
+            console.log("No hay cambios para guardar.");
+        }
     });
 
 
