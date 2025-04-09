@@ -1062,13 +1062,14 @@ $(document).ready(function () {
     });
   }
   function getUserPointsAdmin(month, year) {
-    var sessionUserId = document.getElementById("checkpoint-insert").dataset.sessionId;
-  
+    var sessionUserId =
+      document.getElementById("checkpoint-insert").dataset.sessionId;
+
     var formData = new FormData();
     formData.append("month", month);
     formData.append("year", year);
     formData.append("sessionUserId", sessionUserId);
-  
+
     fetch("../routes/del/getUserPointsAdmin.php", {
       method: "POST",
       body: formData,
@@ -1076,13 +1077,17 @@ $(document).ready(function () {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          var userIds = document.querySelectorAll("#checkpoint-insert th input[type='hidden']");
-          var checkboxes = document.querySelectorAll("#checkpoint-insert td input[type='checkbox']");
-  
+          var userIds = document.querySelectorAll(
+            "#checkpoint-insert th input[type='hidden']"
+          );
+          var checkboxes = document.querySelectorAll(
+            "#checkpoint-insert td input[type='checkbox']"
+          );
+
           userIds.forEach((input, index) => {
             var userId = input.value;
             var checkbox = checkboxes[index];
-  
+
             if (checkbox) {
               const value = data.data[userId]; // 0, 1 o 2
               checkbox.dataset.state = value.toString(); // Establece el estado 0, 1, o 2
@@ -1095,65 +1100,73 @@ $(document).ready(function () {
         console.error("Error al obtener los datos:", error);
       });
   }
-  
+
   // Función para actualizar la apariencia del checkbox basado en su estado
   function updateCheckboxAppearance(checkbox) {
+    // Eliminar clases anteriores
+    checkbox.classList.remove("state-0", "state-1", "state-2");
+
+    // Añadir la clase correspondiente según el valor
     switch (checkbox.dataset.state) {
       case "1":
-        checkbox.style.outline = "0.1rem solid green";
-        checkbox.style.backgroundColor = "green";
+        checkbox.classList.add("state-1");
         break;
       case "2":
-        checkbox.style.outline = "0.1rem solid yellow";
-        checkbox.style.backgroundColor = "yellow";
+        checkbox.classList.add("state-2");
         break;
       default:
-        checkbox.style.outline = "0.1rem solid red";
-        checkbox.style.backgroundColor = "red";
+        checkbox.classList.add("state-0");
         break;
     }
   }
-  
+
   // Evento para capturar clics en el checkbox y cambiar su estado entre 0, 1, y 2
-  document.querySelectorAll("#checkpoint-insert td input[type='checkbox']").forEach((checkbox) => {
-    checkbox.addEventListener("click", function () {
-      // Cambia entre 0, 1 y 2
-      var currentState = parseInt(checkbox.dataset.state);
-      currentState = (currentState + 1) % 3;  // Esto va a dar los valores 0, 1, 2
-      checkbox.dataset.state = currentState.toString();
-      updateCheckboxAppearance(checkbox); // Actualiza la apariencia visual del checkbox
+  document
+    .querySelectorAll("#checkpoint-insert td input[type='checkbox']")
+    .forEach((checkbox) => {
+      checkbox.addEventListener("click", function () {
+        // Cambia entre 0, 1 y 2
+        var currentState = parseInt(checkbox.dataset.state);
+        currentState = (currentState + 1) % 3; // Esto va a dar los valores 0, 1, 2
+        checkbox.dataset.state = currentState.toString();
+        updateCheckboxAppearance(checkbox); // Actualiza la apariencia visual del checkbox
+      });
     });
-  });
-  
+
   // Evento para capturar cambios y enviar actualización
   document
     .getElementById("charge-points")
     .addEventListener("click", function () {
-      var sessionUserId = document.getElementById("checkpoint-insert").dataset.sessionId;
+      var sessionUserId =
+        document.getElementById("checkpoint-insert").dataset.sessionId;
       var updates = [];
-  
-      var checkboxes = document.querySelectorAll("#checkpoint-insert td input[type='checkbox']");
-      var userIds = document.querySelectorAll("#checkpoint-insert th input[type='hidden']");
-  
+
+      var checkboxes = document.querySelectorAll(
+        "#checkpoint-insert td input[type='checkbox']"
+      );
+      var userIds = document.querySelectorAll(
+        "#checkpoint-insert th input[type='hidden']"
+      );
+
       checkboxes.forEach((checkbox, index) => {
         var userId = userIds[index].value;
-        var currentState = checkbox.dataset.state;  // Obtenemos el estado actual (0, 1 o 2)
-  
+        var currentState = checkbox.dataset.state; // Obtenemos el estado actual (0, 1 o 2)
+
         updates.push({ id_user: userId, value: parseInt(currentState) });
       });
-  
+
       var formData = new FormData();
       formData.append("month", currentMonth);
       formData.append("year", currentYear);
       formData.append("sessionUserId", sessionUserId);
       formData.append("updates", JSON.stringify(updates));
-  
+
       console.log("⚡ Enviando actualización con:", {
         month: currentMonth,
         year: currentYear,
         updates,
       });
-  
+
       fetch("../routes/del/getUserPointsAdmin.php", {
         method: "POST",
         body: formData,
@@ -1171,7 +1184,7 @@ $(document).ready(function () {
           console.error("⚠ Error al actualizar los datos:", error);
         });
     });
-  
+
   $(document).ready(function () {
     function getActiveUserId() {
       return $("#userList").find(".active").data("id");
