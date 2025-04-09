@@ -1080,16 +1080,18 @@ $(document).ready(function () {
                 var userId = input.value;
                 const value = data.data[userId];
 
+                // Establecer el valor del checkbox según el valor recuperado de la base de datos
                 checkbox.checked = value === 1;
                 checkbox.dataset.in = value;
                 checkbox.dataset.initialState = checkbox.checked ? "1" : "0";
 
+                // Agregar evento para gestionar los clics y cambiar el valor
                 checkbox.addEventListener('click', function() {
-                    // Si el valor es 2, cambiar a 1 o 0, según el estado del checkbox
+                    // Si el valor es 2 (no modificado), cambiar a 1 o 0, dependiendo de si está marcado o no
                     if (checkbox.dataset.in === "2") {
-                        checkbox.dataset.in = checkbox.checked ? "1" : "0";
+                        checkbox.dataset.in = checkbox.checked ? "1" : "0"; // Alternar entre 1 y 0
                     } else {
-                        // Alternar entre 1 y 0 si no está en estado 2
+                        // Para los que están en 0 o 1, mantener la lógica de alternar
                         checkbox.dataset.in = checkbox.checked ? "1" : "0";
                     }
                 });
@@ -1113,7 +1115,7 @@ document
 
         checkboxes.forEach((checkbox, index) => {
             var userId = userIds[index].value;
-            // Usar el valor actual de data-in
+            // Usar el valor actual de data-in para determinar si el estado cambió
             var currentState = checkbox.dataset.in === "1" ? "1" : (checkbox.dataset.in === "0" ? "0" : "1");
             var initialState = checkbox.dataset.initialState;
 
