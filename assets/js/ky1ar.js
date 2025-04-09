@@ -1062,14 +1062,13 @@ $(document).ready(function () {
     });
   }
   function getUserPointsAdmin(month, year) {
-    var sessionUserId =
-      document.getElementById("checkpoint-insert").dataset.sessionId;
-
+    var sessionUserId = document.getElementById("checkpoint-insert").dataset.sessionId;
+  
     var formData = new FormData();
     formData.append("month", month);
     formData.append("year", year);
     formData.append("sessionUserId", sessionUserId);
-
+  
     fetch("../routes/del/getUserPointsAdmin.php", {
       method: "POST",
       body: formData,
@@ -1077,68 +1076,70 @@ $(document).ready(function () {
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          var userIds = document.querySelectorAll(
-            "#checkpoint-insert th input[type='hidden']"
-          );
-          var checkboxes = document.querySelectorAll(
-            "#checkpoint-insert td input[type='checkbox']"
-          );
-
+          var userIds = document.querySelectorAll("#checkpoint-insert th input[type='hidden']");
+          var checkboxes = document.querySelectorAll("#checkpoint-insert td input[type='checkbox']");
+  
           userIds.forEach((input, index) => {
             var userId = input.value;
             var checkbox = checkboxes[index];
-
+  
             if (checkbox) {
               const value = data.data[userId]; // 0, 1 o 2
               checkbox.checked = value === 1; // solo se marca si es 1
               checkbox.dataset.initialState = checkbox.checked ? "1" : "0";
+  
+              // Evento para capturar cambios de checkbox
+              checkbox.addEventListener("change", function () {
+                var currentState = checkbox.checked ? "1" : "0";
+                checkbox.dataset.state = currentState;  // Almacena el estado actual
+  
+                // Almacena los cambios en el array de actualizaciones
+                updates[index] = {
+                  id_user: userId,
+                  value: parseInt(currentState),
+                };
+              });
             }
           });
-        } else {
-          // console.error("Error: " + data.message);
         }
       })
       .catch((error) => {
         console.error("Error al obtener los datos:", error);
       });
   }
-
+  
   // ✅ Evento para capturar cambios y enviar actualización
   document
     .getElementById("charge-points")
     .addEventListener("click", function () {
-      var sessionUserId =
-        document.getElementById("checkpoint-insert").dataset.sessionId;
+      var sessionUserId = document.getElementById("checkpoint-insert").dataset.sessionId;
       var updates = [];
-
-      var checkboxes = document.querySelectorAll(
-        "#checkpoint-insert td input[type='checkbox']"
-      );
-      var userIds = document.querySelectorAll(
-        "#checkpoint-insert th input[type='hidden']"
-      );
-
+  
+      var checkboxes = document.querySelectorAll("#checkpoint-insert td input[type='checkbox']");
+      var userIds = document.querySelectorAll("#checkpoint-insert th input[type='hidden']");
+  
       checkboxes.forEach((checkbox, index) => {
         var userId = userIds[index].value;
         var currentState = checkbox.checked ? "1" : "0";
         var initialState = checkbox.dataset.initialState;
-
+  
         if (currentState !== initialState) {
           updates.push({ id_user: userId, value: parseInt(currentState) });
         }
       });
+  
       var formData = new FormData();
       formData.append("month", currentMonth); 
       formData.append("year", currentYear);
       formData.append("sessionUserId", sessionUserId);
       formData.append("updates", JSON.stringify(updates));
-
+  
       console.log("⚡ Enviando actualización con:", {
         month: currentMonth,
         year: currentYear,
         updates,
       });
-
+  
       fetch("../routes/del/getUserPointsAdmin.php", {
         method: "POST",
         body: formData,
@@ -1156,6 +1157,7 @@ $(document).ready(function () {
           console.error("⚠ Error al actualizar los datos:", error);
         });
     });
+  
 
   $(document).ready(function () {
     function getActiveUserId() {
