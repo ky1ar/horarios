@@ -1120,20 +1120,26 @@ $(document).ready(function () {
     }
   }
 
-  // Evento para capturar clics en el checkbox y cambiar su estado entre 0, 1, y 2
   document
   .querySelectorAll("#checkpoint-insert td input[type='checkbox']")
   .forEach((checkbox) => {
     checkbox.addEventListener("click", function () {
       var currentState = parseInt(checkbox.dataset.state);
 
-      // Cambia entre 0, 1 y 2 secuencialmente (0 -> 1 -> 2 -> 0)
-      currentState = (currentState + 1) % 3;
+      // Cambia entre 2, 1 y 0 secuencialmente (2 -> 1 -> 0 -> 2 -> 1 -> 0)
+      if (currentState === 2) {
+        currentState = 1;
+      } else if (currentState === 1) {
+        currentState = 0;
+      } else {
+        currentState = 2;
+      }
 
       checkbox.dataset.state = currentState.toString();
       updateCheckboxAppearance(checkbox); // Actualiza la apariencia visual del checkbox
     });
   });
+
 
 
   // Evento para capturar cambios y enviar actualización
