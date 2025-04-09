@@ -1125,9 +1125,15 @@ $(document).ready(function () {
     .querySelectorAll("#checkpoint-insert td input[type='checkbox']")
     .forEach((checkbox) => {
       checkbox.addEventListener("click", function () {
-        // Cambia entre 0, 1 y 2
         var currentState = parseInt(checkbox.dataset.state);
-        currentState = (currentState + 1) % 3; // Esto va a dar los valores 0, 1, 2
+
+        // Si el estado es 2, pasa a 1, si no, pasa al siguiente valor (ciclo entre 0, 1, 2)
+        if (currentState === 2) {
+          currentState = 1;
+        } else {
+          currentState = (currentState + 1) % 3;
+        }
+
         checkbox.dataset.state = currentState.toString();
         updateCheckboxAppearance(checkbox); // Actualiza la apariencia visual del checkbox
       });
