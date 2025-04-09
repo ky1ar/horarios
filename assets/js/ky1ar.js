@@ -1074,34 +1074,35 @@ $(document).ready(function () {
       method: "POST",
       body: formData,
     })
-      .then((response) => response.json())
-      .then((data) => {
+    .then((response) => response.json())
+    .then((data) => {
         if (data.success) {
-          var userIds = document.querySelectorAll(
-            "#checkpoint-insert th input[type='hidden']"
-          );
-          var checkboxes = document.querySelectorAll(
-            "#checkpoint-insert td input[type='checkbox']"
-          );
+            var userIds = document.querySelectorAll(
+              "#checkpoint-insert th input[type='hidden']"
+            );
+            var checkboxes = document.querySelectorAll(
+              "#checkpoint-insert td input[type='checkbox']"
+            );
 
-          userIds.forEach((input, index) => {
-            var userId = input.value;
-            var checkbox = checkboxes[index];
+            userIds.forEach((input, index) => {
+                var userId = input.value;
+                var checkbox = checkboxes[index];
 
-            if (checkbox) {
-              const value = data.data[userId]; // 0, 1 o 2
-              checkbox.checked = value === 1; // solo se marca si es 1
-              checkbox.dataset.initialState = checkbox.checked ? "1" : "0";
-            }
-          });
+                if (checkbox) {
+                    const value = data.data[userId]; // 0 o 1 de la base de datos
+                    checkbox.checked = value === 1; // Marca el checkbox si es 1
+                    checkbox.dataset.in = value; // Guarda el valor de 0 o 1 en un data-in
+                    checkbox.dataset.initialState = checkbox.checked ? "1" : "0"; // Almacena el estado inicial
+                }
+            });
         } else {
-          // console.error("Error: " + data.message);
+            console.error("Error al obtener los datos:", data.message);
         }
-      })
-      .catch((error) => {
+    })
+    .catch((error) => {
         console.error("Error al obtener los datos:", error);
-      });
-  }
+    });
+}
 
   // ✅ Evento para capturar cambios y enviar actualización
   document
