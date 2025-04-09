@@ -1438,12 +1438,7 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 .inf-2 table td input[type="checkbox"] {
   width: 1.5rem;
   height: 1.5rem;
-  border: none;
-  appearance: none;
-  cursor: pointer;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
+
 }
 
 /* Estado 0: Rojo - No aceptado */
