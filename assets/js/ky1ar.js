@@ -1062,62 +1062,44 @@ $(document).ready(function () {
     });
   }
   function getUserPointsAdmin(month, year) {
-    var sessionUserId =
-      document.getElementById("checkpoint-insert").dataset.sessionId;
-
+    var sessionUserId = document.getElementById("checkpoint-insert").dataset.sessionId;
     var formData = new FormData();
     formData.append("month", month);
     formData.append("year", year);
     formData.append("sessionUserId", sessionUserId);
 
     fetch("../routes/del/getUserPointsAdmin.php", {
-      method: "POST",
-      body: formData,
+        method: "POST",
+        body: formData,
     })
-      .then((response) => response.json())
-      .then((data) => {
+    .then(response => response.json())
+    .then(data => {
         if (data.success) {
-          var userIds = document.querySelectorAll(
-            "#checkpoint-insert th input[type='hidden']"
-          );
-          var checkboxes = document.querySelectorAll(
-            "#checkpoint-insert td input[type='checkbox']"
-          );
+            document.querySelectorAll("#checkpoint-insert th input[type='hidden']").forEach((input, index) => {
+                var checkbox = document.querySelectorAll("#checkpoint-insert td input[type='checkbox']")[index];
+                var userId = input.value;
+                const value = data.data[userId];
 
-          userIds.forEach((input, index) => {
-            var userId = input.value;
-            var checkbox = checkboxes[index];
+                checkbox.checked = value === 1;
+                checkbox.dataset.in = value;
+                checkbox.dataset.initialState = checkbox.checked ? "1" : "0";
 
-            if (checkbox) {
-              const value = data.data[userId]; // 0 o 1 de la base de datos
-              checkbox.checked = value === 1; // Marca el checkbox si es 1
-              checkbox.dataset.in = value; // Guarda el valor de 0 o 1 en un data-in
-              checkbox.dataset.initialState = checkbox.checked ? "1" : "0"; // Almacena el estado inicial
-
-              // Agregar un escuchador de eventos para el clic
-              checkbox.addEventListener("click", function () {
-                // Si el valor inicial es 2, entonces no lo cambiaremos a 2 nuevamente
-                let currentValue = parseInt(checkbox.dataset.in); // Obtiene el valor actual de data-in
-
-                if (currentValue === 1) {
-                  checkbox.dataset.in = "0"; // Cambia a 0 si el valor actual es 1
-                } else if (currentValue === 0) {
-                  checkbox.dataset.in = "1"; // Cambia a 1 si el valor actual es 0
-                }
-
-                // Refleja el cambio visual en el checkbox
-                checkbox.checked = checkbox.dataset.in === "1"; // Marca el checkbox si data-in es 1
-              });
-            }
-          });
+                checkbox.addEventListener('click', function() {
+                    if (checkbox.dataset.in === "2") {
+                        checkbox.dataset.in = "1";
+                        checkbox.checked = true;
+                    } else {
+                        checkbox.dataset.in = checkbox.checked ? "1" : "0";
+                    }
+                });
+            });
         } else {
-          console.error("Error al obtener los datos:", data.message);
+            console.error("Error:", data.message);
         }
-      })
-      .catch((error) => {
-        console.error("Error al obtener los datos:", error);
-      });
-  }
+    })
+    .catch(console.error);
+}
+
 
   // ✅ Evento para capturar cambios y enviar actualización
   document
