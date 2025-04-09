@@ -474,32 +474,31 @@ $stmt->close();
             <div class="valores">
                 <h1>Valoración de Personal - <span id="month-pointsk3d"></span></h1>
                 <table id="checkpoint-insert" data-session-id="<?php echo $_SESSION['user_id']; ?>">
-                    <tr>
-                        <?php
-                        // Consulta para obtener los usuarios con id_area = 3
-                        $sql = "SELECT id_user, name FROM Users WHERE id_area = 3 ORDER BY name";
-                        $result = $conn->query($sql);
+                <tr>
+    <?php
+    $sql = "SELECT id_user, name FROM Users WHERE id_area = 3 ORDER BY name";
+    $result = $conn->query($sql);
 
-                        if ($result->num_rows > 0) {
-                            while ($row = $result->fetch_assoc()) {
-                                echo '<th>';
-                                echo $row['name'];
-                                echo '<input type="hidden" value="' . $row['id_user'] . '">';
-                                echo '</th>';
-                            }
-                        } else {
-                            echo '<th>No hay usuarios en esta área</th>';
-                        }
-                        ?>
-                    </tr>
-                    <tr>
-                        <?php
-                        $result->data_seek(0); // Reiniciar el puntero del resultado
-                        while ($row = $result->fetch_assoc()) {
-                            echo '<td><input type="checkbox"></td>';
-                        }
-                        ?>
-                    </tr>
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            echo '<th>';
+            echo $row['name'];
+            echo '</th>';
+        }
+    } else {
+        echo '<th>No hay usuarios en esta área</th>';
+    }
+    ?>
+</tr>
+<tr>
+    <?php
+    $result->data_seek(0); // Reiniciar el puntero
+    while ($row = $result->fetch_assoc()) {
+        echo '<td><input type="checkbox" data-id-user="' . $row['id_user'] . '"></td>';
+    }
+    ?>
+</tr>
+
                 </table>
                 <button id="charge-points" class="btn-insert">Guardar</button>
             </div>
