@@ -1121,26 +1121,24 @@ $(document).ready(function () {
   }
 
   document
-  .querySelectorAll("#checkpoint-insert td input[type='checkbox']")
-  .forEach((checkbox) => {
-    checkbox.addEventListener("click", function () {
-      var currentState = parseInt(checkbox.dataset.state);
+    .querySelectorAll("#checkpoint-insert td input[type='checkbox']")
+    .forEach((checkbox) => {
+      checkbox.addEventListener("click", function () {
+        var currentState = parseInt(checkbox.dataset.state);
 
-      // Cambia entre 2, 1 y 0 secuencialmente (2 -> 1 -> 0 -> 2 -> 1 -> 0)
-      if (currentState === 2) {
-        currentState = 1;
-      } else if (currentState === 1) {
-        currentState = 0;
-      } else {
-        currentState = 2;
-      }
+        // Cambia entre 2 -> 1 -> 0 -> 1 -> 0 -> 1 -> 0
+        if (currentState === 2) {
+          currentState = 1;
+        } else if (currentState === 1) {
+          currentState = 0;
+        } else {
+          currentState = 1;
+        }
 
-      checkbox.dataset.state = currentState.toString();
-      updateCheckboxAppearance(checkbox); // Actualiza la apariencia visual del checkbox
+        checkbox.dataset.state = currentState.toString();
+        updateCheckboxAppearance(checkbox); // Actualiza la apariencia visual del checkbox
+      });
     });
-  });
-
-
 
   // Evento para capturar cambios y enviar actualización
   document
