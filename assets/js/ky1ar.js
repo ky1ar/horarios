@@ -1064,12 +1064,12 @@ $(document).ready(function () {
   function getUserPointsAdmin(month, year) {
     var sessionUserId =
       document.getElementById("checkpoint-insert").dataset.sessionId;
-
+  
     var formData = new FormData();
     formData.append("month", month);
     formData.append("year", year);
     formData.append("sessionUserId", sessionUserId);
-
+  
     fetch("../routes/del/getUserPointsAdmin.php", {
       method: "POST",
       body: formData,
@@ -1080,15 +1080,13 @@ $(document).ready(function () {
           var checkboxes = document.querySelectorAll(
             "#checkpoint-insert td input[type='checkbox']"
           );
-
+  
           checkboxes.forEach((checkbox) => {
             var userId = checkbox.dataset.idUser;
-            var value = data.data[userId]; // 0, 1 o 2
-
-            checkbox.checked = value === 1;
-
-            // Solo define initialDbValue si aún no estaba definido
-            checkbox.dataset.initialDbValue = value.toString(); // Siempre actualizar al valor real
+            var value = data.data[userId]; // puede ser 0, 1 o 2
+  
+            checkbox.checked = value === 1 || value === 2;
+            checkbox.dataset.initialDbValue = value.toString(); // siempre actualiza
           });
         } else {
           console.error("Error: " + data.message);
@@ -1098,6 +1096,7 @@ $(document).ready(function () {
         console.error("Error al obtener los datos:", error);
       });
   }
+  
 
   // ✅ Evento para capturar cambios y enviar actualización
   document
