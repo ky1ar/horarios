@@ -1382,8 +1382,22 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 .container-pointscard .info .valores table td input {
   width: 1.5rem;
   height: 1.5rem;
+  border: none;
+  appearance: none;
+  cursor: pointer;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
-
+.container-pointscard .info .valores table td input[type="checkbox"].state-0 {
+  background-image: url("/assets/img/no-aceptado.png");
+}
+.container-pointscard .info .valores table td input[type="checkbox"].state-0 {
+  background-image: url("/assets/img/aceptado.png");
+}
+.container-pointscard .info .valores table td input[type="checkbox"].state-0 {
+  background-image: url("/assets/img/neutral.png");
+}
 .container-pointscard .info .valores .btn-insert {
   margin: auto;
   display: flex;
@@ -1434,31 +1448,16 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   height: 1.2rem;
   pointer-events: none;
 }
-/* Estilo base para los checkboxes */
-.inf-2 table td input[type="checkbox"] {
+.inf-2 table td input[type="checkbox"]:not(:checked) {
+  background-image: url("/assets/img/no-aceptado.png");
   width: 1.5rem;
   height: 1.5rem;
   border: none;
   appearance: none;
-  cursor: pointer;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-}
-
-/* Estado 0: Rojo - No aceptado */
-.inf-2 table td input[type="checkbox"].state-0 {
-  background-image: url("/assets/img/no-aceptado.png");
-}
-
-/* Estado 1: Verde - Aceptado */
-.inf-2 table td input[type="checkbox"].state-1 {
-  background-image: url("/assets/img/aceptado.png");
-}
-
-/* Estado 2: Amarillo - Neutral */
-.inf-2 table td input[type="checkbox"].state-2 {
-  background-image: url("/assets/img/neutral.png");
+  cursor: pointer;
 }
 
 .inf-2 table td input[type="checkbox"]:checked {
