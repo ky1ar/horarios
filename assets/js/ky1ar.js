@@ -1088,9 +1088,7 @@ $(document).ready(function () {
             checkbox.checked = value === 1;
 
             // Solo define initialDbValue si aún no estaba definido
-            if (!checkbox.dataset.initialDbValue) {
-              checkbox.dataset.initialDbValue = value.toString();
-            }
+            checkbox.dataset.initialDbValue = value.toString(); // Siempre actualizar al valor real
           });
         } else {
           console.error("Error: " + data.message);
