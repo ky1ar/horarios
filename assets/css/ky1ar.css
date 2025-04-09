@@ -1392,10 +1392,10 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 .container-pointscard .info .valores table td input[type="checkbox"].state-0 {
   background-image: url("/assets/img/no-aceptado.png");
 }
-.container-pointscard .info .valores table td input[type="checkbox"].state-0 {
+.container-pointscard .info .valores table td input[type="checkbox"].state-1 {
   background-image: url("/assets/img/aceptado.png");
 }
-.container-pointscard .info .valores table td input[type="checkbox"].state-0 {
+.container-pointscard .info .valores table td input[type="checkbox"].state-2 {
   background-image: url("/assets/img/neutral.png");
 }
 .container-pointscard .info .valores .btn-insert {
