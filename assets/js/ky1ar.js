@@ -47,10 +47,13 @@ $(document).ready(function () {
 
   let currentMonth = new Date().getMonth() + 1;
   let currentYear = new Date().getFullYear();
+
+  // Actualizar el contenido del <span> con el mes y año actuales
+  document.getElementById("month-pointsk3d").textContent =
+    monthNames[currentMonth - 1] + " " + currentYear;
   function updateMonthDisplay() {
     $(".ky1-dte span").text(`${monthNames[currentMonth - 1]}, ${currentYear}`);
   }
-
   function updateUserDisplay() {
     const activeUser = userList.find(".active");
     selectedUser.attr("data-id", activeUser.data("id"));
@@ -79,6 +82,8 @@ $(document).ready(function () {
     getLastDayTime(newUser.data("id"), currentMonth, currentYear);
     getStampForDate(newUser.data("id"));
     getUserComments(newUser.data("id"));
+    getUserPoints(newUser.data("id"), currentMonth, currentYear);
+    getUserActivities(newUser.data("id"), currentMonth, currentYear);
     getVacations(newUser.data("id"), currentYear);
   }
 
@@ -93,22 +98,36 @@ $(document).ready(function () {
     currentMonth = (currentMonth % 12) + 1;
     if (currentMonth === 1) currentYear++;
     updateMonthDisplay();
+
+    document.getElementById("month-pointsk3d").textContent =
+      monthNames[currentMonth - 1] + " " + currentYear;
+
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
-
+    getUserPoints(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getUserActivities(selectedUser.attr("data-id"), currentMonth, currentYear);
     getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
     getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
     getStampForDate(selectedUser.attr("data-id"));
     getUserComments(selectedUser.attr("data-id"));
+    getUserPointsAdmin(currentMonth, currentYear);
     getVacations(selectedUser.attr("data-id"), currentYear);
   });
 
   previousMonth.on("click", function () {
     currentMonth = currentMonth === 1 ? 12 : currentMonth - 1;
     if (currentMonth === 12) currentYear--;
+
+    // Actualizar la visualización del mes en el <span>
+    document.getElementById("month-pointsk3d").textContent =
+      monthNames[currentMonth - 1] + " " + currentYear;
+
     updateMonthDisplay();
     getUserSchedule(selectedUser.attr("data-id"), currentMonth, currentYear);
     getUserData(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getUserPoints(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getUserActivities(selectedUser.attr("data-id"), currentMonth, currentYear);
+    getUserPointsAdmin(currentMonth, currentYear);
 
     getStampSpecial(selectedUser.attr("data-id"), currentMonth, currentYear);
     getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
@@ -123,6 +142,8 @@ $(document).ready(function () {
     updateUserDisplay();
     getUserSchedule($(this).data("id"), currentMonth, currentYear);
     getUserData($(this).data("id"), currentMonth, currentYear);
+    getUserPoints($(this).data("id"), currentMonth, currentYear);
+    getUserActivities($(this).data("id"), currentMonth, currentYear);
 
     getStampSpecial($(this).data("id"), currentMonth, currentYear);
     getLastDayTime($(this).data("id"), currentMonth, currentYear);
@@ -151,6 +172,8 @@ $(document).ready(function () {
     updateUserDisplay();
     getUserSchedule(userId, currentMonth, currentYear);
     getUserData(userId, currentMonth, currentYear);
+    getUserPoints(userId, currentMonth, currentYear);
+    getUserActivities(userId, currentMonth, currentYear);
 
     getStampSpecial(userId, currentMonth, currentYear);
     getLastDayTime(userId, currentMonth, currentYear);
@@ -193,7 +216,17 @@ $(document).ready(function () {
     return formattedDate;
   }
 
-  function showModal(stamp, just, coment, midTime, fullTime, salud, servicio, date, userId) {
+  function showModal(
+    stamp,
+    just,
+    coment,
+    midTime,
+    fullTime,
+    salud,
+    servicio,
+    date,
+    userId
+  ) {
     $("#stampInput").val(stamp);
     $("#comentInput").val(coment);
     $("#justNameInput").val(just);
@@ -856,6 +889,146 @@ $(document).ready(function () {
     });
   });
 
+  function getUserPoints(userId, month, year) {
+    var formData = new FormData();
+    formData.append("userId", userId);
+    formData.append("month", month);
+    formData.append("year", year);
+
+    $.ajax({
+      url: "../routes/del/getUserPoints.php",
+      method: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      dataType: "json",
+      success: function (response) {
+        var $table = $("#table-points");
+        const mesTexto = monthNames[parseInt(month, 10) - 1];
+        $("#mes-año-desc").text(mesTexto + " " + year);
+        var $checkboxCells = $table.find("tr:eq(1) td");
+
+        if (response.success && response.data.length > 0) {
+          var data = response.data;
+          $checkboxCells.each(function (index) {
+            $(this).empty(); // Limpia el contenido anterior
+
+            if (data[index] == 2) {
+              $(this).text("-"); // Mostrar guion
+            } else {
+              // Mostrar checkbox (marcado o no)
+              $(this).append(
+                $("<input>", {
+                  type: "checkbox",
+                  checked: data[index] == 1,
+                })
+              );
+            }
+          });
+        } else {
+          console.log("No tiene datos válidos");
+          $checkboxCells.each(function () {
+            $(this).empty().text("-");
+          });
+        }
+      },
+      error: function () {
+        console.log("Error al obtener los datos del usuario.");
+      },
+    });
+  }
+
+  function getUserActivities(userId, month, year) {
+    $.ajax({
+      url: "../routes/del/getUserActivities.php",
+      type: "POST",
+      data: {
+        userId: userId,
+        month: month,
+        year: year,
+      },
+      dataType: "json",
+      success: function (response) {
+        if (response.success) {
+          // Llenar los campos con los datos recibidos
+          $("input[name='descargas']").val(response.desc);
+          $("input[name='dias']").val(response.days);
+          $("input[name='servicios']").val(response.services);
+
+          if (userId == 8 || userId == 10) {
+            $("#inf-luc").hide();
+          } else {
+            $("#inf-luc").show();
+          }
+          if (userId == 21 || userId == 6 || userId == 32 || userId == 29) {
+            $("#desc-kev").hide();
+          } else {
+            $("#desc-kev").show();
+          }
+
+          // Asegurarse de que el elemento esté visible si hay datos
+          $("#points-inf2").show();
+
+          // Eliminar los eventos previos del botón de guardar
+          $("#save-pinf2")
+            .off("click")
+            .on("click", function () {
+              // Recoger los valores de los campos
+              var descargas = $("input[name='descargas']").val();
+              var dias = $("input[name='dias']").val();
+              var servicios = $("input[name='servicios']").val();
+
+              // Validar los datos
+              if (!descargas || !dias || !servicios) {
+                alert("Por favor, complete todos los campos.");
+                return;
+              }
+
+              // Preparar los datos para enviar al archivo PHP de actualización
+              var updateData = {
+                userId: userId, // Aquí se asegura de que se envíe el userId correcto
+                month: month, // El mes correcto
+                year: year, // El año correcto
+                descargas: descargas,
+                dias: dias,
+                servicios: servicios,
+              };
+
+              // Hacer la solicitud AJAX para actualizar los datos
+              $.ajax({
+                url: "../routes/del/updateUserActivities.php",
+                type: "POST",
+                data: updateData,
+                dataType: "json",
+                success: function (updateResponse) {
+                  if (updateResponse.success) {
+                    // Recargar los datos del usuario actual
+                    getUserActivities(userId, month, year);
+                    location.reload(true);
+                  } else {
+                    alert(
+                      "Error al actualizar los datos: " + updateResponse.message
+                    );
+                  }
+                },
+                error: function (xhr, status, error) {
+                  console.error(
+                    "Error en la solicitud AJAX para actualizar: " + error
+                  );
+                  alert("Hubo un error al intentar actualizar los datos.");
+                },
+              });
+            });
+        } else {
+          $("#points-inf2").hide();
+        }
+      },
+      error: function (xhr, status, error) {
+        console.error("Error en la solicitud AJAX: " + error);
+      },
+    });
+  }
+
   function getUserComments(userId) {
     $.ajax({
       url: "../routes/del/getComments.php",
@@ -869,7 +1042,9 @@ $(document).ready(function () {
           $mensajesDiv.empty();
           comments.forEach(function (comment) {
             $mensajesDiv.append(
-              "<p><strong>Antonio:</strong> " +
+              "<p><strong>" +
+                comment.autor +
+                "</strong> " +
                 comment.comentario +
                 " <span class='fecha'>" +
                 comment.created_at +
@@ -886,6 +1061,136 @@ $(document).ready(function () {
       },
     });
   }
+  function getUserPointsAdmin(month, year) {
+    var sessionUserId =
+      document.getElementById("checkpoint-insert").dataset.sessionId;
+
+    var formData = new FormData();
+    formData.append("month", month);
+    formData.append("year", year);
+    formData.append("sessionUserId", sessionUserId);
+
+    fetch("../routes/del/getUserPointsAdmin.php", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          var userIds = document.querySelectorAll(
+            "#checkpoint-insert th input[type='hidden']"
+          );
+          var checkboxes = document.querySelectorAll(
+            "#checkpoint-insert td input[type='checkbox']"
+          );
+
+          userIds.forEach((input, index) => {
+            var userId = input.value;
+            var checkbox = checkboxes[index];
+
+            if (checkbox) {
+              const value = data.data[userId]; // 0, 1 o 2
+              checkbox.dataset.state = value.toString(); // Establece el estado 0, 1, o 2
+              updateCheckboxAppearance(checkbox); // Actualiza la apariencia
+            }
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error al obtener los datos:", error);
+      });
+  }
+
+  // Función para actualizar la apariencia del checkbox basado en su estado
+  function updateCheckboxAppearance(checkbox) {
+    // Eliminar clases anteriores
+    checkbox.classList.remove("state-0", "state-1", "state-2");
+
+    // Añadir la clase correspondiente según el valor
+    switch (checkbox.dataset.state) {
+      case "1":
+        checkbox.classList.add("state-1");
+        break;
+      case "2":
+        checkbox.classList.add("state-2");
+        break;
+      default:
+        checkbox.classList.add("state-0");
+        break;
+    }
+  }
+
+  document
+    .querySelectorAll("#checkpoint-insert td input[type='checkbox']")
+    .forEach((checkbox) => {
+      checkbox.addEventListener("click", function () {
+        var currentState = parseInt(checkbox.dataset.state);
+
+        // Cambia entre 2 -> 1 -> 0 -> 1 -> 0 -> 1 -> 0
+        if (currentState === 2) {
+          currentState = 1;
+        } else if (currentState === 1) {
+          currentState = 0;
+        } else {
+          currentState = 1;
+        }
+
+        checkbox.dataset.state = currentState.toString();
+        updateCheckboxAppearance(checkbox); // Actualiza la apariencia visual del checkbox
+      });
+    });
+
+  // Evento para capturar cambios y enviar actualización
+  document
+    .getElementById("charge-points")
+    .addEventListener("click", function () {
+      var sessionUserId =
+        document.getElementById("checkpoint-insert").dataset.sessionId;
+      var updates = [];
+
+      var checkboxes = document.querySelectorAll(
+        "#checkpoint-insert td input[type='checkbox']"
+      );
+      var userIds = document.querySelectorAll(
+        "#checkpoint-insert th input[type='hidden']"
+      );
+
+      checkboxes.forEach((checkbox, index) => {
+        var userId = userIds[index].value;
+        var currentState = checkbox.dataset.state; // Obtenemos el estado actual (0, 1 o 2)
+
+        updates.push({ id_user: userId, value: parseInt(currentState) });
+      });
+
+      var formData = new FormData();
+      formData.append("month", currentMonth);
+      formData.append("year", currentYear);
+      formData.append("sessionUserId", sessionUserId);
+      formData.append("updates", JSON.stringify(updates));
+
+      console.log("⚡ Enviando actualización con:", {
+        month: currentMonth,
+        year: currentYear,
+        updates,
+      });
+
+      fetch("../routes/del/getUserPointsAdmin.php", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("✔ Respuesta del update:", data);
+          if (data.success) {
+            location.reload();
+          } else {
+            console.error("❌ Error en el update:", data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("⚠ Error al actualizar los datos:", error);
+        });
+    });
 
   $(document).ready(function () {
     function getActiveUserId() {
@@ -896,6 +1201,7 @@ $(document).ready(function () {
       event.preventDefault();
       var userId = getActiveUserId();
       var comentario = $("#commentb").val().trim();
+      var autor = $("#sec-mes-env").data("user-id");
 
       if (!userId) {
         alert(
@@ -910,7 +1216,7 @@ $(document).ready(function () {
       $.ajax({
         url: "../routes/del/insertCommentBoss.php",
         method: "POST",
-        data: { user_id: userId, comentario: comentario },
+        data: { user_id: userId, comentario: comentario, autor: autor },
         success: function (response) {
           if (response.success) {
             $("#commentb").val("");
@@ -940,5 +1246,26 @@ $(document).ready(function () {
   getLastDayTime(selectedUser.attr("data-id"), currentMonth, currentYear);
   getStampForDate(selectedUser.attr("data-id"));
   getUserComments(selectedUser.attr("data-id"));
+  getUserPoints(selectedUser.attr("data-id"), currentMonth, currentYear);
+  getUserActivities(selectedUser.attr("data-id"), currentMonth, currentYear);
+  getUserPointsAdmin(currentMonth, currentYear);
   getVacations(selectedUser.attr("data-id"), currentYear);
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const puntos = document.getElementById("points-view");
+  const btnPoints = document.getElementById("btn-points");
+
+  btnPoints.addEventListener("click", function () {
+    puntos.style.display =
+      puntos.style.display === "none" || puntos.style.display === ""
+        ? "flex"
+        : "none";
+  });
+
+  puntos.addEventListener("click", function (event) {
+    if (event.target === puntos) {
+      puntos.style.display = "none";
+    }
+  });
 });

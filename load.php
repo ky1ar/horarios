@@ -7,6 +7,16 @@ if (!isset($_SESSION['user_id'])) {
 require_once './includes/app/db.php';
 $rango =  $_SESSION['admin'];
 $id = $_SESSION['user_id'];
+$id2 = $_SESSION['user_id'];
+
+$name = "Usuario no encontrado";
+
+$stmt = $conn->prepare("SELECT name FROM Users WHERE id_user = ?");
+$stmt->bind_param("i", $id);
+$stmt->execute();
+$stmt->bind_result($name);
+$stmt->fetch();
+$stmt->close();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -20,6 +30,10 @@ $id = $_SESSION['user_id'];
 </head>
 
 <body style="display: flex; flex-direction: column;">
+    <div class="points" id="btn-points" style="display: <?php echo in_array($id, [2, 11, 19, 25, 20]) ? 'flex' : 'none'; ?>; 
+        <?php echo !in_array($id, [20]) ? 'bottom: 10rem;' : ''; ?> ">
+        <img src="./assets/img/btn-points.png" alt="">
+    </div>
     <div class="out" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
         <a href="./routes/del/logout.php"><img src="./assets/img/out.svg" alt=""></a>
     </div>
@@ -49,15 +63,15 @@ $id = $_SESSION['user_id'];
                 <span>Enero, 2024</span>
                 <img id="nextMonth" src="assets/img/r.svg" width="12" height="12" alt="">
             </div>
+            <div id="indice">
+                <h1>Leyenda</h1>
+                <p><span></span> Normal</p>
+                <p><span></span> Modificado</p>
+                <p><span></span> Permiso de Salud</p>
+                <p><span></span> Servicio</p>
+                <p><span></span> Vacaciones</p>
+            </div>
             <div class="ky1-usr">
-                <div id="indice">
-                    <h1>Leyenda</h1>
-                    <p><span></span> Normal</p>
-                    <p><span></span> Modificado</p>
-                    <p><span></span> Permiso de Salud</p>
-                    <p><span></span> Servicio</p>
-                    <p><span></span> Vacaciones</p>
-                </div>
                 <?php if ($rango == 1) : ?>
                     <div class="usr-btn" id="previousUser">
                         <img src="assets/img/r.svg" width="12" height="12" alt="">
@@ -151,6 +165,9 @@ $id = $_SESSION['user_id'];
                         </div>
                     <?php endif; ?>
                 </div>
+                <div class="out2" style="display: <?php echo ($rango == 1) ? 'none' : 'flex'; ?>">
+                    <a href="./routes/del/logout.php"><img src="./assets/img/out.svg" alt=""></a>
+                </div>
             </div>
         </header>
 
@@ -189,7 +206,7 @@ $id = $_SESSION['user_id'];
                 </div>
                 <div class="box-txt">
                     <span id="totalLatePoints"></span>
-                    <p>Penalización Acumulada</p>
+                    <p>Extra por Tardanza</p>
                 </div>
             </li>
             <li>
@@ -220,6 +237,42 @@ $id = $_SESSION['user_id'];
                 </div>
             </li>
         </ul>
+        <div class="inf-2">
+            <h1 style="display: <?php echo in_array($id, [5, 9, 12, 13, 28]) ? 'flex' : 'none'; ?>;">
+                Desempeño de <span id="mes-año-desc"></span>
+            </h1>
+            <table id="table-points" style="display: <?php echo in_array($id, [5, 9, 12, 13, 28]) ? 'flex' : 'none'; ?>;">
+                <tr>
+                    <th>Marketing</th>
+                    <th>Logistica</th>
+                    <th>Soporte</th>
+                    <th>Administración</th>
+                    <th>Gerencia</th>
+                </tr>
+                <tr>
+                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox"></td>
+                </tr>
+            </table>
+            <div class="puntajes" id="points-inf2">
+                <div id="desc-kev" style="display: <?php echo in_array($id, [11, 20]) ? 'flex' : 'none'; ?>;">
+                    <label for="descargas">Descargas:</label>
+                    <input type="text" name="descargas">
+                </div>
+
+                <div id="inf-luc" style="display: <?php echo in_array($id, [25, 20]) ? 'flex' : 'none'; ?>;">
+                    <label for="dias">Días:</label>
+                    <input type="text" name="dias">
+
+                    <label for="servicios">Servicios:</label>
+                    <input type="text" name="servicios">
+                </div>
+                <button id="save-pinf2">Guardar</button>
+            </div>
+        </div>
         <ul class="ky1-hrr">
             <li class="hrr-box">
                 <span>Semana 1</span>
@@ -402,7 +455,7 @@ $id = $_SESSION['user_id'];
 
     <div class="comentarios-boss" id="comments-container">
         <h1>Notificaciones</h1>
-        <div class="envio" style="display: <?php echo ($rango == 1) ? 'flex' : 'none'; ?>">
+        <div class="envio" id="sec-mes-env" style="display: <?php echo in_array($id2, [11, 25, 20]) ? 'flex' : 'none'; ?>" data-user-id="<?php echo $id2; ?>" data-user-name="<?php echo $name; ?>">
             <form id="commentForm">
                 <textarea id="commentb"></textarea>
                 <input type="submit" value="Comentar">
@@ -413,6 +466,48 @@ $id = $_SESSION['user_id'];
         </div>
     </div>
     </div>
+
+
+    <!-- puntos de area -->
+    <div class="container-pointscard" id="points-view">
+        <div class="info">
+            <div class="valores">
+                <h1>Valoración de Personal - <span id="month-pointsk3d"></span></h1>
+                <table id="checkpoint-insert" data-session-id="<?php echo $_SESSION['user_id']; ?>">
+                    <tr>
+                        <?php
+                        // Consulta para obtener los usuarios con id_area = 3
+                        $sql = "SELECT id_user, name FROM Users WHERE id_area = 3 ORDER BY name";
+                        $result = $conn->query($sql);
+
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                echo '<th>';
+                                echo $row['name'];
+                                echo '<input type="hidden" value="' . $row['id_user'] . '">';
+                                echo '</th>';
+                            }
+                        } else {
+                            echo '<th>No hay usuarios en esta área</th>';
+                        }
+                        ?>
+                    </tr>
+                    <tr>
+                        <?php
+                        $result->data_seek(0); // Reiniciar el puntero del resultado
+                        while ($row = $result->fetch_assoc()) {
+                            echo '<td><input type="checkbox"></td>';
+                        }
+                        ?>
+                    </tr>
+                </table>
+                <button id="charge-points" class="btn-insert">Guardar</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        var sessionUserId = <?php echo json_encode($_SESSION['user_id']); ?>;
+    </script>
 </body>
 
 </html>
