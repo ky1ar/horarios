@@ -955,7 +955,7 @@ $(document).ready(function () {
           $("input[name='dias']").val(response.days);
           $("input[name='servicios']").val(response.services);
 
-          if (userId == 8 || userId == 10) {
+          if (userId == 8 || userId == 10 || userId == 33) {
             $("#inf-luc").hide();
           } else {
             $("#inf-luc").show();
