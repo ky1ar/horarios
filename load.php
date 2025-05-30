@@ -65,7 +65,7 @@ $stmt->close();
             </div>
             <div id="indice">
                 <h1>Leyenda</h1>
-                <p><span></span> Normal</p>
+                <p><span></span> Normalsss</p>
                 <p><span></span> Modificado</p>
                 <p><span></span> Permiso de Salud</p>
                 <p><span></span> Servicio</p>
@@ -455,7 +455,7 @@ $stmt->close();
 
     <div class="comentarios-boss" id="comments-container">
         <h1>Notificaciones</h1>
-        <div class="envio" id="sec-mes-env" style="display: <?php echo in_array($id2, [11, 25, 20]) ? 'flex' : 'none'; ?>" data-user-id="<?php echo $id2; ?>" data-user-name="<?php echo $name; ?>">
+        <div class="envio" id="sec-mes-env" style="display: <?php echo in_array($id2, [2, 19, 11, 25, 20]) ? 'flex' : 'none'; ?>" data-user-id="<?php echo $id2; ?>" data-user-name="<?php echo $name; ?>">
             <form id="commentForm">
                 <textarea id="commentb"></textarea>
                 <input type="submit" value="Comentar">
