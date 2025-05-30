@@ -64,8 +64,8 @@ $stmt->close();
                 <img id="nextMonth" src="assets/img/r.svg" width="12" height="12" alt="">
             </div>
             <div id="indice">
-                <h1>Leyenda3</h1>
-                <p><span></span> Normal</p>
+                <h1>Leyenda</h1>
+                <p><span></span> Normalsss</p>
                 <p><span></span> Modificado</p>
                 <p><span></span> Permiso de Salud</p>
                 <p><span></span> Servicio</p>
