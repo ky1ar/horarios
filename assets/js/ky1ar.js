@@ -904,14 +904,16 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         var $table = $("#table-points");
+        var $title = $(".inf-2 > h1");
         const idsVisibles = [5, 9, 12, 13, 28];
   
-        // Mostrar u ocultar según el userId
         if (idsVisibles.includes(parseInt(userId))) {
           $table.css("display", "flex");
+          $title.css("display", "flex");
         } else {
           $table.css("display", "none");
-          return; // opcional: salir si no corresponde mostrar la tabla
+          $title.css("display", "none");
+          return;
         }
   
         const mesTexto = monthNames[parseInt(month, 10) - 1];
@@ -946,6 +948,7 @@ $(document).ready(function () {
       },
     });
   }
+  
   
 
   function getUserActivities(userId, month, year) {
