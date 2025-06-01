@@ -238,10 +238,10 @@ $stmt->close();
             </li>
         </ul>
         <div class="inf-2">
-            <h1 style="display: <?php echo in_array($id, [5, 9, 12, 13, 28]) ? 'flex' : 'none'; ?>;">
+            <h1 style="display: <?php echo in_array($id, [5, 9, 12, 13, 28, 20]) ? 'flex' : 'none'; ?>;">
                 Desempeño de <span id="mes-año-desc"></span>
             </h1>
-            <table id="table-points" style="display: <?php echo in_array($id, [5, 9, 12, 13, 28]) ? 'flex' : 'none'; ?>;">
+            <table id="table-points" style="display: <?php echo in_array($id, [5, 9, 12, 13, 28, 20]) ? 'flex' : 'none'; ?>;">
                 <tr>
                     <th>Marketing</th>
                     <th>Logistica</th>

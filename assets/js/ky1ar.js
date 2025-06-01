@@ -894,7 +894,7 @@ $(document).ready(function () {
     formData.append("userId", userId);
     formData.append("month", month);
     formData.append("year", year);
-
+  
     $.ajax({
       url: "../routes/del/getUserPoints.php",
       method: "POST",
@@ -904,19 +904,30 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         var $table = $("#table-points");
+        var $title = $(".inf-2 > h1");
+        const idsVisibles = [5, 9, 12, 13, 28];
+  
+        if (idsVisibles.includes(parseInt(userId))) {
+          $table.css("display", "flex");
+          $title.css("display", "flex");
+        } else {
+          $table.css("display", "none");
+          $title.css("display", "none");
+          return;
+        }
+  
         const mesTexto = monthNames[parseInt(month, 10) - 1];
         $("#mes-año-desc").text(mesTexto + " " + year);
         var $checkboxCells = $table.find("tr:eq(1) td");
-
+  
         if (response.success && response.data.length > 0) {
           var data = response.data;
           $checkboxCells.each(function (index) {
-            $(this).empty(); // Limpia el contenido anterior
-
+            $(this).empty();
+  
             if (data[index] == 2) {
-              $(this).text("-"); // Mostrar guion
+              $(this).text("-");
             } else {
-              // Mostrar checkbox (marcado o no)
               $(this).append(
                 $("<input>", {
                   type: "checkbox",
@@ -937,6 +948,8 @@ $(document).ready(function () {
       },
     });
   }
+  
+  
 
   function getUserActivities(userId, month, year) {
     $.ajax({
