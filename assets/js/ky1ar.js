@@ -836,13 +836,32 @@ $(document).ready(function () {
         $("#totalMissingPoints").text(data.total_missing_points);
         $("#totalLatePoints").text(differenceAdjustedFormatted);
         $("#tarde").text(data.total_late_points);
-        $("#tolerancia").html(
-          "<b>" +
-            data.total_minutes_late_formatted +
-            "h</b><b>" +
-            data.one_percent_total_hours +
-            "h</b>"
-        );
+        // Verificar si totalLatePoints es mayor a 00:00 y el periodo es válido
+        if ($("#totalLatePoints").text() !== "00:00") {
+          const tardeCount = parseInt($("#tarde").text(), 10);
+          let penalizacion = 0;
+
+          if (tardeCount >= 10 && tardeCount <= 14) {
+            penalizacion = 50;
+          } else if (tardeCount >= 15 && tardeCount <= 19) {
+            penalizacion = 100;
+          } else if (tardeCount >= 20) {
+            penalizacion = 150;
+          }
+
+          // Mostrar solo si mes/año >= julio 2025
+          if (
+            penalizacion > 0 &&
+            (year > 2025 || (year === 2025 && month >= 7))
+          ) {
+            $("#sec-discount .valor").text(`- ${penalizacion.toFixed(2)}`);
+            $("#sec-discount").show();
+          } else {
+            $("#sec-discount").hide(); // Asegúrate de ocultarlo si no aplica
+          }
+        } else {
+          $("#sec-discount").hide(); // Ocultar si no hay minutos tarde
+        }
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
@@ -894,7 +913,7 @@ $(document).ready(function () {
     formData.append("userId", userId);
     formData.append("month", month);
     formData.append("year", year);
-  
+
     $.ajax({
       url: "../routes/del/getUserPoints.php",
       method: "POST",
@@ -906,7 +925,7 @@ $(document).ready(function () {
         var $table = $("#table-points");
         var $title = $(".inf-2 > h1");
         const idsVisibles = [5, 9, 12, 13, 28];
-  
+
         if (idsVisibles.includes(parseInt(userId))) {
           $table.css("display", "flex");
           $title.css("display", "flex");
@@ -915,16 +934,16 @@ $(document).ready(function () {
           $title.css("display", "none");
           return;
         }
-  
+
         const mesTexto = monthNames[parseInt(month, 10) - 1];
         $("#mes-año-desc").text(mesTexto + " " + year);
         var $checkboxCells = $table.find("tr:eq(1) td");
-  
+
         if (response.success && response.data.length > 0) {
           var data = response.data;
           $checkboxCells.each(function (index) {
             $(this).empty();
-  
+
             if (data[index] == 2) {
               $(this).text("-");
             } else {
@@ -948,8 +967,6 @@ $(document).ready(function () {
       },
     });
   }
-  
-  
 
   function getUserActivities(userId, month, year) {
     $.ajax({
