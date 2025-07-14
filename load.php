@@ -71,6 +71,9 @@ $stmt->close();
                 <p><span></span> Servicio</p>
                 <p><span></span> Vacaciones</p>
             </div>
+            <div id="sec-discount">
+                <p class="valor"> - 200.00</p>
+            </div>
             <div class="ky1-usr">
                 <?php if ($rango == 1) : ?>
                     <div class="usr-btn" id="previousUser">
