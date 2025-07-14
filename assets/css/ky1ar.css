@@ -246,9 +246,14 @@ body {
 #indice p:nth-of-type(5) span {
   background-color: #f7c43b;
 }
-#sec-discount{
+#sec-discount {
   display: flex;
   flex-direction: column;
+  margin-right: 2rem;
+}
+#sec-discount p {
+  margin: 0;
+  padding: 0;
 }
 #sec-discount .subt {
   font-size: 1rem;
