@@ -848,8 +848,6 @@ $(document).ready(function () {
           } else if (tardeCount >= 20) {
             penalizacion = 150;
           }
-
-          // Mostrar solo si mes/año >= julio 2025
           if (
             penalizacion > 0 &&
             (year > 2025 || (year === 2025 && month >= 7))
@@ -862,6 +860,14 @@ $(document).ready(function () {
         } else {
           $("#sec-discount").hide(); // Ocultar si no hay minutos tarde
         }
+
+        $("#tolerancia").html(
+          "<b>" +
+            data.total_minutes_late_formatted +
+            "h</b><b>" +
+            data.one_percent_total_hours +
+            "h</b>"
+        );
       },
       error: function (xhr, status, error) {
         console.error("Error en la solicitud AJAX:", error);
