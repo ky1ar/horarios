@@ -73,7 +73,7 @@ $stmt->close();
             </div>
             <div id="sec-discount">
                 <p class="subt">Penalización</p>
-                <p class="valor"> - 200.00</p>
+                <p class="valor"> - 00.00</p>
             </div>
             <div class="ky1-usr">
                 <?php if ($rango == 1) : ?>
