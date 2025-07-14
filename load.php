@@ -72,6 +72,7 @@ $stmt->close();
                 <p><span></span> Vacaciones</p>
             </div>
             <div id="sec-discount">
+                <p class="subt">Descuento</p>
                 <p class="valor"> - 200.00</p>
             </div>
             <div class="ky1-usr">

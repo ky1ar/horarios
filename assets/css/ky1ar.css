@@ -245,6 +245,17 @@ body {
 #indice p:nth-of-type(5) span {
   background-color: #f7c43b;
 }
+#sec-discount .subt {
+  font-size: 1rem;
+  color: red;
+}
+#sec-discount .valor {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: 2rem;
+  font-size: 1rem;
+}
 #ky1-rgt header .ky1-dte img:first-child {
   transform: scaleX(-1);
   margin-right: 5px;
@@ -258,7 +269,6 @@ body {
   display: flex;
   gap: 1rem;
   align-items: center;
-  margin-left: auto;
 }
 
 #ky1-rgt header .ky1-usr .usr-btn {
