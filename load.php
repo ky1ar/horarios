@@ -65,11 +65,15 @@ $stmt->close();
             </div>
             <div id="indice">
                 <h1>Leyenda</h1>
-                <p><span></span> Normalsss</p>
+                <p><span></span> Normal</p>
                 <p><span></span> Modificado</p>
                 <p><span></span> Permiso de Salud</p>
                 <p><span></span> Servicio</p>
                 <p><span></span> Vacaciones</p>
+            </div>
+            <div id="sec-discount">
+                <p class="subt">Penalización</p>
+                <p class="valor"> - 00.00</p>
             </div>
             <div class="ky1-usr">
                 <?php if ($rango == 1) : ?>

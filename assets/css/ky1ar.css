@@ -210,6 +210,7 @@ body {
   border-radius: 0.5rem;
   padding: 0.5rem;
   border: 0.1rem solid var(--graydarkest);
+  margin-right: auto;
   margin-left: 2rem;
 }
 #indice h1 {
@@ -245,6 +246,31 @@ body {
 #indice p:nth-of-type(5) span {
   background-color: #f7c43b;
 }
+#sec-discount {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2rem;
+  background-color: #ffe9e9;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid #b91c1c;
+}
+#sec-discount p {
+  margin: 0;
+  padding: 0;
+}
+#sec-discount .subt {
+  font-size: 1rem;
+  color: red;
+}
+#sec-discount .valor {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  font-size: 1.5rem;
+  color: red;
+  font-weight: bolder;
+}
 #ky1-rgt header .ky1-dte img:first-child {
   transform: scaleX(-1);
   margin-right: 5px;
@@ -258,7 +284,6 @@ body {
   display: flex;
   gap: 1rem;
   align-items: center;
-  margin-left: auto;
 }
 
 #ky1-rgt header .ky1-usr .usr-btn {
@@ -1105,7 +1130,6 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
 
   #ky1-rgt header .ky1-usr {
     margin-left: auto;
-    width: 100%;
     gap: 0;
   }
 }
@@ -1214,6 +1238,12 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   }
   #ky1-rgt header .ky1-usr .usr-btn {
     display: none;
+  }
+  #sec-discount .subt {
+    font-size: 0.75rem;
+  }
+  #sec-discount .valor{
+    font-size: 1.2rem;
   }
 }
 
