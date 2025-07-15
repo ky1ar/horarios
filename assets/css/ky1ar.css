@@ -1239,6 +1239,12 @@ section.cont-login .login div:last-child form input[type="submit"]:hover {
   #ky1-rgt header .ky1-usr .usr-btn {
     display: none;
   }
+  #sec-discount .subt {
+    font-size: 0.75rem;
+  }
+  #sec-discount .valor{
+    font-size: 1.2rem;
+  }
 }
 
 @media only screen and (max-width: 416px) {
