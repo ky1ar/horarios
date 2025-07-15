@@ -250,6 +250,10 @@ body {
   display: flex;
   flex-direction: column;
   margin-right: 2rem;
+  background-color: #ffe9e9;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid #b91c1c;
 }
 #sec-discount p {
   margin: 0;
