@@ -852,7 +852,7 @@ $(document).ready(function () {
             penalizacion > 0 &&
             (year > 2025 || (year === 2025 && month >= 7))
           ) {
-            $("#sec-discount .valor").text(`- ${penalizacion.toFixed(2)}`);
+            $("#sec-discount .valor").text(`- S/ ${penalizacion.toFixed(2)}`);
             $("#sec-discount").show();
           } else {
             $("#sec-discount").hide(); // Asegúrate de ocultarlo si no aplica
