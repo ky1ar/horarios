@@ -839,6 +839,7 @@ $(document).ready(function () {
         // Verificar si totalLatePoints es mayor a 00:00 y el periodo es válido
         if ($("#totalLatePoints").text() !== "00:00") {
           const tardeCount = parseInt($("#tarde").text(), 10);
+          console.log("tardeCount:", tardeCount);
           let penalizacion = 0;
 
           if (tardeCount >= 10 && tardeCount <= 14) {
