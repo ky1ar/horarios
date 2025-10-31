@@ -992,12 +992,12 @@ $(document).ready(function () {
           $("input[name='dias']").val(response.days);
           $("input[name='servicios']").val(response.services);
 
-          if (userId == 8 || userId == 10 || userId == 33 || userId == 34 || userId == 35 || userId == 37) {
+          if (userId == 8 || userId == 10 || userId == 33 || userId == 34 || userId == 35) {
             $("#inf-luc").hide();
           } else {
             $("#inf-luc").show();
           }
-          if (userId == 21 || userId == 6 || userId == 32 || userId == 29) {
+          if (userId == 21 || userId == 6 || userId == 32 || userId == 29 || userId == 37) {
             $("#desc-kev").hide();
           } else {
             $("#desc-kev").show();
