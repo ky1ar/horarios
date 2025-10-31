@@ -839,6 +839,7 @@ $(document).ready(function () {
         // Verificar si totalLatePoints es mayor a 00:00 y el periodo es válido
         if ($("#totalLatePoints").text() !== "00:00") {
           const tardeCount = parseInt($("#tarde").text(), 10);
+          console.log("tardeCount:", tardeCount);
           let penalizacion = 0;
 
           if (tardeCount >= 10 && tardeCount <= 14) {
@@ -991,7 +992,7 @@ $(document).ready(function () {
           $("input[name='dias']").val(response.days);
           $("input[name='servicios']").val(response.services);
 
-          if (userId == 8 || userId == 10 || userId == 33 || userId == 34 || userId == 35) {
+          if (userId == 8 || userId == 10 || userId == 33 || userId == 34 || userId == 35 || userId == 37) {
             $("#inf-luc").hide();
           } else {
             $("#inf-luc").show();
