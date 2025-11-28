@@ -992,7 +992,7 @@ $(document).ready(function () {
           $("input[name='dias']").val(response.days);
           $("input[name='servicios']").val(response.services);
 
-          if (userId == 8 || userId == 10 || userId == 33 || userId == 34 || userId == 35) {
+          if (userId == 8 || userId == 10 || userId == 33 || userId == 34 || userId == 35 || userId == 37) {
             $("#inf-luc").hide();
           } else {
             $("#inf-luc").show();
